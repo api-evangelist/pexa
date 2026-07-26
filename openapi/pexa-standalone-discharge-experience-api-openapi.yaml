@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Standalone Discharge Experience API
+  description: 'Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single experience API call, starting from creating workspace to discharge document to enable you to sign the document. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint.'
+  version: v1
+  contact:
+    email: apisupport@pexa.com.au
+
+servers:
+  - url: 'https://api.pexa.com.au'
+    description: Production server
+  - url: 'https://api-tst.pexalabs.com.au'
+    description: Non-Prod server
+
+paths:
+  /v1/discharge:
+    post:
+      tags:
+        - Standalone Discharge Experience
+      summary:  Standalone Discharge Experience
+      description: |
+        Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single 
+        experience API call, starting from creating workspace to discharge document to enable you to sign the document.
+      operationId: processDischarge
+      security:
+        - oauth2:
+            - '{{api_scope}}'
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/standaloneDischarge'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/standaloneDischarge'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+                example:
+                  errors:
+                    - code: "code"
+                      message: "message"
+
+components:
+  schemas:
+    standaloneDischarge:
+      type: object
+      properties:
+        subscriberId:
+          type: integer
+          format: int64
+          description: The id of a valid PEXA subscriber that you represent
+          writeOnly: true
+          example: 9602
+        transactionId:
+          type: string
+          description: A unique randomised id representing the transaction
+          readOnly: true
+          example: fghjgrjyu543544affaf12345
+        workspace:
+          type: object
+          readOnly: true
+          properties:
+            workspaceId:
+              type: string
+            status:
+              type: string
+            jurisdiction:
+              type: string
+            documentSummary:
+              type: object
+              properties:
+                lodgementCases:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/lodgementCase'
+        workspaceStatus:
+          type: string
+          example: Prepared
+          readOnly: true
+        subscriberReference:
+          type: string
+          example: "Matter 936760 – AM Settlement Planned"
+          description: The subscriber's reference for the transaction
+        workspaceId:
+          type: string
+          example: PEXA1900339556
+          readOnly: true
+          description: The PEXA workspace number that was created by the API
+        landTitles:
+          type: array
+          items:
+            type: string
+          example: ['191/1185294']
+          description: The Land titles for which the standalone discharge needs to be created
+        panelMasterSubscriberId:
+          type: integer
+          format: int64
+          example: 2000
+          description: |
+            The subscriber id of your Panel Master for this transaction.
+            REQUIRED for Panel clients, OMIT for Financial Institution clients.
+        jurisdiction:
+          $ref: '#/components/schemas/jurisdiction'
+        mortgageNumbers:
+          type: array
+          items:
+            type: string
+          description: List of mortgage numbers to be discharged
+          example: ['123123', '12312']
+        workgroupId:
+          type: integer
+          format: int64
+          example: 200
+          description: The workgroupId of the Workgroup under which the workspace will be created
+        retainCTControl:
+          type: boolean
+          writeOnly: true
+          default: false
+          description: Indicator to retain control of the newly issued Certificate of Title
+        status:
+          type: string
+          example: SUCCESS
+          readOnly: true
+        message:
+          type: string
+          example: Congratulations, please proceed to PEXA Exchange to complete your transaction
+          readOnly: true
+        lodgementInstructions:
+          type: object
+          writeOnly: true
+          description: |
+            Lodgement instructions for Title. Applicable for VIC jurisdiction.
+            OPTIONAL for Financial Institution clients.
+          properties:
+            issuingInstructions:
+              $ref: '#/components/schemas/issuingInstructions'
+        events:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/event'
+      required:
+        - subscriberReference
+        - landTitles
+        - jurisdiction
+
+    jurisdiction:
+      type: string
+      enum: [VIC, NSW, QLD, SA, WA, ACT, NT, TAS]
+      example: VIC
+      description: The Jurisdiction for the title
+
+    issuingInstructions:
+      type: object
+      description: Use this element if you want to instruct issuing for the title
+      properties:
+        titleFormat:
+          $ref: '#/components/schemas/titleFormat'
+        ctIssuedToPanelMaster:
+          type: boolean
+          description: Do you wish to issue the title to your Panel Master? (Panel clients only)
+          example: true
+      required:
+        - titleFormat
+
+    titleFormat:
+      type: string
+      description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
+      enum: [ECT, PCT]
+
+    lodgementCase:
+      title: lodgementCase
+      type: object
+      properties:
+        lodgementCaseId:
+          type: string
+        lodgementCaseStatus:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/document'
+    document:
+      title: Document
+      type: object
+      properties:
+        documentId:
+          type: string
+        documentStatus:
+          type: string
+        documentType:
+          type: string
+        landTitleReferences:
+          type: array
+          items:
+            type: string
+        lastModified:
+          type: string
+          format: date-time
+        lodgement:
+          $ref: '#/components/schemas/lodgement'
+        lodgementVerification:
+          type: object
+    lodgement:
+      title: lodgement
+      type: object
+      properties:
+        id:
+          type: string
+          format: date-time
+        dealingNumber:
+          type: string
+
+
+    event:
+      type: object
+      properties:
+        stage:
+          type: string
+          example: Workspace Setup
+        status:
+          type: string
+          example: 'Yay, done!'
+        code:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: OB1400.001
+        message:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://'{{auth2_env}}'/authorize
+          tokenUrl: https://'{{auth2_env}}'/oauth/token
+          scopes:
+            '{{api_scope}}': API scope
+        clientCredentials:
+          tokenUrl: https://'{{auth2_env}}'/oauth/token
+          scopes:
+            '{{api_scope}}': API scope

@@ -1,0 +1,2963 @@
+openapi: "3.0.3"
+
+info:
+  title: "Projects API"
+  description: |
+    PEXA Projects External Client API for Projects <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [Authentication](../../../Exchange/docs/documentation/)
+  version: v4
+  x-api-version: "4.0.0"
+  contact:
+    name: "PEXA Projects"
+    email: pexaprojects-prdsupport@pexa.com.au
+  x-pexa-products:
+    - pexa-projects
+
+tags:
+  - name: Project
+
+x-idp-config:
+  consumer-claim: azp
+  scopes-claim: scope
+
+x-disable-subscription: "off"
+
+x-protected-view: "off"
+
+x-rate-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+
+x-service-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+
+# Defing dynamic hosts for APIM
+#
+# {% if apim_hosts is defined %}
+x-apim-hosts: #  {%- for host in apim_hosts %}
+  - '{{ host }}' #  {% endfor %}
+#{% else %}
+#    apim_hosts is not defined
+#{% endif %}
+#
+
+servers:
+  - url: '{{ service.url }}'
+
+paths:
+  /v4/projects:
+    post:
+      operationId: "createProject"
+      security:
+        - oauth2:
+            - au:projects:project:write
+      summary: Create Project
+      description: Create a new project <br> Scopes:<br><i>au:projects:project:write</i>
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+            examples:
+              "NSW":
+                $ref: "#/components/examples/NswProjectRequest"
+              "VIC":
+                $ref: "#/components/examples/VicProjectRequest"
+              "QLD":
+                $ref: "#/components/examples/QldProjectRequest"
+              "SA":
+                $ref: "#/components/examples/SaProjectRequest"
+      responses:
+        "201":
+          description: Successfully created a project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+              examples:
+                "NSW":
+                  $ref: "#/components/examples/NswProjectResponse"
+                "VIC":
+                  $ref: "#/components/examples/VicProjectResponse"
+                "QLD":
+                  $ref: "#/components/examples/QldProjectResponse"
+                "SA":
+                  $ref: "#/components/examples/SaProjectResponse"
+        "400":
+          $ref: "#/components/responses/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/ErrorResponse"
+        "403":
+          $ref: "#/components/responses/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+
+  /v4/projects/{projectId}:
+    put:
+      operationId: "updateProject"
+      security:
+        - oauth2:
+            - au:projects:project:write
+      summary: Update Project
+      description: Update an existing project <br> Scopes:<br><i>au:projects:project:write</i>
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: Id of the project to update
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+            examples:
+              "NSW":
+                $ref: "#/components/examples/NswProjectRequest"
+              "VIC":
+                $ref: "#/components/examples/VicProjectRequest"
+              "QLD":
+                $ref: "#/components/examples/QldProjectRequest"
+              "SA":
+                $ref: "#/components/examples/SaProjectRequest"
+      responses:
+        "200":
+          description: Successfully updated a project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+              examples:
+                "NSW":
+                  $ref: "#/components/examples/NswProjectResponse"
+                "VIC":
+                  $ref: "#/components/examples/VicProjectResponse"
+                "QLD":
+                  $ref: "#/components/examples/QldProjectResponse"
+                "SA":
+                  $ref: "#/components/examples/SaProjectResponse"
+        "400":
+          $ref: "#/components/responses/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/ErrorResponse"
+        "403":
+          $ref: "#/components/responses/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+
+  /v4/projects/{projectId}/statuses:
+    get:
+      operationId: "statuses"
+      security:
+        - oauth2:
+            - au:projects:status:read
+      tags:
+        - Project
+      description: Fetch the status details for a project <br> Scopes:<br><i>au:projects:status:read</i>
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: Id of the project to find status details for
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Status details for a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectStatus'
+              examples:
+                "Status":
+                  $ref: '#/components/examples/ProjectStatusResponse'
+        "400":
+          $ref: "#/components/responses/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/ErrorResponse"
+        "403":
+          $ref: "#/components/responses/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+
+  /v4/projects/{projectId}/workspaces:
+    get:
+      operationId: "workspaces"
+      security:
+        - oauth2:
+            - au:projects:workspaces:read
+      tags:
+        - Project
+      description: Fetch the list of workspaces of a project <br> Scopes:<br><i>au:projects:workspaces:read</i>
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: Id of the project to list workspaces for
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The list of workspaces of a project
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectsWorkspace'
+              examples:
+                "ListOfOne":
+                  $ref: '#/components/examples/WorkspacesResponse'
+        "400":
+          $ref: "#/components/responses/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/ErrorResponse"
+        "403":
+          $ref: "#/components/responses/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      operationId: 'createWorkspace'
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      tags:
+        - Workspaces
+      description: Create a new workspace for an existing Project <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to create a workspace for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '201':
+          description: 'Workspace created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exceptionList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                {
+                  exceptionList: [
+                    {
+                      code: 'OB0001.000',
+                      message: 'The request is invalid'
+                    }
+                  ]
+                }
+  /v4/projects/{projectId}/workspaces/{pexaWorkspaceId}:
+    put:
+      operationId: "updateWorkspace"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Update a workspace
+      description: Updates a workspace of a given project with parameters 'projectId', 'pexaWorkspaceId' and 'payload' <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to update workspaces for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: pexaWorkspaceId
+          in: path
+          required: true
+          description: 'The workspace update'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: workspaceUpdate Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkspaceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateWorkspaceResponse'
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+
+  /v4/projects/{projectId}/workspaces/{workspaceId}/financials:
+    post:
+      operationId: "createFinancials"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Create Financial Settlement Line Items
+      description: Add financial settlement line items to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to upload financials for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'The workspace to upload financials for'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: settlementUploadRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettlementUploadRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementUploadResponse'
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+      x-codegen-request-body-name: settlementUploadRequest
+  /v4/projects/{projectId}/workspaces/{workspaceId}/parties:
+    post:
+      operationId: "addParties"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Add Parties
+      description: Add parties to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to add parties for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'Id of the workspace to add parties for'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Create parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPartiesRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddPartiesResponse'
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+      x-codegen-request-body-name: createPartiesRequest
+    put:
+      operationId: "updateParties"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Update Parties
+      description: Update parties on an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to update parties for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'Id of the workspace to update parties for'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Update parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartiesRequest'
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+      x-codegen-request-body-name: updatePartiesRequest
+    delete:
+      operationId: "deleteParties"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Delete Parties
+      description: Delete parties on an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project to remove parties for'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'Id of the workspace to remove parties for'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Delete parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePartiesRequest'
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+      x-codegen-request-body-name: deletePartiesRequest
+  /v4/projects/{projectId}/workspaces/{workspaceId}/participants:
+    post:
+      operationId: "addParticipants"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Add Participants
+      description: Add participants to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project that the workspace resides in'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'The workspace to add participants to'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Add participants request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddParticipantsRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddParticipantsResponse'
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+      x-codegen-request-body-name: addParticipantsRequest
+    delete:
+      operationId: "deleteParticipants"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Delete Participants
+      description: Delete participants in an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project that the workspace resides in'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          required: true
+          description: 'The workspace to delete participants from'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Delete participants request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteParticipantsRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+
+
+  /v4/projects/{projectId}/workspaces/{pexaWorkspaceId}/settlementDates:
+    post:
+      operationId: "proposeSettlement"
+      security:
+        - oauth2:
+            - au:projects:workspaces:write
+      summary: Propose Settlement Date
+      description: Propose a settlement date to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: projectId
+          in: path
+          required: true
+          description: 'Id of the project that the workspace resides in'
+          example: 1234
+          schema:
+            type: integer
+            format: int64
+        - name: pexaWorkspaceId
+          in: path
+          required: true
+          description: 'The workspace to propose settlement date for'
+          example: 'PEXA12345'
+          schema:
+            type: string
+      requestBody:
+        description: Propose Settlement request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposeSettlementRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: "#/components/responses/ErrorResponse"
+        '403':
+          $ref: "#/components/responses/ErrorResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+      deprecated: false
+  /v4/projects/notifications:
+    get:
+      operationId: "notification"
+      security:
+        - oauth2:
+            - au:projects:notification:read
+      tags:
+        - Notification
+      description: Fetch notifications <br> Scopes:<br><i>au:projects:notification:read</i>
+      parameters:
+        - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+        - name: categoryList
+          in: query
+          required: false
+          description: The notification category the results will return. Each value must be separated with a comma (,) with no spaces. If not provided, PEXA will return all notification category types.
+          example: 'Document'
+          schema:
+            type: string
+        - name: lastEventId
+          in: query
+          required: true
+          description: 'The PEXA internal reference for the event. This value must match the last Event Id which was provided in the previous notification response from PEXA. Note: If a Last Event Id has yet to be obtained, the value must be 0. If the Last Event ID value does not correspond to the Last Event Timestamp recorded in PEXA, an exception will be returned. Maximum 19 characters.'
+          example: '1213'
+          schema:
+            type: string
+        - name: lastEventTimestamp
+          in: query
+          required: true
+          description: 'The timestamp of the last event previously retrieved which the results will be filtered from (in UTC). Note: The Last Event Timestamp is used in conjunction with the Last Event ID for retrieving notifications. The Last Event Timestamp value in the request should match the Last Event Timestamp value which was provided in the previous notification response from PEXA. If the Last Event Timestamp value does not correspond to the Last Event Id recorded in PEXA, an exception will be returned.'
+          example: '2018-11-18T02:30:20.283Z'
+          schema:
+            type: string
+        - name: maxRecords
+          in: query
+          required: false
+          description: 'Used to specify the maximum number of notification records to be returned in a single service call. PEXA will set an internal threshold for a maximum number of records to be returned. If the PEXA threshold is less than the max number of records provided, PEXA will return its threshold number of records (with the More Data flag set to indicate there are more notification records where applicable). If no value is provided, the PEXA threshold will be used as the default number for notification records to be received. If a value is provided, it must be greater than 0.'
+          example: '2'
+          schema:
+            type: string
+            pattern: '[0-9]+'
+        - name: severity
+          in: query
+          required: false
+          description: 'The notification severity the results will return. If not provided, PEXA will return all notification severity types.'
+          example: 'Error'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Status details for a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveNotificationsResponse'
+        "400":
+          $ref: "#/components/responses/ErrorResponse"
+        "401":
+          $ref: "#/components/responses/ErrorResponse"
+        "403":
+          $ref: "#/components/responses/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+components:
+  parameters:
+    RequestCorrelationIdHeader:
+      description: A unique request id provided by api caller to support end-to-end troubleshooting and tracing
+      in: header
+      name: X-Request-Correlation-Id
+      schema:
+        type: string
+        format: UUID
+        example: 123e4567-e89b-12d3-a456-426614174000
+
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Errors"
+
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/auth'
+          tokenUrl: 'https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token'
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+        clientCredentials:
+          tokenUrl: 'https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token'
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+
+  schemas:
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Error"
+    Error:
+      description: Error related to the API
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          example: "OB0001.000"
+        message:
+          description: Error message
+          type: string
+          example: "The request is invalid"
+        details:
+          description: Optional list of error details
+          type: array
+          items:
+            type: string
+            description: Error details
+
+    Project:
+      description: "Object with all required details for a Project"
+      type: object
+      required:
+        - projectName
+        - jurisdiction
+        - workgroupId
+        - parentTitle
+        - supplierApplicable
+        - withMortgageeOnTitles
+        - intentionToLock
+        - projectStages
+        - settlementRestriction
+      properties:
+        projectName:
+          type: string
+          description: "The Name of the project"
+          pattern: ^[\w\s\-!@#$%^&*()+={}\[\]|:;',.?/~`]+$
+          maxLength: 150
+        jurisdiction:
+          $ref: "#/components/schemas/Jurisdiction"
+        workgroupId:
+          description: "The Workgroup id that the project will belongs to"
+          type: integer
+          format: int64
+        estimatedSettlementDate:
+          type: string
+          description: "The Estimated Settlement Date of the project"
+          format: string
+        parentTitle:
+          type: string
+          description: "The Parent Land Title"
+          format: string
+          minLength: 1
+        proprietorOnTitle:
+          description: "List of Proprietor(s) on Title"
+          type: array
+          items:
+            description: "A proprietor on title"
+            type: string
+        supplierApplicable:
+          type: boolean
+          description: "Is the Supplier Details section mandatory?"
+        supplierDetails:
+          $ref: "#/components/schemas/SupplierDetails"
+        withMortgageeOnTitles:
+          type: boolean
+          description: "Is there a mortgage registered on the title?"
+        mortgageeOnTitles:
+          type: array
+          items:
+            $ref: "#/components/schemas/MotParticipants"
+        intentionToLock:
+          type: boolean
+          description: "Do you intend to restrict account(s) this project can disburse to?"
+          example: true
+        projectStages:
+          type: boolean
+          description: "Do you intend to have more than one stage to this project?"
+          example: false
+        settlementRestriction:
+          type: boolean
+          description: "Do you intend to restrict Incoming Proprietor Representative(s) from proposing the settlement date?"
+          example: true
+        nswPropertyDetails:
+          $ref: "#/components/schemas/NswPropertyDetails"
+        qldPropertyDetails:
+          $ref: "#/components/schemas/QldPropertyDetails"
+        vicPropertyDetails:
+          $ref: "#/components/schemas/VicPropertyDetails"
+        id:
+          readOnly: true
+          type: integer
+          format: int64
+          description: "The id of the project"
+        projectStatus:
+          readOnly: true
+          type: string
+          description: "The project status"
+        historicalParentTitles:
+          readOnly: true
+          type: array
+          description: "All historical parent titles of project"
+          items:
+            description: "A historical parent title"
+            type: string
+        workspacesCreated:
+          readOnly: true
+          type: boolean
+          description: "If workspaces have been created for this project"
+
+    # Property details for each jurisdiction
+    QldPropertyDetails:
+      type: object
+      description: "Property details for the QLD jurisdiction"
+      properties:
+        currentLandUse:
+          $ref: "#/components/schemas/CurrentLandUse"
+        marginScheme:
+          type: boolean
+          description: "Is the transaction under the margin scheme?"
+        safetySwitch:
+          $ref: "#/components/schemas/SafetySwitch"
+        smokeAlarm:
+          $ref: "#/components/schemas/SmokeAlarm"
+
+    NswPropertyDetails:
+      type: object
+      description: "Property details for the NSW jurisdiction"
+      properties:
+        locality:
+          description: "The name assigned to a government administrative district, such as a Parish, County or Local Government Area."
+          type: string
+        natureOfProperty:
+          type: string
+          description: "Specify the use of the property being dealt with"
+          pattern: "Carspace|Commercial|Factory|Marine berth|Office|Residence|Shop|Vacant land|Warehouse"
+
+    VicPropertyDetails:
+      type: object
+      description: "Property details for the VIC jurisdiction"
+      required:
+        - restrictiveCovenant
+      properties:
+        restrictiveCovenant:
+          description: "A restrictive covenant is a private treaty or written agreement between landowners that limits the way land can be used and developed"
+          type: boolean
+        covenantMcpRef:
+          type: string
+          description: "The covenant MCP reference"
+          maxLength: 150
+        covenantMcpExpiryDate:
+          type: string
+          description: "Some restrictive covenant have a lapse date or a date when they end. Most don't! That means the restriction apply to the land even if it's sold multiple times, the convenant will remain on title until it is removed."
+          pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        municipalityName:
+          type: string
+          description: "Council name. For example - Bendigo council, Ballarat council etc"
+          pattern: "Alpine Shire Council|Ararat Rural City Council|Ballarat City Council|Banyule City Council|Bass Coast Shire Council|Baw Baw Shire Council|Bayside City Council|Benalla Rural City Council|Boroondara City Council|Brimbank City Council|Buloke Shire Council|Campaspe Shire Council|Cardinia Shire Council|Casey City Council|Central Goldfield Shire Council|Colac Otway Shire Council|Corangamite Shire Council|Darebin City Council|East Gippsland Shire Council|Frankston City Council|French Island|Gannawarra Shire Council|Glen Eira City Council|Glenelg Shire Council|Golden Plains Shire Council|Greater Bendigo City Council|Greater Dandenong City Council|Greater Geelong City Council|Greater Shepparton City Council|Hepburn Shire Council|Hindmarsh Shire Council|Hobsons Bay City Council|Horsham Rural City Council|Hume City Council|Indigo Shire Council|Kingston City Council|Knox City Council|Latrobe City Council|Loddon Shire Council|Macedon Ranges Shire Council|Manningham City Council|Mansfield Shire Council|Maribyrnong City Council|Maroondah City Council|Melbourne City Council|Melton City Council|Mildura Rural City Council|Mitchell Shire Council|Moira Shire Council|Monash City Council|Moonee Valley City Council|Moorabool Shire Council|Merri-bek City Council|Mornington Peninsula Shire Council|Mount Alexander Shire Council|Moyne Shire Council|Murrindindi Shire Council|Nillumbik Shire Council|Northern Grampians Shire Council|Port Phillip City Council|Pyrenees Shire Council|Queenscliffe - Borough of|South Gippsland Shire Council|Southern Grampians Shire Council|Stonnington City Council|Strathbogie Shire Council|Surf Coast Shire Council|Swan Hill Rural City Council|Towong Shire Council|Wangaratta Rural City Council|Warrnambool City Council|Wellington Shire Council|West Wimmera Shire Council|Whitehorse City Council|Whittlesea City Council|Wodonga Rural City Council|Wyndham City Council|Yarra City Council|Yarra Ranges Shire Council|Yarriambiack Shire Council"
+        natureOfProperty:
+          type: string
+          description: "Type of property. Example - Residential, Vacant land, Commercial etc"
+          pattern: "Residential vacant land|Residential|Commercial|Industrial|Extractive industries|Primary production|Infrastructure|Community services|Sport"
+        primaryLandUse:
+          $ref: "#/components/schemas/PrimaryLandUse"
+        primaryConstructionType:
+          $ref: "#/components/schemas/PrimaryConstructionType"
+
+    QldWorkspaceDetails:
+      type: object
+      description: "Workspace details for the QLD jurisdiction"
+      properties:
+        cashAmount:
+          type: number
+          format: decimal
+          description: 'The cash amount for the transaction'
+          minimum: 0
+          example: 50000.00
+        depositPaid:
+          type: number
+          format: decimal
+          description: 'The deposit amount paid'
+          minimum: 0
+          example: 25000.00
+        vendorTermsAmount:
+          type: number
+          format: decimal
+          description: 'The vendor terms amount'
+          minimum: 0
+          example: 10000.00
+        liabilitiesAmount:
+          type: number
+          format: decimal
+          description: 'The liabilities amount'
+          minimum: 0
+          example: 5000.00
+        contractRebateAmount:
+          type: number
+          description: 'The contract rebate amount'
+          minimum: 0
+          example: 2000.00
+        agreementDate:
+          type: string
+          format: date
+          description: 'The agreement/contract of sale date'
+          example: '2024-01-15'
+        dateOfPossession:
+          type: string
+          format: date
+          description: 'The date of possession'
+          example: '2024-12-29'
+
+    Jurisdiction:
+      type: string
+      description: "Jurisdiction"
+      pattern: "ACT|NSW|VIC|WA|QLD|SA|TAS"
+
+    SupplierDetails:
+      type: object
+      description: "Details for the supplier"
+      required:
+        - name
+        - phone
+        - abn
+        - addressLine1
+        - suburb
+        - postcode
+        - state
+        - email
+      properties:
+        name:
+          type: string
+          description: "Supplier's name"
+          pattern: ^[a-zA-Z0-9\s-`!@#$&(){}_=\\\[\]|;:',.?\/"]+$
+          maxLength: 200
+        phone:
+          type: string
+          description: "Supplier's phone number"
+          pattern: ^[0-9]+$
+          maxLength: 19
+        abn:
+          type: string
+          description: "Supplier's ABN containing 11 digits"
+          pattern: ^(?:\s*\d\s*){11}$
+        addressLine1:
+          description: "Supplier's first address line"
+          type: string
+          pattern: ^[a-zA-Z0-9\s()&'/-]+$
+          maxLength: 38
+        addressLine2:
+          type: string
+          description: "Supplier's second address line"
+          pattern: ^[a-zA-Z0-9\s()&'/-]+$
+          maxLength: 38
+        suburb:
+          type: string
+          description: "Supplier's suburb"
+          pattern: ^[a-zA-Z0-9\s()&'/-]+$
+          maxLength: 46
+        postcode:
+          type: string
+          description: "Supplier's postcode"
+          pattern: ^[0-9]{4}$
+          maxLength: 4
+        state:
+          $ref: "#/components/schemas/Jurisdiction"
+        email:
+          type: string
+          description: "Supplier's email address"
+          pattern: ^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?
+          maxLength: 200
+    SafetySwitch:
+      type: object
+      description: "A safety switch is a device that quickly switches off the electric supply if an  electric fault is detected, to minimise the risk of electricity -related fires, electric shock, injury to death. In QLD, it's a legal requirement for all properties to have an electrical safety switch installed. When selling your property you must disclose whether a safety switch is installed in the property on the contract of sale, as well as on the property transfer document"
+      properties:
+        installed:
+          type: boolean
+          description: "Electrical safety switch installed"
+        informed:
+          type: boolean
+          description: "Transferee has been informed in writing about its existence"
+    SmokeAlarm:
+      type: object
+      description: "Smoke alarm are the devices that are able to detect smoke in the event of a fire and sound an alarm to alert people to the potential danger. In QLD, it's a legal requirement that the seller is required to complete prior to the buyer signing the contract, stating whether the property is fitted with compliant smoke alarms"
+      properties:
+        installed:
+          type: boolean
+          description: "Compliant smoke alarm/s installed"
+        informed:
+          type: boolean
+          description: "Transferee has been informed in writing about its existence"
+    MotParticipants:
+      type: object
+      description: "Details on incoming mortgagees"
+      required:
+        - participantName
+        - subscriberName
+        - subscriberId
+      properties:
+        dealingNumber:
+          type: string
+          description: "It is the Land Registry document number. This number is supplied by your land registry and can be used as your reference in any further communications with the Registry. Numbers begins with 2 or 3 letters following by a number. The letters identify the county in which the property is situate, e.g. VIC52825 denotes a property in Victoria"
+        participantName:
+          description: "Name of PEXA subscriber involved in Property transaction"
+          type: string
+        subscriberId:
+          type: string
+          description: "Id of the mortgagee as listed in PEXA Exchange"
+        subscriberName:
+          type: string
+          description: "Lender name - an entity that lends money to a borrower for the purpose of purchasing real estate. Normally it’s the bank. It is the name of the Mortgagee registered on parent title"
+    CurrentLandUse:
+      type: string
+      description: "Current land use"
+      pattern: "Vacant Land|Dwelling|Multi Unit|Flats|Guest House Private Hotel|Farming|Industrial|Commercial|Other"
+    PrimaryConstructionType:
+      type: string
+      description: "Material used to construct the property. Example - Timber, Brick etc"
+      pattern: "Not applicable|Brick|Brick Veneer|Fibro|Timber|OTHER"
+    PrimaryLandUse:
+      type: string
+      description: "For which purpose the land will be used for. Example - dwelling, carpark, flat multi-storey etc"
+
+    ProjectStatus:
+      type: object
+      description: Status details of a project
+      properties:
+        jurisdiction:
+          $ref: '#/components/schemas/Jurisdiction'
+        proprietorOnTitles:
+          description: 'List of Proprietor(s) on Title'
+          type: array
+          items:
+            description: 'A proprietor on title'
+            type: string
+        parentTitle:
+          type: string
+          description: 'The Parent Land Title'
+          format: string
+        mortgageeNames:
+          description: 'List of Mortgagee(s) on Title'
+          type: array
+          items:
+            description: 'A mortgagee on title'
+            type: string
+        estimatedSettlementDate:
+          type: string
+          description: 'The Estimated Settlement Date of the project'
+          format: string
+        invitationAcceptance:
+          type: object
+          description: 'The status of invitation acceptance'
+          properties:
+            incomingMortgagee:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+            mortgageeOnTitle:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+            incomingProprietor:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+        settlementDateAcceptance:
+          type: object
+          description: 'The status of settlement date acceptance'
+          properties:
+            incomingMortgagee:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+            mortgageeOnTitle:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+            incomingProprietor:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+        workspaceStatus:
+          $ref: '#/components/schemas/WorkspaceCountsByStatuses'
+
+    WorkspaceCountsByStatuses:
+      type: object
+      description: 'Counts for various properties of workspaces under the project'
+      properties:
+        allActive:
+          description: 'Count of all active workspaces'
+          type: integer
+          format: int64
+        settlingToday:
+          description: 'Count of workspaces settling today'
+          type: integer
+          format: int64
+        completed:
+          description: 'Count of completed workspaces'
+          type: integer
+          format: int64
+        withdrawn:
+          description: 'Count of withdrawn workspaces'
+          type: integer
+          format: int64
+        all:
+          description: 'Count of workspaces'
+          type: integer
+          format: int64
+        awaitingDigitalSignature:
+          description: 'Count of workspaces that are awaiting digital signatures'
+          type: integer
+          format: int64
+    InvitationAcceptanceStatus:
+      type: object
+      description: 'Counts of the various statuses for an invitation'
+      properties:
+        accepted:
+          description: 'Count of accepted invitations'
+          type: integer
+          format: int64
+        pending:
+          description: 'Count of pending invitations'
+          type: integer
+          format: int64
+        declined:
+          description: 'Count of declined invitations'
+          type: integer
+          format: int64
+        notInvited:
+          description: 'Count of invitations that have not been sent'
+          type: integer
+          format: int64
+    SettlementDateAcceptanceStatus:
+      description: 'Counts for settlement date acceptance'
+      type: object
+      properties:
+        accepted:
+          description: 'Count of settlement dates that are accepted'
+          type: integer
+          format: int64
+        pending:
+          description: 'Count of settlement dates that are pending'
+          type: integer
+          format: int64
+
+    ProjectsWorkspace:
+      type: object
+      description: Details of a workspace
+      properties:
+        workspaceId:
+          type: string
+          description: 'The id of the workspace'
+          format: string
+        subscriberReference:
+          type: string
+          description: 'The subscriber reference'
+          format: string
+        unregisteredLotNumbers:
+          type: array
+          description: 'The lot numbers on unregistered plan'
+          items:
+            description: 'An unregistered lot number'
+            type: string
+        childTitles:
+          type: array
+          description: 'The list of child titles'
+          items:
+            description: 'A child title'
+            type: string
+        participantRepresentativeData:
+          type: object
+          description: 'The details of the participant representatives'
+          properties:
+            incomingMortgagee:
+              type: array
+              description: 'The list of participant representatives for incoming mortgagee'
+              items:
+                description: 'The name of a participant representative for incoming mortgagee'
+                type: string
+            mortgageeOnTitle:
+              type: array
+              description: 'The list of participant representatives for mortgagee on title'
+              items:
+                description: 'The name of a participant representative for mortgagee on title'
+                type: string
+            incomingProprietor:
+              type: array
+              description: 'The list of participant representatives for incoming proprietor'
+              items:
+                description: 'The name of a participant representative for incoming proprietor'
+                type: string
+            proprietorOnTitle:
+              type: array
+              description: 'The list of participant representatives for proprietor on title'
+              items:
+                description: 'The name of a participant representative for proprietors on title'
+                type: string
+        unrepresentedPartyData:
+          type: object
+          description: 'The details of the unrepresented parties'
+          properties:
+            incomingMortgagee:
+              type: array
+              description: 'The list of unrepresented parties for incoming mortgagee'
+              items:
+                description: 'The name of an unrepresented party for incoming mortgagee'
+                type: string
+            mortgageeOnTitle:
+              type: array
+              description: 'The list of unrepresented parties for mortgagee on title'
+              items:
+                description: 'The name of an unrepresented party for mortgagee on title'
+                type: string
+            incomingProprietor:
+              type: array
+              description: 'The list of unrepresented parties for incoming proprietor'
+              items:
+                description: 'The name of an unrepresented party for incoming proprietor'
+                type: string
+            proprietorOnTitle:
+              type: array
+              description: 'The list of unrepresented parties for proprietor on title'
+              items:
+                description: 'The name of an unrepresented party for proprietors on title'
+                type: string
+        lodgementStatus:
+          type: string
+          description: 'The lodgement status'
+          format: string
+        settlementStatus:
+          type: string
+          description: 'The settlement status'
+          format: string
+        settlementDate:
+          type: string
+          description: 'The settlement date (format: YYYY-MM-DD, for example, 2023-01-25)'
+          format: date
+        settlementDateAcceptance:
+          type: object
+          description: 'The status of settlement date acceptance'
+          properties:
+            status:
+              $ref: '#/components/schemas/SettlementDateStatus'
+            statusDetails:
+              type: object
+              description: 'The status of settlement date acceptance by participants'
+              properties:
+                acceptanceByIncomingMortgageeReps:
+                  $ref: '#/components/schemas/ParticipantSettlementDateStatus'
+                acceptanceByMortgageeOnTitleReps:
+                  $ref: '#/components/schemas/ParticipantSettlementDateStatus'
+                acceptanceByIncomingProprietorReps:
+                  $ref: '#/components/schemas/ParticipantSettlementDateStatus'
+        financialData:
+          type: object
+          description: 'The financial details of the workspace'
+          properties:
+            gstWithholdingStatus:
+              $ref: '#/components/schemas/GstWithholdingStatus'
+            grossConsideration:
+              type: string
+              description: 'The gross consideration amount'
+              format: string
+            vendorFunds:
+              type: string
+              description: 'The vendor funds amount'
+              format: string
+            payoutAmount:
+              type: string
+              description: 'The payout amount'
+              format: string
+            balanced:
+              type: boolean
+              description: 'Whether the workspace is balanced'
+
+    Workspace:
+      type: object
+      description: 'Object with all required details for a workspace'
+      required:
+        - subscriberReference
+        - unregisteredLotNumbers
+      properties:
+        subscriberReference:
+          description: 'Reference for the subscriber to refer to the workspace'
+          type: string
+          example: 'test_workspace_001'
+        unregisteredLotNumbers:
+          type: array
+          description: 'Unregistered lot numbers to be used in the workspace'
+          minItems: 1
+          maxItems: 333 # magic number from exchange
+          items:
+            description: 'An unregistered lot number'
+            type: string
+            example: '1001'
+        childTitles:
+          type: array
+          description: 'Child titles to be used in the workspace'
+          items:
+            description: 'A child title'
+            type: string
+            example: '01/1001'
+        grossConsiderationAmount:
+          type: number
+          format: decimal
+          description: 'The gross consideration amount for the workspace'
+          example: 1000000.00
+        incomingProprietors:
+          type: array
+          description: 'Details for any Incoming Proprietors'
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+        qldWorkspaceDetails:
+          $ref: "#/components/schemas/QldWorkspaceDetails"
+        workspaceId:
+          type: string
+          description: The workspace id
+          example: 'PEXA123456789'
+          readOnly: true
+        workspaceStatus:
+          type: string
+          description: 'The current status of the workspace'
+          example: "In Preparation"
+          readOnly: true
+
+    GstWithholdingStatus:
+      type: string
+      description: >
+        The status of GST withholding.
+        Can be one of the following:
+        * MATCHING - Form one lodged via PEXA and GST line item created
+        * MANUAL - Form one not lodged via PEXA but GST line item created
+        * NOT_LODGED - Form one not lodged via PEXA and no GST line item created
+        * MISMATCH - Incorrect PRN and/or GST amount entered
+      format: string
+
+    SettlementDateStatus:
+      type: string
+      description: >
+        The overall status of settlement date acceptance.
+        Can be one of the following:
+        * ACCEPTED - All Accepted
+        * PARTIALLY_ACCEPTED - Pending others
+        * PENDING - Pending
+        * NO_ACCEPTANCE - No acceptance
+      format: string
+
+    ParticipantSettlementDateStatus:
+      type: string
+      description: >
+        The status of settlement date acceptance by a participant.
+        Can be one of the following:
+        * ACCEPTED - Accepted
+        * PENDING - Awaiting Response
+      format: string
+    IncomingProprietor:
+      type: object
+      description: 'Details for an Incoming Proprietor'
+      required:
+        - subscriberId
+        - subscriberName
+      properties:
+        subscriberId:
+          description: 'The subscriber id of the Incoming Proprietor'
+          type: integer
+          format: int64
+          example: 1000
+        subscriberName:
+          description: 'The name of the Incoming Proprietor'
+          type: string
+          example: 'Example Bank'
+    UpdateWorkspaceRequest:
+      type: object
+      description: Request to update a workspace
+      properties:
+        newSubscriberReference:
+          type: string
+          description: New subscriber reference to use for the workspace
+          example: 'Workspace123'
+        childTitles:
+          type: array
+          description: List of child titles to add to the workspace
+          items:
+            description: 'Child title'
+            type: string
+            example: '1001'
+    UpdateWorkspaceResponse:
+      type: object
+      description: Response to updating a workspace
+      properties:
+        workspaceId:
+          type: string
+          description: The id of the updated workspace
+          example: 'PEXA1234'
+        subscriberReference:
+          type: string
+          description: The updated subscriber reference
+        childTitles:
+          type: array
+          description: List of child titles used in the workspace
+          items:
+            description: 'Child title'
+            type: string
+            example: '1001'
+    SettlementUploadRequest:
+      title: SettlementUploadRequest
+      type: object
+      properties:
+        role:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+    Schedule:
+      title: Schedule
+      type: object
+      properties:
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule.LineItem'
+    Schedule.LineItem:
+      title: Schedule.LineItem
+      type: object
+      properties:
+        accountDetails:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails'
+        associatedSubscriber:
+          type: string
+        category:
+          type: string
+        customCategory:
+          type: string
+        clientName:
+          type: string
+        transactionDescription:
+          type: string
+        verified:
+          type: string
+        verifiedBy:
+          type: string
+        type:
+          type: string
+        value:
+          type: number
+
+    Schedule.LineItem.AccountDetails:
+      title: Schedule.LineItem.AccountDetails
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination'
+        source:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Source'
+    Schedule.LineItem.AccountDetails.Destination:
+      title: Schedule.LineItem.AccountDetails.Destination
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.Account'
+        bpay:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.BPay'
+        officeAccount:
+          type: string
+        preverifiedAccount:
+          type: string
+    Schedule.LineItem.AccountDetails.Destination.Account:
+      title: Schedule.LineItem.AccountDetails.Destination.Account
+      type: object
+      properties:
+        accountBsb:
+          type: string
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+    Schedule.LineItem.AccountDetails.Destination.BPay:
+      title: Schedule.LineItem.AccountDetails.Destination.BPay
+      type: object
+      properties:
+        billerCode:
+          type: string
+        reference:
+          type: string
+    Schedule.LineItem.AccountDetails.Source:
+      title: Schedule.LineItem.AccountDetails.Source
+      type: object
+      properties:
+        defaultAccount:
+          type: string
+        preverifiedAccount:
+          type: string
+    SettlementUploadResponse:
+      title: SettlementUploadResponse
+      type: object
+      properties:
+        warning:
+          $ref: '#/components/schemas/WarningResponseType'
+    WarningResponseType:
+      title: WarningResponseType
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    AddPartiesRequest:
+      title: AddPartiesRequest
+      type: object
+      description: Request to add parties to an existing workspace
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+    Party:
+      type: object
+      description: A party
+      required:
+        - role
+        - partyType
+        - name
+      properties:
+        role:
+          description: Role of the party
+          type: string
+          example: 'Incoming Proprietor'
+        partyType:
+          description: Party type of the party
+          type: string
+          example: 'Individual'
+        acn:
+          type: string
+          description: Australian Company Number
+          example: '1240085616'
+        acln:
+          type: string
+          description: Australian Credit Licence Number
+          example: '111111'
+        name:
+          type: string
+          description: Name of the party
+          example: 'Business Name'
+        arbn:
+          type: string
+          description: Australian Registered Body Number
+          example: '123456789'
+        abn:
+          type: string
+          description: Australian Business Number
+          example: '12345678912'
+        administrationStatuses:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            description: The administration status
+            example: 'Administrator appointed'
+        organisationType:
+          type: string
+          description: The type of organisation
+          example: 'Incorporated Association'
+    AddPartiesResponse:
+      title: CreatePartiesRequest
+      description: Response when adding parties
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: 'PEXA12345'
+          description: Workspace Id as used in Exchange
+        parties:
+          type: array
+          description: A list of parties in the workspace
+          items:
+            $ref: '#/components/schemas/PartyResponse'
+    PartyResponse:
+      type: object
+      description: Response object for a party
+      properties:
+        name:
+          type: string
+          description: The name of the individual or organisation
+          example: 'Business Name'
+        partyId:
+          type: string
+          description: The id of the party
+          example: '1234'
+        role:
+          type: string
+          description: Role of the party
+          example: 'Incoming Proprietor'
+        partyType:
+          type: string
+          description: The type of party
+          example: 'Organisation'
+    UpdatePartiesRequest:
+      title: UpdatePartiesRequest
+      type: object
+      description: Request to update parties on an existing workspace
+      required:
+        - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateParty'
+    UpdateParty:
+      type: object
+      description: A party
+      required:
+        - partyId
+        - role
+        - partyType
+        - name
+      properties:
+        partyId:
+          description: Id of party to update
+          type: integer
+          example: 1337
+          format: int64
+          minimum: 1
+        role:
+          description: Role of the party
+          type: string
+          example: 'Incoming Proprietor'
+        partyType:
+          description: Party type of the party
+          type: string
+          example: 'Individual'
+        acn:
+          type: string
+          description: Australian Company Number
+          example: '1040085616'
+        acln:
+          type: string
+          description: Australian Credit Licence Number
+          example: '111111'
+        name:
+          type: string
+          description: Name of the party
+          example: 'Business Name'
+        arbn:
+          type: string
+          description: Australian Registered Body Number
+          example: '123456789'
+        abn:
+          type: string
+          description: Australian Business Number
+          example: '12345678912'
+        administrationStatuses:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            description: The administration status
+            example: 'Administrator appointed'
+        organisationType:
+          type: string
+          description: The type of organisation
+          example: 'Incorporated Association'
+    DeletePartiesRequest:
+      title: DeletePartiesRequest
+      type: object
+      description: Request to delete parties on an existing workspace
+      required:
+        - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteParty'
+    DeleteParty:
+      type: object
+      description: Party to be deleted
+      required:
+        - partyId
+      properties:
+        partyId:
+          type: integer
+          description: Id of party to be deleted
+          format: int64
+          minimum: 1
+          example: 123
+    AddParticipantsRequest:
+      title: AddParticipantsRequest
+      type: object
+      description: Request to add participants to an existing workspace
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    AddParticipantsResponse:
+      title: AddParticipantsResponse
+      description: Response when adding participants
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: 'PEXA12345'
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseParticipant'
+    ResponseParticipant:
+      type: object
+      description: Response object when adding a participant
+      properties:
+        role:
+          type: string
+          description: Role of the participant
+          example: "Incoming Proprietor"
+        subscriberId:
+          type: integer
+          format: int64
+          description: Subscriber id of the participant
+          example: 1087
+        reference:
+          type: string
+          description: Reference for the participant
+          example: "Reference1"
+        status:
+          type: string
+          description: Status of the participant
+          example: "Invited"
+        prCreated:
+          type: boolean
+          description: Has the Participant Request been created?
+          example: false
+        prAccepted:
+          type: boolean
+          description: Has the Participation Request been accepted?
+          example: false
+    DeleteParticipantsRequest:
+      title: DeleteParticipantsRequest
+      description: Request to delete participants
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    ProposeSettlementRequest:
+      title: ProposeSettlementRequest
+      description: Request to propose settlement dates
+      type: object
+      properties:
+        settlementDateAndTime:
+          type: string
+          example: '2024-03-25T22:20:52.681Z'
+          description: "The date time to propose settlement at in ISO8601 format"
+        reason:
+          type: string
+          example: "Time chosen for settlement"
+          description: "The reason to propose settlement at this time"
+    RetrieveNotificationsResponse:
+      title: RetrieveNotificationsResponse
+      description: The response containing notifications
+      type: object
+      properties:
+        notificationsList:
+          $ref: '#/components/schemas/NotificationsListType'
+    NotificationsListType:
+      title: NotificationsListType
+      description: A list of notifications
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationType'
+        count:
+          type: number
+          format: Int64
+          description: Total number of notifications in the response.  <br> A count
+            threshold will be provided once confirmed.
+          example: 20
+        moreData:
+          type: string
+          description: Used to indicate that there is more data to retrieve.  <br>
+            This field will be set to ‘Yes’ when the Count threshold has been exceeded.
+          example: 'Yes'
+        lastEventTimestamp:
+          type: string
+          description: The latest event timestamp the response contains (in UTC).
+            This value should match the ‘Timestamp' value from the latest notification
+            retrieved in the below structure.  <br> This value can be used as the
+            ‘Last Event Timestamp’ in the subsequent request message. <br> If no notifications
+            exist for the time period requested then this should be set to the ‘Last
+            Event Timestamp’ from the original Request message.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        lastEventId:
+          type: string
+          description: The PEXA internal reference for the event. This value should
+            match the ‘Event Id’ value for the latest notification retrieved in the
+            below structure.  <br> This value should be used as the ‘Last Event Id’
+            in the subsequent request message. <br> If no notifications exist for
+            the time period requested then this should be set to the ‘Last Event Id’
+            from the original Request message. <br> Maximum 19 characters
+          example: '1'
+    NotificationType:
+      title: NotificationType
+      description: Notification type
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the subscriber. <br> Maximum
+            19 characters
+          example: '208'
+        systemGenerated:
+          type: string
+          description: A flag used to delineate whether a business event/notification
+            has been generated by either a subscriber user (flag = no) or the PEXA
+            system (flag=yes). <br> Maximum 3 characters
+          example: 'No'
+        initiatingSubscriberId:
+          type: string
+          description: If System Generated flag is set to ‘no’ then this will be the
+            Subscriber Id who has initiated the business event/notification being
+            triggered. <br> Maximum 19 characters
+          example: '290'
+        initiatingSubscriberName:
+          type: string
+          description: The legal entity name of the initiating subscriber which correlates
+            to the initiating subscriber id above. <br> Must be provided if System
+            Generated is set to ‘no’. <br> Must not be provided if System Generated
+            flag is set to ‘yes’. <br> Maximum 255 characters
+          example: 'XYZ bank'
+        workspaceId:
+          type: string
+          description: The PEXA workspace number. Maximum 13 characters
+          example: 'PEXA1900800123'
+        subscriberReferences:
+          type: array
+          description: The subscriber’s workspace reference. Users may utilise this
+            to associate the workspace with an internal customer’s application. <br>
+            Where a subscriber is acting in multiple roles in a workspace, the subscriber
+            reference will be provided for each role.
+          example:
+            - SubscriberReference: Matter-123312
+          items:
+            $ref: '#/components/schemas/SubscriberReferenceType'
+        eventId:
+          type: string
+          description: 'The PEXA internal reference for the event.<br> Maximum 19
+              characters'
+          example: '2'
+        timestamp:
+          type: string
+          description: 'The timestamp the event occurred (in UTC). '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        severity:
+          type: string
+          description: 'The severity of the event that has occurred. <br> The severity
+              is determined from a workspace perspective.'
+          example: 'Information'
+        category:
+          type: string
+          description: 'The category the event belongs to. '
+          example: 'Settlement Execution'
+        type:
+          $ref: '#/components/schemas/NotificationTypeKeyValue'
+        description:
+          type: string
+          description: Freeform field containing additional details on the notification.
+          example: 'Settlement completed'
+        details:
+          $ref: '#/components/schemas/NotificationDetailsType'
+    NotificationTypeKeyValue:
+      title: NotificationTypeKeyValue
+      description: Key/Value of the notification type
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the notification
+          example: '55'
+        value:
+          type: string
+          description: The notification value
+          example: 'Settlement Date and Time status changed'
+    SubscriberReferenceType:
+      title: SubscriberReferenceType
+      description: The subscriber reference
+      type: object
+      properties:
+        workspaceRole:
+          type: string
+          description: The role of the subscriber in the workspace
+          example: 'Incoming Mortgagee'
+        value:
+          type: string
+          description: The subscriber reference for the workspace based on the subscriber’s
+            role  <br> Maximum 30 characters
+          example: 'Matter-123312'
+    NotificationDetailsType:
+      title: NotificationDetailsType
+      description: Details about the notification
+      type: object
+      properties:
+        financialLineItem:
+          $ref: '#/components/schemas/NotificationFinancialLineItemType'
+        invitation:
+          $ref: '#/components/schemas/NotificationInvitationDetailsType'
+        landTitle:
+          $ref: '#/components/schemas/NotificationLandTitleDetailsType'
+        party:
+          $ref: '#/components/schemas/NotificationPartyDetailsType'
+        document:
+          $ref: '#/components/schemas/NotificationDocumentDetailsType'
+        settlementSchedule:
+          $ref: '#/components/schemas/NotificationSettlementScheduleDetailsType'
+        workspaceStatus:
+          type: string
+          description: 'Notification detail related to the workspace status. '
+        settlement:
+          $ref: '#/components/schemas/NotificationSettlementDetailsType'
+        lodgement:
+          $ref: '#/components/schemas/NotificationLodgementDetailsType'
+        participant:
+          $ref: '#/components/schemas/NotificationParticipantDetailsType'
+        conversation:
+          $ref: '#/components/schemas/NotificationConversationDetailsType'
+    NotificationFinancialLineItemType:
+      title: NotificationFinancialLineItemType
+      description: A financial line item
+      type: object
+      properties:
+        amount:
+          description: The amount of the line item
+          type: number
+          example: 10000
+        category:
+          type: string
+          description: The category of the line item
+          example: 'Water Rates'
+        owningSubscriberId:
+          type: string
+          description: The owning subscriber id
+          example: '1234'
+        owningSubscriberName:
+          type: string
+          description: The owning subscribers name
+          example: 'John'
+        type:
+          type: string
+          description: The type
+          example: 'Account'
+    NotificationInvitationDetailsType:
+      title: NotificationInvitationDetailsType
+      description: Details on an invitation
+      type: object
+      properties:
+        outstanding:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingDetailsType'
+        response:
+          $ref: '#/components/schemas/NotificationInvitationResponseDetailsType'
+    NotificationInvitationOutstandingDetailsType:
+      title: NotificationInvitationOutstandingDetailsType
+      description: Details on a outstanding invitation
+      type: object
+      properties:
+        inviteId:
+          type: string
+          description: 'The PEXA internal reference for the invitation.<br>  Maximum 19 characters'
+          example: '123'
+        forwardedBy:
+          type: string
+          description: 'If the invitation has been forwarded by a panel master, this
+              must be provided with the panel master subscriber’s organisation name.<br>
+              Alternately, if the invitation has been forwarded by another subscriber
+              (via the ‘Forward to another Subscriber’ invitation response) then this
+              will be the subscriber’s organisation name.  <br>  Maximum 255 characters'
+          example: 'XYZ Bank'
+        timestamp:
+          type: string
+          description: The date and time the invitation was created (in UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        jurisdiction:
+          type: string
+          description: The jurisdiction of the workspace.
+          example: 'VIC'
+        workspaceRole:
+          type: string
+          description: 'The workspace role the subscriber user has been invited to participate in. '
+          example: 'Incoming Mortgagee'
+        settlementDate:
+          type: string
+          description: The date and time of settlement if the workspace is marked
+            as requiring financial settlement (in UTC). Must be provided if financial
+            settlement required unless in the scenario where a workspace has been
+            created with a parent title and no settlement date/time has been set by
+            the participant yet.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        expressRefinance:
+          type: string
+          description: 'A flag used to specify whether the invitation is for a workspace
+              that is marked as an express refinance. <br> Maximum 3 characters'
+          example: 'Yes'
+        landTitleDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleType'
+        partyDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingPartyType'
+        inviterSubscriberDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsType'
+    NotificationInvitationOutstandingLandTitleDetailsType:
+      title: NotificationInvitationOutstandingLandTitleDetailsType
+      description: Details on invitations outstanding land title
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          description: A land title reference
+          example: '123/654'
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
+    NotificationInvitationOutstandingLandTitleType:
+      title: NotificationInvitationOutstandingLandTitleType
+      description: The outstanding land titles
+      type: object
+      properties:
+        landTitles:
+          type: array
+          description: 'Provided if the land titles are not marked as parent land
+              titles. '
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleDetailsType'
+    NotificationInvitationOutstandingPartyType:
+      title: NotificationInvitationOutstandingPartyType
+      description: The outstanding party type
+      type: object
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingPartyDetailsType'
+    NotificationInvitationOutstandingPartyDetailsType:
+      title: NotificationInvitationOutstandingPartyDetailsType
+      description: Details on an outstanding party invitation
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: 'Maximum 19 characters'
+          example: '654'
+        partyRole:
+          type: string
+          description: The role of the party
+          example: 'Incoming Mortgagee'
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        associatedLandTitleReferences:
+          type: array
+          description: 'This is the land title reference that the party within the
+              invitation is associated to.<br>Note: This value must be provided for
+              parties in the role of Proprietor on Title. For other party roles (such
+              as Incoming Proprietors) it will not be provided.'
+          example: [ '98745/987', '98745/987' ]
+          items:
+            type: string
+            description: A land title reference
+            example: '98745/987'
+    PartyNameDetailsType:
+      title: PartyNameDetailsType
+      description: Details for a party name
+      type: object
+      properties:
+        businessDetails:
+          $ref: '#/components/schemas/BusinessType'
+        fullName:
+          $ref: '#/components/schemas/FullNameType'
+    BusinessType:
+      title: BusinessType
+      description: The business type
+      type: object
+      properties:
+        legalEntityName:
+          type: string
+          description: Maximum 150 characters
+          example: 'National Australia Bank'
+        businessName:
+          type: string
+          description: 'Maximum 255 characters <br> The business name registered
+              with ASIC. <br> This will only be returned where available for subscriber
+              details. '
+          example: 'NAB'
+        businessUnit:
+          type: string
+          description: 'Maximum 70 characters<br>  The business unit within the organisation.<br>
+              This will only be returned where available for subscriber details. '
+          example: 'Mortgage processing'
+        organisationType:
+          type: string
+          description: Must be provided if Party Type is ‘Organisation’
+          example: 'Registered Company'
+        administrationStatuses:
+          type: array
+          description: 'Must be provided if Organisation Type is ''Registered company
+              in external administration'' '
+          example:
+            - AdministrationStatus: 'Subject to a deed of company arrangement'
+          items:
+            $ref: '#/components/schemas/AdministrationStatusDetailsType'
+        identifications:
+          type: array
+          description: 'External identification of the party through a registered organisation.'
+          items:
+            $ref: '#/components/schemas/IdentificationDetailsType'
+    AdministrationStatusDetailsType:
+      title: AdministrationStatusDetailsType
+      description: Details on administration status
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the administration status
+          example: 'Subject to a deed of company arrangement'
+    FullNameType:
+      title: FullNameType
+      description: A full name including titles, suffixes and date of birth
+      type: object
+      properties:
+        nameTitle:
+          type: string
+          description: 'Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
+          example: 'Mr'
+        givenNames:
+          type: array
+          description: 'Maximum 100 characters<br> Valid character set: alphabetic,
+              hyphens, apostrophes and spaces only. <br> One or more given names in
+              order. <br> Mandatory attribute: order'
+          example:
+            - GivenName: 'John Snow'
+          items:
+            $ref: '#/components/schemas/GivenNameOrderType'
+        familyName:
+          type: string
+          description: 'Maximum 100 characters <br> Valid character set: alphabetic,
+              hyphens, apostrophes and spaces only. '
+          example: 'Stark'
+        familyNameOrder:
+          type: string
+          description: 'Identifies where the family name is placed in relation to
+              the given name. If not supplied, defaults to ‘Last’ '
+          example: '1'
+        nameSuffix:
+          type: string
+          description: 'Maximum 50 characters <br> Valid character set: alphabetic
+              and period only. <br> e.g. “Jr” (for Junior)'
+          example: 'Jr'
+        dateOfBirth:
+          type: string
+          description: 'This must be provided when creating or editing a party when
+              Representing Party is ‘Yes’. <br> This is only provided outbound if Representing
+              Party is ‘Yes’. PEXA will only return this value if the Party is Represented
+              by the Subscriber / Role. '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    GivenNameOrderType:
+      title: GivenNameOrderType
+      description: The given name order
+      type: object
+      properties:
+        order:
+          type: number
+          description: The order of the given name
+          format: Int64
+          example: 1
+        value:
+          type: string
+          description: The value of the given name
+          example: 'John'
+    NotificationInvitationOutstandingInviterSubscriberDetailsType:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsType
+      description: Details on an outstanding inviter
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          description: 'The PEXA internal reference for the inviter subscriber. <br>Maximum
+              19 characters'
+          example: '208'
+        subscriberType:
+          type: string
+          description: The type of subscriber the inviter is registered as within
+            PEXA.
+          example: 'Financial Institution'
+        subscriberName:
+          type: string
+          description: 'The subscriber who has initiated the invite.<br> Maximum 255 characters'
+          example: 'XYZ Bank'
+        subscriberWorkspaceRole:
+          type: string
+          description: 'The workspace role of the subscriber who has initiated the
+              invite.<br>  If Inviter subscriber is acting in multiple roles, the primary
+              role will be provided'
+          example: 'Incoming Mortgagee'
+        representing:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting'
+        notes:
+          type: string
+          description: 'Notes entered in by the subscriber who initiated the invite.<br>  Any
+              forwarding notes which may have been provided by the Subscriber who has
+              forwarded the invitation will appear here.<br>May contain line feeds  Maximum
+              160 characters'
+          example: 'Additional notes'
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        parties:
+          description: List of parties
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: The id of the party
+          example: '123'
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          description: The role of the Party
+          type: string
+          example: 'Mortgagee on Title'
+    NotificationInvitationResponseDetailsType:
+      title: NotificationInvitationResponseDetailsType
+      description: Details on invitation responses
+      type: object
+      properties:
+        inviteId:
+          type: string
+          description: 'The PEXA internal reference for the invitation.<br> Maximum 19 characters'
+          example: '654'
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the subscriber who was invited
+            to participate in the workspace. <br> For forwarded invitations, this
+            will be the subscriber id of the subscriber who has received and actioned
+            the forwarded invitation. <br>  Maximum 19 characters
+          example: '208'
+        subscriberName:
+          type: string
+          description: 'The subscriber’s PEXA organisation name<br> Maximum 255 characters'
+          example: 'XYZ bank'
+        workspaceRole:
+          type: string
+          description: 'The workspace role the subscriber user has been invited to participate in.'
+          example: 'Incoming Mortgagee'
+        responseReason:
+          type: string
+          description: 'The subscriber’s response reason.'
+          example: 'Additional documents required'
+        additionalText:
+          type: string
+          description: Additional text entered by the invited subscriber. <br> Must
+            be provided if the response reason is ‘Other’. <br>  Maximum 250 characters
+          example: 'More information'
+    NotificationLandTitleDetailsType:
+      title: NotificationLandTitleDetailsType
+      description: Details on the land title
+      type: object
+      properties:
+        landTitleReference:
+          description: A land title reference
+          type: string
+          example: 'ABC123'
+        titleActivityCheck:
+          $ref: '#/components/schemas/NotificationTitleActivityCheck'
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
+    NotificationTitleActivityCheck:
+      title: NotificationTitleActivityCheck
+      description: Title activity check details
+      type: object
+      properties:
+        administrativeActionReferences:
+          type: array
+          description: References for administrative action
+          items:
+            $ref: '#/components/schemas/NotificationAdministrativeActionReferenceDetailsType'
+        documentReferences:
+          type: array
+          description: A document that has been lodged or registered against the Land
+            Title in question within the period in question
+          items:
+            $ref: '#/components/schemas/NotificationDocumentReferenceDetailsType'
+    NotificationAdministrativeActionReferenceDetailsType:
+      title: NotificationAdministrativeActionReferenceDetailsType
+      description: Details on the administrative action reference
+      type: object
+      properties:
+        administrativeActionTimestamp:
+          type: string
+          format: date-time
+          description: Date of the administrative action
+          example: '2018-11-18T02:30:20.283Z'
+        administrativeActionType:
+          type: string
+          description: The action type
+          example: 'Action'
+    NotificationDocumentReferenceDetailsType:
+      title: NotificationDocumentReferenceDetailsType
+      description: Details on the document reference
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: 'Jurisdiction specific document name or document type e.g.
+              ''Mortgage'', ''Caveat'', ''Settlement Notice'' etc.'
+          example: 'Mortgage'
+        lrDocumentId:
+          type: string
+          description: 'Where a dealing number was allocated to the document by the
+              LR, the dealing number associated with this document.<br>  Where a dealing
+              number is not allocated, this may contain an alternate identifier'
+          example: 'DC123456'
+        documentStatusDetails:
+          type: array
+          description: Internal LR document status
+          items:
+            $ref: '#/components/schemas/NotificationDocumentStatusDetailsType'
+    NotificationDocumentStatusDetailsType:
+      title: NotificationDocumentStatusDetailsType
+      description: Details on the document status
+      type: object
+      properties:
+        documentStatusTimestamp:
+          type: string
+          description: 'The date and time at which the status occurred (in UTC).<br>
+              This provides the equivalent of lodgement date, registration date or another
+              appropriate document date'
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        documentStatus:
+          type: string
+          description: Information that specifies the current state of a Document in a Land Registry
+          example: 'Verifying'
+    PropertyDetailsType:
+      title: PropertyDetailsType
+      description: Details on a property
+      type: object
+      properties:
+        landDescription:
+          type: string
+          description: 'The land description associated to the land title reference.<br>Maximum 300 characters'
+          example: 'Vacant Land'
+        propertyAddress:
+          type: string
+          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
+          example: '213 X street'
+    NotificationPartyDetailsType:
+      title: NotificationPartyDetailsType
+      description: Details on parties
+      type: object
+      properties:
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          type: string
+          description: The party role
+          example: 'Role'
+        partyId:
+          type: string
+          description: 'Maximum 19 characters '
+          example: '989'
+    NotificationDocumentDetailsType:
+      title: NotificationDocumentDetailsType
+      description: Details on Documents
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: The type of document
+          example: 'Settlement'
+        status:
+          type: string
+          description: The status of the document
+          example: 'Open'
+        documentId:
+          type: string
+          description: 'The PEXA internal document identifier. <br> Maximum 19 characters'
+          example: '664'
+    NotificationSettlementScheduleDetailsType:
+      title: NotificationSettlementScheduleDetailsType
+      description: Details about settlement schedules
+      type: object
+      properties:
+        status:
+          type: string
+          description: 'The status of the settlement schedule.'
+          example: 'Signed'
+    NotificationSettlementDetailsType:
+      title: NotificationSettlementDetailsType
+      description: Details about settlement
+      type: object
+      properties:
+        settlementDate:
+          type: string
+          description: 'The date and time of the settlement (in UTC). '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        reason:
+          type: string
+          description: Maximum 255 characters
+          example: 'Settlement completed'
+    NotificationLodgementDetailsType:
+      title: NotificationLodgementDetailsType
+      description: Details on lodgements
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationLodgementDocumentDetailsType'
+        lodgementCaseStatus:
+          type: string
+          description: The status of the lodgement case
+          example: 'Open'
+        lodgementCaseId:
+          type: string
+          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
+          example: '123'
+    NotificationLodgementDocumentDetailsType:
+      title: NotificationLodgementDocumentDetailsType
+      description: Details about lodgement documents
+      type: object
+      properties:
+        documentStatus:
+          description: The status of the document
+          example: 'Open'
+          type: string
+        documentType:
+          type: string
+          example: 'Document'
+          description: The type of document
+        landTitleReferences:
+          type: array
+          items:
+            type: string
+            description: Land title references
+            example: 'ABC123'
+        documentId:
+          type: string
+          description: 'The PEXA internal document identifier. <br> Maximum 19 characters'
+          example: '664'
+        dealingNumber:
+          type: string
+          description: 'Maximum 30 characters '
+          example: '987'
+        mortgageDate:
+          type: string
+          description: Will only be provided if the document type is ‘Mortgage’.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        timestamp:
+          type: string
+          description: 'The date and time the document status last changed (in UTC).'
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    NotificationParticipantDetailsType:
+      title: NotificationParticipantDetailsType
+      description: Details about conversation participants
+      type: object
+      properties:
+        subscriberName:
+          type: string
+          description: The subscriber’s PEXA organisation name. <br> Maximum 255 characters
+          example: 'XYZ bank'
+        workspaceRoles:
+          type: array
+          description: The workspace role the subscriber was performing in.
+          items:
+            type: string
+            description: A workspace role the subscriber was performing in.
+            example: 'Incoming Mortgagee'
+    NotificationConversationDetailsType:
+      title: NotificationConversationDetailsType
+      description: Details about a conversation
+      type: object
+      properties:
+        conversationId:
+          type: string
+          description: The unique identifier of the conversation <br> Maximum 19 characters
+          example: '456'
+        timestamp:
+          type: string
+          description: The timestamp that the conversation was created in PEXA (in
+            UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    IdentificationDetailsType:
+      title: IdentificationDetailsType
+      type: object
+      description: 'An object describing how to identify an external party'
+      properties:
+        identifier:
+          type: string
+          description: 'The type of identifier'
+          example: 'ABN'
+        value:
+          type: string
+          description: 'Maximum 20 characters <br> Must be provided without whitespaces.'
+          example: '42156896300000000'
+
+  examples:
+    # Requests
+    NswProjectRequest:
+      summary: "Example for NSW"
+      value:
+        projectName: "ABC Project"
+        jurisdiction: "NSW"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "NSW"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        nswPropertyDetails:
+          locality: "Carey Estate2"
+          natureOfProperty: "Vacant land"
+    VicProjectRequest:
+      summary: "Example for VIC"
+      value:
+        projectName: "ABC Project"
+        jurisdiction: "VIC"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "VIC"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        vicPropertyDetails:
+          restrictiveCovenant: true
+          covenantMcpRef: "123123123"
+          covenantMcpExpiryDate: "2022-11-30"
+          municipalityName: "Baw Baw Shire Council"
+          natureOfProperty: "Residential"
+          primaryLandUse: "Dwelling"
+          primaryConstructionType: "Timber"
+    QldProjectRequest:
+      summary: "Example for QLD"
+      value:
+        projectName: "ABC Project"
+        jurisdiction: "QLD"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "QLD"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        qldPropertyDetails:
+          currentLandUse: "Dwelling"
+          marginScheme: false
+          safetySwitch:
+            installed: true
+            informed: false
+          smokeAlarm:
+            installed: true
+            informed: true
+    SaProjectRequest:
+      summary: "Example for SA/ACT/WA/TAS"
+      value:
+        projectName: "ABC Project"
+        jurisdiction: "SA"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: " XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "SA"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+    NswProjectResponse:
+      summary: "Example for NSW"
+      value:
+        id: 1234
+        projectName: "ABC Project"
+        jurisdiction: "NSW"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "NSW"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: "ACTIVE"
+        historicalParentTitles: ["13/12345"]
+        workspacesCreated: true
+        nswPropertyDetails:
+          locality: "Carey Estate2"
+          natureOfProperty: "Vacant land"
+    VicProjectResponse:
+      summary: "Example for VIC"
+      value:
+        id: 1234
+        projectName: "ABC Project"
+        jurisdiction: "VIC"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "VIC"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: "ARCHIVED"
+        historicalParentTitles: ["22/54321"]
+        workspacesCreated: true
+        vicPropertyDetails:
+          restrictiveCovenant: true
+          covenantMcpRef: "123123123"
+          covenantMcpExpiryDate: "2022-11-30"
+          municipalityName: "Baw Baw Shire Council"
+          natureOfProperty: "Residential"
+          primaryLandUse: "Dwelling"
+          primaryConstructionType: "Timber"
+    QldProjectResponse:
+      summary: "Example for VIC"
+      value:
+        id: 1234
+        projectName: "ABC Project"
+        jurisdiction: "QLD"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        gstApplicable: true
+        supplierApplicable: true
+        supplierDetails:
+          name: "XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "QLD"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: "DELETED"
+        historicalParentTitles: ["55/98765"]
+        workspacesCreated: true
+        qldPropertyDetails:
+          currentLandUse: "Dwelling"
+          marginScheme: false
+          safetySwitch:
+            installed: true
+            informed: false
+          smokeAlarm:
+            installed: true
+            informed: true
+    SaProjectResponse:
+      summary: "Example for SA/ACT/WA/TAS"
+      value:
+        id: 1234
+        projectName: "ABC Project"
+        jurisdiction: "SA"
+        workgroupId: 1000
+        estimatedSettlementDate: "JUN 2028"
+        parentTitle: "13/12322"
+        proprietorOnTitle:
+          - "John Smith"
+          - "Adam Smith"
+        supplierApplicable: true
+        supplierDetails:
+          name: " XHJ corp LTD"
+          phone: "6125548555"
+          abn: "12345678912"
+          addressLine1: "L1 Tower 2"
+          addressLine2: "727 Collins St"
+          suburb: "Docklands"
+          postcode: "3000"
+          state: "SA"
+          email: "sv@test.com"
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+          - { subscriberName: "NECDL EASTPAC", subscriberId: "1234", dealingNumber: "ABC1234", participantName: "CABRAMATTA conveyancing" }
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: "ACTIVE"
+        historicalParentTitles: ["98/12345"]
+        workspacesCreated: false
+
+    ProjectStatusResponse:
+      summary: 'Example of a status response'
+      value:
+        proprietorOnTitles:
+          - "ABC LTD"
+          - "XYZ LTD"
+        parentTitle: "20/1185379"
+        mortgageeNames:
+          - "John X"
+          - "Robertson Y"
+        estimatedSettlementDate: "JAN 2024"
+        jurisdiction: "NSW"
+        invitationAcceptance:
+          incomingMortgagee:
+            accepted: 2
+            pending: 1
+            declined: 1
+            notInvited: 0
+          mortgageeOnTitle:
+            accepted: 44
+            pending: 22
+            declined: 0
+            notInvited: 0
+          incomingProprietor:
+            accepted: 44
+            pending: 22
+            declined: 0
+            notInvited: 0
+        settlementDateAcceptance:
+          incomingMortgagee:
+            accepted: 1
+            pending: 1
+          mortgageeOnTitle:
+            accepted: 22
+            pending: 11
+          incomingProprietor:
+            accepted: 23
+            pending: 10
+        workspaceStatus:
+          allActive: 1
+          settlingToday: 0
+          completed: 0
+          withdrawn: 0
+          all: 1
+          awaitingDigitalSignature: 0
+
+    WorkspacesResponse:
+      summary: "An example of the workspaces response"
+      value:
+        - workspaceId: PEXA165111203
+          subscriberReference: CJD:121330
+          unregisteredLotNumbers:
+            - "2"
+          childTitles:
+            - "51272439"
+          participantRepresentativeData:
+            mortgageeOnTitleReps:
+              - Curell Partner
+              - Corrigan Legal
+            incomingMortgageeReps:
+              - MSA National
+            incomingProprietorReps:
+              - Empire Legal
+          partyData:
+            proprietorsOnTitle:
+              - Kangaroo Pty LTd
+              - SMV Consulting
+            incomingProprietors:
+              - Maria Georgious
+          lodgementStatus: Completed
+          settlementStatus: Disbursed
+          settlementDate: 2022-01-02
+          settlementDateAcceptance:
+            status: PARTIALLY_ACCEPTED
+            statusDetails:
+              acceptanceByMortgageeOnTitleReps: PENDING
+              acceptanceByIncomingMortgageeReps: ACCEPTED
+              acceptanceByIncomingProprietorReps: ACCEPTED
+          financialData:
+            gstWithholdingStatus: MATCHING
+            grossConsideration: "$2,044,000.00"
+            vendorFunds: "$1,251,222.11"
+            payoutAmount: "$230,152.00"
+            balanced: true

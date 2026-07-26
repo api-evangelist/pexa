@@ -1,0 +1,175 @@
+aid: pexa
+url: https://raw.githubusercontent.com/api-evangelist/pexa/refs/heads/main/apis.yml
+name: PEXA
+kind: company
+description: >-
+  PEXA (Property Exchange Australia) operates Australia's dominant Electronic
+  Lodgement Network (ELN), the digital rail on which property is settled and title
+  dealings are lodged with the state land registries. Where the Australian real estate
+  value chain splits into a listings duopoly (REA Group and Domain) sitting over
+  progressively privatised state land registries, PEXA occupies the transaction layer
+  underneath both — electronic conveyancing, settlement funds movement, digital
+  signing and lodgement — and e-conveyancing is now effectively mandated for most
+  dealings in most Australian jurisdictions, making PEXA the closest thing in the
+  property sector to a required, national, machine-readable rail. Its API posture is
+  correspondingly unusual: PEXA publishes a genuine developer portal at
+  developer.pexa.com.au with Swagger UI reference documentation and machine-readable
+  OpenAPI/Swagger contracts for the Exchange, Projects, Notification (webhooks),
+  Standalone Discharge and PEXA Plus Marketplace APIs, and the ARNECC Model Operating
+  Requirements oblige it to offer API access to third parties on an equivalent basis.
+  But that surface is not self-serve: PEXA states plainly that access to the Developer
+  Portal and to test or production credentials is contingent on having signed PEXA's
+  API Agreement, so a developer registers via a form, is validated and approved, signs
+  an agreement, and is then issued OAuth 2.0 client credentials (or mutual TLS). RESO
+  is absent — it is a North American MLS standard with no bearing on Australian
+  e-conveyancing — so there is no RESO Web API or Data Dictionary certification here,
+  and none should be expected. This is a well-documented, regulated, licensed-access
+  API estate rather than an open one.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pexa.png
+tags:
+- Real Estate
+- Australia
+- Conveyancing
+- Property Settlement
+- Land Registry
+- Title
+- PropTech
+- Mortgage
+- Digital Signing
+- Webhooks
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis:
+- aid: pexa:pexa-exchange-api
+  name: PEXA Exchange API
+  description: The PEXA Exchange API covers key facets of PEXA Exchange e-conveyancing
+    functionality — creating and updating workspaces, invitations, participants, land
+    title references, documents, conversations, financial settlement line items,
+    settlement dates and settlement completion records. Documented as a Swagger 2.0
+    contract across versioned paths (/v2 through /v6). Authenticated with OAuth 2.0
+    (client credentials or authorization code) or mutual TLS; each endpoint requires
+    specific scopes. Access requires a signed PEXA API Agreement.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Conveyancing
+  - Property Settlement
+  - Workspace
+  - Land Registry
+  - Title
+  properties:
+  - type: Swagger
+    url: openapi/pexa-exchange-api-swagger.json
+  - type: Swagger
+    url: openapi/pexa-exchange-api-legacy-swagger.json
+  - type: APIReference
+    url: https://developer.pexa.com.au/Exchange/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Exchange/docs/documentation/
+  - type: Pricing
+    url: https://www.pexa.com.au/api-pricing/
+- aid: pexa:pexa-projects-api
+  name: PEXA Projects API
+  description: The PEXA Projects API (v4) supports multi-lot development settlements
+    — creating and managing projects, project lots, project statuses and related
+    participants for property developers settling many lots through PEXA. Published
+    as an OpenAPI 3.0.3 contract with OAuth 2.0 authorizationCode and clientCredentials
+    flows and named scopes such as au:projects:project:write.
+  humanURL: https://developer.pexa.com.au/Projects/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Project
+  - Property Development
+  - Conveyancing
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-projects-api-v4-openapi.yaml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Projects/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Projects/docs/documentation/
+- aid: pexa:pexa-notification-service-api
+  name: PEXA Notification Service API
+  description: The PEXA Push Notifications Service delivers event notifications to
+    subscribers via webhook and manages registration for specific events, including
+    creating, updating and deleting notification registrations and rotating the shared
+    secret used to sign webhook deliveries. Published as an OpenAPI 3.1.0 contract
+    that declares two outbound webhooks — SubscriberNotification and
+    NonSubscriberNotification. PEXA documents this as a premium, billed API.
+  humanURL: https://developer.pexa.com.au/Webhooks/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Webhooks
+  - Notifications
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-notification-service-openapi.yaml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Webhooks/api/apireference/
+- aid: pexa:pexa-standalone-discharge-experience-api
+  name: PEXA Standalone Discharge Experience API
+  description: An OpenAPI 3.1.0 experience API supporting consolidated standalone
+    mortgage discharge, used by financial institutions discharging a mortgage outside
+    of a full transfer workspace. Declares production and test servers and OAuth 2.0
+    authorizationCode and clientCredentials flows.
+  humanURL: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Mortgage
+  - Discharge
+  - Financial Institutions
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+- aid: pexa:pexa-plus-marketplace-b2b-api
+  name: PEXA Plus Marketplace B2B API
+  description: The PEXA Plus Marketplace B2B API exposes marketplace services to
+    business partners — health check, title search ordering and billing — under the
+    PEXA Plus product. Published as an OpenAPI 3.0.3 contract (an OpenAPI 3.0.0
+    variant of the same document is also shipped in the portal) with a documented
+    server at https://plus.pexa.com.au/api/plus/v1.
+  humanURL: https://developer.pexa.com.au/Marketplace/api/apireference/
+  baseURL: https://plus.pexa.com.au/api/plus/v1
+  tags:
+  - Marketplace
+  - Title Search
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  - type: OpenAPI
+    url: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+common:
+- type: Website
+  url: https://www.pexa.com.au/
+- type: Portal
+  url: https://developer.pexa.com.au/
+- type: Documentation
+  url: https://developer.pexa.com.au/
+- type: SignUp
+  url: https://www.pexa.com.au/pexa-apis/
+- type: Pricing
+  url: https://www.pexa.com.au/api-pricing/
+- type: Documentation
+  url: https://www.pexa.com.au/staticly-media/2024/10/PEXA_Integration_Principles-sm-1728949058.pdf
+- type: Authentication
+  url: https://auth.pexa.com.au/.well-known/openid-configuration
+- type: StatusPage
+  url: https://status.pexa.com.au/
+- type: Support
+  url: https://www.pexa.com.au/contact-us/
+- type: Blog
+  url: https://www.pexa-group.com/content-hub/news/
+- type: About
+  url: https://www.pexa-group.com/about/
+- type: InvestorRelations
+  url: https://www.pexa-group.com/investor-centre/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

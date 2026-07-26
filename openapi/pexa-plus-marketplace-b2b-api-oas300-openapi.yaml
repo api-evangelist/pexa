@@ -1,0 +1,654 @@
+openapi: 3.0.0
+info:
+  version: 1.0.2
+  title: PEXA Plus Marketplace B2B API
+  description: PEXA Plus Marketplace services used by B2B applications
+  contact:
+    name: PEXA Plus team
+    email: pexaplussupport@pexa.com.au
+servers:
+  - url: 'https://plus.pexa.com.au/api/plus/v1'
+    description: Product server
+tags:
+  - name: HealthCheck
+  - name: TitleSearch
+  - name: Billing
+paths:
+  /health:
+    get:
+      tags:
+        - HealthCheck
+      summary: Health check
+      description: Health check call to the service <br>[See details](../../docs/definitions/health_check/) to learn more about this API.
+      operationId: getHealth
+      parameters:
+        - $ref: '#/components/parameters/SubscriberId'
+      responses:
+        '200':
+          description: Confirms the service is up and running
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /title-search:
+    post:
+      tags:
+        - TitleSearch
+      summary: Create title search
+      description: Creates a title search given a land title reference and a jurisdiction
+      operationId: createTitleSearch
+      parameters:
+        - $ref: '#/components/parameters/SubscriberId'
+      requestBody:
+        description: Create title search request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleSearch'
+            examples:
+              Create_Title_Search:
+                value:
+                  {
+                    "landTitleReference": "100/789171",
+                    "jurisdiction": "NSW",
+                  }
+              Create_Title_Search_With_Reference:
+                value:
+                  {
+                    "landTitleReference": "100/789171",
+                    "jurisdiction": "NSW",
+                    "reference": "XYZ-APPLICATION",
+                  }
+      responses:
+        '201':
+          description: Created
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TitleSearch'
+              examples:
+                Create_Title_Search:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "landTitleReference": "100/789171",
+                      "jurisdiction": "NSW"
+                    }
+                Create_Title_Search_With_Reference:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "landTitleReference": "100/789171",
+                      "jurisdiction": "NSW",
+                      "reference": "XYZ-APPLICATION"
+                    }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden
+        '405':
+          description: Method not allowed
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /title-search/{titleSearchId}:
+    get:
+      tags:
+        - TitleSearch
+      summary: Retrieve title search by id
+      description: Retrieve title search related to a requested id
+      operationId: retrieveTitleSearch
+      parameters:
+        - $ref: '#/components/parameters/SubscriberId'
+        - $ref: '#/components/parameters/TitleSearchIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleSearch'
+              examples:
+                Non_ReadyToRetrieve_Title_Search:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "landTitleReference": "100/789171",
+                      "jurisdiction": "NSW",
+                      "reference": "XYZ-APPLICATION",
+                      "status": "PENDING"
+                    }
+                ReadyToRetrieve_Title_Search:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "landTitleReference": "11/111",
+                      "jurisdiction": "NSW",
+                      "reference": "XYZ-APPLICATION",
+                      "status": "COMPLETE",
+                      "landTitle": {
+                        "orderReceivedDateTime": "2022-06-09T14:12:40.833+10:00",
+                        "orderCompletedDateTime": "2022-06-09T15:12:40.833+10:00",
+                        "enquiryId": "220609-LT0AM-0003U",
+                        "landTitleData": {},
+                        "contentType": "application/pdf",
+                        "lotPlan": {
+                          "landType": "LOT",
+                          "lotNumber": "1",
+                          "planNumber": "1",
+                          "planType": "STRATA PLAN",
+                          "text": "\n"
+                        },
+                        "planDetails": "",
+                        "relatedProducts": [ {
+                          "classification": "Plan Image",
+                          "dealingNumber": "1",
+                          "documentType": "SP",
+                          "itemName": "1",
+                          "itemType": "SP",
+                          "searchKey": "1"
+                        }],
+                        "vendorDetails": ["ESTATE: LEASEHOLD ESTATE CREATED BY REDACTED", "", "ABC PTY LIMITED"]
+                      }
+                    }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '405':
+          description: Method not allowed
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /title-search/{titleSearchId}/documents:
+    get:
+      tags:
+        - TitleSearch
+      summary: Retrieve title search documents by id
+      description: Retrieve title search documents related to a requested id
+      operationId: retrieveTitleSearchDocuments
+      parameters:
+        - $ref: '#/components/parameters/SubscriberId'
+        - $ref: '#/components/parameters/TitleSearchIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleSearchDocuments'
+              examples:
+                Non_ReadyToRetrieve_Title_Search_Document:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "documents": [
+                        {
+                          "status": "processing"
+                        }
+                      ]
+                    }
+                ReadyToRetrieve_Title_Search_Document:
+                  value:
+                    {
+                      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      "documents": [
+                        {
+                          "downloadLink": "http://mock-api-server:8080/pdf/dummy.pdf",
+                          "status": "available"
+                        }
+                      ]
+                    }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '405':
+          description: Method not allowed
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /billing:
+    get:
+      tags:
+        - Billing
+      summary: Retrieve billing invoice
+      description: Retrieve billing invoice related to given date and land title reference filters
+      operationId: retrieveBilling
+      parameters:
+        - $ref: '#/components/parameters/SubscriberId'
+        - $ref: '#/components/parameters/StartDateQuery'
+        - $ref: '#/components/parameters/EndDateQuery'
+        - $ref: '#/components/parameters/LandTitleReferenceQuery'
+        - $ref: '#/components/parameters/ReferenceQuery'
+        - $ref: '#/components/parameters/FormatQuery'
+      responses:
+        '200':
+          description: Invoice of completed orders in specified date range
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+              examples:
+                Valid_Invoice_Response:
+                  value:
+                    {
+                      "invoice": {
+                        "invoiceDate": "2022-05-09T16:09:53Z",
+                        "invoiceDateRange": "2020-09-20T16:09:53Z - 2020-12-20T16:09:53Z",
+                        "invoiceTotalCostExTax": {
+                          "amount": 2250,
+                          "currency": "AUD"
+                        },
+                        "invoiceTotalTax": {
+                          "amount": 225,
+                          "currency": "AUD"
+                        },
+                        "invoiceTotalCost": {
+                          "amount": 2475,
+                          "currency": "AUD"
+                        },
+                        "orderItems": [
+                          {
+                            "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                            "reference": "ABC Reference",
+                            "landTitleReference": "11/111",
+                            "productTitle": "NSW Land Title Search",
+                            "date": "2020-10-20T16:09:53Z",
+                            "totalCostExTax": {
+                              "amount": 1250,
+                              "currency": "AUD"
+                            },
+                            "totalTax": {
+                              "amount": 125,
+                              "currency": "AUD"
+                            },
+                            "totalCost": {
+                              "amount": 1375,
+                              "currency": "AUD"
+                            }
+                          },
+                          {
+                            "id": "d290f1ee-6c54-4b01-90e6-d701748f0999",
+                            "landTitleReference": "11/119",
+                            "reference": "DEF Reference",
+                            "productTitle": "NSW Land Title Search",
+                            "date": "2020-11-20T16:09:53Z",
+                            "totalCostExTax": {
+                              "amount": 1000,
+                              "currency": "AUD"
+                            },
+                            "totalTax": {
+                              "amount": 100,
+                              "currency": "AUD"
+                            },
+                            "totalCost": {
+                              "amount": 1100,
+                              "currency": "AUD"
+                            }
+                          }
+                        ]
+                      }
+                    }
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden
+        '405':
+          description: Method not allowed
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  parameters:
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
+    TitleSearchIdPath:
+      description: Title search id
+      in: path
+      name: titleSearchId
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+    StartDateQuery:
+      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
+      in: query
+      name: startDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-09-20T16:09:53Z'
+    EndDateQuery:
+      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
+      in: query
+      name: endDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-12-20T16:09:53Z'
+    LandTitleReferenceQuery:
+      description: Land title reference for billing query (optional)
+      in: query
+      name: landTitleReference
+      required: false
+      schema:
+        type: string
+        example: '100/789171'
+    ReferenceQuery:
+      description: Reference for billing query (optional)
+      in: query
+      name: reference
+      required: false
+      schema:
+        type: string
+        example: 'ABC Reference'
+    FormatQuery:
+      description: Response format for billing query (optional)
+      in: query
+      name: format
+      required: false
+      schema:
+        type: string
+        example: 'pdf'
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+              - code: 'PL.TITSE.001'
+                message: 'The land title reference provided is invalid for the jurisdiction.'
+                field: 'landTitleReference'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+              - code: '500001'
+                message: 'An internal error has occurred'
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+              - code: '404001'
+                message: 'Invalid title search ID'
+  schemas:
+    TitleSearch:
+      description: Title search
+      type: object
+      required:
+        - landTitleReference
+        - jurisdiction
+      properties:
+        id:
+          description: Identifier of the title search order
+          type: string
+          format: uuid
+          example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+        landTitleReference:
+          description: Land title reference
+          type: string
+          example: '100/789171'
+        jurisdiction:
+          description: State of the property for the given land title reference
+          type: string
+          example: 'NSW'
+        reference:
+          description: Matter reference
+          type: string
+          example: 'XYZ-APPLICATION'
+        status:
+          description: Status of the title search
+          type: string
+          readOnly: true
+          example: 'PENDING'
+        landTitle:
+          description: Land Title attributes
+          type: object
+          properties:
+            orderReceivedDateTime:
+              description: Date order received at 3rd party provider
+              type: string
+              example: '2022-06-09T14:12:40.833+10:00'
+            orderCompletedDateTime:
+              description: Date order completed at 3rd party provider
+              type: string
+              example: '2022-06-09T15:12:40.833+10:00'
+            enquiryId:
+              description: ID for this enquiry with the 3rd party provider
+              type: string
+              example: '220609-LT0AM-0003U'
+            landTitleData:
+              description: Json payload representing the land title data from the 3rd party provider
+              type: object
+            contentType:
+              description: Content type
+              type: string
+              example: 'application/pdf'
+            lotPlan:
+              description: Lot plan
+              type: object
+              properties:
+                landType:
+                  description: Land type
+                  type: string
+                  example: 'LOT'
+                lotNumber:
+                  description: Lot number
+                  type: string
+                  example: '1'
+                planNumber:
+                  description: Plan number
+                  type: string
+                  example: '1'
+                planType:
+                  description: Plan type
+                  type: string
+                  example: 'STRATA PLAN'
+                text:
+                  description: Text
+                  type: string
+                  example: '\n'
+            planDetails:
+              description: Plan details
+              type: string
+              example: 'TBC...'
+            relatedProducts:
+              description: Related products
+              type: array
+              items:
+                description: Related product
+                type: object
+                properties:
+                  classification:
+                    description: Classification
+                    type: string
+                    example: 'Plan Image'
+                  dealingNumber:
+                    description: Dealing number
+                    type: string
+                    example: '1'
+                  documentType:
+                    description: Document type
+                    type: string
+                    example: 'SP'
+                  itemName:
+                    description: Item name
+                    type: string
+                    example: '1'
+                  itemType:
+                    description: Item type
+                    type: string
+                    example: 'SP'
+                  searchKey:
+                    description: Search key
+                    type: string
+                    example: '1'
+            vendorDetails:
+              description: Vendor details
+              type: array
+              items:
+                description: Vendor details
+                type: string
+                example: 'ESTATE: LEASEHOLD ESTATE CREATED BY AA123 EXPIRES 1/2/2022'
+              minItems: 1
+    TitleSearchDocuments:
+      description: Title search documents
+      type: object
+      properties:
+        id:
+          description: Identifier of the title search order
+          type: string
+          format: uuid
+          example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+        documents:
+          description: Documents related to the title search order
+          type: array
+          items:
+            description: Document related to the title search order
+            type: object
+            properties:
+              downloadLink:
+                description: Link to download the document related to the title search order
+                type: string
+                example: 'http://mock-api-server:8080/pdf/dummy.pdf'
+              status:
+                description: Status of the document related to the title search order
+                type: string
+                example: 'processing'
+    Invoice:
+      description: Invoice
+      type: object
+      properties:
+        invoice:
+          description: Invoice attributes
+          type: object
+          properties:
+            invoiceDate:
+              description: Date invoice created
+              type: string
+              format: date-time
+              example: '2020-12-20T16:09:53Z'
+            invoiceDateRange:
+              description: Date range requested for invoice
+              type: string
+              example: '2020-09-20T16:09:53Z - 2020-12-20T16:09:53Z'
+            invoiceTotalCostExTax:
+              description: Invoice total cost excluding tax
+              allOf:
+                - $ref: '#/components/schemas/Money'
+            invoiceTotalTax:
+              description: Invoice total tax
+              allOf:
+                - $ref: '#/components/schemas/Money'
+            invoiceTotalCost:
+              description: Invoice total cost
+              allOf:
+                - $ref: '#/components/schemas/Money'
+            orderItems:
+              description: Ordered items
+              type: array
+              items:
+                description: Ordered item
+                type: object
+                properties:
+                  id:
+                    description: Identifier of the title search order
+                    type: string
+                    format: uuid
+                    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+                  landTitleReference:
+                    description: Land title reference
+                    type: string
+                    example: '11/111'
+                  productTitle:
+                    description: Product title
+                    type: string
+                    example: 'NSW Land Title Search'
+                  date:
+                    description: Date ordered item created
+                    type: string
+                    format: date-time
+                    example: '2020-09-20T16:09:53Z'
+                  totalCostExTax:
+                    description: Ordered item total cost excluding tax
+                    allOf:
+                      - $ref: '#/components/schemas/Money'
+                  totalTax:
+                    description: Ordered item total tax
+                    allOf:
+                      - $ref: '#/components/schemas/Money'
+                  totalCost:
+                    description: Ordered item total cost
+                    allOf:
+                      - $ref: '#/components/schemas/Money'
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: 'PL.TITSE.001'
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: 'The land title reference provided is invalid for the jurisdiction.'
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: 'landTitleReference'
+    Money:
+      description: Represents an amount of money
+      type: object
+      properties:
+        amount:
+          description: The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when `currency` is `AUD`, `amount` is in cents.
+          type: integer
+          format: int64
+          example: 1000
+        currency:
+          description: The type of currency, in ISO 4217 format
+          type: string
+          example: 'AUD'

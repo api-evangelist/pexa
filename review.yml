@@ -1,0 +1,425 @@
+aid: pexa
+name: PEXA
+review:
+  question: Does PEXA expose a real, reachable public API surface, and what does a
+    developer actually have to sign or join to call it?
+  answer: true
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  tier: mls-data-infrastructure
+  homeMarket: Australia
+  primaryDomain: pexa.com.au
+
+sectorPosture:
+  homeMarket: Australia
+  resoPosture: >-
+    No RESO reference found. RESO (Real Estate Standards Organization) is a North
+    American MLS standard promulgated by NAR; it has no bearing on Australian
+    electronic conveyancing and PEXA neither claims nor implies any RESO alignment.
+    A word-boundary grep for "RESO", "OData", "$metadata", "MLS", "IDX", "Data
+    Dictionary" and "Universal Property Identifier" across every harvested PEXA
+    contract (7 specs, ~940KB), the pexa.com.au homepage and the pexa.com.au API
+    integration page returned ZERO hits. No /$metadata document, no OData service
+    root, and no RESO certification directory listing applies. PEXA's machine-readable
+    contract is plain OpenAPI/Swagger over REST, not RESO Web API.
+  resoCertified: false
+  resoCertificationType: none
+  resoDataDictionaryVersion: null
+  resoDirectoryEvidence: >-
+    Not applicable. PEXA is not an MLS, board or association and does not appear in
+    the RESO certification directory. Australia has no RESO-equivalent mandate;
+    its machine-readable property mandate is regulatory (ARNECC) rather than
+    industry-standards-body driven.
+
+  accessGate: licence-agreement
+  accessGateEvidence: >-
+    Verbatim from https://www.pexa.com.au/api-pricing/ (HTTP 200, fetched
+    2026-07-26): "PEXA Exchange APIs are documented in the PEXA Developer Portal.
+    Access to the Developer Portal and credentials to test and productionise APIs
+    is contingent upon having signed PEXA's API Agreement." The same page states
+    that agreements fall broadly into two types — Subscribers using PEXA Exchange
+    APIs for their own conveyancing transactions ("own use"), and Intermediary
+    Service Providers (subscribers or software providers) providing a platform or
+    service to other subscribers ("3rd party use"), where each subscriber must give
+    consent for PEXA to share their workspace data with the Intermediary Service
+    Provider. The step-by-step onboarding on https://www.pexa.com.au/pexa-apis/
+    (HTTP 200) is: (1) REGISTER FOR DEVELOPER PORTAL — "Fill out the form below and
+    we'll validate your details"; (2) GET TEST ACCESS — "Once validated and
+    approved, we'll email your test access details"; (3) PLAN & DESIGN; (4) BUILD &
+    TEST; (5) PRODUCTION READINESS; (6) GO LIVE. The Exchange and Projects
+    documentation both state: "If you require new credentials, please email
+    apisupport@pexa.com.au with your company and contact information... For the
+    production environment, PEXA will work with you to get you onboarded."
+  whatADeveloperMustSignOrJoin: >-
+    A signed PEXA API Agreement (own-use or Intermediary Service Provider variant),
+    preceded by a registration form on pexa.com.au/pexa-apis/ that PEXA validates
+    and approves, followed by an emailed credential issuance from
+    apisupport@pexa.com.au. There is no self-serve signup — the developer portal
+    build explicitly disables sign-up (the Swagger UI page components are wrapped in
+    an auth HOC with hideSignUp set to true, and the portal's CSP allows only
+    cognito-idp.ap-southeast-2.amazonaws.com for identity). Practical use also
+    presumes PEXA Subscriber status or a relationship with one, since Exchange
+    workspaces belong to subscribers.
+  regulatoryNote: >-
+    PEXA's API access is regulated, not merely commercial. Per
+    https://www.pexa.com.au/api-pricing/: "In line with the Model Operating
+    Requirements which are set and governed by ARNECC, PEXA Exchange APIs are
+    available to all third parties for integration on an equivalent basis to other
+    parties of the same type, level or class" with respect to technical
+    availability, permitted purpose, use, fees, and access processes. This is the
+    sector's clearest example of a mandated non-discriminatory API access
+    obligation — it does NOT make the API open, it makes the gate obligatorily
+    even-handed.
+  openData: false
+  openDataEvidence: >-
+    No open, unlicensed, publicly callable PEXA dataset exists. Every documented
+    endpoint sits behind OAuth 2.0 or mutual TLS and a signed agreement. PEXA is
+    private national infrastructure over the state land registries, not a
+    government open-data publisher; Australian open property data, where it exists,
+    comes from state land registries and data.gov.au, not from PEXA.
+  authModel: >-
+    OAuth 2.0 — clientCredentials (machine-to-machine) and authorizationCode (B2C,
+    individual PEXA login plus MFA) — OR mutual TLS. From
+    https://www.pexa.com.au/pexa-apis/: "We authenticate our APIs using industry
+    best practices, either through OAuth2.0 or Mutual TLS." Production token
+    endpoint https://auth.pexa.com.au/oauth/token; test token endpoint
+    https://auth-tst.pexalabs.com.au/oauth/token. Access tokens expire after 12
+    hours. Anonymous OIDC discovery IS served:
+    https://auth.pexa.com.au/.well-known/openid-configuration returned HTTP 200
+    (issuer https://auth.pexa.com.au/, authorization_endpoint /authorize, token
+    /oauth/token, jwks_uri /.well-known/jwks.json, registration_endpoint
+    /oidc/register, device_authorization_endpoint /oauth/device/code;
+    grant_types_supported includes client_credentials, authorization_code,
+    refresh_token; token_endpoint_auth_methods_supported includes private_key_jwt;
+    an Auth0-shaped deployment).
+    https://auth.pexa.com.au/.well-known/oauth-authorization-server also returned
+    HTTP 200. https://api.pexa.com.au/.well-known/openid-configuration returned 404.
+    Real per-endpoint scopes are declared in the harvested contracts, e.g.
+    view:notification_registrations, create:notification_registrations,
+    edit:notification_registrations, delete:notification_registrations,
+    create:notification_registrations_secret_rotation (Notification Service), and
+    au:projects:project:write / au_pub_tst_pexa_conversation_api_v2_read cited in
+    the documentation.
+  sandbox: true
+  sandboxEvidence: >-
+    A fully managed test environment is documented and named: api-tst.pexalabs.com.au
+    (API host) and auth-tst.pexalabs.com.au (token host), with worked cURL examples
+    in both the Exchange and Projects documentation. pexa.com.au/pexa-apis/ states
+    "We offer a fully-managed test environment where you can connect, develop and
+    make sure everything works." Test credentials are issued only after the
+    registration form is validated and approved. Anonymous GET
+    https://api-tst.pexalabs.com.au/ returned 404 (host resolves, root not served).
+  coverage: >-
+    National Australian coverage rather than MLS/board coverage — PEXA operates as
+    an Electronic Lodgement Network Operator across Australian jurisdictions (VIC,
+    NSW, QLD, ACT, SA, NT, WA and, per the homepage, now live in TAS), integrating
+    with the state land registries and financial institutions. This is transaction
+    and title infrastructure, not listings distribution; there is no MLS or board
+    concept in this market.
+  documentationPublic: partial
+  documentationPublicNote: >-
+    The developer portal at https://developer.pexa.com.au/ returns HTTP 200
+    anonymously and is a Gatsby 5.16.1 single-page application ("pexa-documentation-
+    portal") that renders Swagger UI. Its interactive API reference pages are
+    login-gated (AWS Cognito) and Try-It-Out is disabled in code
+    (allowTryItOutFor returns false). However, the static build artifacts are served
+    unauthenticated: the Gatsby page-data JSON and the /static/<hash>/ spec files
+    were all retrieved anonymously at HTTP 200, which is how the contracts below
+    were harvested. So the CONTRACTS are effectively public while the PORTAL and the
+    CREDENTIALS are not — certification-style reachability is not the issue here;
+    the agreement is.
+  sdks: none-found
+  postman: >-
+    No downloadable Postman collection was found. The Exchange and Projects
+    documentation contain "Postman:" labels next to worked examples, but these are
+    screenshots/illustrations, not collection downloads.
+  webhooks: true
+  webhooksNote: >-
+    Genuine outbound webhooks exist and are contractually declared. The OpenAPI
+    3.1.0 Notification Service document declares a top-level webhooks block with
+    SubscriberNotification and NonSubscriberNotification, plus registration
+    management endpoints and a shared-secret rotation endpoint. PEXA documents it as
+    a premium billed API (contact apisupport@pexa.com.au).
+  pricingPublic: true
+  pricingNote: >-
+    API pricing is publicly published at https://www.pexa.com.au/api-pricing/ and is
+    metered per "Settled Workspace": Heritage (legacy) APIs free of charge for
+    select permitted purposes; own-use paid APIs $2 per Settled Workspace;
+    Intermediary Service Provider paid APIs $1 per Settled Workspace; all exclusive
+    of GST, charged separately per permitted purpose.
+
+findings:
+  summary: |
+    PEXA is the strongest counter-example in this sector to the assumption that a
+    gated market means an absent API. It publishes a real, versioned, multi-product
+    API estate with machine-readable contracts, a named test environment, published
+    per-transaction pricing, declared OAuth scopes, and real outbound webhooks — and
+    it is obliged by the ARNECC Model Operating Requirements to make that access
+    available to third parties on an equivalent basis. What it does not do is let
+    anyone in: portal access and credentials both require a signed PEXA API
+    Agreement, sign-up is disabled in the portal build, and credentials are issued
+    by email after PEXA validates and approves a registration form.
+
+    RESO is simply not part of this picture, and that is the honest finding rather
+    than a gap: RESO is a North American MLS data standard and Australia's
+    machine-readable property mandate runs through e-conveyancing regulation
+    (ARNECC / the Electronic Conveyancing National Law) instead. Seven real
+    contracts were harvested and every one parses.
+  probes:
+    - url: https://www.pexa.com.au/
+      status: 200
+      note: Corporate site; product suite Exchange / Key / Projects / Planner /
+        Tracker; links to /pexa-apis/.
+    - url: https://pexa.com.au
+      status: 200
+      note: Redirects to https://www.pexa.com.au/.
+    - url: https://www.pexa.com.au/pexa-apis/
+      status: 200
+      note: Public API integration page — 6-step onboarding, OAuth2 or Mutual TLS,
+        managed test environment, links to developer portal.
+    - url: https://www.pexa.com.au/api-pricing/
+      status: 200
+      note: Public API pricing + ARNECC equivalent-access statement + API Agreement
+        requirement.
+    - url: https://developer.pexa.com.au/
+      status: 200
+      note: PEXA API Developer Portal — Gatsby SPA, Swagger UI, Cognito login,
+        sign-up disabled.
+    - url: https://developers.pexa.com.au/
+      status: 000
+      note: Does not resolve.
+    - url: https://docs.pexa.com.au/
+      status: 000
+      note: Does not resolve.
+    - url: https://api.pexa.com.au/
+      status: 404
+      note: Host resolves; root not served (documented production API host).
+    - url: https://api-tst.pexalabs.com.au/
+      status: 404
+      note: Host resolves; root not served (documented test API host).
+    - url: https://www.pexa.com.au/developers
+      status: 404
+    - url: https://www.pexa.com.au/api
+      status: 404
+    - url: https://www.pexa.com.au/openapi.json
+      status: 404
+    - url: https://www.pexa.com.au/.well-known/openid-configuration
+      status: 404
+    - url: https://auth.pexa.com.au/.well-known/openid-configuration
+      status: 200
+      note: Anonymous OIDC discovery document served (Auth0-shaped).
+    - url: https://auth.pexa.com.au/.well-known/oauth-authorization-server
+      status: 200
+    - url: https://api.pexa.com.au/.well-known/openid-configuration
+      status: 404
+    - url: https://status.pexa.com.au/
+      status: 200
+    - url: https://www.pexa.com.au/staticly-media/2024/10/PEXA_Integration_Principles-sm-1728949058.pdf
+      status: 200
+      note: Integration Principles PDF linked from the API integration page.
+    - url: https://www.pexa-group.com/investor-centre/
+      status: 200
+    - url: https://www.pexa-group.com/about/
+      status: 200
+    - url: https://www.pexa-group.com/content-hub/news/
+      status: 200
+  probeCaveat: >-
+    developer.pexa.com.au is a single-page application with a catch-all that returns
+    the 576,556-byte index HTML with content-type text/html and HTTP 200 for ANY
+    unknown path — including /openapi.json, /swagger.json, /robots.txt and
+    /sitemap.xml. Those 200s are therefore NOT real artifacts and none was treated
+    as one. Real artifacts were located instead via the Gatsby build: the webpack
+    runtime chunk map exposed the portal's page components, and the per-route
+    page-data JSON exposed the GraphQL allFile nodes with their /static/<hash>/
+    publicURL paths, each of which was then fetched and parsed.
+
+harvest:
+  method: >-
+    Gatsby page-data enumeration. Fetched
+    https://developer.pexa.com.au/webpack-runtime-7551152c05585e707208.js to read
+    the chunk map (webpackChunkpexa_documentation_portal), which named the portal's
+    product routes, then fetched
+    https://developer.pexa.com.au/page-data/<route>/page-data.json for
+    /exchange/, /Exchange/api/apireference/, /Projects/api/apireference/,
+    /Marketplace/api/apireference/, /Webhooks/api/apireference/ and
+    /EXP_ConsolidatedDischarge/api/apireference/. Their GraphQL allFile nodes
+    yielded 9 distinct spec publicURLs, each fetched anonymously at HTTP 200 on
+    2026-07-26 and parsed with PyYAML / json before being saved verbatim.
+  fetchDate: '2026-07-26'
+  specsSaved: 7
+  specsHarvestedButNotPublished: 2
+  artifacts:
+    - file: openapi/pexa-exchange-api-swagger.json
+      sourceURL: https://developer.pexa.com.au/static/f771792695157579c87b7ddc2ff76eef/swagger.json
+      portalPath: products/Exchange/api/swagger.json
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: Swagger 2.0
+      title: PEXA Exchange API
+      version: 1.0.0
+      paths: 23
+      operations: 27
+      parses: true
+      note: Current Exchange contract; versioned paths /v2 through /v6. Tags
+        HealthCheck, User, Landtitle, Subscriber, Workspace, Invitation,
+        Conversation, Document, Settlement. No host/basePath declared in the
+        document; the production host api.pexa.com.au and test host
+        api-tst.pexalabs.com.au come from the documentation.
+    - file: openapi/pexa-exchange-api-legacy-swagger.json
+      sourceURL: https://developer.pexa.com.au/static/ad8d0f7f2b6bab6442149dbcec2a4ce8/swagger.json
+      portalPath: pages/exchange/swagger.json
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: Swagger 2.0
+      title: PEXA Exchange API
+      version: '1.0'
+      paths: 24
+      operations: 28
+      parses: true
+      note: Earlier generation of the same API on /v1-/v3 paths; host is literally
+        "localhost" with basePath "/" in the shipped document, so no base URL is
+        asserted from it. Saved verbatim because it is a real portal artifact, but
+        it is NOT the contract listed as authoritative for the Exchange API.
+    - file: openapi/pexa-projects-api-v4-openapi.yaml
+      sourceURL: https://developer.pexa.com.au/static/228f44c6372ad10565f4ce0db4b521ac/project-api-v4.yaml
+      portalPath: products/Projects/api/project-api-v4.yaml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: OpenAPI 3.0.3
+      title: Projects API
+      version: v4
+      paths: 10
+      operations: 14
+      parses: true
+      note: servers is the unresolved template "{{ service.url }}" in the shipped
+        document, so the host was NOT taken from the spec. OAuth 2.0
+        authorizationCode + clientCredentials security scheme declared.
+    - file: openapi/pexa-notification-service-openapi.yaml
+      sourceURL: https://developer.pexa.com.au/static/6e8425d2166160503aa9da63c71fca82/notifications-spec.yaml
+      portalPath: products/Webhooks/api/notifications-spec.yaml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: OpenAPI 3.1.0
+      title: Notification Service
+      version: 1.0.0
+      paths: 6
+      operations: 7
+      parses: true
+      note: Declares a top-level webhooks block (SubscriberNotification,
+        NonSubscriberNotification). servers https://api.pexa.com.au and
+        https://api-tst.pexalabs.com.au. clientCredentials tokenUrl
+        https://auth.pexa.com.au/oauth/token with five named scopes. Documented as
+        a premium billed API.
+    - file: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+      sourceURL: https://developer.pexa.com.au/static/69601cea899dd858c4c8b71f01b54bc4/swagger.yaml
+      portalPath: products/EXP_ConsolidatedDischarge/api/swagger.yaml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: OpenAPI 3.1.0
+      title: Standalone Discharge Experience API
+      version: v1
+      paths: 1
+      operations: 1
+      parses: true
+      note: servers https://api.pexa.com.au and https://api-tst.pexalabs.com.au;
+        OAuth 2.0 authorizationCode + clientCredentials.
+    - file: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+      sourceURL: https://developer.pexa.com.au/static/99224c80ae27b242a57e1202ad1614e0/marketplace.yaml
+      portalPath: products/Marketplace/api/marketplace.yaml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: OpenAPI 3.0.3
+      title: PEXA Plus Marketplace B2B API
+      version: 1.0.2
+      paths: 5
+      operations: 5
+      parses: true
+      note: servers https://plus.pexa.com.au/api/plus/v1. Tags HealthCheck,
+        TitleSearch, Billing. Treated as the authoritative Marketplace contract.
+    - file: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+      sourceURL: https://developer.pexa.com.au/static/f2a031cdd5e4e436fdbcc3e3c6b30f59/swagger.yaml
+      portalPath: products/Marketplace/api/swagger.yaml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      format: OpenAPI 3.0.0
+      title: PEXA Plus Marketplace B2B API
+      version: 1.0.2
+      paths: 5
+      operations: 5
+      parses: true
+      note: Same API and same info.version as the 3.0.3 document above, shipped in
+        the portal as an OpenAPI 3.0.0 variant. Saved verbatim for provenance.
+  harvestedButNotPublished:
+    - sourceURL: https://developer.pexa.com.au/static/2cf7f29ee003b737cc6da488f56d7264/swagger.yml
+      portalPath: utils/swagger.yml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      parses: true
+      reason: >-
+        Not a PEXA API. info.title is "Swagger Maven Plugin Sample" (version v1, one
+        path, one operation) — tooling boilerplate shipped in the portal's utils
+        directory. Excluded to avoid asserting an API that does not exist.
+    - sourceURL: https://developer.pexa.com.au/static/85927ca3f721c453c77778467761d2f0/swagger.yml
+      portalPath: products/Projects/future/api/swagger.yml
+      httpStatus: 200
+      fetchDate: '2026-07-26'
+      parses: true
+      reason: >-
+        Placeholder, not a real contract. info.title reads "Future Swagger PEXA
+        Core" but the document body is the unmodified Swagger Petstore sample —
+        host petstore.swagger.io, basePath /v2, tags pet/store/user, petstore_auth
+        implicit OAuth. Excluded because publishing it would fabricate PEXA
+        endpoints that do not exist.
+
+sources:
+  - url: https://www.pexa.com.au/pexa-apis/
+    type: Documentation
+    note: Public API integration page — onboarding steps, auth options (OAuth 2.0 or
+      Mutual TLS), managed test environment, developer portal link.
+  - url: https://www.pexa.com.au/api-pricing/
+    type: Pricing
+    note: API Agreement requirement, ARNECC Model Operating Requirements equivalent-
+      access obligation, per-Settled-Workspace pricing schedule.
+  - url: https://developer.pexa.com.au/
+    type: Portal
+    note: PEXA API Developer Portal (Gatsby SPA + Swagger UI, Cognito login, sign-up
+      disabled).
+  - url: https://developer.pexa.com.au/Exchange/docs/documentation/
+    type: Documentation
+    note: Exchange authentication guide — client credentials and authorization code
+      flows, 12-hour token expiry, credential request via apisupport@pexa.com.au,
+      scope naming, deep links, mutual TLS certificate error guidance.
+  - url: https://developer.pexa.com.au/Projects/docs/documentation/
+    type: Documentation
+    note: Projects authentication guide — same OAuth flows, test token URL
+      https://auth-tst.pexalabs.com.au/oauth/token, scope au:projects:project:write.
+  - url: https://auth.pexa.com.au/.well-known/openid-configuration
+    type: Authentication
+    note: Anonymous OIDC discovery document, HTTP 200.
+  - url: https://status.pexa.com.au/
+    type: StatusPage
+
+negativeFindings:
+  - No RESO Web API certification, no RESO Data Dictionary certification, no RESO
+    directory listing, no OData service root and no $metadata document. RESO is
+    absent from this market, not merely unreached.
+  - No self-serve developer signup anywhere. The portal build explicitly sets
+    hideSignUp true on its authenticated page components.
+  - No public SDKs and no downloadable Postman collection found.
+  - github.com/pexa returned HTTP 200 but resolves to "Pexa, Inc." — a DIFFERENT
+    organisation, not Property Exchange Australia. Deliberately NOT recorded as a
+    PEXA GitHub organisation.
+  - No open, unlicensed dataset. Nothing PEXA publishes is callable without a signed
+    agreement.
+  - developers.pexa.com.au and docs.pexa.com.au do not resolve.
+
+actions:
+  apisYmlCreated: true
+  apisListed: 5
+  specsSaved: 7
+  readmeCreated: true
+  reason: >-
+    A genuine, documented, machine-readable API estate was captured with full
+    provenance, alongside an explicit record that reachability is governed by a
+    signed API Agreement rather than by any certification, and that RESO does not
+    apply in the Australian market.
