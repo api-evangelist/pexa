@@ -1,0 +1,952 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/documentation/ (API Exceptions -> Exception Details)
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/ (Error Handling)
+format: proprietary
+note: 'PEXA does not use RFC 9457 application/problem+json. Two distinct, published, dotted error-code registries
+  exist: the Exchange business-rule exception codes (OB<nnnn>.<nnn>) returned by PEXA Exchange when a business-rule
+  validation fails through either the UI or the API, and the Notification Service codes (GA.NOTIF.<httpstatus><nnn>).
+  Codes and remediation text are captured verbatim from the developer portal.'
+registries:
+- id: exchange-exceptions
+  name: PEXA Exchange API exceptions
+  pattern: OB<nnnn>.<nnn> (also OB<nnn>.<nnn> and OB<nnnn>.F<n>.<nnn> variants)
+  apis:
+  - PEXA Exchange API
+  docs: https://developer.pexa.com.au/Exchange/docs/documentation/
+  count: 135
+  guidance: PEXA advises integrators to surface a meaningful message to the end user rather than passing the raw
+    code and message through.
+- id: notification-errors
+  name: PEXA Notification Service errors
+  pattern: GA.NOTIF.<http-status><nnn>
+  apis:
+  - PEXA Notification Service API
+  docs: https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+  count: 15
+exchange_exceptions:
+- code: OB1400.005
+  message: The search subscriber Id and subscriber name must not be provided together
+  cause: You have provided values for both the subscriber ID and subscriber name fields within the Subscriber Search
+    API request.
+  remediation: Re-try your Subscriber Search API request by providing a single value only to one of the fields.
+    Either fill a value for the subscriber ID or the subscriber name field as per your preference.
+- code: OB1400.006
+  message: The search subscriber Id or subscriber name must be provided
+  cause: You have not provided a value either for subscriber ID or the subscriber name fields within_ your Subscriber
+    Search API request.
+  remediation: In your Subscriber Search API request add a value for at least one of the fields. You must provide
+    a value for the subscriber ID or the subscriber name field to support your search.
+- code: OB1401.006
+  message: The land title already exists in the PEXA workspace
+  cause: The land title used within your Land Title Reference Verification API request already exists within another
+    PEXA workspace.
+  remediation: If you would like to check a land title that does not exist within another PEXA workspace, please
+    try again by adding a new value within the land title field to your Land Title Reference Verification API request.
+- code: OB1401.007
+  message: The land title was not found in PEXA
+  cause: The land title used within your Land Title Reference Verification API request does not exist within the
+    PEXA test environment.
+  remediation: Try again by adding a land title to your Land Title Reference Verification API request that was provided
+    by the PEXA API Services team to support your testing.
+- code: OB1402.001
+  message: The land title reference is not eligible for Electronic Lodgement
+  cause: The land title within your Initiate Workspace Creation API request is valid but not eligible for electronic
+    lodgement in PEXA and will need to be completed in paper.
+  remediation: Try again by adding a land title to your Initiate Workspace Creation API request that is eligible
+    for lodgement. This would have been provided to you by the PEXA API team to support your testing.
+- code: OB1402.002
+  message: The financial settlement field must be set to 'No' for the role selected
+  cause: You have used the role of 'Consentor' or 'CT Controller' and have set the value for the financial settlement
+    field to 'Yes' within your Initiate Workspace Creation API request
+  remediation: Try again with the same role and update the value within the financial settlement field to 'No'.
+- code: OB1402.003
+  message: The settlement date must not be populated if financial settlement is not required
+  cause: You have added a financial settlement date and provided a value of 'No' to the financial settlement field
+    within your Initiate Workspace Creation API request.
+  remediation: If you do not require settlement in your workspace, remove the financial settlement date field and
+    keep the value of the financial settlement field as 'No' within your Initiate Workspace Creation API request.
+    If settlement is required, ensure the financial settlement date field remains populated and update the value
+    for the financial settlement field to 'Yes'.
+- code: OB1402.004
+  message: The settlement date must be populated if financial settlement is required
+  cause: You have not provided a value for the settlement date field and have kept the value for the financial settlement
+    field as 'Yes' within your Initiate Workspace Creation API.
+  remediation: If settlement is required, within your Initiate Workspace Creation API request ensure the financial
+    settlement date field remains populated and update the value for the financial settlement field to 'Yes'.
+- code: OB1402.005
+  message: The settlement date cannot be prior to current date
+  cause: You have provided a settlement date that is in the past within your Initiate Workspace Creation API request.
+  remediation: Within your Initiate Workspace Creation API request, add a settlement date value that is in the future
+    and is not greater than 6 months from the today.
+- code: OB1402.006
+  message: The parent title field must be 'No' if financial settlement is not required
+  cause: You have provided a value of 'No' for the financial settlement field and have set the value for parent
+    title to 'Yes' within your Initiate Workspace Creation API request.
+  remediation: If financial settlement is not required, set the value for both the parent title field and the financial
+    settlement field to 'No' within your Initiate Workspace Creation API request.
+- code: OB1402.007
+  message: The request for land title data field must be 'No' for the role selected
+  cause: Within your Initiate Workspace Creation API request your role is either 'Consentor' or 'CT Controller'
+    and the value for the request land title data field is set to 'Yes'.
+  remediation: Set the value for the request land title data field to 'No' within your Initiate Workspace Creation
+    API request.
+- code: OB1402.008
+  message: The request for land title data field must be 'No' if parent land titles exist
+  cause: Within your Initiate Workspace Creation API request, the value for the parent title field is 'Yes' and
+    the request land title data field is 'Yes'.
+  remediation: Within your Initiate Workspace Creation API request, the value for the land title data field must
+    be set to 'No' if the value for the parent title field is 'Yes'.
+- code: OB1402.018
+  message: The request contains a duplicate land title reference
+  cause: 'Within your Initiate Workspace Creation API request you can add up to 20 land titles and you have entered
+    a duplicate land title . Example: <LandTitleReference>11234</LandTitleReference> <LandTitleReference>55678</LandTitleReference>
+    <LandTitleReference>91011</LandTitleReference> <LandTitleReference>11234</LandTitleReference>'
+  remediation: Within your Initiate Workspace Creation API request remove the duplicate land title .
+- code: OB1402.019
+  message: The workspace must not exceed 20 land titles
+  cause: You have exceeded the maximum number of land titles (20 land titles for a workspace) within your Initiate
+    Workspace Creation API request
+  remediation: Reduce the number of land title values within your Initiate Workspace Creation API request and ensure
+    you do not exceed 20 land title values.
+- code: OB193.001
+  message: Financial Settlement cannot be executed on this day as it is a non-business day
+  cause: 'You have provided a value for the settlement date field within your Initiate Workspace Creation API request
+    which is either a weekend of a public holiday. Example: <SettlementDate>2018-12-25</SettlementDate>'
+  remediation: Ensure that the value for the settlement date field within your Initiate Workspace Creation API request
+    is not a weekend, or a public holiday. A list of public holidays can be found here .
+- code: OB193.002
+  message: The Financial Settlement Date cannot be greater than 6 months in the future.
+  cause: You have provided a value for the settlement date field within your Initiate Workspace Creation API request
+    that is greater than 6 months in the future.
+  remediation: Amend the value for the settlement date field within your Initiate Workspace Creation API request
+    so that the value does not exceed 6 months in the future.
+- code: OB1402.023
+  message: The parent title field must be 'No' for the role selected
+  cause: You have used the role of 'Consentor' or 'CT Controller' and have set the value for the parent title field
+    to 'Yes' within your Initiate Workspace Creation API request
+  remediation: Set the value for the parent title field to 'No' within your Initiate Workspace Creation API request.
+- code: OB1402.029
+  message: The Subscriber is not active in the jurisdiction of the workspace
+  cause: You are trying to create a workspace through the Initiate Workspace Creation API request in a jurisdiction
+    that you are not licensed to operate in.
+  remediation: Check the value for the jurisdiction field within your Initiate Workspace Creation API request and
+    amend it to the state that you are licensed to operate in.
+- code: OB1402.030
+  message: The role is invalid for the jurisdiction and/or the subscriber type
+  cause: You are trying to create a workspace through the Initiate Workspace Creation API request using a role that
+    is not valid for the jurisdiction you are trying to create the workspace for.
+  remediation: Within your Initiate Workspace Creation API request, update the value for the role field to ensure
+    that it is valid for the value put in the jurisdiction field or vice versa. Have a look at the valid values
+    for Roles or Jurisdictions that can be used within your API request.
+- code: OB1402.031
+  message: The party cannot be added to the workspace when the request for land title data is 'No' and parent title
+    indicator is 'No'
+  cause: Within the Initiate Workspace Creation API request a party record has been provided and both the value
+    for the parent title field and request for land title data field is set to 'No'.
+  remediation: Within the Initiate Workspace Creation API request where a party record has been provided, both the
+    values for the parent title field and request for land title data field needs to be set to 'Yes'.
+- code: OB1402.033
+  message: The party in the specified role cannot be created when there is a parent land title
+  cause: Within the Initiate Workspace Creation API request, Parent Title = 'Yes', Party Details is provided, Representing
+    Party = 'Yes' and Party Role <> 'Incoming Proprietor' OR Within the Initiate Workspace Update API request, Party
+    Details is provided with Party Action Type = 'Create', Representing Party = 'Yes', Party Role <> 'Incoming Proprietor'
+    and the Workspace which is being updated by the API has a Parent Land Title.
+  remediation: Within the Initiate Workspace Creation API request; * set Parent Title = 'Yes' * provide Party Details
+    * set Representing Party = 'Yes' * set Party Role = 'Incoming Proprietor' OR Within the Initiate Workspace Update
+    API request for a workspace that has a Parent Land Title, * Provide Party Details * set Party Action Type =
+    'Create' * set Representing Party = 'Yes' * set Party Role = 'Incoming Proprietor'
+- code: OB1402.039
+  message: The date of birth must not be provided when creating the incoming proprietor party
+  cause: Within your Initiate Workspace Creation API request you are acting in the role of 'Proprietor on Title'
+    and you have created a party for the 'Incoming Proprietor' and you have added a date of birth for the party.
+  remediation: As a Proprietor on Title you are unable to add a date of birth when creating a party for the Incoming
+    Proprietor. Within your Initiate Workspace Creation API request you need to remove the date of birth provided.
+- code: OB1402.040
+  message: Your organisation is not the CT Controller. The current CT Controller is {CT Controller on Title}.
+  cause: The Principal Subscriber creates a workspace in the role of CT controller. Now if the ABN of the CT controller
+    on title is not the same as the ABN of the Principal Subscriber then PEXA Exchange will return this exception
+    through the Initiate Workspace Creation API.
+  remediation: Verify the ABN of the Subscriber and the CT Controller on Title or Panel Masters and ensure that
+    they are the same value before invoking the Initiate Workspace Creation API.
+- code: OB1402.041
+  message: Your organisation or any of your panel master is not the CT Controller. The current CT Controller is
+    {CT Controller on Title}.
+  cause: If a representative subscriber creates a workspace in the role of CT controller and if the ABN of the CT
+    controller on title is not the same as the ABN of the subscriber or the ABN of one of the panel masters of the
+    subscriber, PEXA Exchange will return this exception through the Initiate Workspace Creation API.
+  remediation: Verify the ABN of the Subscriber, CT Controller on Title or Panel Masters and ensure that they are
+    the same value before invoking the Initiate Workspace Creation API.
+- code: OB1402.042
+  message: All the titles in the workspace should have the same CT controller
+  cause: If the subscriber (principle or representative) creates a workspace in the role of CT controller with more
+    than 1 title and if the ABN of the CT controller on all titles added is not the same, PEXA Exchange will return
+    the exception through the Initiate Workspace Creation API.
+  remediation: Verify the ABN of the CT Controller on Title is the same value for all titles before invoking the
+    Initiate Workspace Creation API.
+- code: OB1403.001
+  message: The subscriber is not acting in the role specified
+  cause: 'You are trying to retrieve workspace data for a different role to which you are acting in the workspace
+    within your Retrieve Workspace Summary API request. Example: You created the workspace in the role ''Incoming
+    Mortgagee'' but within the Retrieve Workspace Summary API request subscriberRole = ''Mortgagee on Title'''
+  remediation: 'Within your Retrieve Workspace Summary API request ensure the value provided for the subscriberRole
+    field represents the role in which you are acting in the workspace. Example: You created the workspace in the
+    role ''Incoming Mortgagee'' and within the Retrieve Workspace Summary API subscriberRole=''Incoming Mortgagee''.'
+- code: OB1403.002
+  message: The workspace number could not be found for the subscriber user
+  cause: Within your Retrieve Workspace Summary API request you have provided a workspace ID that does not exist.
+  remediation: You need to create a workspace using the Initiate Workspace Creation API or via the PEXA Exchange
+    manually. Then within your Retrieve Workspace Summary API request ensure that the value you pass to the workspaceid
+    field is a valid Workspace id that exists in PEXA Exchange.
+- code: OB1403.003
+  message: The Subset value is missing 'events'
+  cause: The lastEventId and Subset has been provided in the Retrieve Workspace Summary API, however Subset does
+    not contain the value 'events'.
+  remediation: Provide the value 'events' in the Subset field within the Retrieve Workspace Summary API request.
+- code: OB1404.001
+  message: The subscriber organisation name was not found
+  cause: The value provided for the SubscriberId field while using Mutual TLS is not valid within the Retrieve Outstanding
+    Invitations API request.
+  remediation: If using Mutual TLS, provide a valid vale for the SubscriberId field within the Retrieve Outstanding
+    Invitations API request.
+- code: OB1405.002
+  message: The workspace number could not be found for the subscriber user
+  cause: The Subscriber does not have access to the workspace based on their workgroup permissions within PEXA Exchange.
+    Workgroups are based on the rules set up by the administrator or the manager. If the user is not permitted to
+    access the workspace number provided, then this exception will be generated.
+  remediation: Check the value of the Workspace Id field within the Initiate Workspace Update API request. Ensure
+    that you have permissions to the workspace and the related workgroup. If not contact the PEXA Administrator
+    within your organisation.
+- code: OB1405.004
+  message: The party must be in the same role as the subscriber
+  cause: Within the Initiate Workspace Update API request, the value for Subscriber Role is not the same as Party
+    Role.
+  remediation: Check the value of the Subscriber Role and Party Role fields in the Initiate Workspace Update API.
+    Ensure that the values are the same for both fields.
+- code: OB1405.006
+  message: The party is already represented by another subscriber
+  cause: You are attempting to represent a party that is already represented by another subscriber within your Initiate
+    Workspace Update API request
+  remediation: Within your Initiate Workspace Update API request update the value for the representing party field
+    to 'No'.
+- code: OB1405.007
+  message: The party was not found
+  cause: Within your Initiate Workspace Update API, the value for the Party Action Type field is set to 'Update'
+    and the value for Party Id cannot be found in the PEXA Exchange.
+  remediation: Within your Initiate Workspace Update API request provide a valid value for the Party Id field when
+    the value for the Party Action Type field is set to 'Update'.
+- code: OB1405.009
+  message: The party type must be populated
+  cause: Within your Initiate Workspace Update API request you have not provided the party type.
+  remediation: 'Within your Initiate Workspace Update API request, provide a value for the party type field. Example:
+    <PartyType>Individual</PartyType>'
+- code: OB1405.010
+  message: The party role must be populated
+  cause: You have not provided a value for the party role field within your Initiate Workspace Update API request.
+  remediation: 'Within your Initiate Workspace Update API request, provide a value for the party role field. Example:
+    <PartyRole>Incoming Proprietor</PartyRole>'
+- code: OB1405.012
+  message: The party full name must be populated for the selected party type
+  cause: Within your Initiate Workspace Update API request, you have not provided a value for the full name field.
+  remediation: Try calling the Initiate Workspace Update API again with a value for the full name field.
+- code: OB1405.013
+  message: The business structure must not be provided for the selected party type
+  cause: Within your Initiate Workspace Update API request you have selected party type 'individual' but provided
+    business details.
+  remediation: Within your Initiate Workspace Update API request, update the value for the party type field to 'Organisation'
+    if you intend to use the business details.
+- code: OB1405.014
+  message: The business structure must be provided for the selected party type
+  cause: You have not provided business details even though you have provided a value of 'Organisation' to the party
+    type field within your Initiate Workspace Update API request.
+  remediation: Provide business details for the organisation in your Initiate Workspace Update API request.
+- code: OB1405.015
+  message: The party full name must not be populated for the selected party type
+  cause: You have provided the full name of an individual even though you have provided a value of 'Organisation'
+    to the party type field within your Initiate Workspace Update API request.
+  remediation: Try calling the Initiate Workspace Update API after removing the value for the full name field.
+- code: OB1405.018
+  message: The administrator status must be populated when organisation type is 'Registered company in external
+    administration'
+  cause: Within your Initiate Workspace Update API request, the organisation type is 'Registered company in external
+    administration' and the administration status has not been populated.
+  remediation: Populate the administration status field within the Initiate Workspace Update API request.
+- code: OB1405.019
+  message: The date of birth must be populated for represented party
+  cause: Within your Initiate Workspace Update API request, the party type is 'Individual' and the date of birth
+    has not been populated.
+  remediation: Populate the date of birth within your Initiate Workspace Update API request.
+- code: OB1405.066
+  message: The workspace is in a status that does not allow it to be updated
+  cause: Within your Initiate Workspace Update API request, you are trying to update a workspace Id that is already
+    locked for settlement and has a workspace status of 'ready, ready'.
+  remediation: Try using a workspace Id that is not locked for settlement and has a workspace status of 'in preparation'
+    within your Initiate Workspace Update API request.
+- code: OB1405.067
+  message: The identifier must be populated for the represented party
+  cause: Within your Initiate Workspace Update API request, the party type is 'Organisation' and the identifier
+    field is not populated.
+  remediation: Within the Initiate Workspace Update API request, provide the identifier for the 'Organisation' i.e.
+    ABN, ACN, ARBN,
+- code: OB1405.071
+  message: A Principal Subscriber cannot create a Represented Party
+  cause: Within your Initiate Workspace Update API request your Role is 'Principal Subscriber' and Representing
+    Party is set to 'Yes'.
+  remediation: Within your Initiate Workspace Update API request, update the Representing Party field to 'No'.
+- code: OB1405.072
+  message: The organisation type must be populated for the selected party type
+  cause: You have not provided a value for the Organisation Type field for the selected Party Type within the Initiate
+    Workspace Update API request
+  remediation: The Organisation Type field is a mandatory field based on the value provided in the Party Type field.
+    To resolve the current exception, provide a value for Organisation Type within the request to the Initiate Workspace
+    Update API.
+- code: OB1405.082
+  message: The party id must be populated when an existing party is updated
+  cause: Within your Initiate Workspace Update API request, the Party Id field should not be left empty if the value
+    for the Party Action Type field is set to 'Update'
+  remediation: Within your Initiate Workspace Update API request provide a valid value for the Party Id field when
+    the value for the Party Action Type field is set to 'Update'.
+- code: OB1405.083
+  message: The party id must not be populated when a new party is added
+  cause: You have provided a value for the Party Id field within your Initiate Workspace Update API when the value
+    for the Party Action Type field is set to 'Create'.
+  remediation: Within your Initiate Workspace Update API request leave the Party Id field blank when creating a
+    new party.
+- code: OB1405.085
+  message: The Party Capacity Type must not be populated for the Party Role
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Party Role field
+    has a value of ''Proprietor on Title'' or ''Incoming Proprietor'' The request is made to a workspace that has
+    a jurisdiction of VIC A value has been provided to the Party Capacity Type field'
+  remediation: 'A value to the Party Capacity field should only be provided when: The Party Role field has a value
+    other than ''Proprietor on Title'' or ''Incoming Proprietor'' The request is made to a workspace that has a
+    jurisdiction other than VIC To resolve the current exception, remove the Party Capacity Type within the request
+    to the Initiate Workspace Update API keeping everything else constant.'
+- code: OB1405.089
+  message: The Trustee Details must not be populated for the Party Role
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Party Role field
+    has a value of ''Proprietor on Title'' or ''Incoming Proprietor'' The request is made to a workspace that has
+    a jurisdiction of WA A value has been provided to the Trust Details field'
+  remediation: 'A value to the Trust Details field should only be provided when: * The Party Role field does not
+    have a value of ''Proprietor on Title'' or ''Incoming Proprietor'' * The request is made to a workspace that
+    has a jurisdiction other than WA To resolve the current exception, remove Trust Details within the request to
+    the Initiate Workspace Update API keeping everything else constant.'
+- code: OB1405.091
+  message: The Trust Name must be populated
+  cause: You have not provided a value for the Trust Name field even though you have set the value of the Trust
+    Indicator field to 'Yes' within your Initiate Workspace Update API request.
+  remediation: Provide a value to the Trust Name field within your Initiate Workspace Update API request.
+- code: OB1405.094
+  message: The Foreign Party Indicator must not be populated for the Party Role
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Party Role field
+    has a value of ''Incoming Proprietor'' The request is made to a workspace that has a jurisdiction of QLD A value
+    has been provided to the Foreign Party Indicator field'
+  remediation: 'A value to the Foreign Party Indicator field should only be provided when: The Party Role field
+    does not have a value of ''Incoming Proprietor'' The request is made to a workspace that has a jurisdiction
+    other than QLD To resolve the current exception, remove the Foreign Party Indicator field within the request
+    to the Initiate Workspace Update API keeping everything else constant.'
+- code: OB1405.096
+  message: The Foreign Party Type must be populated for Foreign Party
+  cause: You have not provided a value for the Foreign Party Type field even though you have set the value of the
+    Foreign Party Indicator field to 'Yes' with your Initiate Workspace Update API request.
+  remediation: 'Provide a value to the Foreign Party Type field within your Initiate Workspace Update API request.
+    Example: <ForeignPartyType>Wholly Foreign Company</ForeignPartyType>'
+- code: OB1405.097
+  message: The Foreign Party Type is invalid for a Party Type of Organisation
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Foreign Party
+    Indicator field has a value of ''Yes'' The Foreign Party Type field has a value of ''Natural Person'' The Party
+    Type field has a value of ''Organisation'''
+  remediation: Within your Initiate Workspace Update API request ensure that you provide a value other than 'Natural
+    Person' to the Foreign Party Type field.
+- code: OB1405.098
+  message: The Foreign Party Type is invalid for a Party Type of Individual
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Foreign Party
+    Indicator field has a value of ''Yes'' The Foreign Party Type field has a value other than ''Natural Person''
+    The Party Type field has a value of ''Individual'''
+  remediation: Within your Initiate Workspace Update API request ensure that you provide a value of 'Natural Person'
+    to the Foreign Party Type field.
+- code: OB1405.100
+  message: The Foreign Country must be populated for Foreign Party
+  cause: You have not provided a value for the Foreign Country field even though you have set the value for the
+    Foreign Party Indicator field to 'Yes' within your request to the Initiate Workspace Update API.
+  remediation: Provide a value to the Foreign Country field within your Initiate Workspace Update API request.
+- code: OB1405.102
+  message: The Resident Party Indicator must be populated for Party Type
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Party Type field
+    has a value of ''Individual'' The Party Role field has a value of ''Incoming Proprietor'' The request is made
+    to a workspace that has a jurisdiction of QLD A value has not been provided for the Resident Party Indicator
+    field'
+  remediation: Update the value for the Resident Party Indicator field to 'Yes' within your Initiate Workspace Update
+    API request.
+- code: OB1405.104
+  message: The Foreign Country Share must be populated for Foreign Party
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Foreign Party
+    Indicator field has a value of ''Yes'' The Party Type field has a value of ''Organisation'' A value has not
+    been provided for the Foreign Country Share field'
+  remediation: 'Within your Initiate Workspace Update API request ensure that the foreign country share field has
+    been populated. Example: <ForeignCountryShare> <ForeignShareholderCountry>AD</ForeignShareholderCountry><ForeignPercent>0</ForeignPercent>
+    </ForeignCountryShare>'
+- code: OB1405.108
+  message: The total Foreign Shareholders Percentages must sum to 100%
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Foreign Party
+    field has a value of ''Wholly Foreign Company'' The ''Shareholder Percent'' of all shareholders in the foreign
+    country share is less than a total of 100%.'
+  remediation: Within your Initiate Workspace Update API request ensure that the Foreign Percent totals to 100%
+    across all shareholders.
+- code: OB1405.109
+  message: The Resident Party Indicator must not be populated for Party Type
+  cause: 'The request to the Initiate Workspace Update API has the following characteristics: The Resident Party
+    Indicator field is populated The Party Type field has a value other than ''Individual'' The request is made
+    to a workspace that has a jurisdiction of QLD'
+  remediation: Remove the Resident Party Indicator value within your Initiate Workspace Update API request.
+- code: OB1405.110
+  message: The Foreign Country Share must not be populated for Party Type
+  cause: You have provided a value for the Foreign Country Share field while the value for the Party Type field
+    is 'Organisation' within your Initiate Workspace Update API request.
+  remediation: Within your Initiate Workspace Update API request, remove the foreign country share field OR update
+    the value for the Party Type field and keep the Foreign Country Share information.
+- code: OB1405.111
+  message: The Foreign Party parameters must not be populated if Foreign Party Indicator is No
+  cause: Within your Initiate Workspace Update API request your foreign party indicator field is set to 'No' and
+    the following fields are populated; Foreign Party Type , Foreign Country , Resident Party Indicator , Foreign
+    Country Share .
+  remediation: If you need to add a foreign party, update the foreign party indicator field to 'Yes' within your
+    Initiate Workspace Update API request. If you do not need to add a foreign party remove the values in the following
+    fields; Foreign Party Type , Foreign Country , Resident Party Indicator , Foreign Country Share .
+- code: OB1405.116
+  message: The subscriber is not authorised to represent this party as they are not a panel member of this legal
+    entity
+  cause: The Representative Subscriber is representing a party that is not identified as a Panel Member of any 'Eligible
+    Transacting Party Subscribers' of the Party record
+  remediation: Verify that the Representative Subscriber has a Legal Entity Name that matches the Legal Entity Name
+    of any FI Subscriber in PEXA that is associated to their Panel Master.
+- code: OB1405.119
+  message: The proprietor on title party <party id> cannot be updated with a party type of 'Organisation'
+  cause: The request to the Initiate Workspace Update API has the following characteristics * Subscriber is in the
+    role of 'Proprietor on Title' * The Party Type field has a value of 'Organisation'
+  remediation: Change the value of Party Type to 'Individual'
+- code: OB1405.120
+  message: The proprietor on title party <party id> cannot be updated as the full name details provided differ to
+    what is currently captured in PEXA
+  cause: The Proprietor on Title name does not match the legal entity name in PEXA.
+  remediation: Check the name related field values in PEXA Exchange and ensure that they are the same when using
+    the GivenName1 , Last Name within the Initiate Workspace Update API
+- code: OB1405.121
+  message: A party type must be provided to update party <party id> as they are currently an Indeterminate party
+    type in PEXA
+  cause: You are updating the Proprietor on Title who is of an indeterminate party type and you are not providing
+    a value for the Party Type field.
+  remediation: You need to explicitly update the Proprietor on Title by providing a value of 'Individual' to the
+    Party field within the Initiate Workspace Update API request.
+- code: OB1406.001
+  message: The financial settlement schedule is unable to be uploaded as the workspace status is locked
+  cause: Within your Upload Financial Settlement Line Items API request you are trying to update a workspace Id
+    that is already locked for settlement and has a workspace status of 'ready, ready'.
+  remediation: Within your Upload Financial Settlement Line Items API request try using a workspace Id that is not
+    locked for settlement and has a workspace status of in preparation.
+- code: OB1406.002
+  message: The source line item must not include destination account details
+  cause: Within your Upload Financial Settlement Line Items API request the accounts ('Preverified Account', 'Office
+    Account', 'Account', 'BPAY') have a value of 'Source' for the Line Item Type field while the value should be
+    'Destination' instead
+  remediation: Within your Upload Financial Settlement Line Items API request set the value of the Line Item Type
+    field to 'Destination'.
+- code: OB1406.004
+  message: The custom category description must only be provided if the financial line item category is 'Other'
+  cause: You have provided a value for the Category Description field while the value set for the Category field
+    is not 'Other' within the Upload Financial Settlement Line Items API request.
+  remediation: If you would like to provide a value to the Category Description field, then set the value of the
+    Category field to 'Other' within your Upload Financial Settlement Line Items API request.
+- code: OB1406.005
+  message: The account supplied cannot be found or it is not Verified in PEXA
+  cause: 'You have provided a value for the Source Account Description field within the Upload Financial Settlement
+    Line Items API request that is either: for a pre-verified account that cannot be found in PEXA is not a valid
+    account for sourcing is not in a status of ''Verified'' in PEXA'
+  remediation: Check the value for the Source Account Details field and ensure that it is valid before making a
+    Upload Financial Settlement Line Items API request.
+- code: OB1406.006
+  message: The subscriber must be registered to use the default PEXA settlement account
+  cause: You are using a Subscriber within the Upload Financial Settlement Line Items API request that is not registered
+    to use the default PEXA Settlement Account.
+  remediation: Retry your Upload Financial Settlement Line Items API request with a valid Subscriber that is registered
+    to use the default PEXA Settlement Account.
+- code: OB1406.008
+  message: The destination account must be a pre-verified account registered in PEXA
+  cause: You are using a destination account within the Upload Financial Settlement Line Items API request that
+    is not a pre-verified account registered in PEXA.
+  remediation: Ensure that the Subscriber Destination Account details provided within the Upload Financial Settlement
+    Line Items API request is pre-verified (check the Subscriber Setup) prior to making the request.
+- code: OB1406.009
+  message: The BPAY fields can only be provided if line item category is 'Third Party Beneficiary', 'Body Corporate
+    Fees', 'Council Rates' or 'Water Rates'
+  cause: You have provided values to the BPAY fields ( Biller Code , References , and Associated Subscriber ) although
+    the value for the Category field is not 'Third party Beneficiary', 'Body Corporate Fees', 'Council Rates' or
+    'Water Rates' within the Upload Financial Settlement Line Items API request.
+  remediation: Retry your call to the Upload Financial Settlement Line Items API by setting the value to the Category
+    field to either 'Third party Beneficiary', 'Body Corporate Fees', 'Council Rates' or 'Water Rates'.
+- code: OB1406.010
+  message: The account BSB cannot be matched to a Financial Institute
+  cause: You have provided a value to the AccountBSB field within the Upload Financial Settlement Line Items API
+    request that cannot be found in the BSB AusPayNet database.
+  remediation: Ensure that you have used a valid BSB value for the AccountBSB field within the Upload Financial
+    Settlement Line Items API request
+- code: OB1406.012
+  message: The line item cannot be uploaded based on the combination of workspace role, line item type and account
+    details provided
+  cause: You are uploading financial line item information within the Upload Financial Settlement Line Items API
+    request while being in the role of 'Applicant' however your role is combined with another role.
+  remediation: Ensure that the role of applicant is not a combination of two roles within your workspace prior to
+    uploading financial line item information within the Upload Financial Settlement Line Items API request.
+- code: OB1406.007
+  message: The destination account cannot be found
+  cause: You have provided a value for the Destination Description field within the Upload Financial Settlement
+    Line Items API request that cannot be found in PEXA.
+  remediation: Retry your call to the Upload Financial Settlement Line Items API using a valid value for the Destination
+    Description field.
+- code: OB1406.033
+  message: The client name must be provided for Source line items
+  cause: You have not provided a value for the Client Name field although you have set the value of the Type field
+    to 'Source' within the Upload Financial Settlement Line Items API request.
+  remediation: Ensure that you provide a value for the Client Name field within the Upload Financial Settlement
+    Line Items API request.
+- code: OB1406.034
+  message: The Destination line item does not required funds to be verified
+  cause: You have provided a value of 'Destination' for the Type field and have set the value of the Funds Verified
+    field to 'Yes' within the Upload Financial Settlement Line Items API request.
+  remediation: Retry the Upload Financial Settlement Line Items API request after you have set the value of the
+    Funds Verified field to 'No'
+- code: OB5103.F2.002
+  message: The BPAY Biller Code entered cannot be found.
+  cause: You have provided a BPAY Biller Code within the Upload Financial Settlement Line Items API request that
+    cannot be found in PEXA.
+  remediation: Ensure that you provide a valid BPAY Biller Code value within the Upload Financial Settlement Line
+    Items API request.
+- code: OB1406.036
+  message: The pre-verified trust account description is not unique in PEXA. Please review and update in PEXA.
+  cause: You have provided either a Pre-verified Source trust account description or a Pre-verified Destination
+    account description within the Upload Financial Settlement Line Items API request that is not unique in PEXA
+  remediation: Ensure that the Source or Destination Trust Account description you provide within the Upload Financial
+    Settlement Line Items API request is unique.
+- code: OB1406.037
+  message: The destination line item must not include source account details
+  cause: You have provided a value of 'Destination' for the Line Item Type field and have included a value for either
+    the DefaultAccount or the PreverifiedAccount field under the Source section within the Upload Financial Settlement
+    Line Items API request.
+  remediation: Ensure that you do not populate the fields (either the DefaultAccount or the PreverifiedAccount field)
+    under the Source section within the Upload Financial Settlement Line Items API request.
+- code: OB1406.041
+  message: The Transaction Description must not be provided for a PEXA Registered Source Account
+  cause: 'The request to the Upload Financial Settlement Line Items API has the following characteristics: The Type
+    field has a value of ''Source'' under the LineItem field. A value is provided to the DefaultAccount field under
+    the Source field. A value has been provided for the Transaction Description field'
+  remediation: Retry your call to the Upload Financial Settlement Line Items API after removing the value for the
+    Transaction Description field.
+- code: OB1406.042
+  message: The Transaction Description must not be provided for a BPAY Destination Account
+  cause: 'The request to the Upload Financial Settlement Line Items API has the following characteristics: The Type
+    field has a value of ''Destination'' under the LineItem field. The PreverifiedAccount field has a value of ''BPay''
+    under the Destination field A value is provided to the Description field under the Destination field.'
+  remediation: Retry your call to the Upload Financial Settlement Line Items API after removing the value for the
+    Transaction Description field.
+- code: OB1406.048
+  message: The Associated Subscriber must be provided for a Third-Party Beneficiary financial line item.
+  cause: 'The request to the Upload Financial Settlement Line Items API has the following characteristics: The Type
+    field has a value of ''Destination'' under the LineItem field. The Category field has a value of ''Third Party
+    Beneficiary'' A value is not provided for the AssociatedSubscriber field.'
+  remediation: Retry your call to the Upload Financial Settlement Line Items API after providing a value for the
+    AssociatedSubscriber field.
+- code: OB1406.049
+  message: The Associated Subscriber must not be provided for the Financial Line Item Category
+  cause: 'The request to the Upload Financial Settlement Line Items API has the following characteristics: * The
+    Type field has a value of ''Destination'' under the LineItem field. * The Category field has a value other than
+    ''Third Party Beneficiary'' * A value is provided for the AssociatedSubscriber field.'
+  remediation: Retry your call to the Upload Financial Settlement Line Items API after removing the value for the
+    AssociatedSubscriber field.
+- code: OB1407.001
+  message: The financial settlement schedule has not yet been created
+  cause: The Workspace settlement schedule has not yet been created in PEXA. For more information on preparing the
+    financial settlement schedule click here
+  remediation: Create the financial settlement schedule using the Upload Financial Settlement Line Items API and
+    ensure the workspace has a valid settlement date.
+- code: OB1407.002
+  message: The financial settlement statement can only be rendered once the participant has entered and is an owner
+    of a financial line item
+  cause: 'The Financial Settlement Statement cannot be retrieved if any one of the following conditions is not achieved:
+    The Sponsor subscriber has entered at least one Source or Destination Financial Line Item in the Financial Settlement
+    Schedule. The Sponsor subscriber has signed against the decision to Proceed or Not Proceed with Financial Settlement
+    in the event of Lodgement Technical Failure. The Sponsor subscriber is required to sign against Third Party
+    Beneficiary Destination Financial Line Item(s) that is owned by another Subscriber.'
+  remediation: Ensure that the conditions are satisfied before calling the the Upload Financial Settlement Line
+    Items API.
+- code: OB1408.001
+  message: The lodgement documents are only available when documents have been lodged
+  cause: Within your Retrieve Lodged PEXA Workspace Documents API request, you are trying to access documents for
+    a workspace that are not yet lodged.
+  remediation: Try again when the workspace status is 'Complete'. Click here for information on workspace status.
+- code: OB1408.002
+  message: The lodgement documents are not available as the workspace has been Archived or Abandoned
+  cause: Within your Retrieve Lodged PEXA Workspace Documents API request, you are trying to retrieve documents
+    for a workspace that has a status of Archived or Abandoned.
+  remediation: Try using a different workspace within your Retrieve Lodged PEXA Workspace Documents API request
+    where the workspace status is 'Completed'. Click here for information on workspace status.
+- code: OB1411.012
+  message: The last event timestamp must not be in the future
+  cause: 'Within your Retrieve Notifications API request you have provided a last event timestamp in the future.
+    Example: lastEventTimestamp=2025-04-25T23:05:03.639Z'
+  remediation: Within your Retrieve Notifications API request provide a timestamp within the past 30 days.
+- code: OB1411.013
+  message: The last event timestamp must not be more than 30 days in the past
+  cause: 'Within your Retrieve Notifications API request you have provided a last event timestamp greater than 30
+    days in the past. Example: lastEventTimestamp=1967-04-25T23:05:03.639Z'
+  remediation: Within your Retrieve Notifications API request provide a timestamp within the past 30 days.
+- code: OB1411.014
+  message: The last event timestamp does not correspond with last event ID
+  cause: Within your Retrieve Notifications API request you have provided a last event ID that does not correspond
+    to the last event timestamp.
+  remediation: Within your Retrieve Notifications API request provide the last event ID and last event timestamp
+    which was provided in the previous notification response from PEXA. If a last event ID has yet to be obtained,
+    provide the value of 0.
+- code: OB1411.016
+  message: The last event ID cannot be found in PEXA
+  cause: Within your Retrieve Notifications API request you have provided a last event ID that is not recognised
+    by PEXA.
+  remediation: Within your Retrieve Notifications API request provide the last event ID which was provided in the
+    previous notification response from PEXA. If a last event ID has yet to be obtained, provide the value of 0.
+- code: OB1411.018
+  message: The PEXA subscriber status for the subscriber Id provided is suspended or terminated.
+  cause: You are using a Subscriber that is suspended or terminated in PEXA.
+  remediation: Ensure that the PEXA Subscriber has a valid status prior to calling the Retrieve Notifications API.
+- code: OB1411.019
+  message: The last event timestamp must not be in the last 10 seconds
+  cause: Within your Retrieve Notifications API request you have provided a last event ID that is within 10 seconds
+    of the current time.
+  remediation: Check if the value to the Last Event timestamp field within your Retrieve Notifications API request
+    does not have a value that is within 10 seconds of the current time.
+- code: OB1411.020
+  message: The subscriber is not authenticated/authorised
+  cause: 'This is exception is only applicable if you are using Mutual TLS. Any one or more of the following conditions
+    may lead to this exception: Within your Retrieve Notifications API request, you have provided an incorrect subscriber
+    ID The SSL certificate does not correspond to the subscriber ID The SSL certificate passed in the call is invalid
+    (i.e. the certificate number is invalid or cannot be found)'
+  remediation: 'Within your Upload Financial Settlement Line Items API request please do one or more of the following:
+    * Use the subscriber ID provided by the PEXA API team for your testing purposes. It has been set up to directly
+    to correlate with your certificate. * Please check whether the SSL certificate passed within your API request
+    is the same certificate you provided to PEXA'
+- code: OB1412.009
+  message: The invite Id cannot be found in PEXA.
+  cause: You have provided a value to the InviteId field within the Respond to Invitation Received API which cannot
+    be found in PEXA.
+  remediation: Ensure that you use a valid value to the InviteId field within the Respond to Invitation Received
+    API request.
+- code: OB1412.010
+  message: The invitation response has already been received
+  cause: You have provided a value to the InviteId field within the Respond to Invitation Received API that corresponds
+    to a invitation that had already been responded to (either accepted or declined).
+  remediation: Ensure that you use a valid value to the InviteId field within the Respond to Invitation Received
+    API request. There is no further action on an invitation that has already been responded to.
+- code: OB1412.011
+  message: The subscriber Id provided is not authorised to respond to the invitation
+  cause: You have provided a value to the InviteId field within the Respond to Invitation Received API for which
+    you are not authorised to respond to.
+  remediation: Ensure that you are authorised to respond to the invitation mentioned in the InviteId field within
+    the Respond to Invitation Received API request.
+- code: OB1412.023
+  message: The invitation has been withdrawn.
+  cause: You have provided a value to the InviteId field within the Respond to Invitation Received API that corresponds
+    to an invitation that has been withdrawn (i.e. the subscriber that sent the invitation has withdrawn his/her
+    invitation) in PEXA.
+  remediation: Ensure that you use a valid value to the InviteId field within the Respond to Invitation Received
+    API request. An invitation that has been withdrawn cannot be responded to.
+- code: OB1412.024
+  message: The invitation is for a workspace which has been abandoned.
+  cause: You have provided a value to the InviteId field within the Respond to Invitation Received API that corresponds
+    to a workspace that has been abandoned in PEXA.
+  remediation: Ensure that you use a valid value to the InviteId field within the Respond to Invitation Received
+    API request. An invitation for a workspace that has been abandoned cannot be responded to.
+- code: OB1414.006
+  message: The settlement details must not be provided for the chosen settlement action type
+  cause: You have provided values for the Settlement Details fields and have provided a value of 'Accept' or 'Reset
+    to pending' for the Settlement Action Type field within your Maintain Settlement Date and Time API request
+  remediation: Within your Maintain Settlement Date and Time API request remove the values for the Settlement Details
+    fields.
+- code: OB1414.007
+  message: The settlement details must be provided for the chosen settlement action type
+  cause: Within your Maintain Settlement Date and Time API request the Settlement Action Type is 'Propose new date
+    and time' and the settlement date and time and reason fields are not populated.
+  remediation: Within the Maintain Settlement Date and Time API request add the settlement date and time and reason.
+- code: OB1414.009
+  message: The participant settlement acceptance status is already accepted
+  cause: Within your Maintain Settlement Date and Time API request the Settlement Action Type is 'Accept' and the
+    subscriber participant settlement acceptance status is already accepted.
+  remediation: No further action required.
+- code: OB1414.010
+  message: The participant settlement acceptance status is already pending
+  cause: Within your Maintain Settlement Date and Time API request the Settlement Action Type is 'Reset' and the
+    subscriber participant settlement acceptance status is already pending.
+  remediation: No further action required.
+- code: OB1414.011
+  message: The settlement date and time proposed is the same as the settlement date and time already set in the
+    workspace
+  cause: Within your Maintain Settlement Date and Time API request your Settlement Action Type is 'Propose new date
+    and time' and the settlement date and time matches the current date and time already in the PEXA workspace.
+  remediation: Within your Maintain Settlement Date and Time API request provide a settlement date and time value
+    that is not the same as the value already in the workspace.
+- code: OB1414.012
+  message: The settlement time selected is not available and there are no other time slots available on the date
+    provided
+  cause: Within your Maintain Settlement Date and Time API request the settlement date and time you have proposed
+    is fully booked, and all other time slots are also booked for the proposed date.
+  remediation: Within your Maintain Settlement Date and Time API request provide a new settlement date and time.
+- code: OB1414.014
+  message: The settlement time selected is not available, please retrieve the list of available settlement times
+    for this date and retry
+  cause: Within your Maintain Settlement Date and Time API request the settlement time you have proposed is not
+    available.
+  remediation: '[STEP 1]. Within your Maintain Settlement Date and Time API request ensure that your timeslot is
+    either on the hour, or every half hour and seconds and milliseconds are zero. If this is not the case, try step
+    2. [STEP 2]. Retrieve Settlement Availability API will provide a list of available time slots for the day. Once
+    retrieved, use one of the available timeslots within your request.'
+- code: OB1414.015
+  message: The participant settlement acceptance status provided conflicts with the subscriber settlement date and
+    time acceptance profile settings
+  cause: When the Subscriber profile for settlement acceptance is set to either 'Automatically accept all changes
+    to the settlement date and time' or 'Automatically accept unless changes have been made by other participants'
+    and you attempt to call the Maintain Settlement Date and Time API with the ParticipantSettlementAcceptanceStatus
+    field set to 'Pending'
+  remediation: Verify that you have the right value set for settlement acceptance within the Subscriber profile
+    page.
+- code: OB1414.016
+  message: The participant settlement acceptance status must be provided based on the subscriber settlement date
+    and time acceptance profile settings
+  cause: 'The request to the Maintain Settlement Date and Time has the following characteristics: The Subscriber’s
+    Settlement Date and Time Acceptance is set to ''Prompt my users to specify their acceptance after entering a
+    settlement date and time'' The subscriber settlement date and time default (for an existing workspace) is set
+    to ''No default'' The Participant Settlement Acceptance Status field does not have a value populated'
+  remediation: Within your Maintain Settlement Date and Time API request provide a value for the Participant Settlement
+    Acceptance Status field.
+- code: OB1414.018
+  message: The settlement date and time currently set in the workspace must be provided for the chosen settlement
+    action type
+  cause: Within your Maintain Settlement Date and Time API request, the Settlement Action Typ field is set to 'Accept'
+    or 'Reset' and the settlement date and time existing in the workspace has not been provided through the request
+    .
+  remediation: Within your Maintain Settlement Date and Time API request add the settlement date and time that is
+    already existing in your PEXA workspace.
+- code: OB1414.019
+  message: The current settlement date and time provided does not match the settlement date and time in PEXA
+  cause: Within your Maintain Settlement Date and Time API request the settlement date and time provided is different
+    to the settlement date and time within your existing PEXA workspace.
+- code: OB1414.020
+  message: The settlement date and time cannot be changed as the workspace status is locked
+  cause: Within your Maintain Settlement Date and Time API request, you are trying to update a workspace Id that
+    is already locked for settlement and has a workspace status of 'ready, ready'.
+  remediation: Within your Maintain Settlement Date and Time API request try using a workspace Id that is not locked
+    for settlement and has a workspace status of 'in preparation'.
+- code: OB1414.021
+  message: The workspace currently does not have a settlement date and time set in PEXA
+  cause: Within your Maintain Settlement Date and Time API request the Settlement Action Type field is set to 'Accept'
+    or 'Reset' and the settlement date and time is not populated.
+  remediation: Within your Maintain Settlement Date and Time API request add the settlement date and time.
+- code: OB1418.005
+  message: The subscriber creating the invitation cannot be in the role of <role type>
+  cause: Within your Create Workspace Invitation API request the Participant Role is set to an incorrect role type
+    of 'Applicant' or 'Source Funder'.
+  remediation: Within your Create Workspace Invitation API request update your Participant Role to any valid value
+    apart from 'Applicant' and 'Source Funder'
+- code: OB1418.007
+  message: The invitee subscriber has already joined the workspace in the role provided
+  cause: Within your API request you are trying to invite someone who has already joined the workspace.
+  remediation: No further action.
+- code: OB1418.012
+  message: The invitation cannot be sent as the maximum number of active participants allowed in a workspace has
+    been reached
+  cause: Within your Create Workspace Invitation API request you are trying to invite someone to join the workspace
+    but there are already 10 active participants in the workspace and the maximum participants has been reached.
+  remediation: A participant would need to withdraw from the workspace for another participant to be added.
+- code: OB1418.013
+  message: The invitation cannot be sent as the workspace is locked
+  cause: Within your Create Workspace Invitation API request you are trying to send invitations for a workspace
+    identified by workspace Id that is already locked for settlement and has a workspace status of 'ready, ready'.
+  remediation: Within your Create Workspace Invitation API request try using a workspace Id that is not locked for
+    settlement and has a workspace status of 'in preparation'.
+- code: OB1418.014
+  message: The invitation cannot be sent as the workspace has been abandoned or archived
+  cause: Within your Create Workspace Invitation API request you are trying to send invitations for a workspace
+    identified by workspace Id that been Archived or Abandoned
+  remediation: Within your Create Workspace Invitation API request try using a workspace Id that is not Archived
+    or Abandoned.
+- code: OB1418.015
+  message: The invitation cannot be sent as the initiating subscriber is not an active participant in the workspace
+  cause: Within your Create Workspace Invitation API request you are trying to send invitations for a workspace
+    identified by workspace Id that you are not currently participating in.
+  remediation: Within your Create Workspace Invitation API request try using a workspace Id that corresponds to
+    a Workspace in which you are an active participant.
+- code: OB1418.016
+  message: The invitee subscriber cannot be found
+  cause: Within your Create Workspace Invitation API request you are trying to send an invitation to a Subscriber
+    identified by the Participant Subscriber Id field that is invalid and cannot be found in PEXA.
+  remediation: Within your Create Workspace Invitation API request try using a valid Participant Subscriber Id that
+    is available in PEXA.
+- code: OB1418.017
+  message: The invitee subscriber is suspended or terminated
+  cause: Within your Create Workspace Invitation API request you are trying to send an invitation to a Subscriber
+    identified by the Participant Subscriber Id field that has a subscriber status of 'Suspended' or 'Terminated'
+  remediation: Within your Create Workspace Invitation API request try using a valid Participant Subscriber Id that
+    is active in PEXA.
+- code: OB1418.018
+  message: The invitee subscriber is not active in the jurisdiction of the workspace
+  cause: Within your Create Workspace Invitation API request you are trying to send an invitation to a Subscriber
+    identified by the Participant Subscriber Id field that is not active in the Jurisdiction of the Workspace.
+  remediation: No action required.
+- code: OB1418.019
+  message: The invitee subscriber has already been invited to join the workspace in the role provided
+  cause: Within your Create Workspace Invitation API request you are trying to send an invitation to a Subscriber
+    identified by the Participant Subscriber Id field has already been invited to join the workspace in the role
+    provided
+  remediation: No action required.
+- code: OB1415.001
+  message: Available time slot is unable to be returned as the workspace status is locked
+  cause: Within your Retrieve Settlement Availability API request you are trying to retrieve an available time slot
+    for a workspace identified by workspace Id that is already locked for settlement and has a workspace status
+    of 'ready, ready'.
+  remediation: Within your Retrieve Settlement Availability API request, try using a workspace Id that corresponds
+    to a Workspace that is not locked for settlement and has a workspace status of 'in preparation'.
+- code: OB1415.002
+  message: The subscriber is not a participant of the workspace
+  cause: Within your Retrieve Settlement Availability API request you are trying to retrieve settlement availability
+    for a workspace identified by workspace Id that you are not currently participating in.
+  remediation: Within your Retrieve Settlement Availability API request, try using a workspace Id that corresponds
+    to a Workspace that you are currently participating in.
+- code: OB1415.006
+  message: The workspace id and jurisdiction must not be provided together
+  cause: Within your Retrieve Settlement Availability API request you have provided both workspace ID and jurisdiction
+    information together which is not allowed.
+  remediation: Within your Retrieve Settlement Availability API request, provide either the workspace ID or jurisdiction.
+- code: OB1415.007
+  message: Either a workspace Id or jurisdiction must be provided
+  cause: Within your Retrieve Settlement Availability API request you have not provided either the workspace ID
+    or jurisdiction information.
+  remediation: Within your Retrieve Settlement Availability API request, provide either the workspace ID or jurisdiction.
+- code: OB1419.032
+  message: The safety switch details must not be populated based on the selected current land use
+  cause: You have set the value for Current Land Use to 'Vacant Land' and have also provided the Safety Switch details
+    within your Manage Default Workspace Data API request.
+  remediation: Remove the values provided for Safety Switch and retry you call to the Manage Default Workspace Data
+    API.
+- code: OB1419.033
+  message: The smoke alarm details must not be populated based on the selected current land use
+  cause: You have set the value for Current Land Use to 'Vacant Land' and have also provided the Smoke Alarm details
+    within your Manage Default Workspace Data API request.
+  remediation: Remove the values provided for Smoke Alarm and retry you call to the Manage Default Workspace Data
+    API.
+- code: OB1419.034
+  message: The workspace data cannot be modified as the workspace status is locked
+  cause: Within your Manage Default Workspace Data API request you are trying to modify a workspace identified by
+    workspace Id that is already locked for settlement and has a workspace status of 'ready, ready'.
+  remediation: Within your Manage Default Workspace Data API request try using a workspace Id that corresponds to
+    a Workspace that is not locked for settlement and has a workspace status of 'in preparation'.
+- code: OB1419.035
+  message: The workspace data cannot be modified as the workspace has been abandoned or archived
+  cause: Within your Manage Default Workspace Data API request you are trying to modify a workspace identified by
+    workspace Id that has been Archived or Abandoned.
+  remediation: Within your Manage Default Workspace Data API request try using a workspace Id that corresponds to
+    a Workspace that is not Archived or Abandoned.
+- code: OB1420.005
+  message: The duty data cannot be modified as the initiating subscriber is not an active participant in the workspace
+  cause: You are trying to modify duty data through the Manage Transfer Duty Data API for a workspace identified
+    by workspace Id that you are not currently participating in.
+  remediation: Within your Manage Transfer Duty Data API request try using a workspace Id that corresponds to a
+    Workspace that you are currently participating in.
+- code: OB1420.006
+  message: The duty data cannot be modified as no transfer document exists in the workspace
+  cause: You are trying to modify duty data through the Manage Transfer Duty Data API for a workspace identified
+    by workspace Id that has no transfer documents existing within it.
+  remediation: Create a transfer document within the workspace and retry your Manage Transfer Duty Data API request.
+- code: OB1420.007
+  message: The document ID <doc id> provided is not associated to a transfer document in the workspace
+  cause: Within your Manage Transfer Duty Data API request you are trying to modify duty data but the value you
+    have provided for the DocumentId field does not match the transfer documents that exists within the workspace.
+  remediation: Within your Manage Transfer Duty Data API request ensure that the value provided for the DocumentId
+    field matches the transfer document within the workspace.
+- code: OB1420.008
+  message: The revenue office transaction ID cannot be updated based on the jurisdiction of the workspace.
+  cause: Within your Manage Transfer Duty Data API request you are trying to modify the value of the RevenueOfficeTransactionId
+    field (add/update) for a workspace in a jurisdiction that does not support the 'data matching' OSR model - e.g.
+    the workspace must be in the jurisdiction of NSW, WA or SA.
+  remediation: Ensure that the workspace is a jurisdiction (NSW, WA or SA) where the Practitioner must prepare a
+    stamp duty assessment in the OSR duties system and then obtain an OSR Transaction ID (prior to settlement).
+notification_errors:
+- code: GA.NOTIF.400000
+  message: 'Invalid UUID string: 123'
+  cause: The UUID string you have included in your response or path parameter is not valid.
+  remediation: Please ensure this UUID is valid or in the correct format eg. 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42
+- code: GA.NOTIF.400009
+  message: Subscriber Id is missing
+  cause: We couldn’t retrieve the subscriber ID from the provided token.
+  remediation: Please check the token includes the correct subscriberId, if you are still having issues please contact
+    the PEXA API support team here
+- code: GA.NOTIF.400012
+  message: Webhook URI is invalid
+  cause: The provided Webhook URI is invalid.
+  remediation: Please verify that the Webhook URI is a valid URL.
+- code: GA.NOTIF.400013
+  message: Event type list is empty
+  cause: The list of event types is empty.
+  remediation: Please review the full Event Catalogue on the developer portal and ensure that you include at least
+    one event type in your payload.
+- code: GA.NOTIF.400014
+  message: Domain not whitelisted
+  cause: The webhook domain has not been whitelisted.
+  remediation: Please ensure your domain is whitelisted with PEXA. If you have any queries please contact the API
+    support team here
+- code: GA.NOTIF.400015
+  message: Event type list is invalid
+  cause: The request includes list of event types that are invalid.
+  remediation: Please review and correct the event type list in your payload.
+- code: GA.NOTIF.400016
+  message: Event type list has duplicates
+  cause: The request includes duplicate eventTypes.
+  remediation: Please check your request and remove any duplicate event types.
+- code: GA.NOTIF.400017
+  message: Invalid format provided
+  cause: The format provided is invalid.
+  remediation: Please ensure that the data format matches the expected format specified in the API documentation.
+    Double-check the structure and data types of your payload.
+- code: GA.NOTIF.400018
+  message: Invalid JSON
+  cause: There was an error parsing your JSON payload.
+  remediation: Please verify that your JSON payload is correctly formatted. Check for common issues like missing
+    commas, brackets, or quotation marks.
+- code: GA.NOTIF.400019
+  message: Duplicate registration
+  cause: A registration with this combination already exists.
+  remediation: Please review your submission to ensure the registration details are unique. Check for any existing
+    registrations with the same information and modify your submission if necessary. If you need further assistance,
+    please contact the PEXA API support team here
+- code: GA.NOTIF.401004
+  message: Unauthorized
+  cause: You are not authorized to use the API endpoint. Please check that you have a valid token.
+  remediation: Please check that the access token is valid. Otherwise please call the identity provider API to get
+    a new token with the right access.
+- code: GA.NOTIF.403003
+  message: Forbidden
+  cause: You have used a valid access token but don’t have access to call this API endpoint.
+  remediation: Please check that you have included the right scopes to access this API endpoint. If you are still
+    having issues please contact the PEXA API support team here
+- code: GA.NOTIF.404007
+  message: 'Registration not found for given id: 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42'
+  cause: We cannot update, delete or rotate shared secret for the registration provided because the id is not found.
+  remediation: Please check you have provided the correct registrationId that was returned when you created the
+    registration.
+- code: GA.NOTIF.400020
+  message: 'Mandatory event types are missing: [\"SECRET_EXPIRY\"]'
+  cause: When creating a registration you have not included the SECRET_EXPIRY event which is mandatory. You need
+    need to have this event which will send notifications to you about secret expiry and the need to rotate your
+    secret.
+  remediation: Please add "SECRET_EXPIRY" event along with one business event as minimum for any new registration.
+- code: GA.NOTIF.400021
+  message: There should be at least one more event present apart from mandatory event(s)
+  cause: When creating a registration you have not included at least one business event other than the mandatory
+    SECRET_EXPIRY event
+  remediation: Please look over the list of business events in the PEXA Webhook Event Catalogue and add at least
+    one event to your registration eg. "WORKSPACE_ROLE_ADDED"

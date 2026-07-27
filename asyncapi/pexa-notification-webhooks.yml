@@ -1,0 +1,366 @@
+generated: '2026-07-26'
+method: searched
+source: https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+spec_type: Webhooks
+asyncapi: null
+asyncapi_note: PEXA publishes no AsyncAPI document. The event surface is contractually declared instead as a top-level
+  OpenAPI 3.1 webhooks block (SubscriberNotification, NonSubscriberNotification) in openapi/pexa-notification-service-openapi.yaml,
+  plus the prose Event Catalogue captured below. No AsyncAPI was fabricated.
+openapi: openapi/pexa-notification-service-openapi.yaml
+service:
+  name: PEXA Push Notifications Service (PEXA Webhooks)
+  billing: premium, billed API - contact apisupport@pexa.com.au
+  registration_base: https://{API_SERVER_URL}/notification/v1/notification-registrations
+  hosts:
+    production: https://api.pexa.com.au
+    test: https://api-tst.pexalabs.com.au
+  model: self-serve registration; the customer selects the eventTypes it wishes to receive
+  pii: PEXA states the webhook feature does not surface any Personally Identifiable Information (PII)
+delivery:
+  transport: HTTPS POST to a customer-defined webhookURI (HTTPS only)
+  domain_allowlist: the webhookURI domain must be whitelisted by PEXA during onboarding; a mismatch fails registration
+    (GA.NOTIF.400014)
+  acknowledgement_window: acknowledge within 5 seconds
+  success: any 2xx - no further action
+  hard_failure: 3xx and 4xx are hard failures; no retry. PEXA can manually re-trigger on request
+  retriable: 500, 502, 503, 504 - exponential backoff
+  retry_schedule:
+  - delay: 5 seconds
+    since_initial: 00:00:05
+  - delay: 5 minutes
+    since_initial: 00:05:05
+  - delay: 30 minutes
+    since_initial: 00:35:05
+  - delay: 2 hours
+    since_initial: 02:35:05
+  - delay: 5 hours
+    since_initial: 07:35:05
+  - delay: 10 hours
+    since_initial: '17:35:05'
+headers:
+- name: webhook-id
+  description: UUID of the webhook event. Stable across retries. PEXA documents it as the idempotency key consumers
+    use to avoid processing the same event twice.
+- name: webhook-timestamp
+  description: Unix UTC milliseconds for the delivery attempt; updated on each retry as a replay-attack countermeasure.
+- name: webhook-signature
+  description: Space-delimited list of 'v1,<hex HMAC-SHA256>' signatures. During secret rotation both the new and
+    the old signature are sent for 24 hours.
+- name: Authorization
+  description: Bearer {access_token} - present only for HMAC_OAUTH registrations; the token is issued by the CUSTOMER
+    auth server to PEXA.
+security:
+  signature:
+    algorithm: HMAC-SHA256
+    signed_string: webhook-id.webhook-timestamp.payload (full-stop delimited)
+    encoding: hex, prefixed with the version identifier v1
+    standard: https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md
+  authentication_modes:
+  - mode: HMAC
+    description: Shared-secret HMAC-SHA256 signature only. Default; the mode legacy V1 registrations fall back to.
+  - mode: HMAC_OAUTH
+    description: Dual layer - PEXA obtains an OAuth 2.0 client-credentials token from the CUSTOMER token endpoint
+      before each delivery and sends it alongside the HMAC signature. Client auth is private_key_jwt (AWS KMS RSA,
+      PS256) or client_secret. Introduced with the V3 registration endpoints.
+  mtls: Optional additional transport layer, available only for HMAC_OAUTH registrations; applies to both the token
+    request and the webhook delivery. Onboarded via apisupport@pexa.com.au.
+  shared_secret:
+    lifetime_days: 30
+    rotation_endpoint: POST /v1/notification-registrations/{registrationId}/secret-rotation
+    rotation_scope: create:notification_registrations_secret_rotation
+    warning_event: SECRET_EXPIRY is emitted 7 days before expiry and daily thereafter until rotated
+    overlap: the previous secret remains valid for 24 hours after rotation
+    consequence: all registrations are deleted on secret expiry
+  token_caching: PEXA caches customer-issued access tokens until expiry minus a 60-second buffer; if the customer
+    token endpoint omits expires_in the token is not cached.
+payload:
+  schema: 'openapi/pexa-notification-service-openapi.yaml#/components/schemas/SubscriberNotificationPayload and
+    #/components/schemas/NonSubscriberNotificationPayload'
+  type_format: <EventCategory>.<EventName> - e.g. Lodgement.LODGEMENT_REGISTERED, Workspace.CHECKLIST_CHECKED
+  categories_observed_in_published_examples:
+  - Lodgement
+  - Settlement
+  - Workspace
+  - Notification
+  fields:
+  - timestamp
+  - type
+  - data.workspaceId
+  - data.subscriberId
+  - data.subscriberReferences[]
+  - data.additionalReferences[]
+  - data.links[] (HATEOAS callbacks back into the Exchange API)
+registration_operations:
+- operationId: createNotificationRegistration
+  method: POST
+  path: /v1/notification-registrations
+  scope: create:notification_registrations
+- operationId: createNotificationRegistrationV3
+  method: POST
+  path: /v3/notification-registrations
+  scope: create:notification_registrations
+  note: adds authenticationMode + authConfig (HMAC_OAUTH)
+- operationId: getNotificationRegistrationsV2
+  method: GET
+  path: /v2/notification-registrations
+  scope: view:notification_registrations
+  note: 'paged: page (min 1, default 1), limit (1-20, default 10), optional registrationId'
+- operationId: updateNotificationRegistration
+  method: PUT
+  path: /v1/notification-registrations/{registrationId}
+  scope: edit:notification_registrations
+- operationId: updateNotificationRegistrationV3
+  method: PUT
+  path: /v3/notification-registrations/{registrationId}
+  scope: edit:notification_registrations
+- operationId: deleteNotificationRegistration
+  method: DELETE
+  path: /v1/notification-registrations/{registrationId}
+  scope: delete:notification_registrations
+- operationId: createNotificationSecretRotation
+  method: POST
+  path: /v1/notification-registrations/{registrationId}/secret-rotation
+  scope: create:notification_registrations_secret_rotation
+webhooks:
+- name: SubscriberNotification
+  operationId: SubscriberNotification
+  payload: SubscriberNotificationPayload
+  audience: PEXA subscribers
+  source: openapi/pexa-notification-service-openapi.yaml#/webhooks
+- name: NonSubscriberNotification
+  operationId: NonSubscriberNotification
+  payload: NonSubscriberNotificationPayload
+  audience: non-subscriber integrators (e.g. brokers)
+  source: openapi/pexa-notification-service-openapi.yaml#/webhooks
+mandatory_event_types:
+- SECRET_EXPIRY
+event_count: 110
+events:
+- event: LODGEMENT_REGISTERED
+  trigger: Lodgement request succeeds and Document is now registered by the Land Registry
+- event: SETTLEMENT_COMPLETED_BETWEEN_ESA
+  trigger: A workspace has successfully completed the settlement of funds between ESAs
+- event: SECRET_EXPIRY
+  trigger: Sent 7 days prior to expiry and subsequently every day until the sharedSecret key is rotated by the customer
+- event: PPN_LODGEMENT_RESPONSE_RECEIVED
+  trigger: Receive Purchaser Payment Notification Lodgement Response with no errors
+- event: PPN_LODGEMENT_RESPONSE_BUSINESS_ERRORS
+  trigger: Receive Purchaser Payment Notification Lodgement Response with errors (business errors)
+- event: PPN_LODGEMENT_RESPONSE_TECH_ERRORS
+  trigger: Receive Purchaser Payment Notification Lodgement Response with errors (technical errors not including
+    timeout)
+- event: PPN_VERIFICATION_RESPONSE_RECEIVED
+  trigger: Receive Purchaser Payment Notification Verification Response with no errors.
+- event: PPN_VERIFICATION_RESPONSE_TECH_ERRORS
+  trigger: Receive Purchaser Payment Notification Verification Response with errors (technical errors not including
+    timeout)
+- event: PEXA_KEY_TRUST_ACCOUNT_SENT
+  trigger: PEXA Key Trust Account details request sent.
+- event: PEXA_KEY_TRUST_ACCOUNT_SENT_FAILED
+  trigger: PEXA Key Trust Account details request failed.
+- event: PEXA_KEY_PEXA_SOURCE_ACCOUNT_SENT
+  trigger: PEXA Key Source Account details request sent.
+- event: GST_FORM1_LODGEMENT_RESPONSE_SUCCESSFUL
+  trigger: GST Form 1 receives successful lodgement response.
+- event: GST_FORM2_LODGEMENT_RESPONSE_SUCCESSFUL
+  trigger: GST Form 2 receives successful lodgement response.
+- event: GST_FORM1_REMOVAL
+  trigger: GST Form 1 removal.
+- event: MESSAGE_RECEIVED
+  trigger: Message Received
+- event: DOCUMENT_STATUS_UPDATED
+  trigger: Document Status Updated
+- event: DOCUMENT_UNSIGNED
+  trigger: Document Unsigned
+- event: DOCUMENT_DELETED
+  trigger: Document Deleted
+- event: DOCUMENT_SIGNED
+  trigger: Document Signed
+- event: DOCUMENT_CREATED
+  trigger: Document Created
+- event: DOCUMENT_EDITED
+  trigger: A document in a workspace is edited and saved
+- event: DOCHUB_FILE_UPLOADED
+  trigger: New file uploaded to DocHub
+- event: DOCHUB_FILE_DELETED
+  trigger: DocHub file deleted
+- event: DISCHARGE_AUTHORITY_UPLOADED
+  trigger: Discharge Authority has been uploaded
+- event: LODGEMENT_REQUEST_FAILED
+  trigger: Lodgement Request Failed
+- event: LODGEMENT_VERIFICATION_WITH_ERRORS
+  trigger: Lodgement Verification With Errors
+- event: LODGEMENT_VERIFICATION_WITH_WARNINGS
+  trigger: Lodgement Verification With Warnings
+- event: LODGEMENT_LODGED
+  trigger: Lodgement lodged
+- event: NUMBER_RECEIVED_AFTER_LODGEMENT
+  trigger: Dealing Number received for Document - After Lodgement
+- event: PARTY_ADDED_TO_WORKSPACE
+  trigger: Party Added To The Workspace
+- event: PARTY_DELETED
+  trigger: Party Deleted
+- event: PARTY_DETAILS_UPDATED
+  trigger: Party Details Updated
+- event: PARTY_REMOVED_FROM_WORKSPACE
+  trigger: Party Deleted From The Workspace
+- event: PARTY_CREATED
+  trigger: Party Created
+- event: PARTY_UPDATED
+  trigger: Party Updated
+- event: AUTO_BALANCING_AMOUNT_BREACH
+  trigger: The auto-balancing source line item cannot auto-balance as the maximum amount has been reached
+- event: FINANCIAL_LINE_ITEM_TOTAL_UPDATED
+  trigger: Financial Line Item Destination changed
+- event: LOAN_PAYOUT_LINE_ITEM_CREATED
+  trigger: Destination Source Line Item is created with category of Loan Payout
+- event: LOAN_PAYOUT_LINE_ITEM_REMOVED
+  trigger: Existing Destination Line item with category of Loan Payout has been removed from financial settlement
+    schedule
+- event: LOAN_PAYOUT_LINE_ITEM_UPDATED
+  trigger: Existing Destination Line item with category of Loan Payout has been edited
+- event: READY_FOR_SHORTFALL_UPDATE
+  trigger: Financial line item entries marked as 'Ready for shortfall' by user.
+- event: READY_FOR_SURPLUS
+  trigger: Financial line item entries marked as 'Ready for surplus' by user.
+- event: READY_TO_BOOK_NO_LONGER_APPLICABLE
+  trigger: Workspace is no longer following the Ready to Book process
+- event: READY_TO_BOOK_SETTLEMENT_BOOKED
+  trigger: PEXA has booked a settlement date and time for the Workspace
+- event: SETTLEMENT_ACCEPTED_BY_PARTICIPANT
+  trigger: Settlement date and time has been accepted by the participant
+- event: SETTLEMENT_DATETIME_UPDATED
+  trigger: Settlement Date/Time Updated
+- event: SETTLEMENT_FAILED_NOT_READY_FI
+  trigger: Settlement Failed Due To Not Ready
+- event: SETTLEMENT_REMOVED
+  trigger: Financial Settlement has been removed
+- event: SETTLEMENT_STATEMENT_SIGNED
+  trigger: Settlement Statement Signed
+- event: SETTLEMENT_STATEMENT_UNSIGNED
+  trigger: Settlement Statement Unsigned
+- event: SETTLEMENT_SUCCEEDED
+  trigger: Settlement Succeeded
+- event: SETTLEMENT_STATUS_CHANGED
+  trigger: Settlement Status Changed
+- event: FINANCIAL_LINE_ITEM_UPDATED
+  trigger: Financial Line Item Updated
+- event: FINANCIAL_LINE_ITEM_DELETED
+  trigger: Financial Line Item Deleted
+- event: FINANCIAL_LINE_ITEM_UNVERIFIED
+  trigger: Generated when manual or auto verification of a line item is undone. Applies to both PEXA Source Account
+    and Trust Account Source Line Items.
+- event: FINANCIAL_LINE_ITEM_VERIFIED
+  trigger: Generated when manual verification of line items happens at PEXA. Applies only to Trust Account Source
+    Line Items.
+- event: FINANCIAL_LINE_ITEM_VERIFIED_BY_PEXA
+  trigger: Generated when PEXA Ops team verifies the funds via dashboard or auto by system. Applies only to PEXA
+    Source Account Line Items.
+- event: SETTLEMENT_FAILED
+  trigger: Settlement Failed
+- event: TAC_WORKSPACE_NOT_READY
+  trigger: Workspace is not in 'Ready' status even though settlement is due to occur within an hour
+- event: LINKED_LODGEMENT_REMOVE
+  trigger: Linked lodgement has been removed from the workspace
+- event: SETTLEMENT_FRS_AMOUNT_CHANGED
+  trigger: Total Funds Required to Settle Changed
+- event: SETTLEMENT_HAS_COMMENCED
+  trigger: A workspace has initiated and workspace status is updated to Settling
+- event: READY_FOR_SHORTFALL
+  trigger: Financial line item entries marked as 'Ready for shortfall' by user.
+- event: STAMPDUTY_VERIFIED
+  trigger: Stamp Duty Verification result is received with no errors or warnings.
+- event: STAMPDUTY_VERIFICATION_ERROR
+  trigger: Stamp Duty Verification result is received with errors.
+- event: STAMPDUTY_VERIFICATION_WARNING
+  trigger: Stamp Duty Verification result is received with warnings.
+- event: TAC_HOURPRIOR_FAILED
+  trigger: TAC batch not been able to be completed for a workspace prior to settlement due to a technical error
+- event: TAC_HOURPRIOR_FAILED_FOR_LINKED
+  trigger: TAC batch not been able to be completed for a workspace prior to settlement due to a technical error.
+    The workspace participants of the linked workspace are notified that a technical error has occurred for TAC.
+- event: LODGEMENT_VERIFICATION_FAILED
+  trigger: Lodgement Verification Failed For Positive TAC
+- event: CHECKLIST_CHECKED
+  trigger: Checklist checked
+- event: CHECKLIST_UNCHECKED
+  trigger: Checklist unchecked
+- event: LANDTITLE_ADDED
+  trigger: Land Title Reference Added To Workspace
+- event: LANDTITLE_REMOVED
+  trigger: Land Title Reference Removed from Workspace
+- event: SUBSCRIBER_WITHDRAWN
+  trigger: Subscriber Withdrawn From Workspace By Self
+- event: INVITATION_ACCEPTED
+  trigger: Workspace Invitation Accepted
+- event: INVITATION_DECLINED
+  trigger: Workspace Invitation Declined
+- event: PARTICIPANT_INVITED
+  trigger: Workspace Participant Invited
+- event: INVITATION_CREATED
+  trigger: Workspace Invitation Sent
+- event: WORKSPACE_MOVED_TO_READY
+  trigger: Workspace Moved to Ready Status
+- event: WORKSPACE_REVERTED_FROM_READY
+  trigger: Workspace Reverted from Ready Status
+- event: INVITE_ACCEPTED_NON_PANEL_MEMBER
+  trigger: Workspace Invitation Accepted by Non Panel Member
+- event: INVITE_ACCEPTED_PANEL_MEMBER
+  trigger: Workspace Invitation Accepted by Panel Member
+- event: RESPONSIBLE_SUBSCRIBER_CHANGED
+  trigger: Responsible subscriber changed
+- event: JOINED_EXISTING_WORKSPACE
+  trigger: Successfully joined Workspace via the Existing Workspace screen
+- event: TAC_SUCCEEDED
+  trigger: Positive Title Activity Check Response Received
+- event: WORKSPACE_STATUS_CHANGED
+  trigger: Worspace Status Change
+- event: WORKSPACE_UPDATED
+  trigger: Workspace Updated due to the Re-supply of RIS
+- event: LODGEMENT_CASE_CREATED
+  trigger: Lodgement Case Created
+- event: LODGEMENT_CASE_STATUS_UPDATED
+  trigger: Lodgement Case Status Updated
+- event: LODGEMENT_VERIFICATION_REQUESTED
+  trigger: Lodgement Verification Requested
+- event: LODGEMENT_VERIFIED
+  trigger: Lodgement Verification Without Error and Warning
+- event: LODGEMENT_REQUESTED
+  trigger: Lodgement Requested
+- event: LODGEMENT_RECEIVED_BY_LR
+  trigger: Lodgement Documents have been received by Land Registry
+- event: SETTLEMENT_DATETIME_UPDATED_BY_USER
+  trigger: Settlement date and time is added to the workspace by the user on the Accept or Propose New Settlement
+    Date and Time screen.
+- event: WORKSPACE_ROLE_ADDED
+  trigger: Role Added to Workspace
+- event: WORKSPACE_ROLE_REMOVED
+  trigger: Role Removed from Workspace
+- event: DOCUMENT_SIGNED_VIA_COGITO
+  trigger: '#N/A'
+- event: SETTLEMENT_SIGNED_VIA_COGITO
+  trigger: '#N/A'
+- event: INVITATION_FORWARDED
+  trigger: Subscriber has forwarded an invitation to another Subscriber
+- event: INVITATION_WITHDRAWN
+  trigger: Workspace Invitation Withdrawn
+- event: AUTO_CALCULATE_AMOUNT_BREACH
+  trigger: Vendor’s surplus auto-calculation amount has exceeded 99,999,999.99
+- event: SOURCE_FUNDS_DEPOSIT_RECEIVED
+  trigger: Source funds deposit received for the workspace
+- event: LINKED_SIM_LODGEMENT_CREATE
+  trigger: Linked simultaneous lodgement created
+- event: LINKED_SETTLEMENT_CREATE
+  trigger: Subscriber creates a linked financial line item between two workspaces
+- event: LINKED_SETTLEMENT_CREATE_FOR_RECEIVING_SUBSCRIBER
+  trigger: Linked financial line item created, from the receiving workspace’s perspective
+- event: LINKED_SETTLEMENT_ACCEPT
+  trigger: Receiving subscriber accepts the link request
+- event: LINKED_SETTLEMENT_ACCEPT_FOR_RECEIVING_SUBSCRIBER
+  trigger: Link request accepted, from the accepting subscriber’s perspective
+- event: LINKED_SETTLEMENT_UPDATE
+  trigger: Linked financial line item updated by either workspace
+- event: LINKED_SETTLEMENT_DECLINE
+  trigger: Receiving subscriber declines the link request
+- event: LINKED_SETTLEMENT_DELETE
+  trigger: Either workspace removes the linked financial line item

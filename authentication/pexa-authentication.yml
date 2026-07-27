@@ -1,0 +1,133 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/documentation/ (Authentication, Authentication Compliance)
+- https://developer.pexa.com.au/Projects/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+- https://www.pexa.com.au/pexa-apis/
+- https://auth.pexa.com.au/.well-known/openid-configuration
+- openapi/pexa-notification-service-openapi.yaml
+- openapi/pexa-projects-api-v4-openapi.yaml
+- openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+docs: https://developer.pexa.com.au/Exchange/docs/documentation/
+summary:
+  types:
+  - oauth2
+  - mutualTLS
+  oauth2_flows:
+  - clientCredentials
+  - authorizationCode
+  api_key_in: []
+  statement: >-
+    "We authenticate our APIs using industry best practices, either through OAuth2.0 or Mutual TLS."
+    - https://www.pexa.com.au/pexa-apis/
+  token_lifetime: 12 hours
+  transport: PEXA only accepts TLS v1.2 protocol (or above)
+  header: 'Authorization: Bearer <access_token>'
+access_gate:
+  self_serve: false
+  requirement: signed PEXA API Agreement
+  process:
+  - Register at https://www.pexa.com.au/pexa-apis/ - PEXA validates the details
+  - Once validated and approved, PEXA emails the test access details
+  - Plan and design, build and test, production readiness, go live
+  - Credential requests and re-issues via apisupport@pexa.com.au
+  authorization_code_extra: PEXA also requires your redirect_uri before issuing authorization-code credentials
+  portal_signup: disabled in the developer portal build (hideSignUp true; AWS Cognito identity)
+authorization_servers:
+- environment: production
+  issuer: https://auth.pexa.com.au/
+  authorization_endpoint: https://auth.pexa.com.au/authorize
+  token_endpoint: https://auth.pexa.com.au/oauth/token
+  revocation_endpoint: https://auth.pexa.com.au/oauth/revoke
+  jwks_uri: https://auth.pexa.com.au/.well-known/jwks.json
+  discovery: https://auth.pexa.com.au/.well-known/openid-configuration
+  discovery_status: 200
+  shape: Auth0
+  token_endpoint_auth_methods_supported: [client_secret_basic, client_secret_post, private_key_jwt, none]
+  code_challenge_methods_supported: [S256, plain]
+  document: well-known/pexa-openid-configuration.json
+- environment: test
+  issuer: https://auth-tst.pexalabs.com.au/
+  authorization_endpoint: https://auth-tst.pexalabs.com.au/authorize
+  token_endpoint: https://auth-tst.pexalabs.com.au/oauth/token
+  discovery: https://auth-tst.pexalabs.com.au/.well-known/openid-configuration
+  discovery_status: 200
+  document: well-known/pexa-openid-configuration-test.json
+flows:
+- flow: clientCredentials
+  audience: machine-to-machine integrations
+  parameters: [grant_type=client_credentials, client_id, client_secret, scope]
+  note: >-
+    Scope is required on the token request and is declared per endpoint in the developer portal.
+    The documented example scope is au_pub_tst_pexa_conversation_api_v2_read.
+- flow: authorizationCode
+  audience: business-to-consumer - an individual user authenticating with their own PEXA credentials
+  parameters: [client_id, response_type=code, redirect_uri, scope, 'then grant_type=authorization_code + code + client_secret']
+  note: >-
+    Prompts the user to log into PEXA with their individual login, password and multi-factor
+    authentication at the start of every session.
+- flow: mutualTLS
+  audience: alternative to OAuth 2.0 for API authentication
+  note: >-
+    Offered as an alternative on the API integration page, with certificate error guidance in the
+    Exchange documentation. Not declared as a securityScheme in any shipped contract.
+- flow: private_key_jwt (outbound)
+  audience: webhook delivery in HMAC_OAUTH mode
+  note: >-
+    In HMAC_OAUTH mode PEXA authenticates ITSELF to the customer's token endpoint, signing the client
+    assertion with an AWS KMS RSA key using PS256. Claims: iss/sub = clientId, aud = authUrl,
+    exp = now + 10 minutes, iat, jti (random UUID). client_secret is the alternative. Optional mTLS
+    applies to both the token request and the delivery.
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.pexa.com.au/oauth/token
+    scopes: 5
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/auth
+    tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+    scopes: 3
+  - flow: clientCredentials
+    tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+    scopes: 3
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+  spec_defect: >-
+    The Projects v4 document ships an internal Keycloak URL (host.kubernetes.internal) as its
+    authorization and token endpoint. The real endpoints are https://auth.pexa.com.au/oauth/token
+    (production) and https://auth-tst.pexalabs.com.au/oauth/token (test).
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: "https://'{{auth2_env}}'/authorize"
+    tokenUrl: "https://'{{auth2_env}}'/oauth/token"
+  - flow: clientCredentials
+    tokenUrl: "https://'{{auth2_env}}'/oauth/token"
+  sources:
+  - openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  spec_defect: >-
+    The Standalone Discharge document ships unresolved templates ({{auth2_env}}, {{api_scope}})
+    rather than real endpoint URLs and scope names.
+compliance_requirements:
+- PEXA only accepts TLS v1.2 protocol
+- The OAuth 2.0 flow implementation must be secure
+- Client id and client secret must be securely stored and encrypted, and must not be accessible to
+  software users or other parties
+- The token request process must be executed securely and must not be interceptable
+- The access token must be stored securely and encrypted
+notes:
+- No API-key authentication exists anywhere in the estate.
+- No anonymous or public endpoint exists - even /health requires a token.
+- >-
+  The production OIDC discovery document advertises many Auth0 grant types (password, implicit,
+  device_code, token-exchange, jwt-bearer). Only client_credentials and authorization_code are
+  documented for PEXA API integrators; the rest are tenant defaults, not offered contracts.

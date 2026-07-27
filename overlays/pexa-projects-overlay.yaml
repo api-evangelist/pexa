@@ -1,0 +1,27 @@
+# generated: 2026-07-26
+# method: generated
+# source: openapi/pexa-projects-api-v4-openapi.yaml
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for PEXA Projects API v4
+  version: 1.0.0
+extends: openapi/pexa-projects-api-v4-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: pexa
+    x-apievangelist-api: PEXA Projects API v4
+    x-apievangelist-harvested-from: https://developer.pexa.com.au/ (Gatsby page-data allFile publicURL)
+    x-apievangelist-harvest-date: '2026-07-26'
+    x-apievangelist-access-gate: signed PEXA API Agreement; credentials issued by apisupport@pexa.com.au after PEXA
+      validates a registration
+    x-apievangelist-regulatory-regime: ARNECC Model Operating Requirements (equivalent third-party access obligation)
+    x-apievangelist-error-catalog: errors/pexa-error-codes.yml
+    x-apievangelist-conventions: conventions/pexa-conventions.yml
+    x-apievangelist-authentication: authentication/pexa-authentication.yml
+    x-apievangelist-lifecycle: lifecycle/pexa-lifecycle.yml
+    x-apievangelist-sandbox: sandbox/pexa-sandbox.yml
+- target: $.servers[0]
+  update:
+    x-apievangelist-note: The shipped document leaves servers[0].url as the unresolved template "{{ service.url
+      }}"; the real hosts are api.pexa.com.au (prod) and api-tst.pexalabs.com.au (test).

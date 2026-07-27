@@ -1,0 +1,147 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+- https://auth.pexa.com.au/.well-known/openid-configuration
+- https://www.pexa.com.au/api-pricing/
+- https://www.pexa.com.au/.well-known/security.txt
+- openapi/ (harvested contracts)
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Every OpenAPI 3.x contract declares an oauth2 securityScheme; the portal documents client
+    credentials and authorization code flows with a 12-hour access-token lifetime.
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: clientCredentials flow declared in notification, projects and discharge contracts;
+    grant_types_supported at https://auth.pexa.com.au/.well-known/openid-configuration includes
+    client_credentials
+- id: oauth2-authorization-code
+  conforms: true
+  evidence: authorizationCode flow declared in the projects and discharge contracts and documented
+    for B2C use with individual PEXA login plus MFA
+- id: oidc-discovery
+  conforms: true
+  evidence: https://auth.pexa.com.au/.well-known/openid-configuration returns HTTP 200 with issuer
+    https://auth.pexa.com.au/ (saved to well-known/pexa-openid-configuration.json)
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: https://auth.pexa.com.au/.well-known/oauth-authorization-server returns HTTP 200
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported [S256, plain] in the discovery document
+- id: private-key-jwt
+  conforms: true
+  evidence: token_endpoint_auth_methods_supported includes private_key_jwt; PEXA itself signs
+    client-assertion JWTs with an AWS KMS RSA key (PS256) when calling a customer token endpoint in
+    HMAC_OAUTH webhook mode
+- id: mutual-tls
+  conforms: true
+  evidence: >-
+    "We authenticate our APIs using industry best practices, either through OAuth2.0 or Mutual TLS"
+    (https://www.pexa.com.au/pexa-apis/); mTLS is additionally offered on HMAC_OAUTH webhook
+    delivery, covering both the token request and the callback.
+- id: standard-webhooks
+  conforms: true
+  evidence: >-
+    The PEXA Webhooks Guide links the standard-webhooks specification directly and implements its
+    shape — webhook-id / webhook-timestamp / webhook-signature headers with a "v1,<hex HMAC-SHA256>"
+    signature list and dual signatures during secret rotation.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: https://www.pexa.com.au/.well-known/security.txt returns HTTP 200 text/plain with
+    Contact, Expires, Preferred-Language, Policy and Canonical fields
+- id: keep-a-changelog
+  conforms: true
+  evidence: >-
+    "The format is based on Keep a Changelog, and this project adheres to Semantic Versioning" on
+    both the Exchange and Projects changelog pages.
+- id: semver
+  conforms: partial
+  evidence: >-
+    Claimed on the changelog pages, but release identifiers in practice are PEXA platform release
+    trains (R.24.01.00) and URI versions advance per-operation, so the API surface is not semver
+    tagged.
+- id: openapi-3-1
+  conforms: true
+  evidence: openapi/pexa-notification-service-openapi.yaml and
+    openapi/pexa-standalone-discharge-experience-api-openapi.yaml declare openapi 3.1.0; the JAN 2026
+    notification release explicitly made the spec fully 3.1 compliant
+- id: openapi-3-0
+  conforms: true
+  evidence: projects v4 (3.0.3), marketplace (3.0.3 and a 3.0.0 variant)
+- id: swagger-2-0
+  conforms: true
+  evidence: both PEXA Exchange contracts are Swagger 2.0
+- id: openapi-webhooks
+  conforms: true
+  evidence: openapi/pexa-notification-service-openapi.yaml declares a top-level webhooks block
+    (SubscriberNotification, NonSubscriberNotification)
+- id: hateoas
+  conforms: partial
+  evidence: >-
+    Webhook payloads carry a links[] array of {href, rel, type} that the docs describe as following
+    the HATEOAS standard; the REST responses themselves are not hypermedia driven.
+- id: tls-1-2
+  conforms: true
+  evidence: '"PEXA only accepts TLS v1.2 protocol" (Authentication Compliance section). Live probe
+    of www.pexa.com.au / api.pexa.com.au negotiated TLSv1.3 — see security/pexa-domain-security.yml.'
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no contract declares application/problem+json; PEXA uses proprietary OB* and GA.NOTIF.*
+    code registries (errors/pexa-error-codes.yml)
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header support documented; no deprecation policy published
+- id: asyncapi
+  conforms: false
+  evidence: no AsyncAPI document published; the event surface is declared via the OpenAPI 3.1
+    webhooks block and a prose Event Catalogue
+- id: json-api
+  conforms: false
+- id: odata
+  conforms: false
+- id: scim
+  conforms: false
+- id: fhir
+  conforms: false
+- id: fapi
+  conforms: false
+  evidence: >-
+    No FAPI profile claim. Australian open-banking style profiles do not apply — PEXA is an
+    Electronic Lodgement Network Operator, not an ADI or CDR data holder.
+- id: reso-web-api
+  conforms: false
+  evidence: >-
+    Not applicable. RESO is a North American MLS standard with no bearing on Australian
+    e-conveyancing. A word-boundary search across all seven contracts and the public site returned
+    zero RESO/OData/$metadata/MLS/IDX hits.
+regulatory:
+- id: arnecc-model-operating-requirements
+  conforms: true
+  evidence: >-
+    https://www.pexa.com.au/api-pricing/ — "In line with the Model Operating Requirements which are
+    set and governed by ARNECC, PEXA Exchange APIs are available to all third parties for integration
+    on an equivalent basis to other parties of the same type, level or class" across technical
+    availability, permitted purpose, use, fees and access processes.
+  note: >-
+    This is the sector's clearest mandated non-discriminatory API access obligation. It does not make
+    the API open; it makes the gate obligatorily even-handed.
+- id: electronic-conveyancing-national-law
+  conforms: true
+  evidence: PEXA operates as an Electronic Lodgement Network Operator under the ECNL across
+    Australian jurisdictions
+compliance_program:
+  url: https://compliance.pexa.com.au/
+  name: PEXA Compliance Hub
+  published: true
+  note: >-
+    Publicly reachable (HTTP 200) Salesforce Experience Cloud site linked from the pexa.com.au
+    Support menu. Rendered client-side, so its contents could not be enumerated anonymously.
+certifications: []
+certifications_note: >-
+  No named security certification (SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP) is asserted on
+  pexa.com.au, pexa-group.com or the developer portal, and no trust centre exists at trust.pexa.com.au
+  or security.pexa.com.au. Nothing was inferred.

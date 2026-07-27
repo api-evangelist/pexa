@@ -1,0 +1,32 @@
+generated: '2026-07-26'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.pexa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Mar  4 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: developer.pexa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.pexa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: null
+domains:
+- domain: pexa.com.au
+  dnssec: true
+  caa:
+  - 0 issue "sectigo.com"
+  - 0 issue "awstrust.com"
+  - 0 issue "digicert.com"
+  - 0 issue "letsencrypt.org"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

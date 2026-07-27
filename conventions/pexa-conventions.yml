@@ -1,0 +1,134 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+- https://www.pexa.com.au/pexa-apis/
+- openapi/ (harvested contracts)
+authentication:
+  styles:
+  - OAuth 2.0 client credentials (machine-to-machine)
+  - OAuth 2.0 authorization code (B2C — individual PEXA login plus MFA, re-prompted each session)
+  - Mutual TLS
+  header: 'Authorization: Bearer <access_token>'
+  token_lifetime: 12 hours
+  token_endpoint_production: https://auth.pexa.com.au/oauth/token
+  token_endpoint_test: https://auth-tst.pexalabs.com.au/oauth/token
+  scope_required: 'yes — each endpoint declares its own scopes; scope is passed on the token request'
+  transport_requirement: PEXA only accepts TLS v1.2 (or above)
+  credential_issuance: >-
+    Not self-serve. Credentials are requested by emailing apisupport@pexa.com.au and issued after
+    PEXA validates and approves the registration and the API Agreement is signed.
+  detail: authentication/pexa-authentication.yml
+  scopes: scopes/pexa-scopes.yml
+idempotency:
+  rest_api:
+    supported: false
+    note: >-
+      No PEXA REST contract declares an Idempotency-Key header or parameter, and the developer portal
+      documents no client-supplied idempotency token for retrying a write. Repeat POSTs create repeat
+      resources — the webhook registration docs warn explicitly that duplicate calls to the create
+      registration endpoint produce multiple identical registrations and duplicate event delivery.
+  webhook_delivery:
+    supported: true
+    key: webhook-id
+    location: HTTP request header on every inbound webhook delivery
+    scope: per webhook event
+    stability: >-
+      The webhook-id is a UUID that remains the same for the lifetime of the event, including across
+      every failure and retry attempt.
+    contract: >-
+      PEXA documents webhook-id as "used as an idempotency key to prevent accidentally processing the
+      same webhook event more than once", and its published best practices instruct consumers to
+      "implement a duplicate check based on the webhook-id to prevent the same event from being
+      processed more than once".
+    retention: not published
+    source: https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+  summary: >-
+    Idempotency at PEXA is a delivery-side contract, not a request-side one: the event stream is
+    safely replayable via webhook-id, while REST writes are not. Agents must dedupe inbound events on
+    webhook-id and must NOT blind-retry Exchange/Projects writes.
+pagination:
+  styles:
+  - api: PEXA Notification Service API
+    style: page-number
+    params:
+      page: integer, minimum 1, default 1
+      limit: integer, 1-20, default 10
+    response_envelope: page {page, totalRecords, pageRecords, limit} + records[]
+    schema: openapi/pexa-notification-service-openapi.yaml#/components/schemas/Page
+    operation: getNotificationRegistrationsV2
+  note: >-
+    Pagination is not uniform across the estate. The Exchange Swagger 2.0 contracts and the Projects
+    v4 contract declare no cursor/offset/page parameters on their collection operations; only the
+    Notification Service publishes a paging contract.
+field_expansion:
+  supported: false
+  note: >-
+    No expand / fields / include sparse-fieldset parameter is declared anywhere in the harvested
+    contracts. The Exchange documentation instead publishes a "Subset of Retrieve Workspace Summary
+    Data" section describing fixed response subsets.
+metadata:
+  customer_correlation:
+  - field: subscriberReference
+    where: workspace participants and webhook payloads
+    purpose: >-
+      Third-party (typically financial-institution) identifier used to link a PEXA workspace back to
+      the integrator's own system of record. Returned on webhook events as
+      data.subscriberReferences[] with the associated workspaceRole.
+  - field: additionalReferences[]
+    where: webhook payloads
+    purpose: '{identifier, type} pairs — e.g. DOCUMENT_ID, CHECKLIST_ITEM_ID'
+  - field: integratorId / integratorType
+    where: non-subscriber webhook registrations
+    purpose: identifies the non-subscriber integrator (e.g. BROKER)
+request_tracing:
+  request_id_header: null
+  note: >-
+    No X-Request-Id / X-Correlation-Id request header is declared in any harvested contract. A
+    CorrelationId field appears inside Exchange payload schemas, and webhook-id is the correlation
+    handle for the event surface. For support, PEXA triages by workspace identifier (PEXA<n>) and
+    webhook-id.
+versioning:
+  style: uri-path, per-operation
+  detail: lifecycle/pexa-lifecycle.yml
+error_envelope:
+  rfc9457: false
+  shapes:
+  - api: PEXA Notification Service API
+    shape: '{status, message, data}'
+    code_registry: GA.NOTIF.<http-status><nnn>
+  - api: PEXA Exchange API
+    shape: >-
+      Business-rule failures return a PEXA exception code and a concise message; the Swagger 2.0
+      contract declares 401/403/404 with descriptions only and no response schema.
+    code_registry: OB<nnnn>.<nnn>
+  guidance: >-
+    PEXA advises integrators to render a meaningful message to the end user rather than passing the
+    raw exception code and message through.
+  catalogs:
+  - errors/pexa-error-codes.yml
+  - errors/pexa-problem-types.yml
+rate_limiting:
+  published: false
+  signalling_headers: []
+  note: >-
+    No rate-limit policy, quota or X-RateLimit-* header is documented on the developer portal or the
+    API pricing page. A 429 Too Many Requests response is defined only on the WEBHOOK callback
+    contract (i.e. the response the CUSTOMER endpoint may return to PEXA), not on PEXA's own
+    inbound REST operations. Commercial metering is per Settled Workspace, not per call.
+  pricing: https://www.pexa.com.au/api-pricing/
+webhook_conventions:
+  detail: asyncapi/pexa-notification-webhooks.yml
+  signature: HMAC-SHA256 over "webhook-id.webhook-timestamp.payload", hex, prefixed "v1,"
+  standard: standard-webhooks (PEXA links the spec directly)
+  ack_window: 5 seconds
+  retry: exponential backoff on 5xx only; 3xx/4xx are hard failures
+deep_links:
+  supported: true
+  note: >-
+    PEXA publishes a documented deep-link surface that drops an authenticated user into a specific
+    PEXA Web screen from the integrator's own software (dashboard, create workspace, workspace
+    summary, tasks, invitations, land titles, participants, documents, financial settlement schedule,
+    fee schedule, conversations, notifications, history, subscriber onboarding).
+  detail: components/pexa-components.yml

@@ -1,0 +1,112 @@
+generated: '2026-07-26'
+method: searched
+source: live /.well-known/ probes of every PEXA host in apis.yml and every OpenAPI servers[] host
+note: >-
+  developer.pexa.com.au is a Gatsby single-page application with a catch-all route that
+  returns its 576KB index HTML with HTTP 200 and content-type text/html for ANY unknown
+  path, including every /.well-known/ path. Those 200s are NOT real documents and are
+  recorded here as spa-catch-all, not as hits. Only responses with a real content-type
+  and parseable body were saved.
+hosts:
+- host: https://www.pexa.com.au
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    file: pexa-security.txt
+- host: https://auth.pexa.com.au
+  role: production authorization server (Auth0-shaped)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: pexa-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: pexa-oauth-authorization-server.json
+  - path: /.well-known/jwks.json
+    status: 200
+    note: referenced as jwks_uri by the discovery document; not mirrored here
+- host: https://auth-tst.pexalabs.com.au
+  role: test/non-production authorization server
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: pexa-openid-configuration-test.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://api.pexa.com.au
+  role: production API host (OpenAPI servers[])
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://api-tst.pexalabs.com.au
+  role: test API host (OpenAPI servers[])
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://plus.pexa.com.au
+  role: PEXA Plus Marketplace host (OpenAPI servers[])
+  documents:
+  - path: /.well-known/security.txt
+    status: 000
+    note: connection not established anonymously
+- host: https://developer.pexa.com.au
+  role: developer portal (Gatsby SPA)
+  documents:
+  - path: /.well-known/security.txt
+    status: spa-catch-all
+  - path: /.well-known/openid-configuration
+    status: spa-catch-all
+  - path: /.well-known/oauth-authorization-server
+    status: spa-catch-all
+  - path: /.well-known/api-catalog
+    status: spa-catch-all
+authorization_server:
+  issuer: https://auth.pexa.com.au/
+  authorization_endpoint: https://auth.pexa.com.au/authorize
+  token_endpoint: https://auth.pexa.com.au/oauth/token
+  revocation_endpoint: https://auth.pexa.com.au/oauth/revoke
+  registration_endpoint: https://auth.pexa.com.au/oidc/register
+  device_authorization_endpoint: https://auth.pexa.com.au/oauth/device/code
+  jwks_uri: https://auth.pexa.com.au/.well-known/jwks.json
+  grant_types_supported:
+  - client_credentials
+  - authorization_code
+  - refresh_token
+  - password
+  - implicit
+  - urn:ietf:params:oauth:grant-type:device_code
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  - private_key_jwt
+  - none
+  code_challenge_methods_supported:
+  - S256
+  - plain
+  test_issuer: https://auth-tst.pexalabs.com.au/
+security_txt:
+  contact: mailto:security@pexa.com.au
+  expires: '2026-09-03T23:59:59+10:00'
+  policy: https://www.pexa.com.au/security/
+  canonical: https://pexa.com.au/.well-known/security.txt
+  preferred_language: en

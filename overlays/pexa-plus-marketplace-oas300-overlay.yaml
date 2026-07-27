@@ -1,0 +1,26 @@
+# generated: 2026-07-26
+# method: generated
+# source: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for PEXA Plus Marketplace B2B API (OpenAPI 3.0.0 variant)
+  version: 1.0.0
+extends: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: pexa
+    x-apievangelist-api: PEXA Plus Marketplace B2B API (OpenAPI 3.0.0 variant)
+    x-apievangelist-harvested-from: https://developer.pexa.com.au/ (Gatsby page-data allFile publicURL)
+    x-apievangelist-harvest-date: '2026-07-26'
+    x-apievangelist-access-gate: signed PEXA API Agreement; credentials issued by apisupport@pexa.com.au after PEXA
+      validates a registration
+    x-apievangelist-regulatory-regime: ARNECC Model Operating Requirements (equivalent third-party access obligation)
+    x-apievangelist-error-catalog: errors/pexa-error-codes.yml
+    x-apievangelist-conventions: conventions/pexa-conventions.yml
+    x-apievangelist-authentication: authentication/pexa-authentication.yml
+    x-apievangelist-lifecycle: lifecycle/pexa-lifecycle.yml
+    x-apievangelist-sandbox: sandbox/pexa-sandbox.yml
+- target: $
+  update:
+    x-apievangelist-status: duplicate — OpenAPI 3.0.0 variant of the same 1.0.2 document also published as 3.0.3

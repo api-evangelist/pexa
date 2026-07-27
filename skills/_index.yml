@@ -1,0 +1,64 @@
+generated: '2026-07-26'
+method: generated
+source: >-
+  Generated from the harvested PEXA contracts. Every operationId referenced was verified verbatim
+  against the spec it names. PEXA publishes no AGENTS.md or first-party agent skills — a portal
+  search and probes of developer.pexa.com.au returned nothing, so these are API Evangelist skills
+  grounded in PEXA's real published operations, conventions and error registries.
+access_note: >-
+  Every skill here presumes a signed PEXA API Agreement and PEXA-issued OAuth 2.0 credentials. No
+  PEXA operation is callable anonymously.
+skills:
+- file: pexa-create-workspace-and-settle.md
+  name: Create a PEXA workspace and take it to settlement
+  api: openapi/pexa-exchange-api-swagger.json
+  operations:
+  - LTRV
+  - workspacecreation
+  - subscribersearch
+  - createInvitationUsingPOST
+  - retrieveWorkspaceSummaryV2UsingGET
+  - createUsingPOST_1
+  - retrieveSetllementStatementV1UsingGET
+  - settlementAvailability
+  - maintainsettlement_1
+  - retrieveSettlementCompletionRecordV1UsingGET
+- file: pexa-subscribe-to-workspace-events.md
+  name: Subscribe to PEXA workspace events over webhooks
+  api: openapi/pexa-notification-service-openapi.yaml
+  operations:
+  - createNotificationRegistrationV3
+  - createNotificationRegistration
+  - getNotificationRegistrationsV2
+  - updateNotificationRegistrationV3
+  - deleteNotificationRegistration
+  - createNotificationSecretRotation
+- file: pexa-settle-a-multi-lot-project.md
+  name: Settle a multi-lot development through PEXA Projects
+  api: openapi/pexa-projects-api-v4-openapi.yaml
+  operations:
+  - createProject
+  - createWorkspace
+  - addParties
+  - addParticipants
+  - createFinancials
+  - proposeSettlement
+  - statuses
+  - workspaces
+- file: pexa-order-a-title-search.md
+  name: Order a title search and reconcile billing on PEXA Plus Marketplace
+  api: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  operations:
+  - getHealth
+  - createTitleSearch
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  - retrieveBilling
+- file: pexa-discharge-a-mortgage.md
+  name: Discharge a mortgage through PEXA
+  api: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  operations:
+  - processDischarge
+  - createUsingPOST
+  - retrieveLodgedDocumentsV1UsingGET
+  - retrieveWorkspaceSummaryV2UsingGET

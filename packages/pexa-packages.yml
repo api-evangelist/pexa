@@ -1,0 +1,33 @@
+generated: '2026-07-26'
+method: searched
+source: public package-registry searches plus the PEXA developer portal and pexa.com.au
+packages: []
+result: none-found
+note: >-
+  PEXA publishes no first-party client libraries. Integrators are expected to call the REST contracts
+  directly, and the portal's only worked examples are cURL and Postman screenshots. This is
+  consistent with a licensed-access estate: the audience is a small set of contracted practice
+  management software providers and financial institutions, not a self-serve developer public.
+registries_probed:
+- registry: npm
+  query: pexa
+  result: no first-party package (search returns unrelated packages only)
+- registry: pypi
+  queries: [pexa, pexa-api, pexa-sdk]
+  result: 404 on all
+- registry: nuget
+  query: pexa
+  result: no results
+- registry: rubygems
+  query: pexa
+  result: no results
+- registry: github
+  org: https://github.com/PEXA-AU
+  result: >-
+    Verified first-party GitHub organisation ("PEXA Group", blog https://www.pexa.com.au, created
+    2022-03-17) but ZERO public repositories, so no source-code or SDK distribution.
+  caution: >-
+    github.com/pexa is a DIFFERENT organisation ("Pexa, Inc.") and is not Property Exchange
+    Australia. Do not treat it as first-party.
+sdk_count: 0
+cli: none

@@ -1,0 +1,117 @@
+generated: '2026-07-26'
+method: searched
+source: openapi/pexa-notification-service-openapi.yaml, openapi/pexa-projects-api-v4-openapi.yaml, openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+schemes:
+- name: oauth2
+  source: openapi/pexa-notification-service-openapi.yaml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.pexa.com.au/oauth/token
+- name: oauth2
+  source: openapi/pexa-projects-api-v4-openapi.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/auth
+    tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+  - flow: clientCredentials
+    tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+- name: oauth2
+  source: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://'{{auth2_env}}'/authorize
+    tokenUrl: https://'{{auth2_env}}'/oauth/token
+  - flow: clientCredentials
+    tokenUrl: https://'{{auth2_env}}'/oauth/token
+scopes:
+- scope: au:projects:notification:read
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+- scope: au:projects:project:write
+  description: Grant project write access
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+- scope: au:projects:status:read
+  description: Grant project status read access
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+- scope: au:projects:workspaces:read
+  description: Grant project workspaces read access
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+- scope: au:projects:workspaces:write
+  sources:
+  - openapi/pexa-projects-api-v4-openapi.yaml
+- scope: create:notification_registrations
+  description: Create registrations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- scope: create:notification_registrations_secret_rotation
+  description: Rotate shared secret
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- scope: delete:notification_registrations
+  description: Delete registrations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- scope: edit:notification_registrations
+  description: Edit registrations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- scope: view:notification_registrations
+  description: View registrations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/pexa-notification-service-openapi.yaml
+- scope: '{{api_scope}}'
+  description: API scope
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+docs: https://developer.pexa.com.au/Exchange/docs/documentation/
+docs_note: PEXA does not publish a single consolidated scopes reference page. Scopes are declared per endpoint in
+  the developer portal API reference (login-gated) and, for the Notification Service, restated in the PEXA Webhooks
+  Guide. The Exchange Swagger 2.0 contracts declare no securityDefinitions at all, so Exchange scope names do not
+  appear in any machine-readable artifact - the only Exchange scope PEXA publishes in the open is the worked example
+  au_pub_tst_pexa_conversation_api_v2_read.
+naming_conventions:
+- family: notification-service
+  pattern: <verb>:notification_registrations[_<qualifier>]
+  source: openapi/pexa-notification-service-openapi.yaml + https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+  environments: the same five scope names apply in both non-prod and prod
+- family: projects
+  pattern: au:projects:<resource>:<read|write>
+  source: openapi/pexa-projects-api-v4-openapi.yaml
+- family: exchange
+  pattern: au_<visibility>_<env>_pexa_<api>_<version>_<read|write>
+  example: au_pub_tst_pexa_conversation_api_v2_read
+  source: https://developer.pexa.com.au/Exchange/docs/documentation/
+  note: Environment appears to be encoded in the scope name itself (tst), so scope strings differ between test and
+    production.
+token_request: Scope is passed on the OAuth 2.0 token request (client_credentials) or on the authorize request (authorization_code);
+  each endpoint requires specific scopes.
+unresolved:
+- scope: '{{api_scope}}'
+  source: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  note: Unresolved template shipped in the contract, not a real scope name. Recorded verbatim rather than guessed.
+scope_count: 11

@@ -1,0 +1,70 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/changelog/
+- https://developer.pexa.com.au/Exchange/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+- https://status.pexa.com.au/
+- https://www.pexa.com.au/api-pricing/
+- openapi/ (harvested contracts)
+versioning:
+  scheme: uri-path
+  note: >-
+    Every PEXA API versions in the URI path, and versions are per-operation rather than per-document.
+    The current Exchange Swagger 2.0 contract spans /v2 through /v6 SIMULTANEOUSLY in one document
+    (e.g. GET /v2/health, GET /v3/user, PUT /v4/workspace, POST /v5/workspace,
+    GET /v6/subscriber/workspaces) — there is no single "current API version" for Exchange. Release
+    trains (R.<major>.<minor>.<patch>) version the platform, not the URI.
+  current:
+    exchange: mixed /v2-/v6 in one contract (release train R.24.01.00)
+    projects: /v4
+    notification_service: /v1, /v2, /v3 concurrently
+    standalone_discharge: /v1
+    marketplace: /api/plus/v1
+  changelog: https://developer.pexa.com.au/Exchange/docs/changelog/
+  spec_by_release: >-
+    The portal states the OpenAPI spec for a particular release can be downloaded from the CHANGELOG
+    menu, so historical contracts are retrievable per release.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No RFC 8594 Sunset/Deprecation header support is documented and no written deprecation or
+    end-of-life policy was found on the developer portal, pexa.com.au or the API pricing page. In
+    practice superseded versions are left in place alongside their successors (the Exchange contract
+    still serves /v2 next to /v6; the Notification Service serves /v1, /v2 and /v3 concurrently), and
+    breaking changes are announced only in prose in the per-product changelog — for example release
+    R.24.00.01 changed the Workspace Title DELETE endpoint from a request body to required query
+    parameters and restructured its response schema.
+  deprecated_operations: []
+  deprecated_operations_note: No operation in any of the seven harvested contracts carries deprecated true.
+  superseded_contracts:
+  - file: openapi/pexa-exchange-api-legacy-swagger.json
+    note: >-
+      Earlier generation of the Exchange API on /v1-/v3 paths, still shipped in the portal build.
+      Not the authoritative Exchange contract; retained for provenance.
+  - file: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+    note: OpenAPI 3.0.0 variant of the same Marketplace document that is also published as 3.0.3.
+status_page: https://status.pexa.com.au/
+status_page_note: >-
+  Public, anonymously reachable PEXA system status page (HTTP 200), also linked from the pexa.com.au
+  Support menu as "System Status".
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public uptime SLA was found. PEXA's service commitments sit inside the signed PEXA API
+    Agreement and the ARNECC Model Operating Requirements rather than on a public page.
+support:
+  api_support_email: apisupport@pexa.com.au
+  help_centre: https://help.pexa.com.au/s/
+  contact: https://www.pexa.com.au/contact-us/
+regulatory:
+  regime: ARNECC Model Operating Requirements (Electronic Conveyancing National Law)
+  obligation: >-
+    Per https://www.pexa.com.au/api-pricing/, PEXA Exchange APIs must be available to all third
+    parties for integration on an equivalent basis to other parties of the same type, level or class,
+    covering technical availability, permitted purpose, use, fees and access processes. The gate is
+    obligatorily even-handed; it is not open.

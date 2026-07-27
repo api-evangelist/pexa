@@ -1,0 +1,119 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://developer.pexa.com.au/Exchange/docs/changelog/
+- https://developer.pexa.com.au/Projects/docs/changelog/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/ (Changelog section)
+note: >-
+  PEXA publishes a per-product, dated changelog inside the developer portal. The portal states the
+  format is based on Keep a Changelog and that the APIs adhere to Semantic Versioning, but the release
+  identifiers in practice are PEXA platform release trains (R.<major>.<minor>.<patch>) with a calendar
+  month rather than semver tags on the API itself. The Exchange changelog runs back to 2019; only the
+  recent window is captured here — the live changelog is the source of truth. The portal also notes
+  that the OpenAPI spec for a particular release can be downloaded from the CHANGELOG menu.
+scheme: pexa-release-train
+scheme_claimed: semver (Keep a Changelog format)
+current:
+  exchange: R.24.01.00 (August 2026)
+  projects: '13.00.00 (April 2024)'
+  notifications: GAP-Notifications Release R1.12 (JAN 2026); R2.0 flagged upcoming
+  marketplace: 1.0.2 (from info.version in the shipped contract; no separate changelog published)
+changelogs:
+- api: PEXA Exchange API
+  url: https://developer.pexa.com.au/Exchange/docs/changelog/
+  releases_listed: 39
+  earliest_listed: Release 11.01.02 (April 2020) and earlier
+- api: PEXA Projects API
+  url: https://developer.pexa.com.au/Projects/docs/changelog/
+  releases_listed: 1
+- api: PEXA Notification Service API
+  url: https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+  releases_listed: 2
+entries:
+- version: R.24.01.00
+  date: '2026-08'
+  api: PEXA Exchange API
+  breaking: false
+  additions:
+  - Retrieve Workspace Summary API — added verificationResultDetails array to the document-level
+    lodgementVerification object, each entry carrying complianceLevel (ERROR/WARNING/INFORMATION)
+    and complianceMessage
+  - Create Workspace Experience API v3 — added workspaceId alongside the existing id field in the v3
+    response only; v1 and v2 responses unchanged
+  changes:
+  - Join Workspace API and Withdraw from Workspace API — error codes and messages refactored across
+    all operations to align with the service implementation
+- version: R.24.00.01
+  date: '2026-05'
+  api: PEXA Exchange API
+  breaking: true
+  breaking_note: >-
+    Workspace Title API — the DELETE endpoint now takes land_title_reference and workspace_role as
+    REQUIRED QUERY PARAMETERS instead of a request body, and the response schema was restructured from
+    a flat LandTitle to a nested Title model (titleDetails, jurisdictionDetails, propertyDetails,
+    tenancyDetails, registryDocuments).
+  additions:
+  - registeredDateTime (UTC date-time) added to the RegistryDocument schema in Get Title and Add Title
+    responses
+  changes:
+  - Error codes and messages corrected across POST, DELETE and GET operations to match the service
+- version: R.24.00.00
+  date: '2026-05'
+  api: PEXA Exchange API
+  breaking: false
+  additions:
+  - Retrieve Workspace Summary API — new root-level linkedLodgementDetails element (linkedWorkspaceId,
+    linkStatus, linkOwner, linkedWorkspaceStatus) added without breaking the existing linkedLodgements
+    string array
+  - settlementSchedule.linkedSettlement[] entries extended with linkOwner and linkedWorkspaceStatus
+  - New Workspace Role API — add and remove participant roles in a workspace programmatically
+  - New Workspace Update API
+  - Workspace Title API — new POST (add a land title) and DELETE (remove a land title) endpoints
+  - Workspace Invitations API — added mortgageeDetails (partyId, mortgageeName)
+  changes:
+  - Join Workspace API — workspaceRole and transactionType enumerations substantially expanded
+- version: R.23.01.01
+  date: '2026-03'
+  api: PEXA Exchange API
+  breaking: false
+  additions:
+  - Retrieve Workspace Summary API returns all participants with a valid status (Active, Withdrawn,
+    Pending) plus signing details (required and received signatures)
+  changes:
+  - Workspace re-join experience enhanced so previously withdrawn participants can re-join via "Join
+    via existing workspaces"
+- version: R.23.01.00
+  date: '2026-02'
+  api: PEXA Exchange API
+  breaking: false
+  additions:
+  - New Join Workspace API — join a PEXA workspace programmatically
+  - New Workspace Invitations API — view invitations programmatically
+  - FSS Line Item API — owner details (participantRole, participantId, subscriberId, subscriberName)
+    added to the Retrieve FSS Line Items response
+- version: GAP-Notifications R1.12
+  date: '2026-01'
+  api: PEXA Notification Service API
+  breaking: false
+  additions:
+  - New GET /v2/notification-registrations endpoint with pagination (page, limit) or lookup by
+    registrationId
+  changes:
+  - OpenAPI specification made fully OpenAPI 3.1 compliant by removing deprecated nullable fields
+- version: GAP-Notifications R2.0
+  date: upcoming
+  api: PEXA Notification Service API
+  status: announced-not-released
+  breaking: false
+  additions:
+  - New V3 registration endpoints POST /v3/notification-registrations and
+    PUT /v3/notification-registrations/{registrationId} supporting HMAC_OAUTH authentication mode
+  - V2 GET response now returns optional authenticationMode and authConfig for V3-created registrations
+  - New webhook event types FINANCIAL_LINE_ITEM_UNVERIFIED, FINANCIAL_LINE_ITEM_VERIFIED and
+    FINANCIAL_LINE_ITEM_VERIFIED_BY_PEXA for source-fund verification status changes
+- version: '13.00.00'
+  date: '2024-04'
+  api: PEXA Projects API
+  breaking: false
+  additions:
+  - PEXA Projects API documentation included in the PEXA API Developer Portal

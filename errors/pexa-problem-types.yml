@@ -1,0 +1,512 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/ (4xx/5xx responses across all 7 harvested PEXA contracts)
+format: not-rfc9457
+format_note: No PEXA contract declares application/problem+json. The Notification Service and Marketplace contracts
+  return a JSON envelope of {status, message, data} / a components.schemas Error object; the Exchange Swagger 2.0
+  contracts declare 401/403/404 with descriptions only and no response schema. The published, human-curated code
+  registries live in errors/pexa-error-codes.yml.
+envelopes:
+- spec: openapi/pexa-notification-service-openapi.yaml
+  schema: '#/components/schemas/NotificationServiceErrorResponse and #/components/schemas/Error'
+  shape: '{status, message, data}'
+  code_registry: GA.NOTIF.*
+- spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  schema: '#/components/schemas (Error)'
+  shape: JSON error object
+- spec: openapi/pexa-exchange-api-swagger.json
+  shape: no response schema declared for 401/403/404; business-rule failures carry OB* exception codes documented
+    in errors/pexa-error-codes.yml
+problem_count: 40
+problems:
+- status: 401
+  title: Unauthorized
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-legacy-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingGET
+  - createUsingPOST
+  - createUsingPOST_1
+  - createUsingPUT
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - '...'
+  operation_count: 28
+- status: 403
+  title: Forbidden
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-legacy-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingGET
+  - createUsingPOST
+  - createUsingPOST_1
+  - createUsingPUT
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - '...'
+  operation_count: 28
+- status: 404
+  title: Not Found
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-legacy-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingGET
+  - createUsingPOST
+  - createUsingPOST_1
+  - createUsingPUT
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - '...'
+  operation_count: 28
+- status: 401
+  title: Unauthorized
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingPOST
+  - createUsingPOST_1
+  - getBalanceDueToEffectSettlementUsingGET
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - retrieveConversationsListUsingGET
+  - '...'
+  operation_count: 27
+- status: 403
+  title: Forbidden
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingPOST
+  - createUsingPOST_1
+  - getBalanceDueToEffectSettlementUsingGET
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - retrieveConversationsListUsingGET
+  - '...'
+  operation_count: 27
+- status: 404
+  title: Not Found
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-exchange-api-swagger.json
+  source_operations:
+  - HealthCheck
+  - LTRV
+  - createInvitationUsingPOST
+  - createUsingPOST
+  - createUsingPOST_1
+  - getBalanceDueToEffectSettlementUsingGET
+  - getUserProfileUsingGET
+  - maintainsettlement_1
+  - markConversationAsReadUsingPUT
+  - postMessageUsingPOST
+  - respondInvitationV1UsingPUT
+  - retrieveConversationsListUsingGET
+  - '...'
+  operation_count: 27
+- status: 400
+  title: Bad Request
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationRegistration
+  - createNotificationRegistrationV3
+  - createNotificationSecretRotation
+  - deleteNotificationRegistration
+  - getNotificationRegistrationsV2
+  - updateNotificationRegistration
+  - updateNotificationRegistrationV3
+  operation_count: 7
+- status: 400
+  title: Bad Request
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 401
+  title: Unauthorized
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationRegistration
+  - createNotificationRegistrationV3
+  - createNotificationSecretRotation
+  - deleteNotificationRegistration
+  - getNotificationRegistrationsV2
+  - updateNotificationRegistration
+  - updateNotificationRegistrationV3
+  operation_count: 7
+- status: 403
+  title: Forbidden
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationRegistration
+  - createNotificationRegistrationV3
+  - createNotificationSecretRotation
+  - deleteNotificationRegistration
+  - getNotificationRegistrationsV2
+  - updateNotificationRegistration
+  - updateNotificationRegistrationV3
+  operation_count: 7
+- status: 404
+  title: Not Found
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationSecretRotation
+  - deleteNotificationRegistration
+  - updateNotificationRegistration
+  - updateNotificationRegistrationV3
+  operation_count: 4
+- status: 404
+  title: Not Found
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 408
+  title: Request Timeout
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 418
+  title: I'm a teapot
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 429
+  title: Too Many Requests
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 500
+  title: Internal Server Error
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationRegistration
+  - createNotificationRegistrationV3
+  - getNotificationRegistrationsV2
+  - updateNotificationRegistration
+  - updateNotificationRegistrationV3
+  operation_count: 5
+- status: 500
+  title: Internal Server Error.
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - createNotificationSecretRotation
+  - deleteNotificationRegistration
+  operation_count: 2
+- status: 500
+  title: Internal Server Error
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 502
+  title: Bad Gateway
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 503
+  title: Service Unavailable
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 504
+  title: Gateway Timeout
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-notification-service-openapi.yaml
+  source_operations:
+  - webhook:NonSubscriberNotification
+  - webhook:SubscriberNotification
+  operation_count: 2
+- status: 400
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 401
+  title: Unauthorised
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 403
+  title: Forbidden
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 404
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 2
+- status: 405
+  title: Method not allowed
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 500
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - getHealth
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 5
+- status: 400
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 401
+  title: Unauthorised
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 403
+  title: Forbidden
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 404
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 2
+- status: 405
+  title: Method not allowed
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 4
+- status: 500
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  source_operations:
+  - createTitleSearch
+  - getHealth
+  - retrieveBilling
+  - retrieveTitleSearch
+  - retrieveTitleSearchDocuments
+  operation_count: 5
+- status: 400
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - createProject
+  - notification
+  - statuses
+  - updateProject
+  - workspaces
+  operation_count: 5
+- status: 400
+  title: Invalid request
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - createWorkspace
+  operation_count: 1
+- status: 401
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - addParticipants
+  - addParties
+  - createFinancials
+  - createProject
+  - deleteParticipants
+  - deleteParties
+  - notification
+  - proposeSettlement
+  - statuses
+  - updateParties
+  - updateProject
+  - updateWorkspace
+  - '...'
+  operation_count: 13
+- status: 403
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - addParticipants
+  - addParties
+  - createFinancials
+  - createProject
+  - deleteParticipants
+  - deleteParties
+  - notification
+  - proposeSettlement
+  - statuses
+  - updateParties
+  - updateProject
+  - updateWorkspace
+  - '...'
+  operation_count: 13
+- status: 404
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - addParticipants
+  - addParties
+  - createFinancials
+  - deleteParticipants
+  - deleteParties
+  - proposeSettlement
+  - updateParties
+  - updateWorkspace
+  operation_count: 8
+- status: 500
+  title: null
+  media_types: []
+  source_spec: openapi/pexa-projects-api-v4-openapi.yaml
+  source_operations:
+  - addParticipants
+  - addParties
+  - createFinancials
+  - createProject
+  - deleteParticipants
+  - deleteParties
+  - notification
+  - proposeSettlement
+  - statuses
+  - updateParties
+  - updateProject
+  - updateWorkspace
+  - '...'
+  operation_count: 13
+- status: 400
+  title: Invalid input
+  media_types:
+  - application/json
+  source_spec: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  source_operations:
+  - processDischarge
+  operation_count: 1

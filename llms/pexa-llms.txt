@@ -1,0 +1,99 @@
+# PEXA (Property Exchange Australia)
+
+> PEXA operates Australia's dominant Electronic Lodgement Network — the digital rail on which
+> property is settled and title dealings are lodged with the state land registries. It publishes a
+> real, versioned, multi-product API estate (Exchange, Projects, Notification/webhooks, Standalone
+> Discharge, PEXA Plus Marketplace) with machine-readable contracts, a named managed test
+> environment, published per-transaction pricing and declared OAuth 2.0 scopes. Access is gated: the
+> developer portal and all credentials require a signed PEXA API Agreement, and the ARNECC Model
+> Operating Requirements oblige PEXA to offer that access to third parties on an equivalent basis.
+
+generated: 2026-07-26
+method: generated
+source: apis.yml plus the artifacts in this repository. PEXA publishes no llms.txt of its own —
+        https://developer.pexa.com.au/llms.txt returns HTTP 200 but with content-type text/html
+        (the Gatsby SPA catch-all), not a real document.
+
+## Access model
+
+- Not self-serve. Register at https://www.pexa.com.au/pexa-apis/, PEXA validates and approves, test
+  credentials are emailed, production requires a signed PEXA API Agreement.
+- Auth: OAuth 2.0 client credentials (M2M) or authorization code (B2C, individual PEXA login + MFA),
+  or mutual TLS. Tokens last 12 hours. TLS 1.2 minimum.
+- Production token endpoint: https://auth.pexa.com.au/oauth/token
+- Test token endpoint: https://auth-tst.pexalabs.com.au/oauth/token
+- Credential requests: apisupport@pexa.com.au
+- Pricing is per Settled Workspace, published at https://www.pexa.com.au/api-pricing/
+
+## APIs
+
+- [PEXA Exchange API](https://developer.pexa.com.au/Exchange/api/apireference/): workspaces,
+  invitations, participants, land title references, documents, conversations, financial settlement
+  line items, settlement dates, settlement completion records. Swagger 2.0, paths /v2-/v6.
+- [PEXA Projects API](https://developer.pexa.com.au/Projects/api/apireference/): multi-lot
+  development settlements — projects, lots, statuses, parties, participants, financials. OpenAPI
+  3.0.3, /v4.
+- [PEXA Notification Service API](https://developer.pexa.com.au/Webhooks/api/apireference/): webhook
+  registration, event selection and shared-secret rotation; declares SubscriberNotification and
+  NonSubscriberNotification webhooks. OpenAPI 3.1.0. Premium billed API.
+- [PEXA Standalone Discharge Experience API](https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/):
+  consolidated standalone mortgage discharge for financial institutions. OpenAPI 3.1.0, /v1.
+- [PEXA Plus Marketplace B2B API](https://developer.pexa.com.au/Marketplace/api/apireference/):
+  health, title search ordering and billing. OpenAPI 3.0.3, https://plus.pexa.com.au/api/plus/v1
+
+## Specs
+
+- [Exchange (Swagger 2.0)](openapi/pexa-exchange-api-swagger.json)
+- [Exchange legacy /v1-/v3 (Swagger 2.0, superseded)](openapi/pexa-exchange-api-legacy-swagger.json)
+- [Projects v4 (OpenAPI 3.0.3)](openapi/pexa-projects-api-v4-openapi.yaml)
+- [Notification Service (OpenAPI 3.1.0, webhooks)](openapi/pexa-notification-service-openapi.yaml)
+- [Standalone Discharge (OpenAPI 3.1.0)](openapi/pexa-standalone-discharge-experience-api-openapi.yaml)
+- [Plus Marketplace (OpenAPI 3.0.3)](openapi/pexa-plus-marketplace-b2b-api-openapi.yaml)
+- [Plus Marketplace (OpenAPI 3.0.0 variant)](openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml)
+
+## Artifacts
+
+- [Authentication profile](authentication/pexa-authentication.yml)
+- [OAuth scopes](scopes/pexa-scopes.yml)
+- [API conventions](conventions/pexa-conventions.yml)
+- [Error codes — 135 Exchange OB* exceptions + 15 GA.NOTIF.* errors](errors/pexa-error-codes.yml)
+- [Derived problem types from OpenAPI 4xx/5xx](errors/pexa-problem-types.yml)
+- [Webhook event catalogue — 110 event types](asyncapi/pexa-notification-webhooks.yml)
+- [Lifecycle and versioning](lifecycle/pexa-lifecycle.yml)
+- [Changelog](changelog/pexa-changelog.yml)
+- [Sandbox / test environment](sandbox/pexa-sandbox.yml)
+- [Data model](data-model/pexa-data-model.yml)
+- [Conformance](conformance/pexa-conformance.yml)
+- [Deep-link components](components/pexa-components.yml)
+- [Well-known documents](well-known/pexa-well-known.yml)
+- [Domain security](security/pexa-domain-security.yml)
+- [Vulnerability disclosure](security/pexa-vulnerability-disclosure.yml)
+- [Agentic access classification](agentic-access/pexa-agentic-access.yml)
+- [Candidate MCP tool surface](mcp/pexa-mcp.yml)
+- [Agent skills](skills/_index.yml)
+
+## Docs
+
+- [Developer portal](https://developer.pexa.com.au/)
+- [API integration overview and onboarding](https://www.pexa.com.au/pexa-apis/)
+- [API pricing and the ARNECC equivalent-access statement](https://www.pexa.com.au/api-pricing/)
+- [Exchange authentication guide, deep links, exceptions and valid values](https://developer.pexa.com.au/Exchange/docs/documentation/)
+- [Exchange changelog](https://developer.pexa.com.au/Exchange/docs/changelog/)
+- [PEXA Webhooks guide](https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/)
+- [Integration Principles (PDF)](https://www.pexa.com.au/staticly-media/2024/10/PEXA_Integration_Principles-sm-1728949058.pdf)
+- [System status](https://status.pexa.com.au/)
+- [Help centre](https://help.pexa.com.au/s/)
+- [Compliance hub](https://compliance.pexa.com.au/)
+- [Security and responsible disclosure](https://www.pexa.com.au/security/)
+
+## Notes for agents
+
+- No PEXA operation is callable anonymously. Do not attempt to discover credentials.
+- Exchange REST writes have NO idempotency key. Never blind-retry a POST or PUT; re-read state first.
+- Inbound webhooks DO have one: dedupe on the `webhook-id` header, which is stable across retries.
+- The Exchange contract serves /v2 through /v6 concurrently; take paths verbatim from the spec.
+- Signing documents, authorising source line items and accepting settlement move real money against
+  real land titles. Treat them as human-in-the-loop.
+- No published rate limits and no X-RateLimit-* headers. Poll conservatively; prefer webhooks.
+- RESO does not apply. It is a North American MLS standard with no bearing on Australian
+  e-conveyancing; PEXA neither claims nor implies alignment with it.

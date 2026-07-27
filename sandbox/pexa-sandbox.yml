@@ -1,0 +1,98 @@
+generated: '2026-07-26'
+method: searched
+source:
+- https://www.pexa.com.au/pexa-apis/
+- https://developer.pexa.com.au/Exchange/docs/documentation/
+- https://developer.pexa.com.au/Projects/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
+- openapi/pexa-notification-service-openapi.yaml (servers[])
+- openapi/pexa-standalone-discharge-experience-api-openapi.yaml (servers[])
+available: true
+self_serve: false
+gate: >-
+  Test credentials are NOT self-serve. The published onboarding is: register on
+  https://www.pexa.com.au/pexa-apis/, PEXA validates and approves the details, then emails the test
+  access details. Credential requests and re-issues go to apisupport@pexa.com.au. Production access
+  additionally requires a signed PEXA API Agreement.
+statement: >-
+  "We offer a fully-managed test environment where you can connect, develop and make sure everything
+  works." — https://www.pexa.com.au/pexa-apis/
+environments:
+- name: test
+  label: non-prod / PEXA Labs
+  api_host: https://api-tst.pexalabs.com.au
+  auth_host: https://auth-tst.pexalabs.com.au
+  token_endpoint: https://auth-tst.pexalabs.com.au/oauth/token
+  authorize_endpoint: https://auth-tst.pexalabs.com.au/authorize
+  oidc_discovery: https://auth-tst.pexalabs.com.au/.well-known/openid-configuration
+  declared_in:
+  - openapi/pexa-notification-service-openapi.yaml
+  - openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  root_probe: 'GET https://api-tst.pexalabs.com.au/ -> 404 (host resolves, root not served)'
+- name: production
+  api_host: https://api.pexa.com.au
+  auth_host: https://auth.pexa.com.au
+  token_endpoint: https://auth.pexa.com.au/oauth/token
+  oidc_discovery: https://auth.pexa.com.au/.well-known/openid-configuration
+  marketplace_host: https://plus.pexa.com.au/api/plus/v1
+separation:
+  mechanism: separate hostnames and separate authorization servers per environment
+  key_prefixes:
+    note: >-
+      No live/test key prefix convention is published. The worked examples use illustrative test
+      client identifiers only.
+  documented_example_client_ids:
+  - pxa_cc_test
+  - pxa_cc_tst
+  - pxa_ac_test
+  documented_example_scope: au_pub_tst_pexa_conversation_api_v2_read
+  documented_example_note: >-
+    Published in the portal's worked cURL examples as placeholders. These are illustrative values in
+    the documentation, not usable shared credentials — real client_id/client_secret pairs are issued
+    per integrator by PEXA.
+worked_examples:
+- flow: client_credentials
+  request: >-
+    curl --location --request POST 'https://auth-tst.pexalabs.com.au/oauth/token'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'grant_type=client_credentials'
+    --data-urlencode 'client_id=pxa_cc_tst'
+    --data-urlencode 'client_secret=<issued by PEXA>'
+    --data-urlencode 'scope=au_pub_tst_pexa_conversation_api_v2_read'
+- flow: authorization_code
+  request: >-
+    curl --location
+    'https://auth-tst.pexalabs.com.au/authorize?client_id=pxa_ac_test&response_type=code&redirect_uri=<your redirect uri>'
+- flow: api call
+  request: >-
+    curl --location --request GET 'https://api-tst.pexalabs.com.au/api/rest/v2/user'
+    --header 'Authorization: Bearer <access_token>' --header 'content-type: application/json'
+  note: >-
+    Note the /api/rest prefix used in the portal's test-environment examples, which does not appear
+    in the harvested Swagger paths.
+test_data:
+  supplied_by_pexa: true
+  detail: >-
+    PEXA supplies the test fixtures. Exception OB1401.007 ("The land title was not found in PEXA")
+    is documented with the remediation "add a land title to your Land Title Reference Verification
+    API request that was provided by the PEXA API Services team to support your testing" — test land
+    titles are issued per integrator rather than published as magic values.
+  published_magic_values: []
+  published_magic_values_note: >-
+    No public test card numbers, magic identifiers, test clock or fixture-trigger tooling exists.
+    PEXA settles real money against real state land registries; the test estate is a managed,
+    credentialed environment, not a set of published sentinel values. Nothing was invented here.
+deep_links_test:
+  note: The documented deep links have distinct test and production forms.
+  test_pattern: https://api-tst.pexalabs.com.au/pexa_web/dl/<screen>
+  production_pattern: https://api.pexa.com.au/pexa_web/token/dl/<screen>
+webhook_testing:
+  note: >-
+    Webhook registrations are environment-scoped via the API_SERVER_URL, and the same five
+    notification scopes apply in both non-prod and prod. The webhookURI domain must be whitelisted by
+    PEXA in each environment before a registration will succeed.
+console:
+  try_it_out: false
+  note: >-
+    The portal renders Swagger UI but Try-It-Out is disabled in the build (allowTryItOutFor returns
+    false), so there is no in-browser request console.

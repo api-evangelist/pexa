@@ -1,0 +1,71 @@
+generated: '2026-07-26'
+method: searched
+source: https://developer.pexa.com.au/Exchange/docs/documentation/ (Deep Links)
+note: >-
+  PEXA ships no JavaScript element library, web components or embeddable widget set. What it does
+  publish — and what integrators actually embed — is a documented DEEP LINK surface that hands an
+  authenticated user from the integrator's own practice-management software straight into a specific
+  PEXA Web screen. Each link has a distinct OAuth 2.0 (Web) form against the test host and an
+  OAuth 2.0 (Desktop) form against the production host with a /token/ segment. PEXA notes the user is
+  redirected to the login screen to enter credentials when following a deep link.
+families:
+- family: deep-links
+  name: PEXA Web deep links
+  type: hosted-redirect
+  loader: none — plain hyperlinks from the integrator UI
+  auth: user re-authenticates in PEXA Web; workspace role passed as a role query parameter
+  patterns:
+    web: https://api-tst.pexalabs.com.au/pexa_web/dl/<screen>
+    desktop: https://api.pexa.com.au/pexa_web/token/dl/<screen>
+  links:
+  - name: Dashboard
+    path: /pexa_web/dl/workspaces
+    purpose: land the user on the PEXA dashboard
+  - name: Create Workspace
+    path: /pexa_web/dl/createWorkspace
+    purpose: jurisdiction, representative role, land title reference, subscriber reference, financial
+      settlement required, workgroup allocation
+  - name: Workspace Summary
+    path: /pexa_web/dl/workspaces/{workspaceId}?role={workspaceRole}
+    purpose: initiate tasks, view rendered documents, workspace history and notifications
+  - name: Tasks
+    path: /pexa_web/dl/workspaces/{workspaceId}/tasks?role={workspaceRole}
+    purpose: notice of sale, financial settlement schedule, confirm funds, sign documents
+  - name: Outstanding Invitations Received
+    path: /pexa_web/dl/invitations
+    purpose: accept or decline participant invitations for the workgroup
+  - name: Specific Invitation
+    path: /pexa_web/dl/invitations/{invitationId}
+    purpose: accept, decline or forward a single invitation
+  - name: Land Titles
+    path: /pexa_web/dl/workspaces/{workspaceId}/landTitles?role={workspaceRole}
+    purpose: review land title data, title activity check, add or remove a title
+  - name: Participants
+    path: /pexa_web/dl/workspaces/{workspaceId}/participants?role={workspaceRole}
+    purpose: view and invite participants, manage party records, withdraw
+  - name: Documents
+    path: /pexa_web/dl/workspaces/{workspaceId}/documents?role={workspaceRole}
+    purpose: create/edit/delete and sign documents, lodgement verification, submit for lodgement
+  - name: Financial Settlement Schedule
+    path: /pexa_web/dl/workspaces/{workspaceId}/settlement?role={workspaceRole}
+    purpose: populate source and destination line items, sign/un-sign, verify and authorise, set
+      settlement date and time
+  - name: Fee Schedule
+    path: /pexa_web/dl/workspaces/{workspaceId}/feeSchedule?role={workspaceRole}
+    purpose: view lodgement fees and workspace fee
+  - name: Conversations
+    path: /pexa_web/dl/workspaces/{workspaceId}/conversations?role={workspaceRole}
+    purpose: view, initiate and respond to workspace conversations
+  - name: Notifications
+    path: /pexa_web/dl/workspaces/{workspaceId}/notifications
+    purpose: lodgement and stamp-duty verification advice, settlement status advice, data-change alerts
+  - name: History
+    purpose: workspace history
+  - name: Subscriber on-boarding
+    purpose: subscriber onboarding screens
+mobile:
+- name: PEXA Key
+  type: consumer mobile app (not a developer component)
+  distribution: Apple App Store and Google Play
+  purpose: secure communication of bank account details to remove email fraud risk at settlement
+  note: Listed for completeness; PEXA publishes no SDK for embedding PEXA Key.
