@@ -37,12 +37,13 @@ specificationVersion: '0.19'
 apis:
 - aid: pexa:pexa-exchange-api
   name: PEXA Exchange API
-  description: The PEXA Exchange API covers key facets of PEXA Exchange e-conveyancing functionality —
-    creating and updating workspaces, invitations, participants, land title references, documents, conversations,
-    financial settlement line items, settlement dates and settlement completion records. Documented as
-    a Swagger 2.0 contract across versioned paths (/v2 through /v6). Authenticated with OAuth 2.0 (client
-    credentials or authorization code) or mutual TLS; each endpoint requires specific scopes. Access requires
-    a signed PEXA API Agreement.
+  description: >-
+    The PEXA Exchange API covers key facets of PEXA Exchange e-conveyancing functionality — creating and
+    updating workspaces, invitations, participants, land title references, documents, conversations, financial
+    settlement line items, settlement dates and settlement completion records. Documented as a Swagger
+    2.0 contract across versioned paths (/v2 through /v6). Authenticated with OAuth 2.0 (client credentials
+    or authorization code) or mutual TLS; each endpoint requires specific scopes. Access requires a signed
+    PEXA API Agreement.
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
@@ -85,82 +86,12 @@ apis:
     url: https://developer.pexa.com.au/Exchange/docs/changelog/
   - type: OAuthScopes
     url: scopes/pexa-scopes.yml
-- aid: pexa:pexa-projects-api
-  name: PEXA Projects API
-  description: The PEXA Projects API (v4) supports multi-lot development settlements — creating and managing
-    projects, project lots, project statuses and related participants for property developers settling
-    many lots through PEXA. Published as an OpenAPI 3.0.3 contract with OAuth 2.0 authorizationCode and
-    clientCredentials flows and named scopes such as au:projects:project:write.
-  humanURL: https://developer.pexa.com.au/Projects/api/apireference/
-  baseURL: https://api.pexa.com.au
-  tags:
-  - Project
-  - Property Development
-  - Conveyancing
-  properties:
-  - type: OpenAPI
-    url: openapi/pexa-projects-api-v4-openapi.yaml
-  - type: APIReference
-    url: https://developer.pexa.com.au/Projects/api/apireference/
-  - type: Documentation
-    url: https://developer.pexa.com.au/Projects/docs/documentation/
-  - type: AgentSkill
-    url: skills/pexa-settle-a-multi-lot-project.md
-    name: Settle a multi-lot development through PEXA Projects
-  - type: Overlay
-    url: overlays/pexa-projects-overlay.yaml
-  - type: Authentication
-    url: authentication/pexa-authentication.yml
-  - type: Conventions
-    url: conventions/pexa-conventions.yml
-  - type: Sandbox
-    url: sandbox/pexa-sandbox.yml
-  - type: ChangeLog
-    url: https://developer.pexa.com.au/Projects/docs/changelog/
-  - type: OAuthScopes
-    url: scopes/pexa-scopes.yml
-- aid: pexa:pexa-notification-service-api
-  name: PEXA Notification Service API
-  description: The PEXA Push Notifications Service delivers event notifications to subscribers via webhook
-    and manages registration for specific events, including creating, updating and deleting notification
-    registrations and rotating the shared secret used to sign webhook deliveries. Published as an OpenAPI
-    3.1.0 contract that declares two outbound webhooks — SubscriberNotification and NonSubscriberNotification.
-    PEXA documents this as a premium, billed API.
-  humanURL: https://developer.pexa.com.au/Webhooks/api/apireference/
-  baseURL: https://api.pexa.com.au
-  tags:
-  - Webhooks
-  - Notifications
-  - Events
-  properties:
-  - type: OpenAPI
-    url: openapi/pexa-notification-service-openapi.yaml
-  - type: APIReference
-    url: https://developer.pexa.com.au/Webhooks/api/apireference/
-  - type: AgentSkill
-    url: skills/pexa-subscribe-to-workspace-events.md
-    name: Subscribe to PEXA workspace events over webhooks
-  - type: Overlay
-    url: overlays/pexa-notification-service-overlay.yaml
-  - type: Authentication
-    url: authentication/pexa-authentication.yml
-  - type: Conventions
-    url: conventions/pexa-conventions.yml
-  - type: Sandbox
-    url: sandbox/pexa-sandbox.yml
-  - type: Webhooks
-    url: asyncapi/pexa-notification-webhooks.yml
-    name: PEXA Webhooks event catalogue (110 events)
-  - type: ErrorCatalog
-    url: errors/pexa-error-codes.yml
-    name: GA.NOTIF.* error registry
-  - type: OAuthScopes
-    url: scopes/pexa-scopes.yml
 - aid: pexa:pexa-standalone-discharge-experience-api
   name: PEXA Standalone Discharge Experience API
-  description: An OpenAPI 3.1.0 experience API supporting consolidated standalone mortgage discharge,
-    used by financial institutions discharging a mortgage outside of a full transfer workspace. Declares
-    production and test servers and OAuth 2.0 authorizationCode and clientCredentials flows.
+  description: >-
+    An OpenAPI 3.1.0 experience API supporting consolidated standalone mortgage discharge, used by financial
+    institutions discharging a mortgage outside of a full transfer workspace. Declares production and
+    test servers and OAuth 2.0 authorizationCode and clientCredentials flows.
   humanURL: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
@@ -187,10 +118,11 @@ apis:
     url: scopes/pexa-scopes.yml
 - aid: pexa:pexa-plus-marketplace-b2b-api
   name: PEXA Plus Marketplace B2B API
-  description: The PEXA Plus Marketplace B2B API exposes marketplace services to business partners — health
-    check, title search ordering and billing — under the PEXA Plus product. Published as an OpenAPI 3.0.3
-    contract (an OpenAPI 3.0.0 variant of the same document is also shipped in the portal) with a documented
-    server at https://plus.pexa.com.au/api/plus/v1.
+  description: >-
+    The PEXA Plus Marketplace B2B API exposes marketplace services to business partners — health check,
+    title search ordering and billing — under the PEXA Plus product. Published as an OpenAPI 3.0.3 contract
+    (an OpenAPI 3.0.0 variant of the same document is also shipped in the portal) with a documented server
+    at https://plus.pexa.com.au/api/plus/v1.
   humanURL: https://developer.pexa.com.au/Marketplace/api/apireference/
   baseURL: https://plus.pexa.com.au/api/plus/v1
   tags:
@@ -221,7 +153,25 @@ apis:
     url: https://developer.pexa.com.au/Marketplace/api/apireference/
   - type: OAuthScopes
     url: scopes/pexa-scopes.yml
+- aid: pexa:pexa-notification-service-openapi
+  name: PEXA Notification Service [$]
+  description: PEXA Notification Service [$] from PEXA — 6 path(s) described in OpenAPI.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-notification-service-openapi.yaml
+- aid: pexa:pexa-projects-api-v4-openapi
+  name: PEXA Projects API
+  description: PEXA Projects API from PEXA — 10 path(s) described in OpenAPI.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-projects-api-v4-openapi.yaml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/pexa/overview
 - type: AgenticAccess
   url: agentic-access/pexa-agentic-access.yml
 - type: VulnerabilityDisclosure
