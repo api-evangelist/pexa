@@ -1,0 +1,2786 @@
+{
+  "info": {
+    "_postman_id": "af8d6498-3dab-4797-9f8b-447d48ad2cdd",
+    "name": "Notification Service [$]",
+    "description": "The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events. This API caters to various functions including updating, deleting, and creating registration details, as well as rotating the shared secret for secure communication. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flow: <br> - Client Credentials <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [PEXA Webhooks Guide](../../docs/definitions/webhooks/)  <br> - [Authentication](../../../Exchange/docs/documentation/)\n\n\nContact Support:\n Email: apisupport@pexa.com.au",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:35:46.000Z",
+    "updatedAt": "2026-07-28T02:35:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-af8d6498-3dab-4797-9f8b-447d48ad2cdd"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "notification-registrations",
+          "item": [
+            {
+              "name": "{registrationId}",
+              "item": [
+                {
+                  "name": "Update registration details (V3)",
+                  "id": "9dede441-0357-4734-a78e-144713eff85e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://auth.pexa.com.au/oauth/token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "client_credentials",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations",
+                        ":registrationId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "55dd0e3a-4872-4849-a407-f4f009b09243",
+                          "key": "registrationId",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the registration to update"
+                        }
+                      ]
+                    },
+                    "description": "Updates the webhook URI, event types, or authentication configuration for an existing registration. Supports switching between HMAC and HMAC_OAUTH modes. Use HMAC_OAUTH to add OAuth 2.0 Client Credentials authentication on top of HMAC for enhanced security. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)"
+                  },
+                  "response": [
+                    {
+                      "id": "ab88978e-2e06-4914-87f7-f65b19c4c56b",
+                      "name": "SUCCESS",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"integratorId\": \"<string>\",\n  \"integratorType\": \"<string>\",\n  \"registrationId\": \"<string>\",\n  \"subscriberId\": \"<string>\",\n  \"webhookURI\": \"<uri>\",\n  \"authenticationMode\": \"<string>\",\n  \"authConfig\": {\n    \"authUrl\": \"<uri>\",\n    \"clientId\": \"<string>\",\n    \"clientAuthMethod\": \"<string>\",\n    \"audience\": \"<string>\",\n    \"scope\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-ab88978e-2e06-4914-87f7-f65b19c4c56b"
+                    },
+                    {
+                      "id": "e7a96bf9-d526-4417-8625-7638d82b9f58",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-e7a96bf9-d526-4417-8625-7638d82b9f58"
+                    },
+                    {
+                      "id": "4cc882f4-731e-4bc8-9ead-2fd9b7b38618",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-4cc882f4-731e-4bc8-9ead-2fd9b7b38618"
+                    },
+                    {
+                      "id": "f7354263-06d8-4528-98a9-c406c7c63f8a",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-f7354263-06d8-4528-98a9-c406c7c63f8a"
+                    },
+                    {
+                      "id": "e4ad6cdc-263e-4948-bbbd-f51d7ba6387b",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-e4ad6cdc-263e-4948-bbbd-f51d7ba6387b"
+                    },
+                    {
+                      "id": "ea3b1700-7918-4843-8ee1-16d9e6b15c00",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-ea3b1700-7918-4843-8ee1-16d9e6b15c00"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-9dede441-0357-4734-a78e-144713eff85e"
+                }
+              ],
+              "id": "aea57c63-c690-4e52-b55a-3a93faf3afc2",
+              "createdAt": "2026-07-28T02:35:47.000Z",
+              "updatedAt": "2026-07-28T02:35:47.000Z",
+              "uid": "35240-aea57c63-c690-4e52-b55a-3a93faf3afc2"
+            },
+            {
+              "name": "Create registration details (V3)",
+              "id": "adad93a2-cb5a-4f7b-993b-d646b486f41b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://auth.pexa.com.au/oauth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v3/notification-registrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v3",
+                    "notification-registrations"
+                  ]
+                },
+                "description": "Registers a webhook endpoint to start receiving PEXA event notifications, with support for enhanced authentication modes. Use authenticationMode HMAC for standard shared secret verification, or HMAC_OAUTH to additionally authenticate webhook delivery using OAuth 2.0 Client Credentials for integrators with strict inbound security requirements. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)"
+              },
+              "response": [
+                {
+                  "id": "d4b320ce-6ed9-4724-ae7a-e3bcc787c544",
+                  "name": "SUCCESS",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"integratorId\": \"<string>\",\n  \"integratorType\": \"<string>\",\n  \"registrationId\": \"<string>\",\n  \"subscriberId\": \"<string>\",\n  \"sharedSecret\": \"<string>\",\n  \"sharedSecretExpiry\": \"<string>\",\n  \"webhookURI\": \"<uri>\",\n  \"authenticationMode\": \"<string>\",\n  \"authConfig\": {\n    \"authUrl\": \"<uri>\",\n    \"clientId\": \"<string>\",\n    \"clientAuthMethod\": \"<string>\",\n    \"audience\": \"<string>\",\n    \"scope\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-d4b320ce-6ed9-4724-ae7a-e3bcc787c544"
+                },
+                {
+                  "id": "75663e26-baa2-43ae-bdee-ba8db11e4d8f",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-75663e26-baa2-43ae-bdee-ba8db11e4d8f"
+                },
+                {
+                  "id": "185c0bf5-ae14-4d6d-b962-0cb73a6ac43a",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-185c0bf5-ae14-4d6d-b962-0cb73a6ac43a"
+                },
+                {
+                  "id": "6c3c1c62-4af1-45a3-bec4-2c39993593d1",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-6c3c1c62-4af1-45a3-bec4-2c39993593d1"
+                },
+                {
+                  "id": "f506a3cf-d7c0-46c5-91e4-3eceb8b796c7",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"attributes\": {\n    \"webhookURI\": \"<uri>\",\n    \"authenticationMode\": \"<string>\",\n    \"authConfig\": {\n      \"authUrl\": \"<uri>\",\n      \"clientId\": \"<string>\",\n      \"clientAuthMethod\": \"<string>\",\n      \"clientSecret\": \"<string>\",\n      \"audience\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-f506a3cf-d7c0-46c5-91e4-3eceb8b796c7"
+                }
+              ],
+              "createdAt": "2026-07-28T02:35:47.000Z",
+              "updatedAt": "2026-07-28T02:35:47.000Z",
+              "uid": "35240-adad93a2-cb5a-4f7b-993b-d646b486f41b"
+            }
+          ],
+          "id": "cdce44f4-d223-4dcd-b5ef-f70a1a531310",
+          "createdAt": "2026-07-28T02:35:47.000Z",
+          "updatedAt": "2026-07-28T02:35:47.000Z",
+          "uid": "35240-cdce44f4-d223-4dcd-b5ef-f70a1a531310"
+        }
+      ],
+      "id": "5a122ae2-6447-4107-bc1c-6d647ed55e7f",
+      "createdAt": "2026-07-28T02:35:47.000Z",
+      "updatedAt": "2026-07-28T02:35:47.000Z",
+      "uid": "35240-5a122ae2-6447-4107-bc1c-6d647ed55e7f"
+    },
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "notification-registrations",
+          "item": [
+            {
+              "name": "Get notification registrations",
+              "id": "95176d58-067b-459e-bc9f-683731bab6a6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://auth.pexa.com.au/oauth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v2",
+                    "notification-registrations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                      "key": "registrationId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "Determines which page of registrations to retrieve",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Retrieve registration details. If registrationId parameter is provided, returns specified registration details. If not provided, returns an array of all registrations ordered by updated_at timestamp in descending order <br>Scopes:<br><i>view:notification_registrations</i> (non-prod)<br><i>view:notification_registrations</i> (prod)"
+              },
+              "response": [
+                {
+                  "id": "08623528-17dc-40aa-b2ac-8cf374106bda",
+                  "name": "SUCCESS",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "notification-registrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                          "key": "registrationId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Determines which page of registrations to retrieve",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"page\": {\n    \"page\": \"<integer>\",\n    \"totalRecords\": \"<integer>\",\n    \"pageRecords\": \"<integer>\",\n    \"limit\": \"<integer>\"\n  },\n  \"records\": [\n    {\n      \"notificationType\": \"<string>\",\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"integratorId\": \"<string>\",\n      \"integratorType\": \"<string>\",\n      \"registrationId\": \"<string>\",\n      \"subscriberId\": \"<string>\",\n      \"webhookURI\": \"<uri>\",\n      \"sharedSecret\": \"<string>\",\n      \"sharedSecretExpiry\": \"<string>\",\n      \"authenticationMode\": \"<string>\",\n      \"authConfig\": {\n        \"authUrl\": \"<uri>\",\n        \"clientId\": \"<string>\",\n        \"clientAuthMethod\": \"<string>\",\n        \"audience\": \"<string>\",\n        \"scope\": \"<string>\"\n      }\n    },\n    {\n      \"notificationType\": \"<string>\",\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"integratorId\": \"<string>\",\n      \"integratorType\": \"<string>\",\n      \"registrationId\": \"<string>\",\n      \"subscriberId\": \"<string>\",\n      \"webhookURI\": \"<uri>\",\n      \"sharedSecret\": \"<string>\",\n      \"sharedSecretExpiry\": \"<string>\",\n      \"authenticationMode\": \"<string>\",\n      \"authConfig\": {\n        \"authUrl\": \"<uri>\",\n        \"clientId\": \"<string>\",\n        \"clientAuthMethod\": \"<string>\",\n        \"audience\": \"<string>\",\n        \"scope\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-08623528-17dc-40aa-b2ac-8cf374106bda"
+                },
+                {
+                  "id": "ced3a300-f965-4e09-aa46-df556f5ee2b4",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "notification-registrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                          "key": "registrationId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Determines which page of registrations to retrieve",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-ced3a300-f965-4e09-aa46-df556f5ee2b4"
+                },
+                {
+                  "id": "a3d4b103-b515-4e7f-8c1a-13e617e04924",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "notification-registrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                          "key": "registrationId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Determines which page of registrations to retrieve",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-a3d4b103-b515-4e7f-8c1a-13e617e04924"
+                },
+                {
+                  "id": "00d8a1f8-00f8-4b5e-b3e7-a2c5de9e9cb1",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "notification-registrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                          "key": "registrationId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Determines which page of registrations to retrieve",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-00d8a1f8-00f8-4b5e-b3e7-a2c5de9e9cb1"
+                },
+                {
+                  "id": "5c87cf2f-c47c-481c-9c30-e63588c8c306",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/notification-registrations?registrationId=<uuid>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "notification-registrations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.",
+                          "key": "registrationId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Determines which page of registrations to retrieve",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-5c87cf2f-c47c-481c-9c30-e63588c8c306"
+                }
+              ],
+              "createdAt": "2026-07-28T02:35:47.000Z",
+              "updatedAt": "2026-07-28T02:35:47.000Z",
+              "uid": "35240-95176d58-067b-459e-bc9f-683731bab6a6"
+            }
+          ],
+          "id": "4bd1edfe-48f8-4ec4-b8e9-0021b32cc668",
+          "createdAt": "2026-07-28T02:35:47.000Z",
+          "updatedAt": "2026-07-28T02:35:47.000Z",
+          "uid": "35240-4bd1edfe-48f8-4ec4-b8e9-0021b32cc668"
+        }
+      ],
+      "id": "396dd480-d091-4af7-8ffc-ad8fc0d826c5",
+      "createdAt": "2026-07-28T02:35:47.000Z",
+      "updatedAt": "2026-07-28T02:35:47.000Z",
+      "uid": "35240-396dd480-d091-4af7-8ffc-ad8fc0d826c5"
+    },
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "notification-registrations",
+          "item": [
+            {
+              "name": "{registrationId}",
+              "item": [
+                {
+                  "name": "secret-rotation",
+                  "item": [
+                    {
+                      "name": "Rotate Shared Secret",
+                      "id": "fcd30050-7ee2-4326-8509-f781ba2f0e3e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                              "type": "string"
+                            },
+                            {
+                              "key": "accessTokenUrl",
+                              "value": "https://auth.pexa.com.au/oauth/token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "client_credentials",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId",
+                            "secret-rotation"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4f9eda5f-bc25-4cc8-a07f-3ca0eac985ad",
+                              "key": "registrationId",
+                              "value": "<string>",
+                              "description": "(Required) UUID of the registration"
+                            }
+                          ]
+                        },
+                        "description": "Rotates the shared secret for an existing webhook registration. The new secret is returned in the response and must be stored securely. The previous secret remains valid for 24 hours to allow a zero-downtime transition, after which only the new secret will be accepted for HMAC signature verification. <br>Scopes:<br><i>create:notification_registrations_secret_rotation</i> (non-prod)<br><i>create:notification_registrations_secret_rotation</i> (prod)"
+                      },
+                      "response": [
+                        {
+                          "id": "01950242-636d-4d2b-926e-7d4920f47994",
+                          "name": "SUCCESS",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"sharedSecret\": \"<string>\",\n  \"expiry\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-01950242-636d-4d2b-926e-7d4920f47994"
+                        },
+                        {
+                          "id": "0fd0e115-d752-407f-81bb-2543892c85e8",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-0fd0e115-d752-407f-81bb-2543892c85e8"
+                        },
+                        {
+                          "id": "9d91bddf-9395-441d-adea-7c642ae0b4db",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-9d91bddf-9395-441d-adea-7c642ae0b4db"
+                        },
+                        {
+                          "id": "342b69e9-c3f0-4ff4-ab5f-1ca845e357d1",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-342b69e9-c3f0-4ff4-ab5f-1ca845e357d1"
+                        },
+                        {
+                          "id": "f5bb4d52-4548-4a82-b0ec-556dc2dca753",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-f5bb4d52-4548-4a82-b0ec-556dc2dca753"
+                        },
+                        {
+                          "id": "6c44f6cd-6b92-4970-968f-b863281b4a75",
+                          "name": "Internal Server Error.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId/secret-rotation",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "notification-registrations",
+                                ":registrationId",
+                                "secret-rotation"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "registrationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T02:35:47.000Z",
+                          "updatedAt": "2026-07-28T02:35:47.000Z",
+                          "uid": "35240-6c44f6cd-6b92-4970-968f-b863281b4a75"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-fcd30050-7ee2-4326-8509-f781ba2f0e3e"
+                    }
+                  ],
+                  "id": "64ed69ab-e10d-4280-ae37-3d4e247bf10d",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-64ed69ab-e10d-4280-ae37-3d4e247bf10d"
+                },
+                {
+                  "name": "Update registration details",
+                  "id": "35815f06-5ce7-445f-a0c7-6109869b6863",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://auth.pexa.com.au/oauth/token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "client_credentials",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations",
+                        ":registrationId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "eb58d5cb-9de4-4a77-89e1-073db4887f57",
+                          "key": "registrationId",
+                          "value": "<string>",
+                          "description": "(Required) UUID of the registration"
+                        }
+                      ]
+                    },
+                    "description": "Updates the webhook URI or event types for an existing registration. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)"
+                  },
+                  "response": [
+                    {
+                      "id": "cc7c556c-e8c7-4bba-9597-61844ad4b3d4",
+                      "name": "SUCCESS",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"webhookURI\": \"<string>\",\n  \"registrationId\": \"<string>\",\n  \"notificationType\": \"<string>\",\n  \"subscriberId\": \"<string>\",\n  \"integratorId\": \"<string>\",\n  \"integratorType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-cc7c556c-e8c7-4bba-9597-61844ad4b3d4"
+                    },
+                    {
+                      "id": "f601dc2f-27ab-4858-a64c-6e8b69b082d6",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-f601dc2f-27ab-4858-a64c-6e8b69b082d6"
+                    },
+                    {
+                      "id": "7b5d91e6-7965-42f1-a03c-a8ed27f51854",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-7b5d91e6-7965-42f1-a03c-a8ed27f51854"
+                    },
+                    {
+                      "id": "07b4bdc0-d089-4010-8fb5-fd0211fecfca",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-07b4bdc0-d089-4010-8fb5-fd0211fecfca"
+                    },
+                    {
+                      "id": "af0f2a14-df2f-4fa3-8ab1-a48964a8f181",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-af0f2a14-df2f-4fa3-8ab1-a48964a8f181"
+                    },
+                    {
+                      "id": "344c7fc8-922c-413e-8613-4dc14e8308c6",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-344c7fc8-922c-413e-8613-4dc14e8308c6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-35815f06-5ce7-445f-a0c7-6109869b6863"
+                },
+                {
+                  "name": "Delete registration details",
+                  "id": "f6babc89-9eb0-485f-92a5-32b07bcba45a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://auth.pexa.com.au/oauth/token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "client_credentials",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations",
+                        ":registrationId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dca8d944-c407-4436-9ae8-b346f361bd92",
+                          "key": "registrationId",
+                          "value": "<string>",
+                          "description": "(Required) UUID of the registration."
+                        }
+                      ]
+                    },
+                    "description": "Deletes an existing webhook registration. Once deleted, PEXA will stop delivering event notifications to the associated webhook URI. This action cannot be undone; a new registration must be created to resume webhook delivery. <br>Scopes:<br><i>delete:notification_registrations</i> (non-prod)<br><i>delete:notification_registrations</i> (prod)"
+                  },
+                  "response": [
+                    {
+                      "id": "c094340d-2838-4d63-bd99-f52061ae63de",
+                      "name": "The resource has been deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-c094340d-2838-4d63-bd99-f52061ae63de"
+                    },
+                    {
+                      "id": "60f07fdf-c824-4f90-b26e-368d23b08ff1",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-60f07fdf-c824-4f90-b26e-368d23b08ff1"
+                    },
+                    {
+                      "id": "e87eff05-cdff-4fb8-ae1c-547e6488dfe1",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-e87eff05-cdff-4fb8-ae1c-547e6488dfe1"
+                    },
+                    {
+                      "id": "957b1aea-47c9-41ab-b973-b867f8ed4b5a",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-957b1aea-47c9-41ab-b973-b867f8ed4b5a"
+                    },
+                    {
+                      "id": "11993f1a-6662-41ab-aff6-a63c5ac72602",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-11993f1a-6662-41ab-aff6-a63c5ac72602"
+                    },
+                    {
+                      "id": "9bd4ff61-abf5-4da7-8158-4ba77366c5f1",
+                      "name": "Internal Server Error.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/notification-registrations/:registrationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "notification-registrations",
+                            ":registrationId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "registrationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T02:35:47.000Z",
+                      "updatedAt": "2026-07-28T02:35:47.000Z",
+                      "uid": "35240-9bd4ff61-abf5-4da7-8158-4ba77366c5f1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-f6babc89-9eb0-485f-92a5-32b07bcba45a"
+                }
+              ],
+              "id": "14b54b82-4cf6-41fb-8878-ce152fb19d84",
+              "createdAt": "2026-07-28T02:35:47.000Z",
+              "updatedAt": "2026-07-28T02:35:47.000Z",
+              "uid": "35240-14b54b82-4cf6-41fb-8878-ce152fb19d84"
+            },
+            {
+              "name": "Create registration details",
+              "id": "d77688c8-de18-4df4-b168-48b91bc45e25",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "view:notification_registrations create:notification_registrations edit:notification_registrations delete:notification_registrations create:notification_registrations_secret_rotation",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://auth.pexa.com.au/oauth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/notification-registrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "notification-registrations"
+                  ]
+                },
+                "description": "Registers a webhook endpoint to start receiving PEXA event notifications. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)"
+              },
+              "response": [
+                {
+                  "id": "ea339fa6-b74f-4c6a-9355-451a034bdeaf",
+                  "name": "SUCCESS",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"webhookURI\": \"<string>\",\n  \"registrationId\": \"<string>\",\n  \"notificationType\": \"<string>\",\n  \"subscriberId\": \"<string>\",\n  \"sharedSecret\": \"<string>\",\n  \"sharedSecretExpiry\": \"<string>\",\n  \"integratorId\": \"<string>\",\n  \"integratorType\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-ea339fa6-b74f-4c6a-9355-451a034bdeaf"
+                },
+                {
+                  "id": "de473fcf-65a6-4c38-b721-8f41ea0a7b80",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-de473fcf-65a6-4c38-b721-8f41ea0a7b80"
+                },
+                {
+                  "id": "91d5d651-6080-46c6-8bcc-63a88313ab0c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-91d5d651-6080-46c6-8bcc-63a88313ab0c"
+                },
+                {
+                  "id": "8c4ff9bc-cf6b-4b4c-aefc-d33148f9d285",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-8c4ff9bc-cf6b-4b4c-aefc-d33148f9d285"
+                },
+                {
+                  "id": "c640b112-bc61-4d9b-92ef-4d4b2d5bc71b",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhookURI\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/notification-registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "notification-registrations"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T02:35:47.000Z",
+                  "updatedAt": "2026-07-28T02:35:47.000Z",
+                  "uid": "35240-c640b112-bc61-4d9b-92ef-4d4b2d5bc71b"
+                }
+              ],
+              "createdAt": "2026-07-28T02:35:47.000Z",
+              "updatedAt": "2026-07-28T02:35:47.000Z",
+              "uid": "35240-d77688c8-de18-4df4-b168-48b91bc45e25"
+            }
+          ],
+          "id": "b75edab2-4aeb-4de3-9628-89dadbcfbc81",
+          "createdAt": "2026-07-28T02:35:47.000Z",
+          "updatedAt": "2026-07-28T02:35:47.000Z",
+          "uid": "35240-b75edab2-4aeb-4de3-9628-89dadbcfbc81"
+        }
+      ],
+      "id": "49901356-678e-452c-80de-cc27a7cf3286",
+      "createdAt": "2026-07-28T02:35:47.000Z",
+      "updatedAt": "2026-07-28T02:35:47.000Z",
+      "uid": "35240-49901356-678e-452c-80de-cc27a7cf3286"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pexa.com.au"
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "info": {
+    "_postman_id": "1fef7dfc-064b-4801-b2da-e00d1eefb406",
+    "name": "Standalone Discharge Experience API",
+    "description": "Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single experience API call, starting from creating workspace to discharge document to enable you to sign the document. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint.\n\nContact Support:\n Email: apisupport@pexa.com.au",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:35:48.000Z",
+    "updatedAt": "2026-07-28T02:35:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1fef7dfc-064b-4801-b2da-e00d1eefb406"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "discharge",
+          "item": [
+            {
+              "name": "Standalone Discharge Experience",
+              "id": "a24fcd99-f8f2-4a91-ae98-5ddc2abf26a8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "{{api_scope}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://'{{auth2_env}}'/oauth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://'{{auth2_env}}'/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriberReference\": \"<string>\",\n  \"landTitles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"jurisdiction\": \"NT\",\n  \"subscriberId\": \"<long>\",\n  \"transactionId\": \"<string>\",\n  \"workspace\": {\n    \"workspaceId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"jurisdiction\": \"<string>\",\n    \"documentSummary\": {\n      \"lodgementCases\": [\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        },\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"workspaceStatus\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"panelMasterSubscriberId\": \"<long>\",\n  \"mortgageNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workgroupId\": \"<long>\",\n  \"retainCTControl\": false,\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lodgementInstructions\": {\n    \"issuingInstructions\": {\n      \"titleFormat\": \"ECT\",\n      \"ctIssuedToPanelMaster\": \"<boolean>\"\n    }\n  },\n  \"events\": [\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/discharge",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "discharge"
+                  ]
+                },
+                "description": "Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single \nexperience API call, starting from creating workspace to discharge document to enable you to sign the document.\n"
+              },
+              "response": [
+                {
+                  "id": "32a891af-b253-4420-8f1b-ac67e24e51de",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"subscriberReference\": \"<string>\",\n  \"landTitles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"jurisdiction\": \"NT\",\n  \"subscriberId\": \"<long>\",\n  \"transactionId\": \"<string>\",\n  \"workspace\": {\n    \"workspaceId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"jurisdiction\": \"<string>\",\n    \"documentSummary\": {\n      \"lodgementCases\": [\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        },\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"workspaceStatus\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"panelMasterSubscriberId\": \"<long>\",\n  \"mortgageNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workgroupId\": \"<long>\",\n  \"retainCTControl\": false,\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lodgementInstructions\": {\n    \"issuingInstructions\": {\n      \"titleFormat\": \"ECT\",\n      \"ctIssuedToPanelMaster\": \"<boolean>\"\n    }\n  },\n  \"events\": [\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/discharge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "discharge"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"subscriberReference\": \"<string>\",\n  \"landTitles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"jurisdiction\": \"NT\",\n  \"subscriberId\": \"<long>\",\n  \"transactionId\": \"<string>\",\n  \"workspace\": {\n    \"workspaceId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"jurisdiction\": \"<string>\",\n    \"documentSummary\": {\n      \"lodgementCases\": [\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        },\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"workspaceStatus\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"panelMasterSubscriberId\": \"<long>\",\n  \"mortgageNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workgroupId\": \"<long>\",\n  \"retainCTControl\": false,\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lodgementInstructions\": {\n    \"issuingInstructions\": {\n      \"titleFormat\": \"ECT\",\n      \"ctIssuedToPanelMaster\": \"<boolean>\"\n    }\n  },\n  \"events\": [\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:48.000Z",
+                  "updatedAt": "2026-07-28T02:35:48.000Z",
+                  "uid": "35240-32a891af-b253-4420-8f1b-ac67e24e51de"
+                },
+                {
+                  "id": "b6f2d4c4-192f-4486-a83c-ec4d4d393670",
+                  "name": "Invalid input",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"subscriberReference\": \"<string>\",\n  \"landTitles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"jurisdiction\": \"NT\",\n  \"subscriberId\": \"<long>\",\n  \"transactionId\": \"<string>\",\n  \"workspace\": {\n    \"workspaceId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"jurisdiction\": \"<string>\",\n    \"documentSummary\": {\n      \"lodgementCases\": [\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        },\n        {\n          \"lodgementCaseId\": \"<string>\",\n          \"lodgementCaseStatus\": \"<string>\",\n          \"documents\": [\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            },\n            {\n              \"documentId\": \"<string>\",\n              \"documentStatus\": \"<string>\",\n              \"documentType\": \"<string>\",\n              \"landTitleReferences\": [\n                \"<string>\",\n                \"<string>\"\n              ],\n              \"lastModified\": \"<dateTime>\",\n              \"lodgement\": {\n                \"id\": \"<dateTime>\",\n                \"dealingNumber\": \"<string>\"\n              },\n              \"lodgementVerification\": {}\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"workspaceStatus\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"panelMasterSubscriberId\": \"<long>\",\n  \"mortgageNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workgroupId\": \"<long>\",\n  \"retainCTControl\": false,\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lodgementInstructions\": {\n    \"issuingInstructions\": {\n      \"titleFormat\": \"ECT\",\n      \"ctIssuedToPanelMaster\": \"<boolean>\"\n    }\n  },\n  \"events\": [\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"stage\": \"<string>\",\n      \"status\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/discharge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "discharge"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"example\": {\n    \"errors\": [\n      {\n        \"code\": \"code\",\n        \"message\": \"message\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:35:48.000Z",
+                  "updatedAt": "2026-07-28T02:35:48.000Z",
+                  "uid": "35240-b6f2d4c4-192f-4486-a83c-ec4d4d393670"
+                }
+              ],
+              "createdAt": "2026-07-28T02:35:48.000Z",
+              "updatedAt": "2026-07-28T02:35:48.000Z",
+              "uid": "35240-a24fcd99-f8f2-4a91-ae98-5ddc2abf26a8"
+            }
+          ],
+          "id": "cde33d4b-ded6-4b6c-aae9-04f273f4e480",
+          "createdAt": "2026-07-28T02:35:48.000Z",
+          "updatedAt": "2026-07-28T02:35:48.000Z",
+          "uid": "35240-cde33d4b-ded6-4b6c-aae9-04f273f4e480"
+        }
+      ],
+      "id": "e57ba2d8-4597-422a-8208-4ea2d3ad59e6",
+      "createdAt": "2026-07-28T02:35:48.000Z",
+      "updatedAt": "2026-07-28T02:35:48.000Z",
+      "uid": "35240-e57ba2d8-4597-422a-8208-4ea2d3ad59e6"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pexa.com.au"
+    }
+  ]
+}

@@ -1,0 +1,1701 @@
+{
+  "info": {
+    "_postman_id": "a5be74e1-4a3e-4741-8d51-97f9bbed17e7",
+    "name": "PEXA Plus Marketplace B2B API",
+    "description": "PEXA Plus Marketplace services used by B2B applications\n\nContact Support:\n Name: PEXA Plus team\n Email: pexaplussupport@pexa.com.au",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:35:52.000Z",
+    "updatedAt": "2026-07-28T02:35:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a5be74e1-4a3e-4741-8d51-97f9bbed17e7"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "Health check",
+          "id": "0f14647a-27eb-4832-986a-e2919a57060e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Subscriber id",
+                "key": "X-Pexa-Subscriber-ID",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Health check call to the service\n<br>[See details](../../docs/definitions/health_check/) to learn more about this API."
+          },
+          "response": [
+            {
+              "id": "0918e837-3cc3-4e9d-ab81-cfe77641513a",
+              "name": "Confirms the service is up and running",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-0918e837-3cc3-4e9d-ab81-cfe77641513a"
+            },
+            {
+              "id": "b76926b3-bcb5-42b5-96e1-0387fbb79a8d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-b76926b3-bcb5-42b5-96e1-0387fbb79a8d"
+            }
+          ],
+          "createdAt": "2026-07-28T02:35:52.000Z",
+          "updatedAt": "2026-07-28T02:35:52.000Z",
+          "uid": "35240-0f14647a-27eb-4832-986a-e2919a57060e"
+        }
+      ],
+      "id": "452e5c60-c165-47df-882c-198767067e04",
+      "createdAt": "2026-07-28T02:35:52.000Z",
+      "updatedAt": "2026-07-28T02:35:52.000Z",
+      "uid": "35240-452e5c60-c165-47df-882c-198767067e04"
+    },
+    {
+      "name": "title-search",
+      "item": [
+        {
+          "name": "{titleSearchId}",
+          "item": [
+            {
+              "name": "documents",
+              "item": [
+                {
+                  "name": "Retrieve title search documents by id",
+                  "id": "4e4ecc05-20e7-459e-bf55-87f481c5b67f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId",
+                        "documents"
+                      ],
+                      "variable": [
+                        {
+                          "id": "436297d8-223d-459a-b791-a6151af62749",
+                          "key": "titleSearchId",
+                          "value": "<uuid>",
+                          "description": "(Required) Title search id"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve title search documents related to a requested id\n<br>[See details](../../docs/definitions/retrieve_title_search_documents/) to learn more about this API."
+                  },
+                  "response": [
+                    {
+                      "id": "66990257-8dc1-4b66-b634-98e8e9d7a96f",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"documents\": [\n    {\n      \"downloadLink\": \"<string>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"downloadLink\": \"<string>\",\n      \"status\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-66990257-8dc1-4b66-b634-98e8e9d7a96f"
+                    },
+                    {
+                      "id": "2beb6ead-bf7b-4cf1-91bb-caabd50d4bc9",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-2beb6ead-bf7b-4cf1-91bb-caabd50d4bc9"
+                    },
+                    {
+                      "id": "ceb49336-58d8-4dd8-843e-ee6495334374",
+                      "name": "Unauthorised",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-ceb49336-58d8-4dd8-843e-ee6495334374"
+                    },
+                    {
+                      "id": "4a057dd9-ad6f-42d4-8900-7595bdd91e3e",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-4a057dd9-ad6f-42d4-8900-7595bdd91e3e"
+                    },
+                    {
+                      "id": "7c2ba2df-9e59-4aa8-bfe9-18522680b152",
+                      "name": "Not found error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-7c2ba2df-9e59-4aa8-bfe9-18522680b152"
+                    },
+                    {
+                      "id": "2686cf16-67cd-4abe-8af0-9310cd1407a4",
+                      "name": "Method not allowed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Method Not Allowed",
+                      "code": 405,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-2686cf16-67cd-4abe-8af0-9310cd1407a4"
+                    },
+                    {
+                      "id": "30dc322e-47da-4129-9509-0c9db17fd908",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Subscriber id",
+                            "key": "X-Pexa-Subscriber-ID",
+                            "value": "<integer>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/title-search/:titleSearchId/documents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "title-search",
+                            ":titleSearchId",
+                            "documents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "titleSearchId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:35:52.000Z",
+                      "updatedAt": "2026-07-28T02:35:52.000Z",
+                      "uid": "35240-30dc322e-47da-4129-9509-0c9db17fd908"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-4e4ecc05-20e7-459e-bf55-87f481c5b67f"
+                }
+              ],
+              "id": "e7082e69-195f-4264-a867-47bff1db8b7a",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-e7082e69-195f-4264-a867-47bff1db8b7a"
+            },
+            {
+              "name": "Retrieve title search by id",
+              "id": "c201cec5-ac99-44eb-9cb9-6b1678e9fa54",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search",
+                    ":titleSearchId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "56854419-9997-4de0-9571-189e16484b4b",
+                      "key": "titleSearchId",
+                      "value": "<uuid>",
+                      "description": "(Required) Title search id"
+                    }
+                  ]
+                },
+                "description": "Retrieve title search related to a requested id\n<br>[See details](../../docs/definitions/retrieve_title_search/) to learn more about this API."
+              },
+              "response": [
+                {
+                  "id": "f0808e30-9089-463b-a066-252ee3a9b5b6",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-f0808e30-9089-463b-a066-252ee3a9b5b6"
+                },
+                {
+                  "id": "0f13b908-2683-489a-abc9-2c1e2ed26201",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-0f13b908-2683-489a-abc9-2c1e2ed26201"
+                },
+                {
+                  "id": "870864de-14ed-490b-a5bd-e44ef2b970cc",
+                  "name": "Unauthorised",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-870864de-14ed-490b-a5bd-e44ef2b970cc"
+                },
+                {
+                  "id": "00e61d08-1228-41df-8b92-6514abbe4ddc",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-00e61d08-1228-41df-8b92-6514abbe4ddc"
+                },
+                {
+                  "id": "a6c7e149-8b7c-42fa-b023-dc241bf49322",
+                  "name": "Not found error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-a6c7e149-8b7c-42fa-b023-dc241bf49322"
+                },
+                {
+                  "id": "42aa2e27-9408-4f71-9b17-a2b4f699b37a",
+                  "name": "Method not allowed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Method Not Allowed",
+                  "code": 405,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-42aa2e27-9408-4f71-9b17-a2b4f699b37a"
+                },
+                {
+                  "id": "f455a814-f292-4403-a066-41cfc7630ce6",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Subscriber id",
+                        "key": "X-Pexa-Subscriber-ID",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/title-search/:titleSearchId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "title-search",
+                        ":titleSearchId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "titleSearchId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:35:52.000Z",
+                  "updatedAt": "2026-07-28T02:35:52.000Z",
+                  "uid": "35240-f455a814-f292-4403-a066-41cfc7630ce6"
+                }
+              ],
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-c201cec5-ac99-44eb-9cb9-6b1678e9fa54"
+            }
+          ],
+          "id": "7e962cab-94b4-481c-ab78-e36e7d799182",
+          "createdAt": "2026-07-28T02:35:52.000Z",
+          "updatedAt": "2026-07-28T02:35:52.000Z",
+          "uid": "35240-7e962cab-94b4-481c-ab78-e36e7d799182"
+        },
+        {
+          "name": "Create title search",
+          "id": "83ae956a-a0ac-4b7b-b576-10c2af828ee5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Subscriber id",
+                "key": "X-Pexa-Subscriber-ID",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/title-search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "title-search"
+              ]
+            },
+            "description": "Creates a title search given a land title reference and a jurisdiction\n<br>[See details](../../docs/definitions/title_search/) to learn more about this API.\n<br>Please reach out to PEXA for Title search pricing"
+          },
+          "response": [
+            {
+              "id": "1d7ff195-ec2c-4b7f-9a71-2d1046e67ba6",
+              "name": "Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-1d7ff195-ec2c-4b7f-9a71-2d1046e67ba6"
+            },
+            {
+              "id": "1614db6a-2eea-40c5-b484-a08d1e7fb181",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-1614db6a-2eea-40c5-b484-a08d1e7fb181"
+            },
+            {
+              "id": "4b6e2ff9-ba70-41a1-a7e2-e3c0dc2bfcd1",
+              "name": "Unauthorised",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-4b6e2ff9-ba70-41a1-a7e2-e3c0dc2bfcd1"
+            },
+            {
+              "id": "d24dee5b-51c2-4811-b577-3a2c724cfe63",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-d24dee5b-51c2-4811-b577-3a2c724cfe63"
+            },
+            {
+              "id": "4ab4e729-1bf9-44b4-8433-c4a08a8e9333",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-4ab4e729-1bf9-44b4-8433-c4a08a8e9333"
+            },
+            {
+              "id": "45c3b075-c4d7-4bb1-83a5-dc2336ac6cbe",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"landTitleReference\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"reference\": \"<string>\",\n  \"status\": \"<string>\",\n  \"landTitle\": {\n    \"orderReceivedDateTime\": \"<string>\",\n    \"orderCompletedDateTime\": \"<string>\",\n    \"enquiryId\": \"<string>\",\n    \"landTitleData\": {},\n    \"contentType\": \"<string>\",\n    \"lotPlan\": {\n      \"landType\": \"<string>\",\n      \"lotNumber\": \"<string>\",\n      \"planNumber\": \"<string>\",\n      \"planType\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"planDetails\": \"<string>\",\n    \"relatedProducts\": [\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      },\n      {\n        \"classification\": \"<string>\",\n        \"dealingNumber\": \"<string>\",\n        \"documentType\": \"<string>\",\n        \"itemName\": \"<string>\",\n        \"itemType\": \"<string>\",\n        \"searchKey\": \"<string>\"\n      }\n    ],\n    \"vendorDetails\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/title-search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "title-search"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-45c3b075-c4d7-4bb1-83a5-dc2336ac6cbe"
+            }
+          ],
+          "createdAt": "2026-07-28T02:35:52.000Z",
+          "updatedAt": "2026-07-28T02:35:52.000Z",
+          "uid": "35240-83ae956a-a0ac-4b7b-b576-10c2af828ee5"
+        }
+      ],
+      "id": "15d9aa9c-1dc1-4681-86a1-ba4e6ac20512",
+      "createdAt": "2026-07-28T02:35:52.000Z",
+      "updatedAt": "2026-07-28T02:35:52.000Z",
+      "uid": "35240-15d9aa9c-1dc1-4681-86a1-ba4e6ac20512"
+    },
+    {
+      "name": "billing",
+      "item": [
+        {
+          "name": "Retrieve billing invoice",
+          "id": "5870ac4a-640f-4dcb-a88f-4c921ab994c8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Subscriber id",
+                "key": "X-Pexa-Subscriber-ID",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "billing"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                  "key": "startDate",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                  "key": "endDate",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "Land title reference for billing query (optional)",
+                  "key": "landTitleReference",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Reference for billing query (optional)",
+                  "key": "reference",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Response format for billing query (optional)",
+                  "key": "format",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve billing invoice related to given date and land title reference filters\n<br>[See details](../../docs/definitions/billing/) to learn more about this API."
+          },
+          "response": [
+            {
+              "id": "580334a6-84f9-45e4-867d-312df4b6139b",
+              "name": "Invoice of completed orders in specified date range",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"invoice\": {\n    \"invoiceDate\": \"<dateTime>\",\n    \"invoiceDateRange\": \"<string>\",\n    \"invoiceTotalCostExTax\": {\n      \"amount\": \"<long>\",\n      \"currency\": \"<string>\"\n    },\n    \"invoiceTotalTax\": {\n      \"amount\": \"<long>\",\n      \"currency\": \"<string>\"\n    },\n    \"invoiceTotalCost\": {\n      \"amount\": \"<long>\",\n      \"currency\": \"<string>\"\n    },\n    \"orderItems\": [\n      {\n        \"id\": \"<uuid>\",\n        \"landTitleReference\": \"<string>\",\n        \"productTitle\": \"<string>\",\n        \"date\": \"<dateTime>\",\n        \"totalCostExTax\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        },\n        \"totalTax\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        },\n        \"totalCost\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"landTitleReference\": \"<string>\",\n        \"productTitle\": \"<string>\",\n        \"date\": \"<dateTime>\",\n        \"totalCostExTax\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        },\n        \"totalTax\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        },\n        \"totalCost\": {\n          \"amount\": \"<long>\",\n          \"currency\": \"<string>\"\n        }\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-580334a6-84f9-45e4-867d-312df4b6139b"
+            },
+            {
+              "id": "6eba9c89-099c-4758-ba33-7d5f37621e3e",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-6eba9c89-099c-4758-ba33-7d5f37621e3e"
+            },
+            {
+              "id": "11d62b1c-d969-459f-890c-e37395ce1c7b",
+              "name": "Unauthorised",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-11d62b1c-d969-459f-890c-e37395ce1c7b"
+            },
+            {
+              "id": "b6d6a761-902d-494a-a8d8-46b281c89ba5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-b6d6a761-902d-494a-a8d8-46b281c89ba5"
+            },
+            {
+              "id": "3581d329-0bbf-4ab5-8fee-7e0e84e40a84",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-3581d329-0bbf-4ab5-8fee-7e0e84e40a84"
+            },
+            {
+              "id": "69252fc9-6a81-49d0-8181-c8284d5623ac",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Subscriber id",
+                    "key": "X-Pexa-Subscriber-ID",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/billing?startDate=<dateTime>&endDate=<dateTime>&landTitleReference=<string>&reference=<string>&format=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The start date for the query range in RFC3339 format. Must be used together with `endDate`.",
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) The end date for the query range in RFC3339 format. Must be used together with `startDate`.",
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Land title reference for billing query (optional)",
+                      "key": "landTitleReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Reference for billing query (optional)",
+                      "key": "reference",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Response format for billing query (optional)",
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"field\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:35:52.000Z",
+              "updatedAt": "2026-07-28T02:35:52.000Z",
+              "uid": "35240-69252fc9-6a81-49d0-8181-c8284d5623ac"
+            }
+          ],
+          "createdAt": "2026-07-28T02:35:52.000Z",
+          "updatedAt": "2026-07-28T02:35:52.000Z",
+          "uid": "35240-5870ac4a-640f-4dcb-a88f-4c921ab994c8"
+        }
+      ],
+      "id": "735045a7-f0a1-4f30-9de6-2c70fcaaac75",
+      "createdAt": "2026-07-28T02:35:52.000Z",
+      "updatedAt": "2026-07-28T02:35:52.000Z",
+      "uid": "35240-735045a7-f0a1-4f30-9de6-2c70fcaaac75"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://plus.pexa.com.au/api/plus/v1"
+    }
+  ]
+}
