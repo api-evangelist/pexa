@@ -1,0 +1,736 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PEXA Exchange API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "HealthCheck",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "docs": "This API verifies whether the application is up and running."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Landtitle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Land Title Registry Verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/landRegistry/titleStatus",
+            "params": [
+              {
+                "name": "jurisdiction",
+                "value": "",
+                "type": "query",
+                "description": "Refer to [Jurisdiction](../../docs/guides/reference-data/#_jurisdiction_data) for valid values"
+              },
+              {
+                "name": "landTitleReference",
+                "value": "",
+                "type": "query",
+                "description": "Land title reference (see [Land title reference format](../../docs/resources/#_land_title_reference_format) for valid formatting)"
+              }
+            ]
+          },
+          "docs": "This API verifies whether the land title reference is 'in use' in other workspaces and whether the land title is eligible for electronic lodgement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a message to an existing conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/subscriber/conversation/:conversationId/message",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "conversationId"
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "role"
+              }
+            ]
+          },
+          "docs": "This API allows you to send a message to an existing conversation thread. \n Click here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Retrieve Unread Conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/subscriber/conversations",
+            "params": [
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              }
+            ]
+          },
+          "docs": "This API retrieves a list of unread conversations.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Mark as Read the Conversation for a specific Subscriber and Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/subscriber/conversations/:conversationId/markAsRead",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "conversationId"
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "role"
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              }
+            ]
+          },
+          "docs": "This API allows to update/mark as read the conversation for a specific conversation id, subscriber id and role."
+        },
+        {
+          "info": {
+            "name": "Retrieve Conversations List for a Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/:workspaceId/conversations",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "role"
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API retrieves a list of conversations for a specific workspace."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invitation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Respond to invitation received",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/subscriber/invitation"
+          },
+          "docs": "This API allows a subscriber to respond to a workspace invitation."
+        },
+        {
+          "info": {
+            "name": "Retrieves outstanding invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/subscriber/invitations",
+            "params": [
+              {
+                "name": "lastInviteId",
+                "value": "",
+                "type": "query",
+                "description": "lastInviteId"
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "workgroupId",
+                "value": "",
+                "type": "query",
+                "description": "workgroupId"
+              }
+            ]
+          },
+          "docs": "This API provides details of outstanding invitations within a workgroup.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Create Workspace Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/workspace/invitation"
+          },
+          "docs": "This API allows a user to create and send an invitation to another subscriber to join a workspace.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriber",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Workgroups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/subscriber/workgroups",
+            "params": [
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "The PEXA internal reference for the subscriber initiating the API service call.  \nNote: Subscriber Id is not required for any subscribers using token based authentication (OAuth, SAML etc.).  \nFor mutual SSL authentication, the Subscriber Id must be provided.  \nMaximum 19 characters"
+              }
+            ]
+          },
+          "docs": "This API retrieves PEXA workgroups and workgroup user assignments.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Search Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v2/subscriber",
+            "params": [
+              {
+                "name": "searchSubscriberId",
+                "value": "",
+                "type": "query",
+                "description": "Subscriber's internal PEXA identifier  \nThis must not be provided if subscriberName is also provided.  \nIf subscriberName is not provided, this field is mandatory.  \nMaximum 19 characters"
+              },
+              {
+                "name": "subscriberName",
+                "value": "",
+                "type": "query",
+                "description": "Subscriber organisation name  \nThis must not be provided if searchSubscriberId is provided.  \nIf searchSubscriberId is not provided, this field is mandatory.  \nMust be at least 3 characters  \nMaximum 255 characters"
+              }
+            ]
+          },
+          "docs": "The Subscriber API gives you the ability to search for active subscribers registered in PEXA."
+        },
+        {
+          "info": {
+            "name": "Retrieves Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v2/subscriber/notifications",
+            "params": [
+              {
+                "name": "categoryList",
+                "value": "",
+                "type": "query",
+                "description": "The notification category the results will return. Each value must be separated with a comma (,) with no spaces.  \nIf not provided, PEXA will return all notification category types."
+              },
+              {
+                "name": "lastEventId",
+                "value": "",
+                "type": "query",
+                "description": "The PEXA internal reference for the event. This value must match the last Event Id which was provided in the previous notification response from PEXA.  \nNote: If a Last Event Id has yet to be obtained, the value must be 0.  \nIf the Last Event ID value does not correspond to the Last Event Timestamp recorded in PEXA, an exception will be returned.  \nMaximum 19 characters. "
+              },
+              {
+                "name": "lastEventTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the last event previously retrieved which the results will be filtered from (in UTC).  \nNote: The Last Event Timestamp is used in conjunction with the Last Event ID for retrieving notifications.  \nThe Last Event Timestamp value in the request should match the Last Event Timestamp value which was provided in the previous notification response from PEXA.  \nIf the Last Event Timestamp value does not correspond to the Last Event Id recorded in PEXA, an exception will be returned.  "
+              },
+              {
+                "name": "maxRecords",
+                "value": "",
+                "type": "query",
+                "description": "Used to specify the maximum number of notification records to be returned in a single service call.  \nPEXA will set an internal threshold for a maximum number of records to be returned.  \nIf the PEXA threshold is less than the max number of records provided, PEXA will return its threshold number of records (with the More Data flag set to indicate there are more notification records where applicable).  \nIf no value is provided, the PEXA threshold will be used as the default number for notification records to be received. If a value is provided, it must be greater than 0. "
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "The notification severity the results will return.  \nIf not provided, PEXA will return all notification severity types."
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "The PEXA internal reference for the subscriber. &lt;br&gt; Maximum 19 characters"
+              }
+            ]
+          },
+          "docs": "This API retrieves a list of notifications a subscriber can access. \n \n\n[See details](../../docs/definitions/retrieve_notifications/) to learn more about this API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/user"
+          },
+          "docs": "This API will return user profile which is belong to logged in user.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workspace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate Workspace Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/workspace"
+          },
+          "docs": "This API allows you to update data within a workspace.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Manage default workspace data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/workspace/data"
+          },
+          "docs": "This API gives the ability to change the default data within an API.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Manages Transfer Duty Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/workspace/duty"
+          },
+          "docs": "This API allows you to add or edit stamp duty within an existing workspace that contains a transfer document.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Retrieves workspace summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v2/workspace",
+            "params": [
+              {
+                "name": "lastEventId",
+                "value": "",
+                "type": "query",
+                "description": "lastEventId"
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "subscriberRole",
+                "value": "",
+                "type": "query",
+                "description": "subscriberRole"
+              },
+              {
+                "name": "subset",
+                "value": "",
+                "type": "query",
+                "description": "subset"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API provides a summary of the workspace details."
+        },
+        {
+          "info": {
+            "name": "Initiate Workspace Creation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2/workspace"
+          },
+          "docs": "This API allows a user to create a new workspace.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Retrieve workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v3/subscriber/workspaces",
+            "params": [
+              {
+                "name": "jurisdiction",
+                "value": "",
+                "type": "query",
+                "description": "jurisdiction"
+              },
+              {
+                "name": "settlementDateTime",
+                "value": "",
+                "type": "query",
+                "description": "settlementDateTime"
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "workgroupId",
+                "value": "",
+                "type": "query",
+                "description": "workgroupId"
+              },
+              {
+                "name": "workspaceLastActivityFrom",
+                "value": "",
+                "type": "query",
+                "description": "workspaceLastActivityFrom"
+              },
+              {
+                "name": "workspaceRole",
+                "value": "",
+                "type": "query",
+                "description": "workspaceRole"
+              },
+              {
+                "name": "workspaceStatus",
+                "value": "",
+                "type": "query",
+                "description": "workspaceStatus"
+              }
+            ]
+          },
+          "docs": "This API retrieves a list of the workspaces that a user can access. \n\n \n[See details](../../docs/definitions/retrieve_workspaces/) to learn more about this API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Lodged PEXA Workspace Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/documents",
+            "params": [
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "subscriberRole",
+                "value": "",
+                "type": "query",
+                "description": "subscriberRole"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API retrieves the workspace documents that have been signed and lodged by the subscriber.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Creates Discharge Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/workspace/documents/dischargeMortgage"
+          },
+          "docs": "The create discharge document API provides the ability to create a discharge document in the workspace.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Settlement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves settlement statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/financial",
+            "params": [
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "subscriberRole",
+                "value": "",
+                "type": "query",
+                "description": "subscriberRole"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API retrieves the financial settlement statement containing financial line items that belong to the subscriber.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Upload Financial Settlement Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/workspace/financial"
+          },
+          "docs": "This API allows you to create a settlement schedule and add financial settlement line items to the settlement schedule.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Retrieves Settlement Availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/settlement",
+            "params": [
+              {
+                "name": "jurisdiction",
+                "value": "",
+                "type": "query",
+                "description": "Used if wanting to find out the available settlement times prior to creating a workspace in a certain jurisdiction.<br/>This must not be provided if workspaceId is provided.<br/>If workspaceId is not provided, this field is mandatory."
+              },
+              {
+                "name": "settlementDate",
+                "value": "",
+                "type": "query",
+                "description": "All available times will be retrieved for the settlement date provided."
+              },
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "The PEXA internal reference for the subscriber initiating the API service call. <br/> Maximum 19 characters"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "PEXA workspace number.<br/>Used if wanting to find out the available settlement times for an existing created workspace.<br/>This must not be provided if jurisdiction is also provided.<br/>If jurisdiction is not provided, this field is mandatory.<br/>Maximum 13 characters"
+              }
+            ]
+          },
+          "docs": "This API provides a list of settlement times for a given date.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+        },
+        {
+          "info": {
+            "name": "Maintain Settlement Date and Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/workspace/settlement"
+          },
+          "docs": "This API allows you to manage the settlement date and time within a workspace."
+        },
+        {
+          "info": {
+            "name": "Generate the Settlement Completion Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/settlementCompletionRecord",
+            "params": [
+              {
+                "name": "subscriberId",
+                "value": "",
+                "type": "query",
+                "description": "subscriberId"
+              },
+              {
+                "name": "subscriberRole",
+                "value": "",
+                "type": "query",
+                "description": "subscriberRole"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API generates the settlement completion record for a completed workspace.\n\n \n [See details](../../docs/definitions/retrieve_settlement_completion_record/) to learn more about this API."
+        },
+        {
+          "info": {
+            "name": "Add/Update/Agree Balance due to effect Settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/workspace/:workspaceId/settlement/balanceDueToEffectSettlement",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "role"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.  \n\n \n[See details](../../docs/definitions/set_balanceduetoeffect_settlement/) to learn more about this API."
+        },
+        {
+          "info": {
+            "name": "Add/Update/Agree Balance due to effect Settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/workspace/:workspaceId/settlement/balanceDueToEffectSettlement",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "role"
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "workspaceId"
+              }
+            ]
+          },
+          "docs": "This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.  \n\n \n[See details](../../docs/definitions/set_balanceduetoeffect_settlement/) to learn more about this API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

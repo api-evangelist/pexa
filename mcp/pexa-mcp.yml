@@ -18,9 +18,9 @@ server:
   published: false
   transport: null
   url: null
-  note: PEXA operates no hosted or remote MCP server. The tools below are a CANDIDATE surface derived one-to-one
-    from real, published operationIds so an integrator (or PEXA) can stand one up; every tool inherits its real
-    input schema from the referenced operation. Nothing here is a PEXA claim.
+  note: PEXA operates no hosted or remote MCP server. The tools below are a CANDIDATE surface derived
+    one-to-one from real, published operationIds so an integrator (or PEXA) can stand one up; every tool
+    inherits its real input schema from the referenced operation. Nothing here is a PEXA claim.
 access:
   gate: signed PEXA API Agreement + PEXA-issued OAuth 2.0 client credentials or mutual TLS
   note: Any MCP server over these tools inherits the licence gate — an agent cannot self-serve credentials.
@@ -60,7 +60,8 @@ tools:
   method: GET
   path: /v2/subscriber/conversations
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveUnreadConversationsUsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveUnreadConversationsUsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveUnreadConversationsUsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_mark_conversation_as_read_using_put
@@ -69,7 +70,8 @@ tools:
   method: PUT
   path: /v2/subscriber/conversations/{conversationId}/markAsRead
   source_operation: openapi/pexa-exchange-api-swagger.json#markConversationAsReadUsingPUT
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#markConversationAsReadUsingPUT parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#markConversationAsReadUsingPUT parameters
+    + requestBody
   scopes: null
   write: true
 - name: pexa_exchange_respond_invitation_v1_using_put
@@ -78,7 +80,8 @@ tools:
   method: PUT
   path: /v2/subscriber/invitation
   source_operation: openapi/pexa-exchange-api-swagger.json#respondInvitationV1UsingPUT
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#respondInvitationV1UsingPUT parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#respondInvitationV1UsingPUT parameters +
+    requestBody
   scopes: null
   write: true
 - name: pexa_exchange_retrieve_outstanding_invitations_v1_using_get
@@ -87,8 +90,8 @@ tools:
   method: GET
   path: /v2/subscriber/invitations
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveOutstandingInvitationsV1UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveOutstandingInvitationsV1UsingGET parameters
-    + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveOutstandingInvitationsV1UsingGET
+    parameters + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_retrieveworkgroups
@@ -124,7 +127,8 @@ tools:
   method: GET
   path: /v2/workspace/documents
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveLodgedDocumentsV1UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveLodgedDocumentsV1UsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveLodgedDocumentsV1UsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_create_using_post
@@ -151,8 +155,8 @@ tools:
   method: GET
   path: /v2/workspace/financial
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveSetllementStatementV1UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveSetllementStatementV1UsingGET parameters +
-    requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveSetllementStatementV1UsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_create_using_post_1
@@ -197,8 +201,8 @@ tools:
   method: GET
   path: /v2/workspace/settlementCompletionRecord
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveSettlementCompletionRecordV1UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveSettlementCompletionRecordV1UsingGET parameters
-    + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveSettlementCompletionRecordV1UsingGET
+    parameters + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_retrieve_conversations_list_using_get
@@ -207,7 +211,8 @@ tools:
   method: GET
   path: /v2/workspace/{workspaceId}/conversations
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveConversationsListUsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveConversationsListUsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveConversationsListUsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_get_balance_due_to_effect_settlement_using_get
@@ -216,8 +221,8 @@ tools:
   method: GET
   path: /v2/workspace/{workspaceId}/settlement/balanceDueToEffectSettlement
   source_operation: openapi/pexa-exchange-api-swagger.json#getBalanceDueToEffectSettlementUsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#getBalanceDueToEffectSettlementUsingGET parameters
-    + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#getBalanceDueToEffectSettlementUsingGET
+    parameters + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_update_balance_due_to_effect_settlement_using_put
@@ -226,8 +231,8 @@ tools:
   method: PUT
   path: /v2/workspace/{workspaceId}/settlement/balanceDueToEffectSettlement
   source_operation: openapi/pexa-exchange-api-swagger.json#updateBalanceDueToEffectSettlementUsingPUT
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#updateBalanceDueToEffectSettlementUsingPUT parameters
-    + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#updateBalanceDueToEffectSettlementUsingPUT
+    parameters + requestBody
   scopes: null
   write: true
 - name: pexa_exchange_subscribersearch
@@ -245,7 +250,8 @@ tools:
   method: GET
   path: /v4/subscriber/notifications
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveNotificationsV2UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveNotificationsV2UsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveNotificationsV2UsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_retrieve_workspace_summary_v2_using_get
@@ -254,7 +260,8 @@ tools:
   method: GET
   path: /v5/workspace
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveWorkspaceSummaryV2UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveWorkspaceSummaryV2UsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveWorkspaceSummaryV2UsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_exchange_workspacecreation
@@ -272,7 +279,8 @@ tools:
   method: GET
   path: /v6/subscriber/workspaces
   source_operation: openapi/pexa-exchange-api-swagger.json#retrieveWorkspacesV3UsingGET
-  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveWorkspacesV3UsingGET parameters + requestBody
+  input_schema_source: openapi/pexa-exchange-api-swagger.json#retrieveWorkspacesV3UsingGET parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_projects_create_project
@@ -421,8 +429,8 @@ tools:
   method: POST
   path: /v3/notification-registrations
   source_operation: openapi/pexa-notification-service-openapi.yaml#createNotificationRegistrationV3
-  input_schema_source: openapi/pexa-notification-service-openapi.yaml#createNotificationRegistrationV3 parameters
-    + requestBody
+  input_schema_source: openapi/pexa-notification-service-openapi.yaml#createNotificationRegistrationV3
+    parameters + requestBody
   scopes:
   - Create registration V3
   - create:notification_registrations
@@ -433,8 +441,8 @@ tools:
   method: PUT
   path: /v3/notification-registrations/{registrationId}
   source_operation: openapi/pexa-notification-service-openapi.yaml#updateNotificationRegistrationV3
-  input_schema_source: openapi/pexa-notification-service-openapi.yaml#updateNotificationRegistrationV3 parameters
-    + requestBody
+  input_schema_source: openapi/pexa-notification-service-openapi.yaml#updateNotificationRegistrationV3
+    parameters + requestBody
   scopes:
   - Update registration V3
   - edit:notification_registrations
@@ -493,8 +501,8 @@ tools:
   method: POST
   path: /v1/notification-registrations/{registrationId}/secret-rotation
   source_operation: openapi/pexa-notification-service-openapi.yaml#createNotificationSecretRotation
-  input_schema_source: openapi/pexa-notification-service-openapi.yaml#createNotificationSecretRotation parameters
-    + requestBody
+  input_schema_source: openapi/pexa-notification-service-openapi.yaml#createNotificationSecretRotation
+    parameters + requestBody
   scopes:
   - Rotates shared secret
   - create:notification_registrations_secret_rotation
@@ -505,8 +513,8 @@ tools:
   method: POST
   path: /v1/discharge
   source_operation: openapi/pexa-standalone-discharge-experience-api-openapi.yaml#processDischarge
-  input_schema_source: openapi/pexa-standalone-discharge-experience-api-openapi.yaml#processDischarge parameters
-    + requestBody
+  input_schema_source: openapi/pexa-standalone-discharge-experience-api-openapi.yaml#processDischarge
+    parameters + requestBody
   scopes:
   - '{{api_scope}}'
   write: true
@@ -525,7 +533,8 @@ tools:
   method: POST
   path: /title-search
   source_operation: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#createTitleSearch
-  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#createTitleSearch parameters + requestBody
+  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#createTitleSearch parameters
+    + requestBody
   scopes: null
   write: true
 - name: pexa_marketplace_retrieve_title_search
@@ -534,7 +543,8 @@ tools:
   method: GET
   path: /title-search/{titleSearchId}
   source_operation: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearch
-  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearch parameters + requestBody
+  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearch parameters
+    + requestBody
   scopes: null
   write: false
 - name: pexa_marketplace_retrieve_title_search_documents
@@ -543,8 +553,8 @@ tools:
   method: GET
   path: /title-search/{titleSearchId}/documents
   source_operation: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearchDocuments
-  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearchDocuments parameters
-    + requestBody
+  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveTitleSearchDocuments
+    parameters + requestBody
   scopes: null
   write: false
 - name: pexa_marketplace_retrieve_billing
@@ -553,6 +563,13 @@ tools:
   method: GET
   path: /billing
   source_operation: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveBilling
-  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveBilling parameters + requestBody
+  input_schema_source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml#retrieveBilling parameters +
+    requestBody
   scopes: null
   write: false
+deployment:
+  mode: none
+  verified: derived
+  tools: 54
+  checked: '2026-08-12'
+  source: catalog MCP census
