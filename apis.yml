@@ -21,6 +21,17 @@ description: 'PEXA (Property Exchange Australia) operates Australia''s dominant 
   be expected. This is a well-documented, regulated, licensed-access API estate rather than an open one.'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pexa.png
 tags:
+- Real-Estate
+- Australia
+- Conveyancing
+- Property Settlement
+- Land Registry
+- Title
+- PropTech
+- Mortgage
+- Digital Signing
+- Webhook
+tags_raw:
 - Real Estate
 - Australia
 - Conveyancing
