@@ -97,90 +97,421 @@ apis:
     url: https://developer.pexa.com.au/Exchange/docs/changelog/
   - type: OAuthScopes
     url: scopes/pexa-scopes.yml
-- aid: pexa:pexa-standalone-discharge-experience-api
-  name: PEXA Standalone Discharge Experience API
-  description: >-
-    An OpenAPI 3.1.0 experience API supporting consolidated standalone mortgage discharge, used by financial
-    institutions discharging a mortgage outside of a full transfer workspace. Declares production and
-    test servers and OAuth 2.0 authorizationCode and clientCredentials flows.
-  humanURL: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+- aid: pexa:pexa-billing-api
+  name: PEXA Billing API
+  description: The Billing API from PEXA — 1 operation(s) for billing.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
-  - Mortgage
-  - Discharge
-  - Financial Institutions
-  properties:
-  - type: OpenAPI
-    url: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
-  - type: APIReference
-    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
-  - type: AgentSkill
-    url: skills/pexa-discharge-a-mortgage.md
-    name: Discharge a mortgage through PEXA
-  - type: Overlay
-    url: overlays/pexa-standalone-discharge-overlay.yaml
-  - type: Authentication
-    url: authentication/pexa-authentication.yml
-  - type: Conventions
-    url: conventions/pexa-conventions.yml
-  - type: Sandbox
-    url: sandbox/pexa-sandbox.yml
-  - type: OAuthScopes
-    url: scopes/pexa-scopes.yml
-- aid: pexa:pexa-plus-marketplace-b2b-api
-  name: PEXA Plus Marketplace B2B API
-  description: >-
-    The PEXA Plus Marketplace B2B API exposes marketplace services to business partners — health check,
-    title search ordering and billing — under the PEXA Plus product. Published as an OpenAPI 3.0.3 contract
-    (an OpenAPI 3.0.0 variant of the same document is also shipped in the portal) with a documented server
-    at https://plus.pexa.com.au/api/plus/v1.
-  humanURL: https://developer.pexa.com.au/Marketplace/api/apireference/
-  baseURL: https://plus.pexa.com.au/api/plus/v1
-  tags:
-  - Marketplace
-  - Title Search
   - Billing
   properties:
   - type: OpenAPI
-    url: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
-  - type: OpenAPI
-    url: openapi/pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+    url: openapi/pexa-billing-api-openapi.yml
   - type: APIReference
-    url: https://developer.pexa.com.au/Marketplace/api/apireference/
-  - type: AgentSkill
-    url: skills/pexa-order-a-title-search.md
-    name: Order a title search and reconcile billing
-  - type: Overlay
-    url: overlays/pexa-plus-marketplace-overlay.yaml
-  - type: Overlay
-    url: overlays/pexa-plus-marketplace-oas300-overlay.yaml
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
   - type: Authentication
     url: authentication/pexa-authentication.yml
   - type: Conventions
     url: conventions/pexa-conventions.yml
   - type: Sandbox
     url: sandbox/pexa-sandbox.yml
-  - type: Documentation
-    url: https://developer.pexa.com.au/Marketplace/api/apireference/
   - type: OAuthScopes
     url: scopes/pexa-scopes.yml
-- aid: pexa:pexa-notification-service-openapi
-  name: PEXA Notification Service [$]
-  description: PEXA Notification Service [$] from PEXA — 6 path(s) described in OpenAPI.
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-conversation-api
+  name: PEXA Conversation API
+  description: The Conversation API from PEXA — 8 operation(s) for conversation.
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
+  tags:
+  - Conversation
   properties:
   - type: OpenAPI
-    url: openapi/pexa-notification-service-openapi.yaml
-- aid: pexa:pexa-projects-api-v4-openapi
-  name: PEXA Projects API
-  description: PEXA Projects API from PEXA — 10 path(s) described in OpenAPI.
+    url: openapi/pexa-conversation-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-document-api
+  name: PEXA Document API
+  description: The Document API from PEXA — 4 operation(s) for document.
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
+  tags:
+  - Document
   properties:
   - type: OpenAPI
-    url: openapi/pexa-projects-api-v4-openapi.yaml
+    url: openapi/pexa-document-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-healthcheck-api
+  name: PEXA Health Check API
+  description: The HealthCheck API from PEXA — 2 operation(s) for healthcheck.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - HealthCheck
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-healthcheck-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-invitation-api
+  name: PEXA Invitation API
+  description: The Invitation API from PEXA — 6 operation(s) for invitation.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Invitation
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-invitation-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-landtitle-api
+  name: PEXA Landtitle API
+  description: The Landtitle API from PEXA — 2 operation(s) for landtitle.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Landtitle
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-landtitle-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-notification-api
+  name: PEXA Notification API
+  description: The Notification API from PEXA — 1 operation(s) for notification.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Notification
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-notification-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-notification-service-api
+  name: PEXA Notification Service [$] API
+  description: >-
+    The Notification Service [$] API from PEXA — 0 operation(s) for notification service [$].
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Notification Service [$]
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-notification-service-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-notificationregistration-api
+  name: PEXA Notification Registration API
+  description: Registration related endpoints
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - NotificationRegistration
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-notificationregistration-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-project-api
+  name: PEXA Project API
+  description: The Project API from PEXA — 4 operation(s) for project.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-project-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-settlement-api
+  name: PEXA Settlement API
+  description: The Settlement API from PEXA — 8 operation(s) for settlement.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Settlement
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-settlement-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-standalone-discharge-experience-api
+  name: PEXA Standalone Discharge Experience API
+  description: >-
+    The Standalone Discharge Experience API from PEXA — 1 operation(s) for standalone discharge experience.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Standalone Discharge Experience
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-standalone-discharge-experience-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-subscriber-api
+  name: PEXA Subscriber API
+  description: The Subscriber API from PEXA — 6 operation(s) for subscriber.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Subscriber
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-subscriber-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-titlesearch-api
+  name: PEXA Title Search API
+  description: The TitleSearch API from PEXA — 3 operation(s) for titlesearch.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - TitleSearch
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-titlesearch-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-user-api
+  name: PEXA User API
+  description: The User API from PEXA — 2 operation(s) for user.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-user-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-workspace-api
+  name: PEXA Workspace API
+  description: The Workspace API from PEXA — 9 operation(s) for workspace.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Workspace
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-workspace-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-workspaces-api
+  name: PEXA Workspaces API
+  description: The Workspaces API from PEXA — 6 operation(s) for workspaces.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-workspaces-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
 common:
+- type: AgentSkill
+  url: skills/pexa-discharge-a-mortgage.md
+- type: AgentSkill
+  url: skills/pexa-order-a-title-search.md
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/pexa/overview
 - type: AgenticAccess
