@@ -19,6 +19,18 @@ description: 'PEXA (Property Exchange Australia) operates Australia''s dominant 
   (or mutual TLS). RESO is absent — it is a North American MLS standard with no bearing on Australian
   e-conveyancing — so there is no RESO Web API or Data Dictionary certification here, and none should
   be expected. This is a well-documented, regulated, licensed-access API estate rather than an open one.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pexa.png
 tags:
 - Real-Estate
