@@ -1,0 +1,49 @@
+slug: pexa
+provider: PEXA
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Real Estate
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Settlement
+  spec_file: pexa-settlement-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.85
+  evidence: '"Retrieves settlement statement", "Upload Financial Settlement Line Items", "Maintain Settlement
+    Date and Time", "Generate the Settlement Completion Record", "Add/Update/Agree Balance due to effect
+    Settlement"'
+  reason: Operations manage the settlement statement, settlement funds line items, settlement scheduling
+    and completion record for a property transaction — squarely closing and settlement management on the
+    conveyancing rail.
+- tag: Workspaces
+  spec_file: pexa-workspaces-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.75
+  evidence: '"Create Financial Settlement Line Items", "Propose Settlement Date", "Add Parties", "Add
+    Participants"; schemas ProposeSettlementRequest, SettlementUploadResponse, IncomingProprietor'
+  reason: 'Project-scoped workspace operations assemble the settlement: parties/participants, financial
+    settlement line items and proposed settlement dates for transfer of proprietorship — closing and settlement
+    management.'
+- tag: Workspace
+  spec_file: pexa-workspace-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.7
+  evidence: '"Initiate Workspace Creation", "Retrieves workspace summary", "Manages Transfer Duty Data";
+    schemas WorkspaceUpdateRequest.LandTitleDetails.LandTitle, LodgementVerificationDetailsType, WorkspaceSummarySettlementScheduleDetailsType'
+  reason: The PEXA workspace is the container for an electronic property settlement and title lodgement
+    — creation/update carries land title details, party details, transfer duty and settlement schedule,
+    i.e. closing and settlement of a property transaction.

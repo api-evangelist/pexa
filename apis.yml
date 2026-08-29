@@ -520,6 +520,9 @@ apis:
   - type: Documentation
     url: https://developer.pexa.com.au/Marketplace/api/apireference/
 common:
+- type: CapabilityMap
+  url: capabilities/pexa-capability-edges.yml
+  name: PEXA Business Capability Map
 - type: AgentSkill
   url: skills/pexa-discharge-a-mortgage.md
 - type: AgentSkill
