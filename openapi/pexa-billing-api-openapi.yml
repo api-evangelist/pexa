@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: Pexa Billing API
+  version: 1.0.2
+  contact:
+    name: PEXA Plus team
+    email: pexaplussupport@pexa.com.au
+  description: 'Operations tagged Billing across 2 of this provider''s published API definitions: pexa-plus-marketplace-b2b-api-oas300-openapi.yaml, pexa-plus-marketplace-b2b-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://plus.pexa.com.au/api/plus/v1
+  description: Product server
+tags:
+- name: Billing
+paths:
+  /billing:
+    get:
+      tags:
+      - Billing
+      summary: Retrieve billing invoice
+      description: Retrieve billing invoice related to given date and land title reference filters
+      operationId: retrieveBilling
+      parameters:
+      - $ref: '#/components/parameters/SubscriberId'
+      - $ref: '#/components/parameters/StartDateQuery'
+      - $ref: '#/components/parameters/EndDateQuery'
+      - $ref: '#/components/parameters/LandTitleReferenceQuery'
+      - $ref: '#/components/parameters/ReferenceQuery'
+      - $ref: '#/components/parameters/FormatQuery'
+      responses:
+        '200':
+          description: Invoice of completed orders in specified date range
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+              examples:
+                Valid_Invoice_Response:
+                  value:
+                    invoice:
+                      invoiceDate: '2022-05-09T16:09:53Z'
+                      invoiceDateRange: 2020-09-20T16:09:53Z - 2020-12-20T16:09:53Z
+                      invoiceTotalCostExTax:
+                        amount: 2250
+                        currency: AUD
+                      invoiceTotalTax:
+                        amount: 225
+                        currency: AUD
+                      invoiceTotalCost:
+                        amount: 2475
+                        currency: AUD
+                      orderItems:
+                      - id: d290f1ee-6c54-4b01-90e6-d701748f0851
+                        reference: ABC Reference
+                        landTitleReference: 11/111
+                        productTitle: NSW Land Title Search
+                        date: '2020-10-20T16:09:53Z'
+                        totalCostExTax:
+                          amount: 1250
+                          currency: AUD
+                        totalTax:
+                          amount: 125
+                          currency: AUD
+                        totalCost:
+                          amount: 1375
+                          currency: AUD
+                      - id: d290f1ee-6c54-4b01-90e6-d701748f0999
+                        landTitleReference: 11/119
+                        reference: DEF Reference
+                        productTitle: NSW Land Title Search
+                        date: '2020-11-20T16:09:53Z'
+                        totalCostExTax:
+                          amount: 1000
+                          currency: AUD
+                        totalTax:
+                          amount: 100
+                          currency: AUD
+                        totalCost:
+                          amount: 1100
+                          currency: AUD
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: Unauthorised
+        '403':
+          description: Forbidden
+        '405':
+          description: Method not allowed
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://plus.pexa.com.au/api/plus/v1
+      description: Product server
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: PL.TITSE.001
+              message: The land title reference provided is invalid for the jurisdiction.
+              field: landTitleReference
+  schemas:
+    Invoice:
+      description: Invoice
+      type: object
+      properties:
+        invoice:
+          description: Invoice attributes
+          type: object
+          properties:
+            invoiceDate:
+              description: Date invoice created
+              type: string
+              format: date-time
+              example: '2020-12-20T16:09:53Z'
+            invoiceDateRange:
+              description: Date range requested for invoice
+              type: string
+              example: 2020-09-20T16:09:53Z - 2020-12-20T16:09:53Z
+            invoiceTotalCostExTax:
+              description: Invoice total cost excluding tax
+              allOf:
+              - $ref: '#/components/schemas/Money'
+            invoiceTotalTax:
+              description: Invoice total tax
+              allOf:
+              - $ref: '#/components/schemas/Money'
+            invoiceTotalCost:
+              description: Invoice total cost
+              allOf:
+              - $ref: '#/components/schemas/Money'
+            orderItems:
+              description: Ordered items
+              type: array
+              items:
+                description: Ordered item
+                type: object
+                properties:
+                  id:
+                    description: Identifier of the title search order
+                    type: string
+                    format: uuid
+                    example: d290f1ee-6c54-4b01-90e6-d701748f0851
+                  landTitleReference:
+                    description: Land title reference
+                    type: string
+                    example: 11/111
+                  productTitle:
+                    description: Product title
+                    type: string
+                    example: NSW Land Title Search
+                  date:
+                    description: Date ordered item created
+                    type: string
+                    format: date-time
+                    example: '2020-09-20T16:09:53Z'
+                  totalCostExTax:
+                    description: Ordered item total cost excluding tax
+                    allOf:
+                    - $ref: '#/components/schemas/Money'
+                  totalTax:
+                    description: Ordered item total tax
+                    allOf:
+                    - $ref: '#/components/schemas/Money'
+                  totalCost:
+                    description: Ordered item total cost
+                    allOf:
+                    - $ref: '#/components/schemas/Money'
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    Money:
+      description: Represents an amount of money
+      type: object
+      properties:
+        amount:
+          description: The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when `currency` is `AUD`, `amount` is in cents.
+          type: integer
+          format: int64
+          example: 1000
+        currency:
+          description: The type of currency, in ISO 4217 format
+          type: string
+          example: AUD
+  parameters:
+    FormatQuery:
+      description: Response format for billing query (optional)
+      in: query
+      name: format
+      required: false
+      schema:
+        type: string
+        example: pdf
+    StartDateQuery:
+      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
+      in: query
+      name: startDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-09-20T16:09:53Z'
+    EndDateQuery:
+      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
+      in: query
+      name: endDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-12-20T16:09:53Z'
+    LandTitleReferenceQuery:
+      description: Land title reference for billing query (optional)
+      in: query
+      name: landTitleReference
+      required: false
+      schema:
+        type: string
+        example: 100/789171
+    ReferenceQuery:
+      description: Reference for billing query (optional)
+      in: query
+      name: reference
+      required: false
+      schema:
+        type: string
+        example: ABC Reference
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
+x-refined-from:
+- pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+- pexa-plus-marketplace-b2b-api-openapi.yaml

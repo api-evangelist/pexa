@@ -1,0 +1,221 @@
+openapi: 3.2.0
+info:
+  title: Pexa User API
+  version: '1.0'
+  description: 'Operations tagged User across 2 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://localhost/
+tags:
+- name: User
+paths:
+  /v1/user:
+    get:
+      tags:
+      - User
+      summary: Retrieves user profile
+      description: "This API will return user profile which is belong to logged in user.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      operationId: getUserProfileUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v3/user:
+    get:
+      tags:
+      - User
+      summary: Retrieves user profile
+      description: "This API will return user profile which is belong to logged in user.\n\n Scopes:\n<i>au_pub_cert_pexa_user_api_v3_read</i> (non-prod)\n<i>au_pub_pexa_user_api_v3_read</i> (prod)"
+      operationId: getUserProfileUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+components:
+  schemas:
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:
+      type: object
+      properties:
+        workgroupId:
+          type: string
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+        workgroupName:
+          type: string
+          xml:
+            name: WorkgroupName
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup
+      xml:
+        name: Workgroup
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile:
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          example: 212
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+        subscriberName:
+          type: string
+          example: Law Conveyancing
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+        subscriberType:
+          type: string
+          example: Conveyancer
+          xml:
+            name: SubscriberType
+            attribute: false
+            wrapped: false
+        subscriberDualSignFss:
+          type: string
+          example: false
+          xml:
+            name: SubscriberDualSignFss
+            attribute: false
+            wrapped: false
+        subscriberDualSignDoc:
+          type: string
+          example: false
+          xml:
+            name: SubscriberDualSignDoc
+            attribute: false
+            wrapped: false
+        userId:
+          type: string
+          example: 100
+          xml:
+            name: UserId
+            attribute: false
+            wrapped: false
+        username:
+          type: string
+          example: conveyancer@pexa.com.au
+          xml:
+            name: Username
+            attribute: false
+            wrapped: false
+        userType:
+          type: string
+          example: ROLE_SUBSCRIBER_MANAGER
+          xml:
+            name: UserType
+            attribute: false
+            wrapped: false
+        userFirstName:
+          type: string
+          example: Gwen
+          xml:
+            name: UserFirstName
+            attribute: false
+            wrapped: false
+        userLastName:
+          type: string
+          example: Last
+          xml:
+            name: UserLastName
+            attribute: false
+            wrapped: false
+        workgroupList:
+          xml:
+            name: WorkgroupList
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList'
+        userPermissionsList:
+          xml:
+            name: UserPermissionsList
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile
+      xml:
+        name: UserProfile
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
+      type: object
+      properties:
+        userProfile:
+          xml:
+            name: UserProfile
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
+      xml:
+        name: UserProfileRetrievalResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
+      type: object
+      properties:
+        userPermissions:
+          type: array
+          xml:
+            name: UserPermission
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
+      xml:
+        name: UserPermissionsList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList:
+      type: object
+      properties:
+        workgroups:
+          type: array
+          xml:
+            name: Workgroup
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList
+      xml:
+        name: WorkgroupList
+        attribute: false
+        wrapped: false
+x-refined-from:
+- pexa-exchange-api-legacy-swagger.json
+- pexa-exchange-api-swagger.json

@@ -1,0 +1,564 @@
+openapi: 3.2.0
+info:
+  title: Notification Service [$] API
+  description: 'The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events. This API caters to various functions including updating, deleting, and creating registration details, as well as rotating the shared secret for secure communication. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flow: <br> - Client Credentials <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [PEXA Webhooks Guide](../../docs/definitions/webhooks/)  <br> - [Authentication](../../../Exchange/docs/documentation/)
+
+    '
+  version: 1.0.0
+  contact:
+    email: apisupport@pexa.com.au
+servers:
+- url: https://api.pexa.com.au
+  description: Production server
+- url: https://api-tst.pexalabs.com.au
+  description: Non-Prod server
+tags:
+- name: Notification Service [$]
+paths: {}
+webhooks:
+  SubscriberNotification:
+    post:
+      description: Subscriber notification payload
+      operationId: SubscriberNotification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriberNotificationPayload'
+      responses:
+        '200':
+          description: Callback successfully processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '200'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Callback successfully processed
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '400'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Bad Request
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '404'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Not Found
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '408'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Request Timeout
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '418':
+          description: I'm a teapot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '418'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: I'm a teapot
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '429'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Too Many Requests
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '500'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Internal Server Error
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '502'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Bad Gateway
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '503'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Service Unavailable
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '504'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Gateway Timeout
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+      tags:
+      - Notification Service [$]
+  NonSubscriberNotification:
+    post:
+      description: Non-subscriber notification payload
+      operationId: nonSubscriberNotification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NonSubscriberNotificationPayload'
+      responses:
+        '200':
+          description: Callback successfully processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '200'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Callback successfully processed
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '400'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Bad Request
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '404'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Not Found
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '408'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Request Timeout
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '418':
+          description: I'm a teapot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '418'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: I'm a teapot
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '429'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Too Many Requests
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '500'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Internal Server Error
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '502'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Bad Gateway
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '503'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Service Unavailable
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+        '504':
+          description: Gateway Timeout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: '504'
+                  message:
+                    type:
+                    - string
+                    - 'null'
+                    example: Gateway Timeout
+                  data:
+                    type:
+                    - string
+                    - 'null'
+                    example: Some data
+      tags:
+      - Notification Service [$]
+components:
+  schemas:
+    SubscriberNotificationPayload:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The date and time the event occurred
+          example: '2024-06-04T03:18:58Z'
+        type:
+          type: string
+          description: Specifies the category and the event type and follows the format of <category>.<event>
+          example: Workspace.CHECKLIST_CHECKED
+        data:
+          type: object
+          description: An object containing the details of the events that triggered the notification
+          properties:
+            workspaceId:
+              type: string
+              description: The PEXA Workspace Identifier
+              example: PEXA000000000
+            subscriberId:
+              type: string
+              description: The ID of the subscriber
+              example: '100'
+            subscriberReferences:
+              type: array
+              description: An array of subscriber references that are relevant to the event.
+              items:
+                type: object
+                description: Subscriber reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
+                properties:
+                  subscriberReference:
+                    type: string
+                    description: The subscriber reference
+                    example: '100'
+                  workspaceRole:
+                    type: string
+                    description: The role of the subscriber in the workspace
+                    example: Incoming Mortgagee
+            additionalReferences:
+              type: array
+              description: An array of additional references that are relevant to the event. For subscriber notifications, this will contain a single reference
+              items:
+                type: object
+                description: Additional reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
+                properties:
+                  identifier:
+                    type: string
+                    description: The identifier
+                    example: '51'
+                  type:
+                    type: string
+                    description: The type of reference.
+                    example: CHECKLIST_ITEM_ID
+    NonSubscriberNotificationPayload:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The date and time the event occurred
+          example: '2024-06-04T03:18:58Z'
+        type:
+          type: string
+          description: Specifies the category and the event type and follows the format of <category>.<event>
+          example: Workspace.CHECKLIST_CHECKED
+        data:
+          type: object
+          description: An object containing the details of the events that triggered the notification
+          properties:
+            workspaceId:
+              type: string
+              description: The PEXA Workspace Identifier
+              example: PEXA000000000
+            additionalReferences:
+              type: array
+              description: An array of additional references that are relevant to the event. For non-subscriber notifications, this will contain a single reference
+              items:
+                type: object
+                description: Additional references.
+                properties:
+                  identifier:
+                    type: string
+                    description: The identifier
+                    example: '51'
+                  type:
+                    type: string
+                    description: The type of reference.
+                    example: CHECKLIST_ITEM_ID
+            links:
+              type: array
+              description: A list of links to get further information about the workspace that triggered the notification
+              items:
+                type: object
+                description: A link to get further information about the workspace that triggered the notification. Each link follows the HATEOAS standard
+                properties:
+                  href:
+                    type: string
+                    description: The URL to get the workspace details
+                    example: https://example.com/workspace123
+                  rel:
+                    type: string
+                    description: Provides context to the type of information that can be received from the href
+                    example: self
+                  type:
+                    type: string
+                    description: The type of HTTP request to be used for the href
+                    example: GET
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.pexa.com.au/oauth/token
+          scopes:
+            view:notification_registrations: View registrations
+            create:notification_registrations: Create registrations
+            edit:notification_registrations: Edit registrations
+            delete:notification_registrations: Delete registrations
+            create:notification_registrations_secret_rotation: Rotate shared secret

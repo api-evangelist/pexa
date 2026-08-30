@@ -1,0 +1,1369 @@
+openapi: 3.2.0
+info:
+  title: Notification Service [$] Notification Registration API
+  description: 'The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events. This API caters to various functions including updating, deleting, and creating registration details, as well as rotating the shared secret for secure communication. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flow: <br> - Client Credentials <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [PEXA Webhooks Guide](../../docs/definitions/webhooks/)  <br> - [Authentication](../../../Exchange/docs/documentation/)
+
+    '
+  version: 1.0.0
+  contact:
+    email: apisupport@pexa.com.au
+servers:
+- url: https://api.pexa.com.au
+  description: Production server
+- url: https://api-tst.pexalabs.com.au
+  description: Non-Prod server
+tags:
+- name: NotificationRegistration
+  description: Registration related endpoints
+paths:
+  /v3/notification-registrations:
+    post:
+      tags:
+      - NotificationRegistration
+      summary: Create registration details (V3)
+      description: Registers a webhook endpoint to start receiving PEXA event notifications, with support for enhanced authentication modes. Use authenticationMode HMAC for standard shared secret verification, or HMAC_OAUTH to additionally authenticate webhook delivery using OAuth 2.0 Client Credentials for integrators with strict inbound security requirements. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)
+      operationId: createNotificationRegistrationV3
+      security:
+      - oauth2:
+        - create:notification_registrations
+        tags:
+        - Create registration V3
+      requestBody:
+        description: Registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookNotificationRegistrationRequest'
+            examples:
+              hmacOnly:
+                summary: HMAC authentication
+                value:
+                  notificationType: WEBHOOK
+                  eventTypes:
+                  - WORKSPACE_PARTICIPANT_ADDED
+                  - SECRET_EXPIRY
+                  attributes:
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC
+              hmacOauthPrivateKeyJwt:
+                summary: HMAC + OAuth (private_key_jwt)
+                value:
+                  notificationType: WEBHOOK
+                  eventTypes:
+                  - WORKSPACE_PARTICIPANT_ADDED
+                  - SECRET_EXPIRY
+                  attributes:
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC_OAUTH
+                    authConfig:
+                      authUrl: https://auth.example.com/oauth/token
+                      clientId: client-12345
+                      clientAuthMethod: private_key_jwt
+                      audience: https://api.example.com
+                      scope: api.scope1 api.scope2
+              hmacOauthClientSecret:
+                summary: HMAC + OAuth (client_secret)
+                value:
+                  notificationType: WEBHOOK
+                  eventTypes:
+                  - WORKSPACE_PARTICIPANT_ADDED
+                  - SECRET_EXPIRY
+                  attributes:
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC_OAUTH
+                    authConfig:
+                      authUrl: https://auth.example.com/oauth/token
+                      clientId: client-12345
+                      clientAuthMethod: client_secret
+                      clientSecret: secret-67890
+                      scope: api.scope1 api.scope2
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookNotificationRegistrationResponseV3'
+              examples:
+                createRegistrationWithHMAC:
+                  value:
+                    notificationType: WEBHOOK
+                    eventTypes:
+                    - SECRET_EXPIRY
+                    - CHECKLIST_CHECKED
+                    sharedSecret: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+                    sharedSecretExpiry: '2025-03-13 04:12:51.574000 +00:00'
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC
+                    registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                    subscriberId: '202'
+                createRegistrationWithHMACOAUTH:
+                  value:
+                    notificationType: WEBHOOK
+                    eventTypes:
+                    - SECRET_EXPIRY
+                    - CHECKLIST_CHECKED
+                    sharedSecret: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+                    sharedSecretExpiry: '2025-03-13 04:12:51.574000 +00:00'
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC_OAUTH
+                    authConfig:
+                      authUrl: https://auth.example.com/oauth/token
+                      clientId: client-12345
+                      clientAuthMethod: private_key_jwt
+                      audience: https://api.example.com
+                      scope: api.scope1 api.scope2
+                    registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                    subscriberId: '202'
+                createRegistrationWithHMACOAUTHClientSecret:
+                  value:
+                    notificationType: WEBHOOK
+                    eventTypes:
+                    - SECRET_EXPIRY
+                    - CHECKLIST_CHECKED
+                    sharedSecret: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+                    sharedSecretExpiry: '2025-03-13 04:12:51.574000 +00:00'
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC_OAUTH
+                    authConfig:
+                      authUrl: https://auth.example.com/oauth/token
+                      clientId: client-12345
+                      clientAuthMethod: client_secret
+                      scope: api.scope1 api.scope2
+                    registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                    subscriberId: '202'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              examples:
+                subscriberIdMissing:
+                  summary: SubscriberId couldn't be fetched from token
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400009
+                      message: SubscriberId couldn't be fetched from token
+                      field: null
+                webhookURIInvalid:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400012
+                      message: Webhook URI is invalid
+                      field: webhookURI
+                domainNotWhitelisted:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400014
+                      message: The webhook domain has not been whitelisted
+                      field: webhookURI
+                authenticationModeInvalid:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400026
+                      message: Invalid authentication mode
+                      field: authenticationMode
+                authConfigMissing:
+                  summary: authConfig required for HMAC_OAUTH
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400027
+                      message: authConfig is required when authenticationMode is HMAC_OAUTH
+                      field: authConfig
+                authUrlNotWhitelisted:
+                  summary: Auth URL domain not whitelisted
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400029
+                      message: The auth URL domain has not been whitelisted
+                      field: authUrl
+                clientIdInvalid:
+                  summary: clientId is required
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400030
+                      message: clientId is required and must not be blank
+                      field: clientId
+                clientAuthMethodInvalid:
+                  summary: Invalid clientAuthMethod
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400031
+                      message: Invalid clientAuthMethod
+                      field: clientAuthMethod
+                clientSecretMissing:
+                  summary: clientSecret required for client_secret method
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400032
+                      message: clientSecret is required when clientAuthMethod is client_secret
+                      field: clientSecret
+                authConfigNotAllowed:
+                  summary: authConfig not allowed for HMAC mode
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400034
+                      message: authConfig must not be provided when authenticationMode is HMAC
+                      field: authConfig
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+  /v3/notification-registrations/{registrationId}:
+    put:
+      tags:
+      - NotificationRegistration
+      summary: Update registration details (V3)
+      description: Updates the webhook URI, event types, or authentication configuration for an existing registration. Supports switching between HMAC and HMAC_OAUTH modes. Use HMAC_OAUTH to add OAuth 2.0 Client Credentials authentication on top of HMAC for enhanced security. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)
+      operationId: updateNotificationRegistrationV3
+      security:
+      - oauth2:
+        - edit:notification_registrations
+        tags:
+        - Update registration V3
+      parameters:
+      - in: path
+        name: registrationId
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of the registration to update
+        example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+      requestBody:
+        description: Updated registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookNotificationRegistrationRequest'
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookNotificationRegistrationUpdateResponseV3'
+              examples:
+                updateRegistrationWithHMAC:
+                  value:
+                    notificationType: WEBHOOK
+                    eventTypes:
+                    - SECRET_EXPIRY
+                    - CHECKLIST_CHECKED
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC
+                    registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                    subscriberId: '202'
+                updateRegistrationWithHMACOAUTH:
+                  value:
+                    notificationType: WEBHOOK
+                    eventTypes:
+                    - SECRET_EXPIRY
+                    - CHECKLIST_CHECKED
+                    webhookURI: https://example.com/webhook
+                    authenticationMode: HMAC_OAUTH
+                    authConfig:
+                      authUrl: https://auth.example.com/oauth/token
+                      clientId: client-12345
+                      clientAuthMethod: private_key_jwt
+                      audience: https://api.example.com
+                      scope: api.scope1 api.scope2
+                    registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                    subscriberId: '202'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              examples:
+                webhookURIInvalid:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400012
+                      message: Webhook URI is invalid
+                      field: webhookURI
+                authConfigMissing:
+                  summary: authConfig required for HMAC_OAUTH
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400027
+                      message: authConfig is required when authenticationMode is HMAC_OAUTH
+                      field: authConfig
+                authUrlNotWhitelisted:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400029
+                      message: The auth URL domain has not been whitelisted
+                      field: authUrl
+                clientSecretMissing:
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400032
+                      message: clientSecret is required when clientAuthMethod is client_secret
+                      field: clientSecret
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.404007
+                  message: 'Registration not found for given id: 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42'
+                  field: registrationId
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+  /v2/notification-registrations:
+    get:
+      tags:
+      - NotificationRegistration
+      summary: Get notification registrations
+      description: Retrieve registration details. If registrationId parameter is provided, returns specified registration details. If not provided, returns an array of all registrations ordered by updated_at timestamp in descending order <br>Scopes:<br><i>view:notification_registrations</i> (non-prod)<br><i>view:notification_registrations</i> (prod)
+      operationId: getNotificationRegistrationsV2
+      security:
+      - oauth2:
+        - view:notification_registrations
+        tags:
+        - Get registration V2
+      parameters:
+      - in: query
+        name: registrationId
+        schema:
+          type: string
+          format: uuid
+        required: false
+        description: Optional registration ID to filter results. If not provided, returns all registrations ordered by updated_at timestamp in descending order.
+        example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        required: false
+        description: Determines which page of registrations to retrieve
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 20
+        required: false
+        description: Number of records per page
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedNotificationRegistrations'
+              examples:
+                registrationWithHMAC:
+                  summary: Registration with HMAC authentication
+                  value:
+                    page:
+                      page: 1
+                      totalRecords: 1
+                      pageRecords: 1
+                      limit: 10
+                    records:
+                    - notificationType: WEBHOOK
+                      eventTypes:
+                      - SECRET_EXPIRY
+                      - CHECKLIST_CHECKED
+                      integratorId: 344a6eb8-1201-4b80-a279-084713e300ef
+                      integratorType: BROKER
+                      registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                      subscriberId: '202'
+                      sharedSecret: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+                      sharedSecretExpiry: '2025-03-13 04:12:51.574000 +00:00'
+                      webhookURI: https://push-notifications.pexa.com.au/notifications-webhook
+                      authenticationMode: HMAC
+                registrationWithHMACOAUTH:
+                  summary: Registration with HMAC + OAuth authentication
+                  value:
+                    page:
+                      page: 1
+                      totalRecords: 1
+                      pageRecords: 1
+                      limit: 10
+                    records:
+                    - notificationType: WEBHOOK
+                      eventTypes:
+                      - SECRET_EXPIRY
+                      - CHECKLIST_CHECKED
+                      integratorId: 344a6eb8-1201-4b80-a279-084713e300ef
+                      integratorType: BROKER
+                      registrationId: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+                      subscriberId: '202'
+                      sharedSecret: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+                      sharedSecretExpiry: '2025-03-13 04:12:51.574000 +00:00'
+                      webhookURI: https://push-notifications.pexa.com.au/notifications-webhook
+                      authenticationMode: HMAC_OAUTH
+                      authConfig:
+                        authUrl: https://auth.example.com/oauth/token
+                        clientId: client-12345
+                        clientAuthMethod: private_key_jwt
+                        audience: https://api.example.com
+                        scope: api.scope1 api.scope2
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              examples:
+                subscriberIdMissing:
+                  summary: SubscriberId couldn't be fetched from token
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400009
+                      message: SubscriberId couldn't be fetched from token
+                      field: null
+                invalidRegistrationId:
+                  summary: Invalid registration ID format
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400000
+                      message: Invalid UUID string
+                      field: registrationId
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+  /v1/notification-registrations:
+    post:
+      tags:
+      - NotificationRegistration
+      summary: Create registration details
+      description: Registers a webhook endpoint to start receiving PEXA event notifications. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)
+      operationId: createNotificationRegistration
+      security:
+      - oauth2:
+        - create:notification_registrations
+        tags:
+        - Create registration
+      requestBody:
+        description: Registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNotificationRegistrationRequest'
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationRegistrationCreateDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              examples:
+                subscriberIdMissing:
+                  summary: Subscriber Id is missing
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400009
+                      message: Subscriber Id is missing
+                      field: null
+                webhookURIInvalid:
+                  summary: Invalid webhook URI
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400012
+                      message: Webhook URI is invalid
+                      field: webhookURI
+                eventTypeListEmpty:
+                  summary: Event type list is empty
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400013
+                      message: Must not be empty
+                      field: eventTypes
+                domainNotWhitelisted:
+                  summary: Domain not whitelisted
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400014
+                      message: The webhook domain has not been whitelisted
+                      field: webhookURI
+                eventTypeListInvalid:
+                  summary: Event type list is invalid
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400015
+                      message: 'Invalid eventTypes: ["Invalid_event1", "Invalid_event2"]'
+                      field: eventTypes
+                eventTypeListDuplicate:
+                  summary: Event type list has duplicates
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400016
+                      message: 'Duplicate eventTypes: ["CHECKLIST_CHECKED", "CHECKLIST_UNCHECKED"]'
+                      field: eventTypes
+                invalidFormat:
+                  summary: Invalid format provided
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400017
+                      message: Invalid format provided
+                      field: webhookURI
+                invalidJson:
+                  summary: Invalid JSON
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400018
+                      message: JSON parse error
+                      field: null
+                duplicateRegistration:
+                  summary: Duplicate registration
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400019
+                      message: Registration already exists with this combination
+                      field: webhookURI
+                mandatoryEventTypesMissing:
+                  summary: Mandatory event types missing
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400020
+                      message: Mandatory event types are missing
+                      field: eventTypes
+                additionalEventTypeMissing:
+                  summary: An additional event type is required
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400021
+                      message: There should be at least one more event present apart from mandatory event(s)
+                      field: eventTypes
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+  /v1/notification-registrations/{registrationId}:
+    put:
+      tags:
+      - NotificationRegistration
+      summary: Update registration details
+      description: Updates the webhook URI or event types for an existing registration. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)
+      operationId: updateNotificationRegistration
+      security:
+      - oauth2:
+        - edit:notification_registrations
+        tags:
+        - Update a subscriber's notification preference
+      parameters:
+      - in: path
+        name: registrationId
+        schema:
+          type: string
+        required: true
+        description: UUID of the registration
+      requestBody:
+        description: Registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationRegistrationRequest'
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationRegistrationDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              examples:
+                subscriberIdMissing:
+                  summary: Subscriber Id is missing
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400009
+                      message: Subscriber Id is missing
+                      field: null
+                webhookURIInvalid:
+                  summary: Invalid webhook URI
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400012
+                      message: Webhook URI is invalid
+                      field: webhookURI
+                eventTypeListEmpty:
+                  summary: Event type list is empty
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400013
+                      message: Must not be empty
+                      field: eventTypes
+                domainNotWhitelisted:
+                  summary: Domain not whitelisted
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400014
+                      message: The webhook domain has not been whitelisted
+                      field: webhookURI
+                eventTypeListInvalid:
+                  summary: Event type list is invalid
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400015
+                      message: 'Invalid eventTypes: ["Invalid_event1", "Invalid_event2"]'
+                      field: eventTypes
+                eventTypeListDuplicate:
+                  summary: Event type list has duplicates
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400016
+                      message: 'Duplicate eventTypes: ["CHECKLIST_CHECKED", "CHECKLIST_UNCHECKED"]'
+                      field: eventTypes
+                invalidFormat:
+                  summary: Invalid format provided
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400017
+                      message: Invalid format provided
+                      field: webhookURI
+                invalidJson:
+                  summary: Invalid JSON
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400018
+                      message: JSON parse error
+                      field: null
+                duplicateRegistration:
+                  summary: Duplicate registration
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400019
+                      message: Registration already exists with this combination
+                      field: webhookURI
+                mandatoryEventTypesMissing:
+                  summary: Mandatory event types missing
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400020
+                      message: Mandatory event types are missing
+                      field: eventTypes
+                additionalEventTypeMissing:
+                  summary: An additional event type is required
+                  value:
+                    errors:
+                    - code: GA.NOTIF.400021
+                      message: There should be at least one more event present apart from mandatory event(s)
+                      field: eventTypes
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.404007
+                  message: 'Registration not found for given id: 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42'
+                  field: registrationId
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+    delete:
+      tags:
+      - NotificationRegistration
+      summary: Delete registration details
+      description: Deletes an existing webhook registration. Once deleted, PEXA will stop delivering event notifications to the associated webhook URI. This action cannot be undone; a new registration must be created to resume webhook delivery. <br>Scopes:<br><i>delete:notification_registrations</i> (non-prod)<br><i>delete:notification_registrations</i> (prod)
+      operationId: deleteNotificationRegistration
+      security:
+      - oauth2:
+        - delete:notification_registrations
+        tags:
+        - Delete a registration for a subscriber
+      parameters:
+      - in: path
+        name: registrationId
+        schema:
+          type: string
+        required: true
+        description: UUID of the registration.
+      responses:
+        '204':
+          description: The resource has been deleted.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.400000
+                  message: 'Invalid UUID string: 123'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.404007
+                  message: 'Registration not found for given id: 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42'
+                  field: registrationId
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+  /v1/notification-registrations/{registrationId}/secret-rotation:
+    post:
+      tags:
+      - NotificationRegistration
+      summary: Rotate Shared Secret
+      description: Rotates the shared secret for an existing webhook registration. The new secret is returned in the response and must be stored securely. The previous secret remains valid for 24 hours to allow a zero-downtime transition, after which only the new secret will be accepted for HMAC signature verification. <br>Scopes:<br><i>create:notification_registrations_secret_rotation</i> (non-prod)<br><i>create:notification_registrations_secret_rotation</i> (prod)
+      operationId: createNotificationSecretRotation
+      security:
+      - oauth2:
+        - create:notification_registrations_secret_rotation
+        tags:
+        - Rotates shared secret
+      parameters:
+      - in: path
+        name: registrationId
+        schema:
+          type: string
+        required: true
+        description: UUID of the registration
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSecretRotationDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.400000
+                  message: 'Invalid UUID string: 123'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.401004
+                  message: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.403003
+                  message: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - code: GA.NOTIF.404007
+                  message: 'Registration not found for given id: 091f7d22-88a9-4b64-bc51-e1ea8bb8dc42'
+                  field: registrationId
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationServiceErrorResponse'
+              example:
+                errors:
+                - message: Internal Server Error
+components:
+  schemas:
+    NotificationServiceErrorResponse:
+      type: object
+      description: Response object of the service
+      properties:
+        errors:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    WebhookNotificationRegistrationResponseV3:
+      description: Response body returned after successfully creating a V3 webhook registration. Store the sharedSecret securely. It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.
+      type: object
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - WORKSPACE_PARTICIPANT_ADDED
+          - SECRET_EXPIRY
+        integratorId:
+          type: string
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          example: BROKER
+        registrationId:
+          type: string
+          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+        subscriberId:
+          type: string
+          example: '202'
+        sharedSecret:
+          type: string
+          description: System-generated shared secret for HMAC validation
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+        sharedSecretExpiry:
+          type: string
+          example: '2025-03-13 04:12:51.574000 +00:00'
+        webhookURI:
+          type: string
+          format: uri
+          example: https://example.com/webhook
+        authenticationMode:
+          $ref: '#/components/schemas/AuthenticationMode'
+        authConfig:
+          $ref: '#/components/schemas/AuthConfigResponse'
+    PagedNotificationRegistrations:
+      type: object
+      description: A paginated list of notification registrations
+      required:
+      - page
+      - records
+      properties:
+        page:
+          $ref: '#/components/schemas/Page'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationRegistrationResponseV2'
+    Page:
+      type: object
+      required:
+      - page
+      - totalRecords
+      - pageRecords
+      - limit
+      properties:
+        page:
+          type: integer
+          description: The current page number
+        totalRecords:
+          type: integer
+          description: The total number of records available
+        pageRecords:
+          type: integer
+          description: The number of records on the current page
+        limit:
+          type: integer
+          description: The maximum number of records per page
+    ClientAuthMethod:
+      type: string
+      description: 'OAuth 2.0 client authentication method.
+
+
+        Allowed values: private_key_jwt, client_secret
+
+        '
+      example: private_key_jwt
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          type: string
+          example: GA.NOTIF.403003
+        message:
+          type: string
+          example: Forbidden
+        field:
+          type: string
+          nullable: true
+          example: webhookURI
+    NotificationRegistrationResponseV2:
+      description: A single registration record returned by the V2 GET endpoint.
+      type: object
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - WORKSPACE_PARTICIPANT_ADDED
+          - SECRET_EXPIRY
+        integratorId:
+          type: string
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          example: BROKER
+        registrationId:
+          type: string
+          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+        subscriberId:
+          type: string
+          example: '123456789'
+        webhookURI:
+          type: string
+          format: uri
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        sharedSecret:
+          type: string
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+        sharedSecretExpiry:
+          type: string
+          example: '2025-03-13 04:12:51.574000 +00:00'
+        authenticationMode:
+          $ref: '#/components/schemas/AuthenticationMode'
+        authConfig:
+          $ref: '#/components/schemas/AuthConfigResponse'
+    AuthConfig:
+      type: object
+      required:
+      - authUrl
+      - clientId
+      - clientAuthMethod
+      properties:
+        authUrl:
+          type: string
+          format: uri
+          description: OAuth 2.0 token endpoint URL. The domain must be whitelisted.
+          example: https://auth.example.com/oauth/token
+        clientId:
+          type: string
+          description: OAuth 2.0 client identifier
+          example: client-12345
+        clientAuthMethod:
+          $ref: '#/components/schemas/ClientAuthMethod'
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret (required only when clientAuthMethod is client_secret)
+          example: secret-67890
+        audience:
+          type: string
+          description: OAuth 2.0 audience claim
+          example: https://api.example.com
+        scope:
+          type: string
+          description: Space-delimited OAuth 2.0 scopes
+          example: api.scope1 api.scope2
+    CreateNotificationRegistrationRequest:
+      description: Request body for creating a new webhook notification registration. Provide the webhook URI where PEXA will deliver events, and the list of event types you wish to subscribe to. The response will include a system-generated shared secret used to verify the authenticity of incoming webhook requests via HMAC signature validation.
+      type: object
+      required:
+      - webhookURI
+      - eventTypes
+      properties:
+        webhookURI:
+          type: string
+          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: Please refer to the API documentation for the list of allowed events
+    WebhookNotificationRegistrationUpdateResponseV3:
+      description: Response body returned after updating a V3 webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.
+      type: object
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - WORKSPACE_PARTICIPANT_ADDED
+          - SECRET_EXPIRY
+        integratorId:
+          type: string
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          example: BROKER
+        registrationId:
+          type: string
+          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+        subscriberId:
+          type: string
+          example: '202'
+        webhookURI:
+          type: string
+          format: uri
+          example: https://example.com/webhook
+        authenticationMode:
+          $ref: '#/components/schemas/AuthenticationMode'
+        authConfig:
+          $ref: '#/components/schemas/AuthConfigResponse'
+    NotificationRegistrationCreateDto:
+      description: Response body returned after successfully creating a webhook registration. Store the sharedSecret securely (e.g. in a secrets manager). It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.
+      type: object
+      required:
+      - webhookURI
+      - registrationId
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        webhookURI:
+          type: string
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        registrationId:
+          type: string
+          example: a12sd23sf4f5f6f9
+        subscriberId:
+          type: string
+          example: '123456789'
+        sharedSecret:
+          type: string
+          description: The shared secret used to validate the webhook request
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+        sharedSecretExpiry:
+          type: string
+          description: The expiry time for current shared secret
+          example: '2025-03-13 04:12:51.574000 +00:00'
+        integratorId:
+          type: string
+          description: The ID of the integrator
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          description: The type of the integrator
+          example: BROKER
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: The list of eventTypes that this registration will send notifications for
+          example:
+          - CHECKLIST_CHECKED
+    NotificationRegistrationDto:
+      description: Response body returned after updating a webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.
+      type: object
+      required:
+      - webhookURI
+      - registrationId
+      properties:
+        notificationType:
+          type: string
+          description: The type of notification
+          example: WEBHOOK
+        webhookURI:
+          type: string
+          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        registrationId:
+          type: string
+          description: The registration ID returned by the POST /register endpoint
+          example: a12sd23sf4f5f6f9
+        subscriberId:
+          type: string
+          description: The ID of the subscriber
+          example: '123456789'
+        integratorId:
+          type: string
+          description: The ID of the integrator
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          description: The type of the integrator
+          example: BROKER
+        eventTypes:
+          type: array
+          description: The list of eventTypes that this registration will send notifications for
+          items:
+            type: string
+          example:
+          - CHECKLIST_CHECKED
+    UpdateNotificationRegistrationRequest:
+      description: Update registration details
+      type: object
+      required:
+      - webhookURI
+      - eventTypes
+      properties:
+        webhookURI:
+          type: string
+          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: Please refer to the API documentation for the list of allowed events
+    WebhookNotificationRegistrationRequest:
+      description: V3 webhook registration request
+      type: object
+      required:
+      - notificationType
+      - eventTypes
+      - attributes
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: Please refer to the API documentation for the list of allowed events
+        attributes:
+          type: object
+          required:
+          - webhookURI
+          - authenticationMode
+          properties:
+            webhookURI:
+              type: string
+              format: uri
+              description: The webhook URL. The domain must be whitelisted.
+              example: https://example.com/webhook
+            authenticationMode:
+              $ref: '#/components/schemas/AuthenticationMode'
+            authConfig:
+              $ref: '#/components/schemas/AuthConfig'
+    AuthenticationMode:
+      type: string
+      description: 'Authentication mode for webhook notifications.
+
+
+        Allowed values: HMAC, HMAC_OAUTH
+
+        '
+      example: HMAC_OAUTH
+    AuthConfigResponse:
+      type: object
+      description: OAuth configuration returned in registration responses.
+      properties:
+        authUrl:
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth/token
+        clientId:
+          type: string
+          example: client-12345
+        clientAuthMethod:
+          $ref: '#/components/schemas/ClientAuthMethod'
+        audience:
+          type: string
+          example: https://api.example.com
+        scope:
+          type: string
+          example: api.scope1 api.scope2
+    NotificationSecretRotationDto:
+      description: Response body returned after rotating the shared secret. The new sharedSecret must be stored securely and used immediately for HMAC signature verification. The previous secret remains valid for 24 hours after rotation to allow a zero-downtime transition, after which only the new secret will be accepted.
+      type: object
+      required:
+      - sharedSecret
+      - expiry
+      properties:
+        expiry:
+          type: string
+          description: The time until which the shared secret is valid
+          example: '2024-02-28T06:12:42Z'
+        sharedSecret:
+          type: string
+          description: The shared secret used to validate the webhook request
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.pexa.com.au/oauth/token
+          scopes:
+            view:notification_registrations: View registrations
+            create:notification_registrations: Create registrations
+            edit:notification_registrations: Edit registrations
+            delete:notification_registrations: Delete registrations
+            create:notification_registrations_secret_rotation: Rotate shared secret

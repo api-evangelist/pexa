@@ -1,0 +1,850 @@
+openapi: 3.2.0
+info:
+  title: Projects Notification API
+  description: 'PEXA Projects External Client API for Projects <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [Authentication](../../../Exchange/docs/documentation/)
+
+    '
+  version: v4
+  x-api-version: 4.0.0
+  contact:
+    name: PEXA Projects
+    email: pexaprojects-prdsupport@pexa.com.au
+  x-pexa-products:
+  - pexa-projects
+servers:
+- url: '{{ service.url }}'
+tags:
+- name: Notification
+paths:
+  /v4/projects/notifications:
+    get:
+      operationId: notification
+      security:
+      - oauth2:
+        - au:projects:notification:read
+      tags:
+      - Notification
+      description: Fetch notifications <br> Scopes:<br><i>au:projects:notification:read</i>
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: categoryList
+        in: query
+        required: false
+        description: The notification category the results will return. Each value must be separated with a comma (,) with no spaces. If not provided, PEXA will return all notification category types.
+        example: Document
+        schema:
+          type: string
+      - name: lastEventId
+        in: query
+        required: true
+        description: 'The PEXA internal reference for the event. This value must match the last Event Id which was provided in the previous notification response from PEXA. Note: If a Last Event Id has yet to be obtained, the value must be 0. If the Last Event ID value does not correspond to the Last Event Timestamp recorded in PEXA, an exception will be returned. Maximum 19 characters.'
+        example: '1213'
+        schema:
+          type: string
+      - name: lastEventTimestamp
+        in: query
+        required: true
+        description: 'The timestamp of the last event previously retrieved which the results will be filtered from (in UTC). Note: The Last Event Timestamp is used in conjunction with the Last Event ID for retrieving notifications. The Last Event Timestamp value in the request should match the Last Event Timestamp value which was provided in the previous notification response from PEXA. If the Last Event Timestamp value does not correspond to the Last Event Id recorded in PEXA, an exception will be returned.'
+        example: '2018-11-18T02:30:20.283Z'
+        schema:
+          type: string
+      - name: maxRecords
+        in: query
+        required: false
+        description: Used to specify the maximum number of notification records to be returned in a single service call. PEXA will set an internal threshold for a maximum number of records to be returned. If the PEXA threshold is less than the max number of records provided, PEXA will return its threshold number of records (with the More Data flag set to indicate there are more notification records where applicable). If no value is provided, the PEXA threshold will be used as the default number for notification records to be received. If a value is provided, it must be greater than 0.
+        example: '2'
+        schema:
+          type: string
+          pattern: '[0-9]+'
+      - name: severity
+        in: query
+        required: false
+        description: The notification severity the results will return. If not provided, PEXA will return all notification severity types.
+        example: Error
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Status details for a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveNotificationsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    NotificationInvitationResponseDetailsType:
+      title: NotificationInvitationResponseDetailsType
+      description: Details on invitation responses
+      type: object
+      properties:
+        inviteId:
+          type: string
+          description: The PEXA internal reference for the invitation.<br> Maximum 19 characters
+          example: '654'
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters
+          example: '208'
+        subscriberName:
+          type: string
+          description: The subscriber’s PEXA organisation name<br> Maximum 255 characters
+          example: XYZ bank
+        workspaceRole:
+          type: string
+          description: The workspace role the subscriber user has been invited to participate in.
+          example: Incoming Mortgagee
+        responseReason:
+          type: string
+          description: The subscriber’s response reason.
+          example: Additional documents required
+        additionalText:
+          type: string
+          description: Additional text entered by the invited subscriber. <br> Must be provided if the response reason is ‘Other’. <br>  Maximum 250 characters
+          example: More information
+    BusinessType:
+      title: BusinessType
+      description: The business type
+      type: object
+      properties:
+        legalEntityName:
+          type: string
+          description: Maximum 150 characters
+          example: National Australia Bank
+        businessName:
+          type: string
+          description: 'Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. '
+          example: NAB
+        businessUnit:
+          type: string
+          description: 'Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. '
+          example: Mortgage processing
+        organisationType:
+          type: string
+          description: Must be provided if Party Type is ‘Organisation’
+          example: Registered Company
+        administrationStatuses:
+          type: array
+          description: 'Must be provided if Organisation Type is ''Registered company in external administration'' '
+          example:
+          - AdministrationStatus: Subject to a deed of company arrangement
+          items:
+            $ref: '#/components/schemas/AdministrationStatusDetailsType'
+        identifications:
+          type: array
+          description: External identification of the party through a registered organisation.
+          items:
+            $ref: '#/components/schemas/IdentificationDetailsType'
+    NotificationInvitationOutstandingPartyDetailsType:
+      title: NotificationInvitationOutstandingPartyDetailsType
+      description: Details on an outstanding party invitation
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: Maximum 19 characters
+          example: '654'
+        partyRole:
+          type: string
+          description: The role of the party
+          example: Incoming Mortgagee
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        associatedLandTitleReferences:
+          type: array
+          description: 'This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.'
+          example:
+          - 98745/987
+          - 98745/987
+          items:
+            type: string
+            description: A land title reference
+            example: 98745/987
+    NotificationInvitationOutstandingLandTitleDetailsType:
+      title: NotificationInvitationOutstandingLandTitleDetailsType
+      description: Details on invitations outstanding land title
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          description: A land title reference
+          example: 123/654
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
+    NotificationConversationDetailsType:
+      title: NotificationConversationDetailsType
+      description: Details about a conversation
+      type: object
+      properties:
+        conversationId:
+          type: string
+          description: The unique identifier of the conversation <br> Maximum 19 characters
+          example: '456'
+        timestamp:
+          type: string
+          description: The timestamp that the conversation was created in PEXA (in UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    NotificationTitleActivityCheck:
+      title: NotificationTitleActivityCheck
+      description: Title activity check details
+      type: object
+      properties:
+        administrativeActionReferences:
+          type: array
+          description: References for administrative action
+          items:
+            $ref: '#/components/schemas/NotificationAdministrativeActionReferenceDetailsType'
+        documentReferences:
+          type: array
+          description: A document that has been lodged or registered against the Land Title in question within the period in question
+          items:
+            $ref: '#/components/schemas/NotificationDocumentReferenceDetailsType'
+    NotificationPartyDetailsType:
+      title: NotificationPartyDetailsType
+      description: Details on parties
+      type: object
+      properties:
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          type: string
+          description: The party role
+          example: Role
+        partyId:
+          type: string
+          description: 'Maximum 19 characters '
+          example: '989'
+    NotificationInvitationOutstandingDetailsType:
+      title: NotificationInvitationOutstandingDetailsType
+      description: Details on a outstanding invitation
+      type: object
+      properties:
+        inviteId:
+          type: string
+          description: The PEXA internal reference for the invitation.<br>  Maximum 19 characters
+          example: '123'
+        forwardedBy:
+          type: string
+          description: If the invitation has been forwarded by a panel master, this must be provided with the panel master subscriber’s organisation name.<br> Alternately, if the invitation has been forwarded by another subscriber (via the ‘Forward to another Subscriber’ invitation response) then this will be the subscriber’s organisation name.  <br>  Maximum 255 characters
+          example: XYZ Bank
+        timestamp:
+          type: string
+          description: The date and time the invitation was created (in UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        jurisdiction:
+          type: string
+          description: The jurisdiction of the workspace.
+          example: VIC
+        workspaceRole:
+          type: string
+          description: 'The workspace role the subscriber user has been invited to participate in. '
+          example: Incoming Mortgagee
+        settlementDate:
+          type: string
+          description: The date and time of settlement if the workspace is marked as requiring financial settlement (in UTC). Must be provided if financial settlement required unless in the scenario where a workspace has been created with a parent title and no settlement date/time has been set by the participant yet.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        expressRefinance:
+          type: string
+          description: A flag used to specify whether the invitation is for a workspace that is marked as an express refinance. <br> Maximum 3 characters
+          example: 'Yes'
+        landTitleDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleType'
+        partyDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingPartyType'
+        inviterSubscriberDetails:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsType'
+    NotificationsListType:
+      title: NotificationsListType
+      description: A list of notifications
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationType'
+        count:
+          type: number
+          format: Int64
+          description: Total number of notifications in the response.  <br> A count threshold will be provided once confirmed.
+          example: 20
+        moreData:
+          type: string
+          description: Used to indicate that there is more data to retrieve.  <br> This field will be set to ‘Yes’ when the Count threshold has been exceeded.
+          example: 'Yes'
+        lastEventTimestamp:
+          type: string
+          description: The latest event timestamp the response contains (in UTC). This value should match the ‘Timestamp' value from the latest notification retrieved in the below structure.  <br> This value can be used as the ‘Last Event Timestamp’ in the subsequent request message. <br> If no notifications exist for the time period requested then this should be set to the ‘Last Event Timestamp’ from the original Request message.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        lastEventId:
+          type: string
+          description: The PEXA internal reference for the event. This value should match the ‘Event Id’ value for the latest notification retrieved in the below structure.  <br> This value should be used as the ‘Last Event Id’ in the subsequent request message. <br> If no notifications exist for the time period requested then this should be set to the ‘Last Event Id’ from the original Request message. <br> Maximum 19 characters
+          example: '1'
+    NotificationDocumentDetailsType:
+      title: NotificationDocumentDetailsType
+      description: Details on Documents
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: The type of document
+          example: Settlement
+        status:
+          type: string
+          description: The status of the document
+          example: Open
+        documentId:
+          type: string
+          description: The PEXA internal document identifier. <br> Maximum 19 characters
+          example: '664'
+    NotificationLandTitleDetailsType:
+      title: NotificationLandTitleDetailsType
+      description: Details on the land title
+      type: object
+      properties:
+        landTitleReference:
+          description: A land title reference
+          type: string
+          example: ABC123
+        titleActivityCheck:
+          $ref: '#/components/schemas/NotificationTitleActivityCheck'
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
+    PropertyDetailsType:
+      title: PropertyDetailsType
+      description: Details on a property
+      type: object
+      properties:
+        landDescription:
+          type: string
+          description: The land description associated to the land title reference.<br>Maximum 300 characters
+          example: Vacant Land
+        propertyAddress:
+          type: string
+          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
+          example: 213 X street
+    SubscriberReferenceType:
+      title: SubscriberReferenceType
+      description: The subscriber reference
+      type: object
+      properties:
+        workspaceRole:
+          type: string
+          description: The role of the subscriber in the workspace
+          example: Incoming Mortgagee
+        value:
+          type: string
+          description: The subscriber reference for the workspace based on the subscriber’s role  <br> Maximum 30 characters
+          example: Matter-123312
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: The id of the party
+          example: '123'
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          description: The role of the Party
+          type: string
+          example: Mortgagee on Title
+    NotificationParticipantDetailsType:
+      title: NotificationParticipantDetailsType
+      description: Details about conversation participants
+      type: object
+      properties:
+        subscriberName:
+          type: string
+          description: The subscriber’s PEXA organisation name. <br> Maximum 255 characters
+          example: XYZ bank
+        workspaceRoles:
+          type: array
+          description: The workspace role the subscriber was performing in.
+          items:
+            type: string
+            description: A workspace role the subscriber was performing in.
+            example: Incoming Mortgagee
+    NotificationInvitationOutstandingInviterSubscriberDetailsType:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsType
+      description: Details on an outstanding inviter
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the inviter subscriber. <br>Maximum 19 characters
+          example: '208'
+        subscriberType:
+          type: string
+          description: The type of subscriber the inviter is registered as within PEXA.
+          example: Financial Institution
+        subscriberName:
+          type: string
+          description: The subscriber who has initiated the invite.<br> Maximum 255 characters
+          example: XYZ Bank
+        subscriberWorkspaceRole:
+          type: string
+          description: The workspace role of the subscriber who has initiated the invite.<br>  If Inviter subscriber is acting in multiple roles, the primary role will be provided
+          example: Incoming Mortgagee
+        representing:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting'
+        notes:
+          type: string
+          description: Notes entered in by the subscriber who initiated the invite.<br>  Any forwarding notes which may have been provided by the Subscriber who has forwarded the invitation will appear here.<br>May contain line feeds  Maximum 160 characters
+          example: Additional notes
+    NotificationTypeKeyValue:
+      title: NotificationTypeKeyValue
+      description: Key/Value of the notification type
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the notification
+          example: '55'
+        value:
+          type: string
+          description: The notification value
+          example: Settlement Date and Time status changed
+    NotificationLodgementDetailsType:
+      title: NotificationLodgementDetailsType
+      description: Details on lodgements
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationLodgementDocumentDetailsType'
+        lodgementCaseStatus:
+          type: string
+          description: The status of the lodgement case
+          example: Open
+        lodgementCaseId:
+          type: string
+          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
+          example: '123'
+    Error:
+      description: Error related to the API
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          example: OB0001.000
+        message:
+          description: Error message
+          type: string
+          example: The request is invalid
+        details:
+          description: Optional list of error details
+          type: array
+          items:
+            type: string
+            description: Error details
+    NotificationLodgementDocumentDetailsType:
+      title: NotificationLodgementDocumentDetailsType
+      description: Details about lodgement documents
+      type: object
+      properties:
+        documentStatus:
+          description: The status of the document
+          example: Open
+          type: string
+        documentType:
+          type: string
+          example: Document
+          description: The type of document
+        landTitleReferences:
+          type: array
+          items:
+            type: string
+            description: Land title references
+            example: ABC123
+        documentId:
+          type: string
+          description: The PEXA internal document identifier. <br> Maximum 19 characters
+          example: '664'
+        dealingNumber:
+          type: string
+          description: 'Maximum 30 characters '
+          example: '987'
+        mortgageDate:
+          type: string
+          description: Will only be provided if the document type is ‘Mortgage’.
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        timestamp:
+          type: string
+          description: The date and time the document status last changed (in UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    NotificationInvitationOutstandingLandTitleType:
+      title: NotificationInvitationOutstandingLandTitleType
+      description: The outstanding land titles
+      type: object
+      properties:
+        landTitles:
+          type: array
+          description: 'Provided if the land titles are not marked as parent land titles. '
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleDetailsType'
+    GivenNameOrderType:
+      title: GivenNameOrderType
+      description: The given name order
+      type: object
+      properties:
+        order:
+          type: number
+          description: The order of the given name
+          format: Int64
+          example: 1
+        value:
+          type: string
+          description: The value of the given name
+          example: John
+    NotificationInvitationOutstandingPartyType:
+      title: NotificationInvitationOutstandingPartyType
+      description: The outstanding party type
+      type: object
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingPartyDetailsType'
+    NotificationDetailsType:
+      title: NotificationDetailsType
+      description: Details about the notification
+      type: object
+      properties:
+        financialLineItem:
+          $ref: '#/components/schemas/NotificationFinancialLineItemType'
+        invitation:
+          $ref: '#/components/schemas/NotificationInvitationDetailsType'
+        landTitle:
+          $ref: '#/components/schemas/NotificationLandTitleDetailsType'
+        party:
+          $ref: '#/components/schemas/NotificationPartyDetailsType'
+        document:
+          $ref: '#/components/schemas/NotificationDocumentDetailsType'
+        settlementSchedule:
+          $ref: '#/components/schemas/NotificationSettlementScheduleDetailsType'
+        workspaceStatus:
+          type: string
+          description: 'Notification detail related to the workspace status. '
+        settlement:
+          $ref: '#/components/schemas/NotificationSettlementDetailsType'
+        lodgement:
+          $ref: '#/components/schemas/NotificationLodgementDetailsType'
+        participant:
+          $ref: '#/components/schemas/NotificationParticipantDetailsType'
+        conversation:
+          $ref: '#/components/schemas/NotificationConversationDetailsType'
+    NotificationDocumentReferenceDetailsType:
+      title: NotificationDocumentReferenceDetailsType
+      description: Details on the document reference
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: Jurisdiction specific document name or document type e.g. 'Mortgage', 'Caveat', 'Settlement Notice' etc.
+          example: Mortgage
+        lrDocumentId:
+          type: string
+          description: Where a dealing number was allocated to the document by the LR, the dealing number associated with this document.<br>  Where a dealing number is not allocated, this may contain an alternate identifier
+          example: DC123456
+        documentStatusDetails:
+          type: array
+          description: Internal LR document status
+          items:
+            $ref: '#/components/schemas/NotificationDocumentStatusDetailsType'
+    NotificationAdministrativeActionReferenceDetailsType:
+      title: NotificationAdministrativeActionReferenceDetailsType
+      description: Details on the administrative action reference
+      type: object
+      properties:
+        administrativeActionTimestamp:
+          type: string
+          format: date-time
+          description: Date of the administrative action
+          example: '2018-11-18T02:30:20.283Z'
+        administrativeActionType:
+          type: string
+          description: The action type
+          example: Action
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        parties:
+          description: List of parties
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
+    NotificationDocumentStatusDetailsType:
+      title: NotificationDocumentStatusDetailsType
+      description: Details on the document status
+      type: object
+      properties:
+        documentStatusTimestamp:
+          type: string
+          description: The date and time at which the status occurred (in UTC).<br> This provides the equivalent of lodgement date, registration date or another appropriate document date
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        documentStatus:
+          type: string
+          description: Information that specifies the current state of a Document in a Land Registry
+          example: Verifying
+    NotificationFinancialLineItemType:
+      title: NotificationFinancialLineItemType
+      description: A financial line item
+      type: object
+      properties:
+        amount:
+          description: The amount of the line item
+          type: number
+          example: 10000
+        category:
+          type: string
+          description: The category of the line item
+          example: Water Rates
+        owningSubscriberId:
+          type: string
+          description: The owning subscriber id
+          example: '1234'
+        owningSubscriberName:
+          type: string
+          description: The owning subscribers name
+          example: John
+        type:
+          type: string
+          description: The type
+          example: Account
+    RetrieveNotificationsResponse:
+      title: RetrieveNotificationsResponse
+      description: The response containing notifications
+      type: object
+      properties:
+        notificationsList:
+          $ref: '#/components/schemas/NotificationsListType'
+    NotificationInvitationDetailsType:
+      title: NotificationInvitationDetailsType
+      description: Details on an invitation
+      type: object
+      properties:
+        outstanding:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingDetailsType'
+        response:
+          $ref: '#/components/schemas/NotificationInvitationResponseDetailsType'
+    IdentificationDetailsType:
+      title: IdentificationDetailsType
+      type: object
+      description: An object describing how to identify an external party
+      properties:
+        identifier:
+          type: string
+          description: The type of identifier
+          example: ABN
+        value:
+          type: string
+          description: Maximum 20 characters <br> Must be provided without whitespaces.
+          example: '42156896300000000'
+    NotificationType:
+      title: NotificationType
+      description: Notification type
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the subscriber. <br> Maximum 19 characters
+          example: '208'
+        systemGenerated:
+          type: string
+          description: A flag used to delineate whether a business event/notification has been generated by either a subscriber user (flag = no) or the PEXA system (flag=yes). <br> Maximum 3 characters
+          example: 'No'
+        initiatingSubscriberId:
+          type: string
+          description: If System Generated flag is set to ‘no’ then this will be the Subscriber Id who has initiated the business event/notification being triggered. <br> Maximum 19 characters
+          example: '290'
+        initiatingSubscriberName:
+          type: string
+          description: The legal entity name of the initiating subscriber which correlates to the initiating subscriber id above. <br> Must be provided if System Generated is set to ‘no’. <br> Must not be provided if System Generated flag is set to ‘yes’. <br> Maximum 255 characters
+          example: XYZ bank
+        workspaceId:
+          type: string
+          description: The PEXA workspace number. Maximum 13 characters
+          example: PEXA1900800123
+        subscriberReferences:
+          type: array
+          description: The subscriber’s workspace reference. Users may utilise this to associate the workspace with an internal customer’s application. <br> Where a subscriber is acting in multiple roles in a workspace, the subscriber reference will be provided for each role.
+          example:
+          - SubscriberReference: Matter-123312
+          items:
+            $ref: '#/components/schemas/SubscriberReferenceType'
+        eventId:
+          type: string
+          description: The PEXA internal reference for the event.<br> Maximum 19 characters
+          example: '2'
+        timestamp:
+          type: string
+          description: 'The timestamp the event occurred (in UTC). '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        severity:
+          type: string
+          description: The severity of the event that has occurred. <br> The severity is determined from a workspace perspective.
+          example: Information
+        category:
+          type: string
+          description: 'The category the event belongs to. '
+          example: Settlement Execution
+        type:
+          $ref: '#/components/schemas/NotificationTypeKeyValue'
+        description:
+          type: string
+          description: Freeform field containing additional details on the notification.
+          example: Settlement completed
+        details:
+          $ref: '#/components/schemas/NotificationDetailsType'
+    NotificationSettlementDetailsType:
+      title: NotificationSettlementDetailsType
+      description: Details about settlement
+      type: object
+      properties:
+        settlementDate:
+          type: string
+          description: 'The date and time of the settlement (in UTC). '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        reason:
+          type: string
+          description: Maximum 255 characters
+          example: Settlement completed
+    PartyNameDetailsType:
+      title: PartyNameDetailsType
+      description: Details for a party name
+      type: object
+      properties:
+        businessDetails:
+          $ref: '#/components/schemas/BusinessType'
+        fullName:
+          $ref: '#/components/schemas/FullNameType'
+    NotificationSettlementScheduleDetailsType:
+      title: NotificationSettlementScheduleDetailsType
+      description: Details about settlement schedules
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the settlement schedule.
+          example: Signed
+    AdministrationStatusDetailsType:
+      title: AdministrationStatusDetailsType
+      description: Details on administration status
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the administration status
+          example: Subject to a deed of company arrangement
+    FullNameType:
+      title: FullNameType
+      description: A full name including titles, suffixes and date of birth
+      type: object
+      properties:
+        nameTitle:
+          type: string
+          description: 'Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
+          example: Mr
+        givenNames:
+          type: array
+          description: 'Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order'
+          example:
+          - GivenName: John Snow
+          items:
+            $ref: '#/components/schemas/GivenNameOrderType'
+        familyName:
+          type: string
+          description: 'Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. '
+          example: Stark
+        familyNameOrder:
+          type: string
+          description: 'Identifies where the family name is placed in relation to the given name. If not supplied, defaults to ‘Last’ '
+          example: '1'
+        nameSuffix:
+          type: string
+          description: 'Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. “Jr” (for Junior)'
+          example: Jr
+        dateOfBirth:
+          type: string
+          description: 'This must be provided when creating or editing a party when Representing Party is ‘Yes’. <br> This is only provided outbound if Representing Party is ‘Yes’. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    RequestCorrelationIdHeader:
+      description: A unique request id provided by api caller to support end-to-end troubleshooting and tracing
+      in: header
+      name: X-Request-Correlation-Id
+      schema:
+        type: string
+        format: UUID
+        example: 123e4567-e89b-12d3-a456-426614174000
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/auth
+          tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+        clientCredentials:
+          tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+x-idp-config:
+  consumer-claim: azp
+  scopes-claim: scope
+x-disable-subscription: 'off'
+x-protected-view: 'off'
+x-rate-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+x-service-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+x-apim-hosts:
+- '{{ host }}'

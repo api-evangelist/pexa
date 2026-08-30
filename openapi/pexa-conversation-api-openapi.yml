@@ -1,0 +1,535 @@
+openapi: 3.2.0
+info:
+  title: Pexa Conversation API
+  version: '1.0'
+  description: 'Operations tagged Conversation across 2 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://localhost/
+tags:
+- name: Conversation
+paths:
+  /v1/subscriber/conversation/{conversationId}/message:
+    post:
+      tags:
+      - Conversation
+      summary: Send a message to an existing conversation
+      description: "This API allows you to send a message to an existing conversation thread. \n Click here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      operationId: postMessageUsingPOST
+      parameters:
+      - name: conversationId
+        in: path
+        description: conversationId
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateMessageResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateMessageRequest'
+        description: createMessageRequest
+        required: true
+    servers:
+    - url: https://localhost/
+  /v1/subscriber/conversations:
+    get:
+      tags:
+      - Conversation
+      summary: Retrieve Unread Conversations
+      description: "This API retrieves a list of unread conversations.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      operationId: retrieveUnreadConversationsUsingGET
+      parameters:
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v1/subscriber/conversations/{conversationId}/markAsRead:
+    put:
+      tags:
+      - Conversation
+      summary: Mark as Read the Conversation for a specific Subscriber and Role
+      description: This API allows to update/mark as read the conversation for a specific conversation id, subscriber id and role.
+      operationId: markConversationAsReadUsingPUT
+      parameters:
+      - name: conversationId
+        in: path
+        description: conversationId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v1/workspace/{workspaceId}/conversations:
+    get:
+      tags:
+      - Conversation
+      summary: Retrieve Conversations List for a Workspace
+      description: This API retrieves a list of conversations for a specific workspace.
+      operationId: retrieveConversationsListUsingGET
+      parameters:
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      - name: workspaceId
+        in: path
+        description: workspaceId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v2/subscriber/conversation/{conversationId}/message:
+    post:
+      tags:
+      - Conversation
+      summary: Send a message to an existing conversation
+      description: "This API allows you to send a message to an existing conversation thread.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_write</i> (prod)"
+      operationId: postMessageUsingPOST
+      parameters:
+      - name: conversationId
+        in: path
+        description: conversationId
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateMessageResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateMessageRequest'
+        description: createMessageRequest
+        required: true
+  /v2/subscriber/conversations:
+    get:
+      tags:
+      - Conversation
+      summary: Retrieve Unread Conversations
+      description: "This API retrieves a list of unread conversations.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_read</i> (prod)"
+      operationId: retrieveUnreadConversationsUsingGET
+      parameters:
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v2/subscriber/conversations/{conversationId}/markAsRead:
+    put:
+      tags:
+      - Conversation
+      summary: Mark as Read the Conversation for a specific Subscriber and Role
+      description: "This API allows to update/mark as read the conversation for a specific conversation id, subscriber id and role.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_write</i> (prod)"
+      operationId: markConversationAsReadUsingPUT
+      parameters:
+      - name: conversationId
+        in: path
+        description: conversationId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v2/workspace/{workspaceId}/conversations:
+    get:
+      tags:
+      - Conversation
+      summary: Retrieve Conversations List for a Workspace
+      description: "This API retrieves a list of conversations for a specific workspace.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_read</i> (prod)"
+      operationId: retrieveConversationsListUsingGET
+      parameters:
+      - name: role
+        in: query
+        description: role
+        required: false
+        schema:
+          type: string
+      - name: subscriberId
+        in: query
+        description: subscriberId
+        required: false
+        schema:
+          type: string
+      - name: workspaceId
+        in: path
+        description: workspaceId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+components:
+  schemas:
+    au.net.pexa.api.schema._1.ConversationsType:
+      type: object
+      properties:
+        conversations:
+          type: array
+          xml:
+            name: Conversation
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
+      title: au.net.pexa.api.schema._1.ConversationsType
+    au.net.pexa.api.schema._1.MessageType:
+      type: object
+      properties:
+        actionRequired:
+          type: string
+          xml:
+            name: ActionRequired
+            attribute: false
+            wrapped: false
+        actionRequiredComplete:
+          type: string
+          xml:
+            name: ActionRequiredComplete
+            attribute: false
+            wrapped: false
+        firstName:
+          type: string
+          xml:
+            name: FirstName
+            attribute: false
+            wrapped: false
+        lastName:
+          type: string
+          xml:
+            name: LastName
+            attribute: false
+            wrapped: false
+        message:
+          type: string
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+        messageCreated:
+          type: string
+          xml:
+            name: MessageCreated
+            attribute: false
+            wrapped: false
+        messageId:
+          type: string
+          xml:
+            name: MessageId
+            attribute: false
+            wrapped: false
+        subscriberName:
+          type: string
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+        unread:
+          type: string
+          xml:
+            name: Unread
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.MessageType
+      xml:
+        name: messageType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.MessagesType:
+      type: object
+      properties:
+        messages:
+          type: array
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.MessagesType
+    au.net.pexa.api.schema._1.CreateMessageRequest:
+      type: object
+      properties:
+        actionRequired:
+          type: string
+          xml:
+            name: ActionRequired
+            attribute: false
+            wrapped: false
+        message:
+          type: string
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateMessageRequest
+      xml:
+        name: CreateMessageRequest
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateMessageResponse:
+      type: object
+      properties:
+        message:
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.CreateMessageResponse
+      xml:
+        name: CreateMessageResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.ConversationsRetrievalResponse:
+      type: object
+      properties:
+        conversations:
+          xml:
+            name: Conversations
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
+      title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+    au.net.pexa.api.schema._1.ConversationType:
+      type: object
+      properties:
+        category:
+          type: string
+          xml:
+            name: Category
+            attribute: false
+            wrapped: false
+        conversationId:
+          type: string
+          xml:
+            name: ConversationId
+            attribute: false
+            wrapped: false
+        fromSubscriber:
+          type: string
+          xml:
+            name: FromSubscriber
+            attribute: false
+            wrapped: false
+        fromSubscriberId:
+          type: string
+          xml:
+            name: FromSubscriberId
+            attribute: false
+            wrapped: false
+        highPriority:
+          type: string
+          xml:
+            name: HighPriority
+            attribute: false
+            wrapped: false
+        messages:
+          xml:
+            name: Messages
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessagesType'
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        subCategory:
+          type: string
+          xml:
+            name: SubCategory
+            attribute: false
+            wrapped: false
+        subject:
+          type: string
+          xml:
+            name: Subject
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+        transactionType:
+          type: string
+          xml:
+            name: TransactionType
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ConversationType
+x-refined-from:
+- pexa-exchange-api-legacy-swagger.json
+- pexa-exchange-api-swagger.json

@@ -1,0 +1,101 @@
+openapi: 3.2.0
+info:
+  title: Pexa Health Check API
+  version: '1.0'
+  description: 'Operations tagged HealthCheck across 4 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json, pexa-plus-marketplace-b2b-api-oas300-openapi.yaml, pexa-plus-marketplace-b2b-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://localhost/
+- url: https://plus.pexa.com.au/api/plus/v1
+  description: Product server
+tags:
+- name: HealthCheck
+paths:
+  /health:
+    get:
+      tags:
+      - HealthCheck
+      summary: Health Check
+      description: This API verifies whether the application is up and running.
+      operationId: HealthCheck
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v2/health:
+    get:
+      tags:
+      - HealthCheck
+      summary: Health Check
+      description: "This API verifies whether the application is up and running.\n\n Scopes:\n<i>au_pub_cert_pexa_healthcheck_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_healthcheck_api_v2_read</i> (prod)"
+      operationId: HealthCheck
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
+  schemas:
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+  parameters:
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
+x-refined-from:
+- pexa-exchange-api-legacy-swagger.json
+- pexa-exchange-api-swagger.json
+- pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
+- pexa-plus-marketplace-b2b-api-openapi.yaml

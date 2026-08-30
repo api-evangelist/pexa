@@ -1,0 +1,1024 @@
+openapi: 3.2.0
+info:
+  title: Projects Workspaces API
+  description: 'PEXA Projects External Client API for Projects <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [Authentication](../../../Exchange/docs/documentation/)
+
+    '
+  version: v4
+  x-api-version: 4.0.0
+  contact:
+    name: PEXA Projects
+    email: pexaprojects-prdsupport@pexa.com.au
+  x-pexa-products:
+  - pexa-projects
+servers:
+- url: '{{ service.url }}'
+tags:
+- name: Workspaces
+paths:
+  /v4/projects/{projectId}/workspaces:
+    post:
+      operationId: createWorkspace
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      tags:
+      - Workspaces
+      description: Create a new workspace for an existing Project <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to create a workspace for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workspace'
+      responses:
+        '201':
+          description: Workspace created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exceptionList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+              example:
+                exceptionList:
+                - code: OB0001.000
+                  message: The request is invalid
+  /v4/projects/{projectId}/workspaces/{pexaWorkspaceId}:
+    put:
+      operationId: updateWorkspace
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Update a workspace
+      description: Updates a workspace of a given project with parameters 'projectId', 'pexaWorkspaceId' and 'payload' <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to update workspaces for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: pexaWorkspaceId
+        in: path
+        required: true
+        description: The workspace update
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: workspaceUpdate Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkspaceRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateWorkspaceResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+  /v4/projects/{projectId}/workspaces/{workspaceId}/financials:
+    post:
+      operationId: createFinancials
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Create Financial Settlement Line Items
+      description: Add financial settlement line items to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to upload financials for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: The workspace to upload financials for
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: settlementUploadRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettlementUploadRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementUploadResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+      x-codegen-request-body-name: settlementUploadRequest
+  /v4/projects/{projectId}/workspaces/{workspaceId}/parties:
+    post:
+      operationId: addParties
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Add Parties
+      description: Add parties to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to add parties for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: Id of the workspace to add parties for
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Create parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPartiesRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddPartiesResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+      x-codegen-request-body-name: createPartiesRequest
+    put:
+      operationId: updateParties
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Update Parties
+      description: Update parties on an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to update parties for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: Id of the workspace to update parties for
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Update parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartiesRequest'
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+      x-codegen-request-body-name: updatePartiesRequest
+    delete:
+      operationId: deleteParties
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Delete Parties
+      description: Delete parties on an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project to remove parties for
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: Id of the workspace to remove parties for
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Delete parties request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePartiesRequest'
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+      x-codegen-request-body-name: deletePartiesRequest
+  /v4/projects/{projectId}/workspaces/{workspaceId}/participants:
+    post:
+      operationId: addParticipants
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Add Participants
+      description: Add participants to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project that the workspace resides in
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: The workspace to add participants to
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Add participants request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddParticipantsRequest'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddParticipantsResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+      x-codegen-request-body-name: addParticipantsRequest
+    delete:
+      operationId: deleteParticipants
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Delete Participants
+      description: Delete participants in an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project that the workspace resides in
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: path
+        required: true
+        description: The workspace to delete participants from
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Delete participants request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteParticipantsRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+  /v4/projects/{projectId}/workspaces/{pexaWorkspaceId}/settlementDates:
+    post:
+      operationId: proposeSettlement
+      security:
+      - oauth2:
+        - au:projects:workspaces:write
+      summary: Propose Settlement Date
+      description: Propose a settlement date to an existing workspace <br> Scopes:<br><i>au:projects:workspaces:write</i>
+      tags:
+      - Workspaces
+      parameters:
+      - $ref: '#/components/parameters/RequestCorrelationIdHeader'
+      - name: projectId
+        in: path
+        required: true
+        description: Id of the project that the workspace resides in
+        example: 1234
+        schema:
+          type: integer
+          format: int64
+      - name: pexaWorkspaceId
+        in: path
+        required: true
+        description: The workspace to propose settlement date for
+        example: PEXA12345
+        schema:
+          type: string
+      requestBody:
+        description: Propose Settlement request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposeSettlementRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      deprecated: false
+components:
+  schemas:
+    Schedule.LineItem:
+      title: Schedule.LineItem
+      type: object
+      properties:
+        accountDetails:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails'
+        associatedSubscriber:
+          type: string
+        category:
+          type: string
+        customCategory:
+          type: string
+        clientName:
+          type: string
+        transactionDescription:
+          type: string
+        verified:
+          type: string
+        verifiedBy:
+          type: string
+        type:
+          type: string
+        value:
+          type: number
+    UpdateParty:
+      type: object
+      description: A party
+      required:
+      - partyId
+      - role
+      - partyType
+      - name
+      properties:
+        partyId:
+          description: Id of party to update
+          type: integer
+          example: 1337
+          format: int64
+          minimum: 1
+        role:
+          description: Role of the party
+          type: string
+          example: Incoming Proprietor
+        partyType:
+          description: Party type of the party
+          type: string
+          example: Individual
+        acn:
+          type: string
+          description: Australian Company Number
+          example: '1040085616'
+        acln:
+          type: string
+          description: Australian Credit Licence Number
+          example: '111111'
+        name:
+          type: string
+          description: Name of the party
+          example: Business Name
+        arbn:
+          type: string
+          description: Australian Registered Body Number
+          example: '123456789'
+        abn:
+          type: string
+          description: Australian Business Number
+          example: '12345678912'
+        administrationStatuses:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            description: The administration status
+            example: Administrator appointed
+        organisationType:
+          type: string
+          description: The type of organisation
+          example: Incorporated Association
+    Schedule.LineItem.AccountDetails.Source:
+      title: Schedule.LineItem.AccountDetails.Source
+      type: object
+      properties:
+        defaultAccount:
+          type: string
+        preverifiedAccount:
+          type: string
+    UpdateWorkspaceResponse:
+      type: object
+      description: Response to updating a workspace
+      properties:
+        workspaceId:
+          type: string
+          description: The id of the updated workspace
+          example: PEXA1234
+        subscriberReference:
+          type: string
+          description: The updated subscriber reference
+        childTitles:
+          type: array
+          description: List of child titles used in the workspace
+          items:
+            description: Child title
+            type: string
+            example: '1001'
+    WarningResponseType:
+      title: WarningResponseType
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    PartyResponse:
+      type: object
+      description: Response object for a party
+      properties:
+        name:
+          type: string
+          description: The name of the individual or organisation
+          example: Business Name
+        partyId:
+          type: string
+          description: The id of the party
+          example: '1234'
+        role:
+          type: string
+          description: Role of the party
+          example: Incoming Proprietor
+        partyType:
+          type: string
+          description: The type of party
+          example: Organisation
+    ProposeSettlementRequest:
+      title: ProposeSettlementRequest
+      description: Request to propose settlement dates
+      type: object
+      properties:
+        settlementDateAndTime:
+          type: string
+          example: '2024-03-25T22:20:52.681Z'
+          description: The date time to propose settlement at in ISO8601 format
+        reason:
+          type: string
+          example: Time chosen for settlement
+          description: The reason to propose settlement at this time
+    DeleteParty:
+      type: object
+      description: Party to be deleted
+      required:
+      - partyId
+      properties:
+        partyId:
+          type: integer
+          description: Id of party to be deleted
+          format: int64
+          minimum: 1
+          example: 123
+    Schedule.LineItem.AccountDetails.Destination.BPay:
+      title: Schedule.LineItem.AccountDetails.Destination.BPay
+      type: object
+      properties:
+        billerCode:
+          type: string
+        reference:
+          type: string
+    UpdatePartiesRequest:
+      title: UpdatePartiesRequest
+      type: object
+      description: Request to update parties on an existing workspace
+      required:
+      - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateParty'
+    Workspace:
+      type: object
+      description: Object with all required details for a workspace
+      required:
+      - subscriberReference
+      - unregisteredLotNumbers
+      properties:
+        subscriberReference:
+          description: Reference for the subscriber to refer to the workspace
+          type: string
+          example: test_workspace_001
+        unregisteredLotNumbers:
+          type: array
+          description: Unregistered lot numbers to be used in the workspace
+          minItems: 1
+          maxItems: 333
+          items:
+            description: An unregistered lot number
+            type: string
+            example: '1001'
+        childTitles:
+          type: array
+          description: Child titles to be used in the workspace
+          items:
+            description: A child title
+            type: string
+            example: 01/1001
+        grossConsiderationAmount:
+          type: number
+          format: decimal
+          description: The gross consideration amount for the workspace
+          example: 1000000.0
+        incomingProprietors:
+          type: array
+          description: Details for any Incoming Proprietors
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+        qldWorkspaceDetails:
+          $ref: '#/components/schemas/QldWorkspaceDetails'
+        workspaceId:
+          type: string
+          description: The workspace id
+          example: PEXA123456789
+          readOnly: true
+        workspaceStatus:
+          type: string
+          description: The current status of the workspace
+          example: In Preparation
+          readOnly: true
+    QldWorkspaceDetails:
+      type: object
+      description: Workspace details for the QLD jurisdiction
+      properties:
+        cashAmount:
+          type: number
+          format: decimal
+          description: The cash amount for the transaction
+          minimum: 0
+          example: 50000.0
+        depositPaid:
+          type: number
+          format: decimal
+          description: The deposit amount paid
+          minimum: 0
+          example: 25000.0
+        vendorTermsAmount:
+          type: number
+          format: decimal
+          description: The vendor terms amount
+          minimum: 0
+          example: 10000.0
+        liabilitiesAmount:
+          type: number
+          format: decimal
+          description: The liabilities amount
+          minimum: 0
+          example: 5000.0
+        contractRebateAmount:
+          type: number
+          description: The contract rebate amount
+          minimum: 0
+          example: 2000.0
+        agreementDate:
+          type: string
+          format: date
+          description: The agreement/contract of sale date
+          example: '2024-01-15'
+        dateOfPossession:
+          type: string
+          format: date
+          description: The date of possession
+          example: '2024-12-29'
+    IncomingProprietor:
+      type: object
+      description: Details for an Incoming Proprietor
+      required:
+      - subscriberId
+      - subscriberName
+      properties:
+        subscriberId:
+          description: The subscriber id of the Incoming Proprietor
+          type: integer
+          format: int64
+          example: 1000
+        subscriberName:
+          description: The name of the Incoming Proprietor
+          type: string
+          example: Example Bank
+    SettlementUploadResponse:
+      title: SettlementUploadResponse
+      type: object
+      properties:
+        warning:
+          $ref: '#/components/schemas/WarningResponseType'
+    AddParticipantsResponse:
+      title: AddParticipantsResponse
+      description: Response when adding participants
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: PEXA12345
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseParticipant'
+    Error:
+      description: Error related to the API
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          example: OB0001.000
+        message:
+          description: Error message
+          type: string
+          example: The request is invalid
+        details:
+          description: Optional list of error details
+          type: array
+          items:
+            type: string
+            description: Error details
+    Party:
+      type: object
+      description: A party
+      required:
+      - role
+      - partyType
+      - name
+      properties:
+        role:
+          description: Role of the party
+          type: string
+          example: Incoming Proprietor
+        partyType:
+          description: Party type of the party
+          type: string
+          example: Individual
+        acn:
+          type: string
+          description: Australian Company Number
+          example: '1240085616'
+        acln:
+          type: string
+          description: Australian Credit Licence Number
+          example: '111111'
+        name:
+          type: string
+          description: Name of the party
+          example: Business Name
+        arbn:
+          type: string
+          description: Australian Registered Body Number
+          example: '123456789'
+        abn:
+          type: string
+          description: Australian Business Number
+          example: '12345678912'
+        administrationStatuses:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            description: The administration status
+            example: Administrator appointed
+        organisationType:
+          type: string
+          description: The type of organisation
+          example: Incorporated Association
+    DeletePartiesRequest:
+      title: DeletePartiesRequest
+      type: object
+      description: Request to delete parties on an existing workspace
+      required:
+      - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteParty'
+    UpdateWorkspaceRequest:
+      type: object
+      description: Request to update a workspace
+      properties:
+        newSubscriberReference:
+          type: string
+          description: New subscriber reference to use for the workspace
+          example: Workspace123
+        childTitles:
+          type: array
+          description: List of child titles to add to the workspace
+          items:
+            description: Child title
+            type: string
+            example: '1001'
+    Schedule.LineItem.AccountDetails.Destination.Account:
+      title: Schedule.LineItem.AccountDetails.Destination.Account
+      type: object
+      properties:
+        accountBsb:
+          type: string
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+    SettlementUploadRequest:
+      title: SettlementUploadRequest
+      type: object
+      properties:
+        role:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+    DeleteParticipantsRequest:
+      title: DeleteParticipantsRequest
+      description: Request to delete participants
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    AddPartiesResponse:
+      title: CreatePartiesRequest
+      description: Response when adding parties
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: PEXA12345
+          description: Workspace Id as used in Exchange
+        parties:
+          type: array
+          description: A list of parties in the workspace
+          items:
+            $ref: '#/components/schemas/PartyResponse'
+    Schedule:
+      title: Schedule
+      type: object
+      properties:
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule.LineItem'
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    AddParticipantsRequest:
+      title: AddParticipantsRequest
+      type: object
+      description: Request to add participants to an existing workspace
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    AddPartiesRequest:
+      title: AddPartiesRequest
+      type: object
+      description: Request to add parties to an existing workspace
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+    Schedule.LineItem.AccountDetails.Destination:
+      title: Schedule.LineItem.AccountDetails.Destination
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.Account'
+        bpay:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.BPay'
+        officeAccount:
+          type: string
+        preverifiedAccount:
+          type: string
+    Schedule.LineItem.AccountDetails:
+      title: Schedule.LineItem.AccountDetails
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination'
+        source:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Source'
+    ResponseParticipant:
+      type: object
+      description: Response object when adding a participant
+      properties:
+        role:
+          type: string
+          description: Role of the participant
+          example: Incoming Proprietor
+        subscriberId:
+          type: integer
+          format: int64
+          description: Subscriber id of the participant
+          example: 1087
+        reference:
+          type: string
+          description: Reference for the participant
+          example: Reference1
+        status:
+          type: string
+          description: Status of the participant
+          example: Invited
+        prCreated:
+          type: boolean
+          description: Has the Participant Request been created?
+          example: false
+        prAccepted:
+          type: boolean
+          description: Has the Participation Request been accepted?
+          example: false
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    RequestCorrelationIdHeader:
+      description: A unique request id provided by api caller to support end-to-end troubleshooting and tracing
+      in: header
+      name: X-Request-Correlation-Id
+      schema:
+        type: string
+        format: UUID
+        example: 123e4567-e89b-12d3-a456-426614174000
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/auth
+          tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+        clientCredentials:
+          tokenUrl: https://host.kubernetes.internal/auth/realms/pexa/protocol/openid-connect/token
+          scopes:
+            au:projects:project:write: Grant project write access
+            au:projects:status:read: Grant project status read access
+            au:projects:workspaces:read: Grant project workspaces read access
+x-idp-config:
+  consumer-claim: azp
+  scopes-claim: scope
+x-disable-subscription: 'off'
+x-protected-view: 'off'
+x-rate-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+x-service-limits:
+  limit: 200
+  window_size: 60
+  window_type: sliding
+x-apim-hosts:
+- '{{ host }}'

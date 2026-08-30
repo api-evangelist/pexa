@@ -1,0 +1,264 @@
+openapi: 3.2.0
+info:
+  title: Pexa Landtitle API
+  version: '1.0'
+  description: 'Operations tagged Landtitle across 2 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://localhost/
+tags:
+- name: Landtitle
+paths:
+  /v1/landRegistry/titleStatus:
+    get:
+      tags:
+      - Landtitle
+      summary: Land Title Registry Verification
+      description: This API verifies whether the land title reference is 'in use' in other workspaces and whether the land title is eligible for electronic lodgement.
+      operationId: LTRV
+      parameters:
+      - name: jurisdiction
+        in: query
+        description: Refer to [Jurisdiction](../../docs/guides/reference-data/#_jurisdiction_data) for valid values
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: landTitleReference
+        in: query
+        description: Land title reference (see [Land title reference format](../../docs/resources/#_land_title_reference_format) for valid formatting)
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    servers:
+    - url: https://localhost/
+  /v2/landRegistry/titleStatus:
+    get:
+      tags:
+      - Landtitle
+      summary: Land Title Registry Verification
+      description: "This API verifies whether the land title reference is 'in use' in other workspaces and whether the land title is eligible for electronic lodgement.\n\n Scopes:\n<i>au_pub_cert_pexa_landtitle_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_landtitle_api_v2_read</i> (prod)"
+      operationId: LTRV
+      parameters:
+      - name: jurisdiction
+        in: query
+        description: Refer to [Jurisdiction](../../docs/guides/reference-data/#_jurisdiction_data) for valid values
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: landTitleReference
+        in: query
+        description: Land title reference (see [Land title reference format](../../docs/resources/#_land_title_reference_format) for valid formatting)
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+components:
+  schemas:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList:
+      type: object
+      properties:
+        participants:
+          type: array
+          xml:
+            name: Participants
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
+      xml:
+        name: ParticipantsList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace:
+      type: object
+      properties:
+        workspaceId:
+          type: string
+          example: PEXA1900800789
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+          description: PEXA workspace number. Maximum 13 characters
+        participantsList:
+          xml:
+            name: ParticipantsList
+            attribute: false
+            wrapped: false
+          description: List of participants currently active in the workspace
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace
+      xml:
+        name: Workspace
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
+      type: object
+      properties:
+        landTitleReferenceReport:
+          xml:
+            name: LandTitleReferenceReport
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport'
+        warnings:
+          xml:
+            name: Warnings
+            attribute: false
+            wrapped: false
+          description: Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
+      xml:
+        name: LandTitleReferenceVerificationResponse
+        namespace: http://api.pexa.net.au/schema/1/
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants:
+      type: object
+      properties:
+        subscriberName:
+          type: string
+          example: XYZ Bank
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+          description: Maximum 255 characters <br> Subscriber organisation name
+        role:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+          description: Participants role in the workspace
+        contactName:
+          type: string
+          example: XYZ Manager
+          xml:
+            name: ContactName
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact name
+        email:
+          type: string
+          example: XYZ.Manager@bank.com.au
+          xml:
+            name: Email
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact email
+        phone:
+          type: string
+          example: 0421869784
+          xml:
+            name: Phone
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact phone
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants
+      xml:
+        name: Workgroup
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport:
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          example: 12345/987
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+          description: Land title reference sent in request
+        newLandTitleReference:
+          type: string
+          example: 98745/987
+          xml:
+            name: NewLandTitleReference
+            attribute: false
+            wrapped: false
+          description: Returned when the land title reference sent as part of request is obsolete. The new land title should be used going forward and must be re-verified.
+        propertyDetails:
+          type: string
+          example: 98 LITTLE CLEVELAND Street NSW 7894
+          xml:
+            name: PropertyDetails
+            attribute: false
+            wrapped: false
+          description: Maximum 300 characters <br> Returns the property address if available else returns a land description. If both unavailable then this element will not be sent back.
+        electronicLodgement:
+          type: string
+          example: 'Yes'
+          xml:
+            name: ElectronicLodgement
+            attribute: false
+            wrapped: false
+          description: Suitability for electronic lodgement
+        notes:
+          type: array
+          example: Example Note
+          xml:
+            name: Note
+            attribute: false
+            wrapped: false
+          description: Maximum 300 characters <br> Note from land registry which may include unsuitability reason or warnings regarding the land title reference.
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport
+      xml:
+        name: LandTitleReferenceReport
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          xml:
+            name: Workspace
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+      xml:
+        name: Warnings
+        attribute: false
+        wrapped: false
+x-refined-from:
+- pexa-exchange-api-legacy-swagger.json
+- pexa-exchange-api-swagger.json
