@@ -187,6 +187,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Health Check
+  tags_raw:
   - HealthCheck
   properties:
   - type: OpenAPI
@@ -284,6 +286,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Notification Service
+  tags_raw:
   - Notification Service [$]
   properties:
   - type: OpenAPI
