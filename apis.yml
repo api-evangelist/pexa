@@ -448,6 +448,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Title Search
+  tags_raw:
   - TitleSearch
   properties:
   - type: OpenAPI
