@@ -196,32 +196,6 @@ apis:
     url: https://developer.pexa.com.au/Marketplace/api/apireference/
   - type: Documentation
     url: https://developer.pexa.com.au/Marketplace/api/apireference/
-- aid: pexa:pexa-healthcheck-api
-  name: PEXA Health Check API
-  description: The HealthCheck API from PEXA — 2 operation(s) for healthcheck.
-  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
-  baseURL: https://api.pexa.com.au
-  tags:
-  - Health Check
-  tags_raw:
-  - HealthCheck
-  properties:
-  - type: OpenAPI
-    url: openapi/pexa-healthcheck-api-openapi.yml
-  - type: APIReference
-    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
-  - type: Authentication
-    url: authentication/pexa-authentication.yml
-  - type: Conventions
-    url: conventions/pexa-conventions.yml
-  - type: Sandbox
-    url: sandbox/pexa-sandbox.yml
-  - type: OAuthScopes
-    url: scopes/pexa-scopes.yml
-  - type: APIReference
-    url: https://developer.pexa.com.au/Marketplace/api/apireference/
-  - type: Documentation
-    url: https://developer.pexa.com.au/Marketplace/api/apireference/
 - aid: pexa:pexa-invitation-api
   name: PEXA Invitation API
   description: The Invitation API from PEXA — 6 operation(s) for invitation.
@@ -526,6 +500,30 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/pexa-workspaces-api-openapi.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
+  - type: Authentication
+    url: authentication/pexa-authentication.yml
+  - type: Conventions
+    url: conventions/pexa-conventions.yml
+  - type: Sandbox
+    url: sandbox/pexa-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/pexa-scopes.yml
+  - type: APIReference
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+  - type: Documentation
+    url: https://developer.pexa.com.au/Marketplace/api/apireference/
+- aid: pexa:pexa-health-check-api
+  name: PEXA Health Check API
+  description: The Health Check API from PEXA — 2 operation(s) for health check.
+  humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
+  baseURL: https://api.pexa.com.au
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/pexa-health-check-api-openapi.yml
   - type: APIReference
     url: https://developer.pexa.com.au/EXP_ConsolidatedDischarge/api/apireference/
   - type: Authentication
