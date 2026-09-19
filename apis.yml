@@ -92,9 +92,9 @@ apis:
   - Title
   properties:
   - type: Swagger
-    url: openapi/pexa-exchange-api-swagger.json
+    url: openapi/_original/pexa-exchange-api-swagger.json
   - type: Swagger
-    url: openapi/pexa-exchange-api-legacy-swagger.json
+    url: openapi/_original/pexa-exchange-api-legacy-swagger.json
   - type: APIReference
     url: https://developer.pexa.com.au/Exchange/api/apireference/
   - type: Documentation
@@ -154,6 +154,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Conversations
+  tags_raw:
   - Conversation
   properties:
   - type: OpenAPI
@@ -178,6 +180,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -496,6 +500,8 @@ apis:
   humanURL: https://developer.pexa.com.au/Exchange/api/apireference/
   baseURL: https://api.pexa.com.au
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
