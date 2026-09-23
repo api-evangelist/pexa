@@ -1,9 +1,24 @@
 openapi: 3.2.0
 info:
   title: Projects Project API
-  description: 'PEXA Projects External Client API for Projects <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [Authentication](../../../Exchange/docs/documentation/)
+  description: 'PEXA Projects External Client API for Projects
 
-    '
+
+    This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows:
+
+    - Client Credentials
+
+    - Authorization Code
+
+
+    Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes.
+
+    The scopes are listed against each API endpoint.
+
+
+    For more information, see the following guides:
+
+    - Authentication'
   version: v4
   x-api-version: 4.0.0
   contact:
@@ -23,7 +38,11 @@ paths:
       - oauth2:
         - au:projects:project:write
       summary: Create Project
-      description: Create a new project <br> Scopes:<br><i>au:projects:project:write</i>
+      description: 'Create a new project
+
+        Scopes:
+
+        au:projects:project:write'
       tags:
       - Project
       parameters:
@@ -74,7 +93,11 @@ paths:
       - oauth2:
         - au:projects:project:write
       summary: Update Project
-      description: Update an existing project <br> Scopes:<br><i>au:projects:project:write</i>
+      description: 'Update an existing project
+
+        Scopes:
+
+        au:projects:project:write'
       tags:
       - Project
       parameters:
@@ -134,7 +157,11 @@ paths:
         - au:projects:status:read
       tags:
       - Project
-      description: Fetch the status details for a project <br> Scopes:<br><i>au:projects:status:read</i>
+      description: 'Fetch the status details for a project
+
+        Scopes:
+
+        au:projects:status:read'
       parameters:
       - $ref: '#/components/parameters/RequestCorrelationIdHeader'
       - name: projectId
@@ -163,6 +190,8 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
+      summary: Statuses
+      x-summary-source: derived
   /v4/projects/{projectId}/workspaces:
     get:
       operationId: workspaces
@@ -171,7 +200,11 @@ paths:
         - au:projects:workspaces:read
       tags:
       - Project
-      description: Fetch the list of workspaces of a project <br> Scopes:<br><i>au:projects:workspaces:read</i>
+      description: 'Fetch the list of workspaces of a project
+
+        Scopes:
+
+        au:projects:workspaces:read'
       parameters:
       - $ref: '#/components/parameters/RequestCorrelationIdHeader'
       - name: projectId
@@ -202,39 +235,10 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
+      summary: Workspaces
+      x-summary-source: derived
 components:
   examples:
-    SaProjectRequest:
-      summary: Example for SA/ACT/WA/TAS
-      value:
-        projectName: ABC Project
-        jurisdiction: SA
-        workgroupId: 1000
-        estimatedSettlementDate: JUN 2028
-        parentTitle: 13/12322
-        proprietorOnTitle:
-        - John Smith
-        - Adam Smith
-        supplierApplicable: true
-        supplierDetails:
-          name: ' XHJ corp LTD'
-          phone: '6125548555'
-          abn: '12345678912'
-          addressLine1: L1 Tower 2
-          addressLine2: 727 Collins St
-          suburb: Docklands
-          postcode: '3000'
-          state: SA
-          email: sv@test.com
-        withMortgageeOnTitles: true
-        mortgageeOnTitles:
-        - subscriberName: NECDL EASTPAC
-          subscriberId: '1234'
-          dealingNumber: ABC1234
-          participantName: CABRAMATTA conveyancing
-        intentionToLock: true
-        projectStages: false
-        settlementRestriction: true
     WorkspacesResponse:
       summary: An example of the workspaces response
       value:
@@ -273,126 +277,6 @@ components:
           vendorFunds: $1,251,222.11
           payoutAmount: $230,152.00
           balanced: true
-    QldProjectRequest:
-      summary: Example for QLD
-      value:
-        projectName: ABC Project
-        jurisdiction: QLD
-        workgroupId: 1000
-        estimatedSettlementDate: JUN 2028
-        parentTitle: 13/12322
-        proprietorOnTitle:
-        - John Smith
-        - Adam Smith
-        supplierApplicable: true
-        supplierDetails:
-          name: XHJ corp LTD
-          phone: '6125548555'
-          abn: '12345678912'
-          addressLine1: L1 Tower 2
-          addressLine2: 727 Collins St
-          suburb: Docklands
-          postcode: '3000'
-          state: QLD
-          email: sv@test.com
-        withMortgageeOnTitles: true
-        mortgageeOnTitles:
-        - subscriberName: NECDL EASTPAC
-          subscriberId: '1234'
-          dealingNumber: ABC1234
-          participantName: CABRAMATTA conveyancing
-        intentionToLock: true
-        projectStages: false
-        settlementRestriction: true
-        qldPropertyDetails:
-          currentLandUse: Dwelling
-          marginScheme: false
-          safetySwitch:
-            installed: true
-            informed: false
-          smokeAlarm:
-            installed: true
-            informed: true
-    VicProjectResponse:
-      summary: Example for VIC
-      value:
-        id: 1234
-        projectName: ABC Project
-        jurisdiction: VIC
-        workgroupId: 1000
-        estimatedSettlementDate: JUN 2028
-        parentTitle: 13/12322
-        proprietorOnTitle:
-        - John Smith
-        - Adam Smith
-        supplierApplicable: true
-        supplierDetails:
-          name: XHJ corp LTD
-          phone: '6125548555'
-          abn: '12345678912'
-          addressLine1: L1 Tower 2
-          addressLine2: 727 Collins St
-          suburb: Docklands
-          postcode: '3000'
-          state: VIC
-          email: sv@test.com
-        withMortgageeOnTitles: true
-        mortgageeOnTitles:
-        - subscriberName: NECDL EASTPAC
-          subscriberId: '1234'
-          dealingNumber: ABC1234
-          participantName: CABRAMATTA conveyancing
-        intentionToLock: true
-        projectStages: false
-        settlementRestriction: true
-        projectStatus: ARCHIVED
-        historicalParentTitles:
-        - 22/54321
-        workspacesCreated: true
-        vicPropertyDetails:
-          restrictiveCovenant: true
-          covenantMcpRef: '123123123'
-          covenantMcpExpiryDate: '2022-11-30'
-          municipalityName: Baw Baw Shire Council
-          natureOfProperty: Residential
-          primaryLandUse: Dwelling
-          primaryConstructionType: Timber
-    SaProjectResponse:
-      summary: Example for SA/ACT/WA/TAS
-      value:
-        id: 1234
-        projectName: ABC Project
-        jurisdiction: SA
-        workgroupId: 1000
-        estimatedSettlementDate: JUN 2028
-        parentTitle: 13/12322
-        proprietorOnTitle:
-        - John Smith
-        - Adam Smith
-        supplierApplicable: true
-        supplierDetails:
-          name: ' XHJ corp LTD'
-          phone: '6125548555'
-          abn: '12345678912'
-          addressLine1: L1 Tower 2
-          addressLine2: 727 Collins St
-          suburb: Docklands
-          postcode: '3000'
-          state: SA
-          email: sv@test.com
-        withMortgageeOnTitles: true
-        mortgageeOnTitles:
-        - subscriberName: NECDL EASTPAC
-          subscriberId: '1234'
-          dealingNumber: ABC1234
-          participantName: CABRAMATTA conveyancing
-        intentionToLock: true
-        projectStages: false
-        settlementRestriction: true
-        projectStatus: ACTIVE
-        historicalParentTitles:
-        - 98/12345
-        workspacesCreated: false
     QldProjectResponse:
       summary: Example for VIC
       value:
@@ -439,6 +323,204 @@ components:
           smokeAlarm:
             installed: true
             informed: true
+    VicProjectRequest:
+      summary: Example for VIC
+      value:
+        projectName: ABC Project
+        jurisdiction: VIC
+        workgroupId: 1000
+        estimatedSettlementDate: JUN 2028
+        parentTitle: 13/12322
+        proprietorOnTitle:
+        - John Smith
+        - Adam Smith
+        supplierApplicable: true
+        supplierDetails:
+          name: XHJ corp LTD
+          phone: '6125548555'
+          abn: '12345678912'
+          addressLine1: L1 Tower 2
+          addressLine2: 727 Collins St
+          suburb: Docklands
+          postcode: '3000'
+          state: VIC
+          email: sv@test.com
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+        - subscriberName: NECDL EASTPAC
+          subscriberId: '1234'
+          dealingNumber: ABC1234
+          participantName: CABRAMATTA conveyancing
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        vicPropertyDetails:
+          restrictiveCovenant: true
+          covenantMcpRef: '123123123'
+          covenantMcpExpiryDate: '2022-11-30'
+          municipalityName: Baw Baw Shire Council
+          natureOfProperty: Residential
+          primaryLandUse: Dwelling
+          primaryConstructionType: Timber
+    NswProjectResponse:
+      summary: Example for NSW
+      value:
+        id: 1234
+        projectName: ABC Project
+        jurisdiction: NSW
+        workgroupId: 1000
+        estimatedSettlementDate: JUN 2028
+        parentTitle: 13/12322
+        proprietorOnTitle:
+        - John Smith
+        - Adam Smith
+        supplierApplicable: true
+        supplierDetails:
+          name: XHJ corp LTD
+          phone: '6125548555'
+          abn: '12345678912'
+          addressLine1: L1 Tower 2
+          addressLine2: 727 Collins St
+          suburb: Docklands
+          postcode: '3000'
+          state: NSW
+          email: sv@test.com
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+        - subscriberName: NECDL EASTPAC
+          subscriberId: '1234'
+          dealingNumber: ABC1234
+          participantName: CABRAMATTA conveyancing
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: ACTIVE
+        historicalParentTitles:
+        - 13/12345
+        workspacesCreated: true
+        nswPropertyDetails:
+          locality: Carey Estate2
+          natureOfProperty: Vacant land
+    VicProjectResponse:
+      summary: Example for VIC
+      value:
+        id: 1234
+        projectName: ABC Project
+        jurisdiction: VIC
+        workgroupId: 1000
+        estimatedSettlementDate: JUN 2028
+        parentTitle: 13/12322
+        proprietorOnTitle:
+        - John Smith
+        - Adam Smith
+        supplierApplicable: true
+        supplierDetails:
+          name: XHJ corp LTD
+          phone: '6125548555'
+          abn: '12345678912'
+          addressLine1: L1 Tower 2
+          addressLine2: 727 Collins St
+          suburb: Docklands
+          postcode: '3000'
+          state: VIC
+          email: sv@test.com
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+        - subscriberName: NECDL EASTPAC
+          subscriberId: '1234'
+          dealingNumber: ABC1234
+          participantName: CABRAMATTA conveyancing
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: ARCHIVED
+        historicalParentTitles:
+        - 22/54321
+        workspacesCreated: true
+        vicPropertyDetails:
+          restrictiveCovenant: true
+          covenantMcpRef: '123123123'
+          covenantMcpExpiryDate: '2022-11-30'
+          municipalityName: Baw Baw Shire Council
+          natureOfProperty: Residential
+          primaryLandUse: Dwelling
+          primaryConstructionType: Timber
+    QldProjectRequest:
+      summary: Example for QLD
+      value:
+        projectName: ABC Project
+        jurisdiction: QLD
+        workgroupId: 1000
+        estimatedSettlementDate: JUN 2028
+        parentTitle: 13/12322
+        proprietorOnTitle:
+        - John Smith
+        - Adam Smith
+        supplierApplicable: true
+        supplierDetails:
+          name: XHJ corp LTD
+          phone: '6125548555'
+          abn: '12345678912'
+          addressLine1: L1 Tower 2
+          addressLine2: 727 Collins St
+          suburb: Docklands
+          postcode: '3000'
+          state: QLD
+          email: sv@test.com
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+        - subscriberName: NECDL EASTPAC
+          subscriberId: '1234'
+          dealingNumber: ABC1234
+          participantName: CABRAMATTA conveyancing
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        qldPropertyDetails:
+          currentLandUse: Dwelling
+          marginScheme: false
+          safetySwitch:
+            installed: true
+            informed: false
+          smokeAlarm:
+            installed: true
+            informed: true
+    SaProjectResponse:
+      summary: Example for SA/ACT/WA/TAS
+      value:
+        id: 1234
+        projectName: ABC Project
+        jurisdiction: SA
+        workgroupId: 1000
+        estimatedSettlementDate: JUN 2028
+        parentTitle: 13/12322
+        proprietorOnTitle:
+        - John Smith
+        - Adam Smith
+        supplierApplicable: true
+        supplierDetails:
+          name: ' XHJ corp LTD'
+          phone: '6125548555'
+          abn: '12345678912'
+          addressLine1: L1 Tower 2
+          addressLine2: 727 Collins St
+          suburb: Docklands
+          postcode: '3000'
+          state: SA
+          email: sv@test.com
+        withMortgageeOnTitles: true
+        mortgageeOnTitles:
+        - subscriberName: NECDL EASTPAC
+          subscriberId: '1234'
+          dealingNumber: ABC1234
+          participantName: CABRAMATTA conveyancing
+        intentionToLock: true
+        projectStages: false
+        settlementRestriction: true
+        projectStatus: ACTIVE
+        historicalParentTitles:
+        - 98/12345
+        workspacesCreated: false
     ProjectStatusResponse:
       summary: Example of a status response
       value:
@@ -484,11 +566,11 @@ components:
           withdrawn: 0
           all: 1
           awaitingDigitalSignature: 0
-    VicProjectRequest:
-      summary: Example for VIC
+    SaProjectRequest:
+      summary: Example for SA/ACT/WA/TAS
       value:
         projectName: ABC Project
-        jurisdiction: VIC
+        jurisdiction: SA
         workgroupId: 1000
         estimatedSettlementDate: JUN 2028
         parentTitle: 13/12322
@@ -497,14 +579,14 @@ components:
         - Adam Smith
         supplierApplicable: true
         supplierDetails:
-          name: XHJ corp LTD
+          name: ' XHJ corp LTD'
           phone: '6125548555'
           abn: '12345678912'
           addressLine1: L1 Tower 2
           addressLine2: 727 Collins St
           suburb: Docklands
           postcode: '3000'
-          state: VIC
+          state: SA
           email: sv@test.com
         withMortgageeOnTitles: true
         mortgageeOnTitles:
@@ -515,14 +597,6 @@ components:
         intentionToLock: true
         projectStages: false
         settlementRestriction: true
-        vicPropertyDetails:
-          restrictiveCovenant: true
-          covenantMcpRef: '123123123'
-          covenantMcpExpiryDate: '2022-11-30'
-          municipalityName: Baw Baw Shire Council
-          natureOfProperty: Residential
-          primaryLandUse: Dwelling
-          primaryConstructionType: Timber
     NswProjectRequest:
       summary: Example for NSW
       value:
@@ -557,83 +631,27 @@ components:
         nswPropertyDetails:
           locality: Carey Estate2
           natureOfProperty: Vacant land
-    NswProjectResponse:
-      summary: Example for NSW
-      value:
-        id: 1234
-        projectName: ABC Project
-        jurisdiction: NSW
-        workgroupId: 1000
-        estimatedSettlementDate: JUN 2028
-        parentTitle: 13/12322
-        proprietorOnTitle:
-        - John Smith
-        - Adam Smith
-        supplierApplicable: true
-        supplierDetails:
-          name: XHJ corp LTD
-          phone: '6125548555'
-          abn: '12345678912'
-          addressLine1: L1 Tower 2
-          addressLine2: 727 Collins St
-          suburb: Docklands
-          postcode: '3000'
-          state: NSW
-          email: sv@test.com
-        withMortgageeOnTitles: true
-        mortgageeOnTitles:
-        - subscriberName: NECDL EASTPAC
-          subscriberId: '1234'
-          dealingNumber: ABC1234
-          participantName: CABRAMATTA conveyancing
-        intentionToLock: true
-        projectStages: false
-        settlementRestriction: true
-        projectStatus: ACTIVE
-        historicalParentTitles:
-        - 13/12345
-        workspacesCreated: true
-        nswPropertyDetails:
-          locality: Carey Estate2
-          natureOfProperty: Vacant land
   schemas:
-    NswPropertyDetails:
+    InvitationAcceptanceStatus:
       type: object
-      description: Property details for the NSW jurisdiction
+      description: Counts of the various statuses for an invitation
       properties:
-        locality:
-          description: The name assigned to a government administrative district, such as a Parish, County or Local Government Area.
-          type: string
-        natureOfProperty:
-          type: string
-          description: Specify the use of the property being dealt with
-          pattern: Carspace|Commercial|Factory|Marine berth|Office|Residence|Shop|Vacant land|Warehouse
-    GstWithholdingStatus:
-      type: string
-      description: 'The status of GST withholding. Can be one of the following: * MATCHING - Form one lodged via PEXA and GST line item created * MANUAL - Form one not lodged via PEXA but GST line item created * NOT_LODGED - Form one not lodged via PEXA and no GST line item created * MISMATCH - Incorrect PRN and/or GST amount entered
-
-        '
-      format: string
-    MotParticipants:
-      type: object
-      description: Details on incoming mortgagees
-      required:
-      - participantName
-      - subscriberName
-      - subscriberId
-      properties:
-        dealingNumber:
-          type: string
-          description: It is the Land Registry document number. This number is supplied by your land registry and can be used as your reference in any further communications with the Registry. Numbers begins with 2 or 3 letters following by a number. The letters identify the county in which the property is situate, e.g. VIC52825 denotes a property in Victoria
-        participantName:
-          description: Name of PEXA subscriber involved in Property transaction
-          type: string
-        subscriberId:
-          type: string
-          description: Id of the mortgagee as listed in PEXA Exchange
-        subscriberName:
-          type: string
-          description: Lender name - an entity that lends money to a borrower for the purpose of purchasing real estate. Normally it’s the bank. It is the name of the Mortgagee registered on parent title
+        accepted:
+          description: Count of accepted invitations
+          type: integer
+          format: int64
+        pending:
+          description: Count of pending invitations
+          type: integer
+          format: int64
+        declined:
+          description: Count of declined invitations
+          type: integer
+          format: int64
+        notInvited:
+          description: Count of invitations that have not been sent
+          type: integer
+          format: int64
     VicPropertyDetails:
       type: object
       description: Property details for the VIC jurisdiction
@@ -663,252 +681,6 @@ components:
           $ref: '#/components/schemas/PrimaryLandUse'
         primaryConstructionType:
           $ref: '#/components/schemas/PrimaryConstructionType'
-    Project:
-      description: Object with all required details for a Project
-      type: object
-      required:
-      - projectName
-      - jurisdiction
-      - workgroupId
-      - parentTitle
-      - supplierApplicable
-      - withMortgageeOnTitles
-      - intentionToLock
-      - projectStages
-      - settlementRestriction
-      properties:
-        projectName:
-          type: string
-          description: The Name of the project
-          pattern: ^[\w\s\-!@#$%^&*()+={}\[\]|:;',.?/~`]+$
-          maxLength: 150
-        jurisdiction:
-          $ref: '#/components/schemas/Jurisdiction'
-        workgroupId:
-          description: The Workgroup id that the project will belongs to
-          type: integer
-          format: int64
-        estimatedSettlementDate:
-          type: string
-          description: The Estimated Settlement Date of the project
-          format: string
-        parentTitle:
-          type: string
-          description: The Parent Land Title
-          format: string
-          minLength: 1
-        proprietorOnTitle:
-          description: List of Proprietor(s) on Title
-          type: array
-          items:
-            description: A proprietor on title
-            type: string
-        supplierApplicable:
-          type: boolean
-          description: Is the Supplier Details section mandatory?
-        supplierDetails:
-          $ref: '#/components/schemas/SupplierDetails'
-        withMortgageeOnTitles:
-          type: boolean
-          description: Is there a mortgage registered on the title?
-        mortgageeOnTitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/MotParticipants'
-        intentionToLock:
-          type: boolean
-          description: Do you intend to restrict account(s) this project can disburse to?
-          example: true
-        projectStages:
-          type: boolean
-          description: Do you intend to have more than one stage to this project?
-          example: false
-        settlementRestriction:
-          type: boolean
-          description: Do you intend to restrict Incoming Proprietor Representative(s) from proposing the settlement date?
-          example: true
-        nswPropertyDetails:
-          $ref: '#/components/schemas/NswPropertyDetails'
-        qldPropertyDetails:
-          $ref: '#/components/schemas/QldPropertyDetails'
-        vicPropertyDetails:
-          $ref: '#/components/schemas/VicPropertyDetails'
-        id:
-          readOnly: true
-          type: integer
-          format: int64
-          description: The id of the project
-        projectStatus:
-          readOnly: true
-          type: string
-          description: The project status
-        historicalParentTitles:
-          readOnly: true
-          type: array
-          description: All historical parent titles of project
-          items:
-            description: A historical parent title
-            type: string
-        workspacesCreated:
-          readOnly: true
-          type: boolean
-          description: If workspaces have been created for this project
-    ProjectStatus:
-      type: object
-      description: Status details of a project
-      properties:
-        jurisdiction:
-          $ref: '#/components/schemas/Jurisdiction'
-        proprietorOnTitles:
-          description: List of Proprietor(s) on Title
-          type: array
-          items:
-            description: A proprietor on title
-            type: string
-        parentTitle:
-          type: string
-          description: The Parent Land Title
-          format: string
-        mortgageeNames:
-          description: List of Mortgagee(s) on Title
-          type: array
-          items:
-            description: A mortgagee on title
-            type: string
-        estimatedSettlementDate:
-          type: string
-          description: The Estimated Settlement Date of the project
-          format: string
-        invitationAcceptance:
-          type: object
-          description: The status of invitation acceptance
-          properties:
-            incomingMortgagee:
-              $ref: '#/components/schemas/InvitationAcceptanceStatus'
-            mortgageeOnTitle:
-              $ref: '#/components/schemas/InvitationAcceptanceStatus'
-            incomingProprietor:
-              $ref: '#/components/schemas/InvitationAcceptanceStatus'
-        settlementDateAcceptance:
-          type: object
-          description: The status of settlement date acceptance
-          properties:
-            incomingMortgagee:
-              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
-            mortgageeOnTitle:
-              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
-            incomingProprietor:
-              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
-        workspaceStatus:
-          $ref: '#/components/schemas/WorkspaceCountsByStatuses'
-    CurrentLandUse:
-      type: string
-      description: Current land use
-      pattern: Vacant Land|Dwelling|Multi Unit|Flats|Guest House Private Hotel|Farming|Industrial|Commercial|Other
-    SmokeAlarm:
-      type: object
-      description: Smoke alarm are the devices that are able to detect smoke in the event of a fire and sound an alarm to alert people to the potential danger. In QLD, it's a legal requirement that the seller is required to complete prior to the buyer signing the contract, stating whether the property is fitted with compliant smoke alarms
-      properties:
-        installed:
-          type: boolean
-          description: Compliant smoke alarm/s installed
-        informed:
-          type: boolean
-          description: Transferee has been informed in writing about its existence
-    Error:
-      description: Error related to the API
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          example: OB0001.000
-        message:
-          description: Error message
-          type: string
-          example: The request is invalid
-        details:
-          description: Optional list of error details
-          type: array
-          items:
-            type: string
-            description: Error details
-    ParticipantSettlementDateStatus:
-      type: string
-      description: 'The status of settlement date acceptance by a participant. Can be one of the following: * ACCEPTED - Accepted * PENDING - Awaiting Response
-
-        '
-      format: string
-    SettlementDateStatus:
-      type: string
-      description: 'The overall status of settlement date acceptance. Can be one of the following: * ACCEPTED - All Accepted * PARTIALLY_ACCEPTED - Pending others * PENDING - Pending * NO_ACCEPTANCE - No acceptance
-
-        '
-      format: string
-    SafetySwitch:
-      type: object
-      description: A safety switch is a device that quickly switches off the electric supply if an  electric fault is detected, to minimise the risk of electricity -related fires, electric shock, injury to death. In QLD, it's a legal requirement for all properties to have an electrical safety switch installed. When selling your property you must disclose whether a safety switch is installed in the property on the contract of sale, as well as on the property transfer document
-      properties:
-        installed:
-          type: boolean
-          description: Electrical safety switch installed
-        informed:
-          type: boolean
-          description: Transferee has been informed in writing about its existence
-    WorkspaceCountsByStatuses:
-      type: object
-      description: Counts for various properties of workspaces under the project
-      properties:
-        allActive:
-          description: Count of all active workspaces
-          type: integer
-          format: int64
-        settlingToday:
-          description: Count of workspaces settling today
-          type: integer
-          format: int64
-        completed:
-          description: Count of completed workspaces
-          type: integer
-          format: int64
-        withdrawn:
-          description: Count of withdrawn workspaces
-          type: integer
-          format: int64
-        all:
-          description: Count of workspaces
-          type: integer
-          format: int64
-        awaitingDigitalSignature:
-          description: Count of workspaces that are awaiting digital signatures
-          type: integer
-          format: int64
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        exceptionList:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
-    PrimaryConstructionType:
-      type: string
-      description: Material used to construct the property. Example - Timber, Brick etc
-      pattern: Not applicable|Brick|Brick Veneer|Fibro|Timber|OTHER
-    QldPropertyDetails:
-      type: object
-      description: Property details for the QLD jurisdiction
-      properties:
-        currentLandUse:
-          $ref: '#/components/schemas/CurrentLandUse'
-        marginScheme:
-          type: boolean
-          description: Is the transaction under the margin scheme?
-        safetySwitch:
-          $ref: '#/components/schemas/SafetySwitch'
-        smokeAlarm:
-          $ref: '#/components/schemas/SmokeAlarm'
     ProjectsWorkspace:
       type: object
       description: Details of a workspace
@@ -1038,18 +810,296 @@ components:
             balanced:
               type: boolean
               description: Whether the workspace is balanced
-    SettlementDateAcceptanceStatus:
-      description: Counts for settlement date acceptance
+    CurrentLandUse:
+      type: string
+      description: Current land use
+      pattern: Vacant Land|Dwelling|Multi Unit|Flats|Guest House Private Hotel|Farming|Industrial|Commercial|Other
+    Jurisdiction:
+      type: string
+      description: Jurisdiction
+      pattern: ACT|NSW|VIC|WA|QLD|SA|TAS
+    ParticipantSettlementDateStatus:
+      type: string
+      description: 'The status of settlement date acceptance by a participant. Can be one of the following: * ACCEPTED - Accepted * PENDING - Awaiting Response
+
+        '
+      format: string
+    NswPropertyDetails:
+      type: object
+      description: Property details for the NSW jurisdiction
+      properties:
+        locality:
+          description: The name assigned to a government administrative district, such as a Parish, County or Local Government Area.
+          type: string
+        natureOfProperty:
+          type: string
+          description: Specify the use of the property being dealt with
+          pattern: Carspace|Commercial|Factory|Marine berth|Office|Residence|Shop|Vacant land|Warehouse
+    PrimaryConstructionType:
+      type: string
+      description: Material used to construct the property. Example - Timber, Brick etc
+      pattern: Not applicable|Brick|Brick Veneer|Fibro|Timber|OTHER
+    SafetySwitch:
+      type: object
+      description: A safety switch is a device that quickly switches off the electric supply if an  electric fault is detected, to minimise the risk of electricity -related fires, electric shock, injury to death. In QLD, it's a legal requirement for all properties to have an electrical safety switch installed. When selling your property you must disclose whether a safety switch is installed in the property on the contract of sale, as well as on the property transfer document
+      properties:
+        installed:
+          type: boolean
+          description: Electrical safety switch installed
+        informed:
+          type: boolean
+          description: Transferee has been informed in writing about its existence
+    MotParticipants:
+      type: object
+      description: Details on incoming mortgagees
+      required:
+      - participantName
+      - subscriberName
+      - subscriberId
+      properties:
+        dealingNumber:
+          type: string
+          description: It is the Land Registry document number. This number is supplied by your land registry and can be used as your reference in any further communications with the Registry. Numbers begins with 2 or 3 letters following by a number. The letters identify the county in which the property is situate, e.g. VIC52825 denotes a property in Victoria
+        participantName:
+          description: Name of PEXA subscriber involved in Property transaction
+          type: string
+        subscriberId:
+          type: string
+          description: Id of the mortgagee as listed in PEXA Exchange
+        subscriberName:
+          type: string
+          description: Lender name - an entity that lends money to a borrower for the purpose of purchasing real estate. Normally it’s the bank. It is the name of the Mortgagee registered on parent title
+    Error:
+      description: Error related to the API
       type: object
       properties:
-        accepted:
-          description: Count of settlement dates that are accepted
+        code:
+          description: Error code
+          type: string
+          example: OB0001.000
+        message:
+          description: Error message
+          type: string
+          example: The request is invalid
+        details:
+          description: Optional list of error details
+          type: array
+          items:
+            type: string
+            description: Error details
+    GstWithholdingStatus:
+      type: string
+      description: 'The status of GST withholding. Can be one of the following: * MATCHING - Form one lodged via PEXA and GST line item created * MANUAL - Form one not lodged via PEXA but GST line item created * NOT_LODGED - Form one not lodged via PEXA and no GST line item created * MISMATCH - Incorrect PRN and/or GST amount entered
+
+        '
+      format: string
+    ProjectStatus:
+      type: object
+      description: Status details of a project
+      properties:
+        jurisdiction:
+          $ref: '#/components/schemas/Jurisdiction'
+        proprietorOnTitles:
+          description: List of Proprietor(s) on Title
+          type: array
+          items:
+            description: A proprietor on title
+            type: string
+        parentTitle:
+          type: string
+          description: The Parent Land Title
+          format: string
+        mortgageeNames:
+          description: List of Mortgagee(s) on Title
+          type: array
+          items:
+            description: A mortgagee on title
+            type: string
+        estimatedSettlementDate:
+          type: string
+          description: The Estimated Settlement Date of the project
+          format: string
+        invitationAcceptance:
+          type: object
+          description: The status of invitation acceptance
+          properties:
+            incomingMortgagee:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+            mortgageeOnTitle:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+            incomingProprietor:
+              $ref: '#/components/schemas/InvitationAcceptanceStatus'
+        settlementDateAcceptance:
+          type: object
+          description: The status of settlement date acceptance
+          properties:
+            incomingMortgagee:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+            mortgageeOnTitle:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+            incomingProprietor:
+              $ref: '#/components/schemas/SettlementDateAcceptanceStatus'
+        workspaceStatus:
+          $ref: '#/components/schemas/WorkspaceCountsByStatuses'
+    QldPropertyDetails:
+      type: object
+      description: Property details for the QLD jurisdiction
+      properties:
+        currentLandUse:
+          $ref: '#/components/schemas/CurrentLandUse'
+        marginScheme:
+          type: boolean
+          description: Is the transaction under the margin scheme?
+        safetySwitch:
+          $ref: '#/components/schemas/SafetySwitch'
+        smokeAlarm:
+          $ref: '#/components/schemas/SmokeAlarm'
+    PrimaryLandUse:
+      type: string
+      description: For which purpose the land will be used for. Example - dwelling, carpark, flat multi-storey etc
+    WorkspaceCountsByStatuses:
+      type: object
+      description: Counts for various properties of workspaces under the project
+      properties:
+        allActive:
+          description: Count of all active workspaces
           type: integer
           format: int64
-        pending:
-          description: Count of settlement dates that are pending
+        settlingToday:
+          description: Count of workspaces settling today
           type: integer
           format: int64
+        completed:
+          description: Count of completed workspaces
+          type: integer
+          format: int64
+        withdrawn:
+          description: Count of withdrawn workspaces
+          type: integer
+          format: int64
+        all:
+          description: Count of workspaces
+          type: integer
+          format: int64
+        awaitingDigitalSignature:
+          description: Count of workspaces that are awaiting digital signatures
+          type: integer
+          format: int64
+    SmokeAlarm:
+      type: object
+      description: Smoke alarm are the devices that are able to detect smoke in the event of a fire and sound an alarm to alert people to the potential danger. In QLD, it's a legal requirement that the seller is required to complete prior to the buyer signing the contract, stating whether the property is fitted with compliant smoke alarms
+      properties:
+        installed:
+          type: boolean
+          description: Compliant smoke alarm/s installed
+        informed:
+          type: boolean
+          description: Transferee has been informed in writing about its existence
+    Project:
+      description: Object with all required details for a Project
+      type: object
+      required:
+      - projectName
+      - jurisdiction
+      - workgroupId
+      - parentTitle
+      - supplierApplicable
+      - withMortgageeOnTitles
+      - intentionToLock
+      - projectStages
+      - settlementRestriction
+      properties:
+        projectName:
+          type: string
+          description: The Name of the project
+          pattern: ^[\w\s\-!@#$%^&*()+={}\[\]|:;',.?/~`]+$
+          maxLength: 150
+        jurisdiction:
+          $ref: '#/components/schemas/Jurisdiction'
+        workgroupId:
+          description: The Workgroup id that the project will belongs to
+          type: integer
+          format: int64
+        estimatedSettlementDate:
+          type: string
+          description: The Estimated Settlement Date of the project
+          format: string
+        parentTitle:
+          type: string
+          description: The Parent Land Title
+          format: string
+          minLength: 1
+        proprietorOnTitle:
+          description: List of Proprietor(s) on Title
+          type: array
+          items:
+            description: A proprietor on title
+            type: string
+        supplierApplicable:
+          type: boolean
+          description: Is the Supplier Details section mandatory?
+        supplierDetails:
+          $ref: '#/components/schemas/SupplierDetails'
+        withMortgageeOnTitles:
+          type: boolean
+          description: Is there a mortgage registered on the title?
+        mortgageeOnTitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotParticipants'
+        intentionToLock:
+          type: boolean
+          description: Do you intend to restrict account(s) this project can disburse to?
+          example: true
+        projectStages:
+          type: boolean
+          description: Do you intend to have more than one stage to this project?
+          example: false
+        settlementRestriction:
+          type: boolean
+          description: Do you intend to restrict Incoming Proprietor Representative(s) from proposing the settlement date?
+          example: true
+        nswPropertyDetails:
+          $ref: '#/components/schemas/NswPropertyDetails'
+        qldPropertyDetails:
+          $ref: '#/components/schemas/QldPropertyDetails'
+        vicPropertyDetails:
+          $ref: '#/components/schemas/VicPropertyDetails'
+        id:
+          readOnly: true
+          type: integer
+          format: int64
+          description: The id of the project
+        projectStatus:
+          readOnly: true
+          type: string
+          description: The project status
+        historicalParentTitles:
+          readOnly: true
+          type: array
+          description: All historical parent titles of project
+          items:
+            description: A historical parent title
+            type: string
+        workspacesCreated:
+          readOnly: true
+          type: boolean
+          description: If workspaces have been created for this project
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    SettlementDateStatus:
+      type: string
+      description: 'The overall status of settlement date acceptance. Can be one of the following: * ACCEPTED - All Accepted * PARTIALLY_ACCEPTED - Pending others * PENDING - Pending * NO_ACCEPTANCE - No acceptance
+
+        '
+      format: string
     SupplierDetails:
       type: object
       description: Details for the supplier
@@ -1104,40 +1154,18 @@ components:
           description: Supplier's email address
           pattern: ^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?
           maxLength: 200
-    InvitationAcceptanceStatus:
+    SettlementDateAcceptanceStatus:
+      description: Counts for settlement date acceptance
       type: object
-      description: Counts of the various statuses for an invitation
       properties:
         accepted:
-          description: Count of accepted invitations
+          description: Count of settlement dates that are accepted
           type: integer
           format: int64
         pending:
-          description: Count of pending invitations
+          description: Count of settlement dates that are pending
           type: integer
           format: int64
-        declined:
-          description: Count of declined invitations
-          type: integer
-          format: int64
-        notInvited:
-          description: Count of invitations that have not been sent
-          type: integer
-          format: int64
-    Jurisdiction:
-      type: string
-      description: Jurisdiction
-      pattern: ACT|NSW|VIC|WA|QLD|SA|TAS
-    PrimaryLandUse:
-      type: string
-      description: For which purpose the land will be used for. Example - dwelling, carpark, flat multi-storey etc
-  responses:
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   parameters:
     RequestCorrelationIdHeader:
       description: A unique request id provided by api caller to support end-to-end troubleshooting and tracing
@@ -1147,6 +1175,13 @@ components:
         type: string
         format: UUID
         example: 123e4567-e89b-12d3-a456-426614174000
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   securitySchemes:
     oauth2:
       type: oauth2

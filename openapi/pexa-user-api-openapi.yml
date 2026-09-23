@@ -13,7 +13,9 @@ paths:
       tags:
       - User
       summary: Retrieves user profile
-      description: "This API will return user profile which is belong to logged in user.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API will return user profile which is belong to logged in user.
+
+        Click here for XSDs.'
       operationId: getUserProfileUsingGET
       responses:
         '200':
@@ -39,7 +41,14 @@ paths:
       tags:
       - User
       summary: Retrieves user profile
-      description: "This API will return user profile which is belong to logged in user.\n\n Scopes:\n<i>au_pub_cert_pexa_user_api_v3_read</i> (non-prod)\n<i>au_pub_pexa_user_api_v3_read</i> (prod)"
+      description: 'This API will return user profile which is belong to logged in user.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_user_api_v3_read (non-prod)
+
+        au_pub_pexa_user_api_v3_read (prod)'
       operationId: getUserProfileUsingGET
       responses:
         '200':
@@ -60,24 +69,50 @@ paths:
       deprecated: false
 components:
   schemas:
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
       type: object
       properties:
-        workgroupId:
-          type: string
+        userPermissions:
+          type: array
           xml:
-            name: WorkgroupId
+            name: UserPermission
             attribute: false
             wrapped: false
-        workgroupName:
-          type: string
-          xml:
-            name: WorkgroupName
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
       xml:
-        name: Workgroup
+        name: UserPermissionsList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
+      type: object
+      properties:
+        userProfile:
+          xml:
+            name: UserProfile
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
+      xml:
+        name: UserProfileRetrievalResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList:
+      type: object
+      properties:
+        workgroups:
+          type: array
+          xml:
+            name: Workgroup
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList
+      xml:
+        name: WorkgroupList
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile:
@@ -170,50 +205,24 @@ components:
         name: UserProfile
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:
       type: object
       properties:
-        userProfile:
+        workgroupId:
+          type: string
           xml:
-            name: UserProfile
+            name: WorkgroupId
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
-      xml:
-        name: UserProfileRetrievalResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
-      type: object
-      properties:
-        userPermissions:
-          type: array
+        workgroupName:
+          type: string
           xml:
-            name: UserPermission
+            name: WorkgroupName
             attribute: false
             wrapped: false
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup
       xml:
-        name: UserPermissionsList
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList:
-      type: object
-      properties:
-        workgroups:
-          type: array
-          xml:
-            name: Workgroup
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup'
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList
-      xml:
-        name: WorkgroupList
+        name: Workgroup
         attribute: false
         wrapped: false
 x-refined-from:

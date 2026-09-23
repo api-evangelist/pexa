@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: Pexa Billing API
   version: 1.0.2
+  title: PEXA Plus Marketplace B2B Billing API
+  description: PEXA Plus Marketplace services used by B2B applications
   contact:
     name: PEXA Plus team
     email: pexaplussupport@pexa.com.au
-  description: 'Operations tagged Billing across 2 of this provider''s published API definitions: pexa-plus-marketplace-b2b-api-oas300-openapi.yaml, pexa-plus-marketplace-b2b-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://plus.pexa.com.au/api/plus/v1
   description: Product server
@@ -91,21 +91,59 @@ paths:
           description: Method not allowed
         '500':
           $ref: '#/components/responses/InternalServerError'
-    servers:
-    - url: https://plus.pexa.com.au/api/plus/v1
-      description: Product server
 components:
+  parameters:
+    ReferenceQuery:
+      description: Reference for billing query (optional)
+      in: query
+      name: reference
+      required: false
+      schema:
+        type: string
+        example: ABC Reference
+    FormatQuery:
+      description: Response format for billing query (optional)
+      in: query
+      name: format
+      required: false
+      schema:
+        type: string
+        example: pdf
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
+    EndDateQuery:
+      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
+      in: query
+      name: endDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-12-20T16:09:53Z'
+    StartDateQuery:
+      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
+      in: query
+      name: startDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-09-20T16:09:53Z'
+    LandTitleReferenceQuery:
+      description: Land title reference for billing query (optional)
+      in: query
+      name: landTitleReference
+      required: false
+      schema:
+        type: string
+        example: 100/789171
   responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
     BadRequest:
       description: Bad request
       content:
@@ -117,7 +155,43 @@ components:
             - code: PL.TITSE.001
               message: The land title reference provided is invalid for the jurisdiction.
               field: landTitleReference
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
   schemas:
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
     Invoice:
       description: Invoice
       type: object
@@ -184,32 +258,6 @@ components:
                     description: Ordered item total cost
                     allOf:
                     - $ref: '#/components/schemas/Money'
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          description: The error code
-          type: string
-          example: PL.TITSE.001
-        message:
-          description: Human-readable description of the error for debugging purposes
-          type: string
-          example: The land title reference provided is invalid for the jurisdiction.
-        field:
-          description: Name of the field provided in the original request (if any) that the error pertains to
-          type: string
-          example: landTitleReference
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
     Money:
       description: Represents an amount of money
       type: object
@@ -223,57 +271,3 @@ components:
           description: The type of currency, in ISO 4217 format
           type: string
           example: AUD
-  parameters:
-    FormatQuery:
-      description: Response format for billing query (optional)
-      in: query
-      name: format
-      required: false
-      schema:
-        type: string
-        example: pdf
-    StartDateQuery:
-      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
-      in: query
-      name: startDate
-      required: true
-      schema:
-        type: string
-        format: date-time
-        example: '2020-09-20T16:09:53Z'
-    EndDateQuery:
-      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
-      in: query
-      name: endDate
-      required: true
-      schema:
-        type: string
-        format: date-time
-        example: '2020-12-20T16:09:53Z'
-    LandTitleReferenceQuery:
-      description: Land title reference for billing query (optional)
-      in: query
-      name: landTitleReference
-      required: false
-      schema:
-        type: string
-        example: 100/789171
-    ReferenceQuery:
-      description: Reference for billing query (optional)
-      in: query
-      name: reference
-      required: false
-      schema:
-        type: string
-        example: ABC Reference
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
-      required: true
-      schema:
-        type: integer
-        example: 12345
-x-refined-from:
-- pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
-- pexa-plus-marketplace-b2b-api-openapi.yaml

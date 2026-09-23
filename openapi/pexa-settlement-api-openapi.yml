@@ -13,7 +13,9 @@ paths:
       tags:
       - Settlement
       summary: Retrieves settlement statement
-      description: "This API retrieves the financial settlement statement containing financial line items that belong to the subscriber.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API retrieves the financial settlement statement containing financial line items that belong to the subscriber.
+
+        Click here for XSDs.'
       operationId: retrieveSetllementStatementV1UsingGET
       parameters:
       - name: subscriberId
@@ -52,7 +54,9 @@ paths:
       tags:
       - Settlement
       summary: Upload Financial Settlement Line Items
-      description: "This API allows you to create a settlement schedule and add financial settlement line items to the settlement schedule.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API allows you to create a settlement schedule and add financial settlement line items to the settlement schedule.
+
+        Click here for XSDs.'
       operationId: createUsingPOST_1
       responses:
         '200':
@@ -84,7 +88,9 @@ paths:
       tags:
       - Settlement
       summary: Retrieves Settlement Availability
-      description: "This API provides a list of settlement times for a given date.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API provides a list of settlement times for a given date.
+
+        Click here for XSDs.'
       operationId: settlementAvailability
       parameters:
       - name: jurisdiction
@@ -161,7 +167,10 @@ paths:
       tags:
       - Settlement
       summary: Generate the Settlement Completion Record
-      description: "This API generates the settlement completion record for a completed workspace.\n\n \n [See details](../../docs/definitions/retrieve_settlement_completion_record/) to learn more about this API."
+      description: 'This API generates the settlement completion record for a completed workspace.
+
+
+        See details to learn more about this API.'
       operationId: retrieveSettlementCompletionRecordV1UsingGET
       parameters:
       - name: subscriberId
@@ -212,7 +221,10 @@ paths:
       tags:
       - Settlement
       summary: Add/Update/Agree Balance due to effect Settlement
-      description: "This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.  \n\n \n[See details](../../docs/definitions/set_balanceduetoeffect_settlement/) to learn more about this API."
+      description: 'This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.
+
+
+        See details to learn more about this API.'
       operationId: createUsingGET
       parameters:
       - name: role
@@ -252,7 +264,10 @@ paths:
       tags:
       - Settlement
       summary: Add/Update/Agree Balance due to effect Settlement
-      description: "This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.  \n\n \n[See details](../../docs/definitions/set_balanceduetoeffect_settlement/) to learn more about this API."
+      description: 'This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.
+
+
+        See details to learn more about this API.'
       operationId: createUsingPUT
       parameters:
       - name: role
@@ -297,7 +312,14 @@ paths:
       tags:
       - Settlement
       summary: Retrieves settlement statement
-      description: "This API retrieves the financial settlement statement containing financial line items that belong to the subscriber.\n\n Scopes:\n<i>au_pub_cert_pexa_financial_settlement_schedule_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_financial_settlement_schedule_api_v2_read</i> (prod)"
+      description: 'This API retrieves the financial settlement statement containing financial line items that belong to the subscriber.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_financial_settlement_schedule_api_v2_read (non-prod)
+
+        au_pub_pexa_financial_settlement_schedule_api_v2_read (prod)'
       operationId: retrieveSetllementStatementV1UsingGET
       parameters:
       - name: subscriberId
@@ -336,7 +358,14 @@ paths:
       tags:
       - Settlement
       summary: Upload Financial Settlement Line Items
-      description: "This API allows you to create a settlement schedule and add financial settlement line items to the settlement schedule.\n\n Scopes:\n<i>au_pub_cert_pexa_financial_settlement_schedule_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_financial_settlement_schedule_api_v2_write</i> (prod)"
+      description: 'This API allows you to create a settlement schedule and add financial settlement line items to the settlement schedule.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_financial_settlement_schedule_api_v2_write (non-prod)
+
+        au_pub_pexa_financial_settlement_schedule_api_v2_write (prod)'
       operationId: createUsingPOST_1
       responses:
         '200':
@@ -366,7 +395,14 @@ paths:
       tags:
       - Settlement
       summary: Retrieves Settlement Availability
-      description: "This API provides a list of settlement times for a given date.\n\n Scopes:\n<i>au_pub_cert_pexa_settlement_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_settlement_api_v2_read</i> (prod)"
+      description: 'This API provides a list of settlement times for a given date.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_settlement_api_v2_read (non-prod)
+
+        au_pub_pexa_settlement_api_v2_read (prod)'
       operationId: settlementAvailability
       parameters:
       - name: jurisdiction
@@ -415,7 +451,14 @@ paths:
       tags:
       - Settlement
       summary: Maintain Settlement Date and Time
-      description: "This API allows you to manage the settlement date and time within a workspace.\n\n Scopes:\n<i>au_pub_cert_pexa_settlement_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_settlement_api_v2_write</i> (prod)"
+      description: 'This API allows you to manage the settlement date and time within a workspace.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_settlement_api_v2_write (non-prod)
+
+        au_pub_pexa_settlement_api_v2_write (prod)'
       operationId: maintainsettlement_1
       responses:
         '200':
@@ -441,7 +484,17 @@ paths:
       tags:
       - Settlement
       summary: Generate the Settlement Completion Record
-      description: "This API generates the settlement completion record for a completed workspace.\n\n \n [See details](../../docs/definitions/retrieve_settlement_completion_record/) to learn more about this API.\n\n Scopes:\n<i>au_pub_cert_pexa_settlementcompletionrecord_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_settlementcompletionrecord_api_v2_read</i> (prod)"
+      description: 'This API generates the settlement completion record for a completed workspace.
+
+
+        See details to learn more about this API.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_settlementcompletionrecord_api_v2_read (non-prod)
+
+        au_pub_pexa_settlementcompletionrecord_api_v2_read (prod)'
       operationId: retrieveSettlementCompletionRecordV1UsingGET
       parameters:
       - name: subscriberId
@@ -490,7 +543,14 @@ paths:
       tags:
       - Settlement
       summary: Retrieve Balance due to effect Settlement
-      description: "This API allows you to retrieve the balance amount due to the vendor that is likely to effect the settlement.  \n\n Scopes:\n<i>au_pub_cert_pexa_settlement_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_settlement_api_v2_read</i> (prod)"
+      description: 'This API allows you to retrieve the balance amount due to the vendor that is likely to effect the settlement.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_settlement_api_v2_read (non-prod)
+
+        au_pub_pexa_settlement_api_v2_read (prod)'
       operationId: getBalanceDueToEffectSettlementUsingGET
       parameters:
       - name: role
@@ -523,7 +583,17 @@ paths:
       tags:
       - Settlement
       summary: Add/Update/Agree Balance due to effect Settlement
-      description: "This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.  \n\n \n[See details](../../docs/definitions/set_balanceduetoeffect_settlement/) to learn more about this API.\n\n Scopes:\n<i>au_pub_cert_pexa_settlement_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_settlement_api_v2_write</i> (prod)"
+      description: 'This API allows you to set the balance amount due to the vendor that is likely to effect the settlement.
+
+
+        See details to learn more about this API.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_settlement_api_v2_write (non-prod)
+
+        au_pub_pexa_settlement_api_v2_write (prod)'
       operationId: updateBalanceDueToEffectSettlementUsingPUT
       parameters:
       - name: role
@@ -563,151 +633,6 @@ paths:
         required: true
 components:
   schemas:
-    au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse:
-      type: object
-      properties:
-        amount:
-          type: number
-          xml:
-            name: Amount
-            attribute: false
-            wrapped: false
-        status:
-          type: string
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse
-    au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document:
-      type: object
-      properties:
-        documentId:
-          type: string
-          xml:
-            name: DocumentId
-            attribute: false
-            wrapped: false
-        mimeType:
-          type: string
-          xml:
-            name: MimeType
-            attribute: false
-            wrapped: false
-        renderedDocument:
-          type: string
-          format: byte
-          xml:
-            name: RenderedDocument
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document
-      xml:
-        name: Document
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails:
-      type: object
-      properties:
-        destination:
-          xml:
-            name: Destination
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination'
-        source:
-          xml:
-            name: Source
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source'
-      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails
-      xml:
-        name: AccountDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.SettlementAvailabilityResponse:
-      type: object
-      properties:
-        availableSettlementTime:
-          xml:
-            name: AvailableSettlementTime
-            attribute: false
-            wrapped: false
-          description: List of the all available settlement times based on the settlement date above. <br/> If Settlement Availability is No, then this will not be provided.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.AvailableSettlementTimeType'
-        settlementAvailability:
-          type: string
-          xml:
-            name: SettlementAvailability
-            attribute: false
-            wrapped: false
-          description: A flag to indicate if there are any available times based on the settlement date provided.
-        settlementDate:
-          type: string
-          format: date-time
-          xml:
-            name: SettlementDate
-            attribute: false
-            wrapped: false
-          description: The settlement date provided in the request which will be used to check available times.
-      title: au.net.pexa.api.schema._1.SettlementAvailabilityResponse
-      xml:
-        name: SettlementAvailabilityResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay:
-      type: object
-      properties:
-        billerCode:
-          type: string
-          xml:
-            name: BillerCode
-            attribute: false
-            wrapped: false
-        reference:
-          type: string
-          xml:
-            name: Reference
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay
-      xml:
-        name: BPay
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents:
-      type: object
-      properties:
-        document:
-          xml:
-            name: Document
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document'
-      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents
-      xml:
-        name: Documents
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.AvailableSettlementTimeType:
-      type: object
-      properties:
-        times:
-          type: array
-          xml:
-            name: Time
-            attribute: false
-            wrapped: false
-          description: Available settlement time (in UTC) for the date provided. <br/> If Settlement Availability is No, then this will not be provided. <br/> Result set will be ordered by time ascending.
-          items:
-            type: string
-            format: date-time
-      title: au.net.pexa.api.schema._1.AvailableSettlementTimeType
-      xml:
-        name: availableSettlementTimeType
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source:
       type: object
       properties:
@@ -728,62 +653,38 @@ components:
         name: Source
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account:
+    au.net.pexa.api.schema._1.SettlementUploadResponse:
       type: object
       properties:
-        accountBsb:
-          type: string
+        warning:
           xml:
-            name: AccountBsb
+            name: Warning
             attribute: false
             wrapped: false
-        accountName:
-          type: string
-          xml:
-            name: AccountName
-            attribute: false
-            wrapped: false
-        accountNumber:
-          type: string
-          xml:
-            name: AccountNumber
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WarningResponseType'
+      title: au.net.pexa.api.schema._1.SettlementUploadResponse
       xml:
-        name: Account
+        name: SettlementUploadResponse
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SettlementDetailsType:
+    au.net.pexa.api.schema._1.WarningResponseType:
       type: object
       properties:
-        settlementDateAndTime:
+        code:
           type: string
-          format: date-time
           xml:
-            name: SettlementDateAndTime
+            name: Code
             attribute: false
             wrapped: false
-          description: The proposed date and time for settlement (in UTC)
-        participantSettlementAcceptanceStatus:
+        message:
           type: string
-          example: Accepted
           xml:
-            name: ParticipantSettlementAcceptanceStatus
+            name: Message
             attribute: false
             wrapped: false
-          description: Ability to specify if the Settlement Date and Time should be considered accepted or pending when proposing a new date and time. <br/> If no participant settlement acceptance status is provided, the subscribers default acceptance status will be used. Valid values are <br/> <li> Accepted (Set the Participants Settlement Acceptance Status to the Accepted status.) <li> Pending (Set the Participants Settlement Acceptance Status to the Pending status. )
-        reason:
-          type: string
-          example: Default settlement time is not my preferred Settlement time.
-          xml:
-            name: Reason
-            attribute: false
-            wrapped: false
-          description: The reason for updating the settlement date/time in the workspace. <br/> Maximum 100 characters
-      title: au.net.pexa.api.schema._1.SettlementDetailsType
+      title: au.net.pexa.api.schema._1.WarningResponseType
       xml:
-        name: SettlementDetails
+        name: warningResponseType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.MaintainSettlementDateAndTimeRequest:
@@ -842,58 +743,54 @@ components:
         namespace: http://api.pexa.net.au/schema/1/
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SettlementStatementRetrieval:
+    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay:
       type: object
       properties:
-        documents:
-          xml:
-            name: Documents
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents'
-        workspaceId:
+        billerCode:
           type: string
           xml:
-            name: WorkspaceId
+            name: BillerCode
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval
+        reference:
+          type: string
+          xml:
+            name: Reference
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay
       xml:
-        name: SettlementStatementRetrieval
+        name: BPay
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadResponse:
+    au.net.pexa.api.schema._1.AvailableSettlementTimeType:
       type: object
       properties:
-        warning:
+        times:
+          type: array
           xml:
-            name: Warning
+            name: Time
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WarningResponseType'
-      title: au.net.pexa.api.schema._1.SettlementUploadResponse
+          description: Available settlement time (in UTC) for the date provided. <br/> If Settlement Availability is No, then this will not be provided. <br/> Result set will be ordered by time ascending.
+          items:
+            type: string
+            format: date-time
+      title: au.net.pexa.api.schema._1.AvailableSettlementTimeType
       xml:
-        name: SettlementUploadResponse
+        name: availableSettlementTimeType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WarningResponseType:
+    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule:
       type: object
       properties:
-        code:
-          type: string
-          xml:
-            name: Code
-            attribute: false
-            wrapped: false
-        message:
-          type: string
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WarningResponseType
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem'
+      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule
       xml:
-        name: warningResponseType
+        name: Schedule
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination:
@@ -922,6 +819,94 @@ components:
       title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination
       xml:
         name: Destination
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account:
+      type: object
+      properties:
+        accountBsb:
+          type: string
+          xml:
+            name: AccountBsb
+            attribute: false
+            wrapped: false
+        accountName:
+          type: string
+          xml:
+            name: AccountName
+            attribute: false
+            wrapped: false
+        accountNumber:
+          type: string
+          xml:
+            name: AccountNumber
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account
+      xml:
+        name: Account
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementUploadRequest:
+      type: object
+      properties:
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        schedule:
+          xml:
+            name: Schedule
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule'
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.SettlementUploadRequest
+      xml:
+        name: SettlementUploadRequest
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementAvailabilityResponse:
+      type: object
+      properties:
+        availableSettlementTime:
+          xml:
+            name: AvailableSettlementTime
+            attribute: false
+            wrapped: false
+          description: List of the all available settlement times based on the settlement date above. <br/> If Settlement Availability is No, then this will not be provided.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.AvailableSettlementTimeType'
+        settlementAvailability:
+          type: string
+          xml:
+            name: SettlementAvailability
+            attribute: false
+            wrapped: false
+          description: A flag to indicate if there are any available times based on the settlement date provided.
+        settlementDate:
+          type: string
+          format: date-time
+          xml:
+            name: SettlementDate
+            attribute: false
+            wrapped: false
+          description: The settlement date provided in the request which will be used to check available times.
+      title: au.net.pexa.api.schema._1.SettlementAvailabilityResponse
+      xml:
+        name: SettlementAvailabilityResponse
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem:
@@ -992,48 +977,81 @@ components:
         name: LineItem
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule:
+    au.net.pexa.api.schema._1.SettlementStatementRetrieval:
       type: object
       properties:
-        lineItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem'
-      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule
-      xml:
-        name: Schedule
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.SettlementUploadRequest:
-      type: object
-      properties:
-        role:
-          type: string
+        documents:
           xml:
-            name: Role
+            name: Documents
             attribute: false
             wrapped: false
-        schedule:
-          xml:
-            name: Schedule
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule'
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents'
         workspaceId:
           type: string
           xml:
             name: WorkspaceId
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.SettlementUploadRequest
+      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval
       xml:
-        name: SettlementUploadRequest
+        name: SettlementStatementRetrieval
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          xml:
+            name: Amount
+            attribute: false
+            wrapped: false
+        status:
+          type: string
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse
+    au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents:
+      type: object
+      properties:
+        document:
+          xml:
+            name: Document
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document'
+      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents
+      xml:
+        name: Documents
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document:
+      type: object
+      properties:
+        documentId:
+          type: string
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+        mimeType:
+          type: string
+          xml:
+            name: MimeType
+            attribute: false
+            wrapped: false
+        renderedDocument:
+          type: string
+          format: byte
+          xml:
+            name: RenderedDocument
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document
+      xml:
+        name: Document
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.BalanceDueToEffectSettlementRequest:
@@ -1048,6 +1066,58 @@ components:
       title: au.net.pexa.api.schema._1.BalanceDueToEffectSettlementRequest
       xml:
         name: BalanceDueToEffectSettlementRequest
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementDetailsType:
+      type: object
+      properties:
+        settlementDateAndTime:
+          type: string
+          format: date-time
+          xml:
+            name: SettlementDateAndTime
+            attribute: false
+            wrapped: false
+          description: The proposed date and time for settlement (in UTC)
+        participantSettlementAcceptanceStatus:
+          type: string
+          example: Accepted
+          xml:
+            name: ParticipantSettlementAcceptanceStatus
+            attribute: false
+            wrapped: false
+          description: Ability to specify if the Settlement Date and Time should be considered accepted or pending when proposing a new date and time. <br/> If no participant settlement acceptance status is provided, the subscribers default acceptance status will be used. Valid values are <br/> <li> Accepted (Set the Participants Settlement Acceptance Status to the Accepted status.) <li> Pending (Set the Participants Settlement Acceptance Status to the Pending status. )
+        reason:
+          type: string
+          example: Default settlement time is not my preferred Settlement time.
+          xml:
+            name: Reason
+            attribute: false
+            wrapped: false
+          description: The reason for updating the settlement date/time in the workspace. <br/> Maximum 100 characters
+      title: au.net.pexa.api.schema._1.SettlementDetailsType
+      xml:
+        name: SettlementDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails:
+      type: object
+      properties:
+        destination:
+          xml:
+            name: Destination
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination'
+        source:
+          xml:
+            name: Source
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source'
+      title: au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails
+      xml:
+        name: AccountDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse_2:

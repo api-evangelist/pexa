@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Standalone Discharge Experience API
-  description: 'Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single experience API call, starting from creating workspace to discharge document to enable you to sign the document. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flows: <br> - Client Credentials <br> - Authorization Code <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint.'
+  description: Use this API to create standalone discharge in PEXA.
   version: v1
   contact:
     email: apisupport@pexa.com.au
@@ -18,7 +18,9 @@ paths:
       tags:
       - Standalone Discharge Experience
       summary: Standalone Discharge Experience
-      description: "Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single \nexperience API call, starting from creating workspace to discharge document to enable you to sign the document.\n"
+      description: 'Use this API to create standalone discharge in PEXA. The API automates all the necessary steps as a single
+
+        experience API call, starting from creating workspace to discharge document to enable you to sign the document.'
       operationId: processDischarge
       security:
       - oauth2:
@@ -52,23 +54,19 @@ paths:
                   message: message
 components:
   schemas:
-    event:
-      type: object
-      properties:
-        stage:
-          type: string
-          example: Workspace Setup
-        status:
-          type: string
-          example: Yay, done!
-        code:
-          type: string
-          description: Only applicable when an event is interrupted
-          example: OB1400.001
-        message:
-          type: string
-          description: Only applicable when an event is interrupted
-          example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
+    jurisdiction:
+      type: string
+      enum:
+      - VIC
+      - NSW
+      - QLD
+      - SA
+      - WA
+      - ACT
+      - NT
+      - TAS
+      example: VIC
+      description: The Jurisdiction for the title
     lodgementCase:
       title: lodgementCase
       type: object
@@ -81,15 +79,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/document'
-    lodgement:
-      title: lodgement
-      type: object
-      properties:
-        id:
-          type: string
-          format: date-time
-        dealingNumber:
-          type: string
+    titleFormat:
+      type: string
+      description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
+      enum:
+      - ECT
+      - PCT
     standaloneDischarge:
       type: object
       properties:
@@ -198,31 +193,6 @@ components:
       - subscriberReference
       - landTitles
       - jurisdiction
-    jurisdiction:
-      type: string
-      enum:
-      - VIC
-      - NSW
-      - QLD
-      - SA
-      - WA
-      - ACT
-      - NT
-      - TAS
-      example: VIC
-      description: The Jurisdiction for the title
-    issuingInstructions:
-      type: object
-      description: Use this element if you want to instruct issuing for the title
-      properties:
-        titleFormat:
-          $ref: '#/components/schemas/titleFormat'
-        ctIssuedToPanelMaster:
-          type: boolean
-          description: Do you wish to issue the title to your Panel Master? (Panel clients only)
-          example: true
-      required:
-      - titleFormat
     document:
       title: Document
       type: object
@@ -244,12 +214,44 @@ components:
           $ref: '#/components/schemas/lodgement'
         lodgementVerification:
           type: object
-    titleFormat:
-      type: string
-      description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
-      enum:
-      - ECT
-      - PCT
+    issuingInstructions:
+      type: object
+      description: Use this element if you want to instruct issuing for the title
+      properties:
+        titleFormat:
+          $ref: '#/components/schemas/titleFormat'
+        ctIssuedToPanelMaster:
+          type: boolean
+          description: Do you wish to issue the title to your Panel Master? (Panel clients only)
+          example: true
+      required:
+      - titleFormat
+    lodgement:
+      title: lodgement
+      type: object
+      properties:
+        id:
+          type: string
+          format: date-time
+        dealingNumber:
+          type: string
+    event:
+      type: object
+      properties:
+        stage:
+          type: string
+          example: Workspace Setup
+        status:
+          type: string
+          example: Yay, done!
+        code:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: OB1400.001
+        message:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
   securitySchemes:
     oauth2:
       type: oauth2

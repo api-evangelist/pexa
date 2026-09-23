@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Notification Service [$] API
-  description: 'The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events. This API caters to various functions including updating, deleting, and creating registration details, as well as rotating the shared secret for secure communication. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flow: <br> - Client Credentials <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [PEXA Webhooks Guide](../../docs/definitions/webhooks/)  <br> - [Authentication](../../../Exchange/docs/documentation/)
-
-    '
+  description: The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events.
   version: 1.0.0
   contact:
     email: apisupport@pexa.com.au
@@ -13,7 +11,7 @@ servers:
 - url: https://api-tst.pexalabs.com.au
   description: Non-Prod server
 tags:
-- name: Notification Service [$]
+- name: Notification Service
 paths: {}
 webhooks:
   SubscriberNotification:
@@ -227,7 +225,9 @@ webhooks:
                     - 'null'
                     example: Some data
       tags:
-      - Notification Service [$]
+      - Notification Service
+      summary: Subscriber notification
+      x-summary-source: derived
   NonSubscriberNotification:
     post:
       description: Non-subscriber notification payload
@@ -439,7 +439,9 @@ webhooks:
                     - 'null'
                     example: Some data
       tags:
-      - Notification Service [$]
+      - Notification Service
+      summary: Non subscriber notification
+      x-summary-source: derived
 components:
   schemas:
     SubscriberNotificationPayload:

@@ -13,7 +13,9 @@ paths:
       tags:
       - Conversation
       summary: Send a message to an existing conversation
-      description: "This API allows you to send a message to an existing conversation thread. \n Click here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API allows you to send a message to an existing conversation thread.
+
+        Click here for XSDs.'
       operationId: postMessageUsingPOST
       parameters:
       - name: conversationId
@@ -58,7 +60,9 @@ paths:
       tags:
       - Conversation
       summary: Retrieve Unread Conversations
-      description: "This API retrieves a list of unread conversations.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API retrieves a list of unread conversations.
+
+        Click here for XSDs.'
       operationId: retrieveUnreadConversationsUsingGET
       parameters:
       - name: subscriberId
@@ -171,7 +175,14 @@ paths:
       tags:
       - Conversation
       summary: Send a message to an existing conversation
-      description: "This API allows you to send a message to an existing conversation thread.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_write</i> (prod)"
+      description: 'This API allows you to send a message to an existing conversation thread.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_conversation_api_v2_write (non-prod)
+
+        au_pub_pexa_conversation_api_v2_write (prod)'
       operationId: postMessageUsingPOST
       parameters:
       - name: conversationId
@@ -214,7 +225,14 @@ paths:
       tags:
       - Conversation
       summary: Retrieve Unread Conversations
-      description: "This API retrieves a list of unread conversations.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_read</i> (prod)"
+      description: 'This API retrieves a list of unread conversations.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_conversation_api_v2_read (non-prod)
+
+        au_pub_pexa_conversation_api_v2_read (prod)'
       operationId: retrieveUnreadConversationsUsingGET
       parameters:
       - name: subscriberId
@@ -242,7 +260,14 @@ paths:
       tags:
       - Conversation
       summary: Mark as Read the Conversation for a specific Subscriber and Role
-      description: "This API allows to update/mark as read the conversation for a specific conversation id, subscriber id and role.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_write</i> (prod)"
+      description: 'This API allows to update/mark as read the conversation for a specific conversation id, subscriber id and role.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_conversation_api_v2_write (non-prod)
+
+        au_pub_pexa_conversation_api_v2_write (prod)'
       operationId: markConversationAsReadUsingPUT
       parameters:
       - name: conversationId
@@ -281,7 +306,14 @@ paths:
       tags:
       - Conversation
       summary: Retrieve Conversations List for a Workspace
-      description: "This API retrieves a list of conversations for a specific workspace.\n\n Scopes:\n<i>au_pub_cert_pexa_conversation_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_conversation_api_v2_read</i> (prod)"
+      description: 'This API retrieves a list of conversations for a specific workspace.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_conversation_api_v2_read (non-prod)
+
+        au_pub_pexa_conversation_api_v2_read (prod)'
       operationId: retrieveConversationsListUsingGET
       parameters:
       - name: role
@@ -318,18 +350,28 @@ paths:
       deprecated: false
 components:
   schemas:
-    au.net.pexa.api.schema._1.ConversationsType:
+    au.net.pexa.api.schema._1.ConversationsRetrievalResponse:
       type: object
       properties:
         conversations:
+          xml:
+            name: Conversations
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
+      title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+    au.net.pexa.api.schema._1.MessagesType:
+      type: object
+      properties:
+        messages:
           type: array
           xml:
-            name: Conversation
+            name: Message
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
-      title: au.net.pexa.api.schema._1.ConversationsType
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.MessagesType
     au.net.pexa.api.schema._1.MessageType:
       type: object
       properties:
@@ -392,44 +434,6 @@ components:
         name: messageType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.MessagesType:
-      type: object
-      properties:
-        messages:
-          type: array
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
-      title: au.net.pexa.api.schema._1.MessagesType
-    au.net.pexa.api.schema._1.CreateMessageRequest:
-      type: object
-      properties:
-        actionRequired:
-          type: string
-          xml:
-            name: ActionRequired
-            attribute: false
-            wrapped: false
-        message:
-          type: string
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.CreateMessageRequest
-      xml:
-        name: CreateMessageRequest
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.CreateMessageResponse:
       type: object
       properties:
@@ -444,16 +448,18 @@ components:
         name: CreateMessageResponse
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.ConversationsRetrievalResponse:
+    au.net.pexa.api.schema._1.ConversationsType:
       type: object
       properties:
         conversations:
+          type: array
           xml:
-            name: Conversations
+            name: Conversation
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
-      title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
+      title: au.net.pexa.api.schema._1.ConversationsType
     au.net.pexa.api.schema._1.ConversationType:
       type: object
       properties:
@@ -530,6 +536,32 @@ components:
             attribute: false
             wrapped: false
       title: au.net.pexa.api.schema._1.ConversationType
+    au.net.pexa.api.schema._1.CreateMessageRequest:
+      type: object
+      properties:
+        actionRequired:
+          type: string
+          xml:
+            name: ActionRequired
+            attribute: false
+            wrapped: false
+        message:
+          type: string
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateMessageRequest
+      xml:
+        name: CreateMessageRequest
+        attribute: false
+        wrapped: false
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

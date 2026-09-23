@@ -51,7 +51,14 @@ paths:
       tags:
       - Landtitle
       summary: Land Title Registry Verification
-      description: "This API verifies whether the land title reference is 'in use' in other workspaces and whether the land title is eligible for electronic lodgement.\n\n Scopes:\n<i>au_pub_cert_pexa_landtitle_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_landtitle_api_v2_read</i> (prod)"
+      description: 'This API verifies whether the land title reference is ''in use'' in other workspaces and whether the land title is eligible for electronic lodgement.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_landtitle_api_v2_read (non-prod)
+
+        au_pub_pexa_landtitle_api_v2_read (prod)'
       operationId: LTRV
       parameters:
       - name: jurisdiction
@@ -123,26 +130,20 @@ components:
         name: Workspace
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
       type: object
       properties:
-        landTitleReferenceReport:
+        workspaces:
+          type: array
           xml:
-            name: LandTitleReferenceReport
+            name: Workspace
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport'
-        warnings:
-          xml:
-            name: Warnings
-            attribute: false
-            wrapped: false
-          description: Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
       xml:
-        name: LandTitleReferenceVerificationResponse
-        namespace: http://api.pexa.net.au/schema/1/
+        name: Warnings
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants:
@@ -243,20 +244,26 @@ components:
         name: LandTitleReferenceReport
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
       type: object
       properties:
-        workspaces:
-          type: array
+        landTitleReferenceReport:
           xml:
-            name: Workspace
+            name: LandTitleReferenceReport
             attribute: false
             wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport'
+        warnings:
+          xml:
+            name: Warnings
+            attribute: false
+            wrapped: false
+          description: Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
       xml:
-        name: Warnings
+        name: LandTitleReferenceVerificationResponse
+        namespace: http://api.pexa.net.au/schema/1/
         attribute: false
         wrapped: false
 x-refined-from:

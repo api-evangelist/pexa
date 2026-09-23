@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: Pexa Title Search API
   version: 1.0.2
+  title: PEXA Plus Marketplace B2B Title Search API
+  description: PEXA Plus Marketplace services used by B2B applications
   contact:
     name: PEXA Plus team
     email: pexaplussupport@pexa.com.au
-  description: 'Operations tagged TitleSearch across 2 of this provider''s published API definitions: pexa-plus-marketplace-b2b-api-oas300-openapi.yaml, pexa-plus-marketplace-b2b-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://plus.pexa.com.au/api/plus/v1
   description: Product server
@@ -67,9 +67,6 @@ paths:
           description: Method not allowed
         '500':
           $ref: '#/components/responses/InternalServerError'
-    servers:
-    - url: https://plus.pexa.com.au/api/plus/v1
-      description: Product server
   /title-search/{titleSearchId}:
     get:
       tags:
@@ -140,9 +137,6 @@ paths:
           description: Method not allowed
         '500':
           $ref: '#/components/responses/InternalServerError'
-    servers:
-    - url: https://plus.pexa.com.au/api/plus/v1
-      description: Product server
   /title-search/{titleSearchId}/documents:
     get:
       tags:
@@ -184,42 +178,7 @@ paths:
           description: Method not allowed
         '500':
           $ref: '#/components/responses/InternalServerError'
-    servers:
-    - url: https://plus.pexa.com.au/api/plus/v1
-      description: Product server
 components:
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
-    NotFoundError:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '404001'
-              message: Invalid title search ID
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: PL.TITSE.001
-              message: The land title reference provided is invalid for the jurisdiction.
-              field: landTitleReference
   schemas:
     TitleSearchDocuments:
       description: Title search documents
@@ -245,6 +204,32 @@ components:
                 description: Status of the document related to the title search order
                 type: string
                 example: processing
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
     TitleSearch:
       description: Title search
       type: object
@@ -364,32 +349,38 @@ components:
                 type: string
                 example: 'ESTATE: LEASEHOLD ESTATE CREATED BY AA123 EXPIRES 1/2/2022'
               minItems: 1
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          description: The error code
-          type: string
-          example: PL.TITSE.001
-        message:
-          description: Human-readable description of the error for debugging purposes
-          type: string
-          example: The land title reference provided is invalid for the jurisdiction.
-        field:
-          description: Name of the field provided in the original request (if any) that the error pertains to
-          type: string
-          example: landTitleReference
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: PL.TITSE.001
+              message: The land title reference provided is invalid for the jurisdiction.
+              field: landTitleReference
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '404001'
+              message: Invalid title search ID
   parameters:
     TitleSearchIdPath:
       description: Title search id
@@ -408,6 +399,3 @@ components:
       schema:
         type: integer
         example: 12345
-x-refined-from:
-- pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
-- pexa-plus-marketplace-b2b-api-openapi.yaml

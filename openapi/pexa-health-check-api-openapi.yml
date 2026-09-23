@@ -2,18 +2,18 @@ openapi: 3.2.0
 info:
   title: Pexa Health Check API
   version: '1.0'
-  description: 'Operations tagged HealthCheck across 4 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json, pexa-plus-marketplace-b2b-api-oas300-openapi.yaml, pexa-plus-marketplace-b2b-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged HealthCheck across 3 of this provider''s published API definitions: pexa-exchange-api-legacy-swagger.json, pexa-exchange-api-swagger.json, pexa-plus-marketplace-b2b-api-oas300-openapi.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://localhost/
 - url: https://plus.pexa.com.au/api/plus/v1
   description: Product server
 tags:
-- name: HealthCheck
+- name: Health Check
 paths:
   /health:
     get:
       tags:
-      - HealthCheck
+      - Health Check
       summary: Health Check
       description: This API verifies whether the application is up and running.
       operationId: HealthCheck
@@ -32,9 +32,16 @@ paths:
   /v2/health:
     get:
       tags:
-      - HealthCheck
+      - Health Check
       summary: Health Check
-      description: "This API verifies whether the application is up and running.\n\n Scopes:\n<i>au_pub_cert_pexa_healthcheck_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_healthcheck_api_v2_read</i> (prod)"
+      description: 'This API verifies whether the application is up and running.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_healthcheck_api_v2_read (non-prod)
+
+        au_pub_pexa_healthcheck_api_v2_read (prod)'
       operationId: HealthCheck
       responses:
         '200':
@@ -47,17 +54,6 @@ paths:
           description: Not Found
       deprecated: false
 components:
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
   schemas:
     Error:
       description: Detailed error related to the API
@@ -94,8 +90,18 @@ components:
       schema:
         type: integer
         example: 12345
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json
 - pexa-plus-marketplace-b2b-api-oas300-openapi.yaml
-- pexa-plus-marketplace-b2b-api-openapi.yaml

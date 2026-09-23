@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: Notification Service [$] Notification Registration API
-  description: 'The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events. This API caters to various functions including updating, deleting, and creating registration details, as well as rotating the shared secret for secure communication. <br> <br> Pricing: <br> This API is a premium API service and usage of the API is billed. Please contact the API support team [here](mailto:apisupport@pexa.com.au) for more information. <br> <br> This API uses the OAuth 2.0 protocol for authentication and authorization. It supports the following OAuth 2.0 flow: <br> - Client Credentials <br> <br> Scopes are used to grant an application different levels of access to data. Each API endpoint will require specific scopes. <br> The scopes are listed against each API endpoint. <br> <br> For more information, see the following guides: <br> - [PEXA Webhooks Guide](../../docs/definitions/webhooks/)  <br> - [Authentication](../../../Exchange/docs/documentation/)
-
-    '
+  description: The Push Notifications Service handles delivering notifications via webhook to subscribers and manages the registration of subscribers for specific events.
   version: 1.0.0
   contact:
     email: apisupport@pexa.com.au
@@ -21,7 +19,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Create registration details (V3)
-      description: Registers a webhook endpoint to start receiving PEXA event notifications, with support for enhanced authentication modes. Use authenticationMode HMAC for standard shared secret verification, or HMAC_OAUTH to additionally authenticate webhook delivery using OAuth 2.0 Client Credentials for integrators with strict inbound security requirements. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)
+      description: 'Registers a webhook endpoint to start receiving PEXA event notifications, with support for enhanced authentication modes. Use authenticationMode HMAC for standard shared secret verification, or HMAC_OAUTH to additionally authenticate webhook delivery using OAuth 2.0 Client Credentials for integrators with strict inbound security requirements. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry.
+
+        Scopes:
+
+        create:notification_registrations (non-prod)
+
+        create:notification_registrations (prod)'
       operationId: createNotificationRegistrationV3
       security:
       - oauth2:
@@ -241,7 +245,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Update registration details (V3)
-      description: Updates the webhook URI, event types, or authentication configuration for an existing registration. Supports switching between HMAC and HMAC_OAUTH modes. Use HMAC_OAUTH to add OAuth 2.0 Client Credentials authentication on top of HMAC for enhanced security. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)
+      description: 'Updates the webhook URI, event types, or authentication configuration for an existing registration. Supports switching between HMAC and HMAC_OAUTH modes. Use HMAC_OAUTH to add OAuth 2.0 Client Credentials authentication on top of HMAC for enhanced security. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it.
+
+        Scopes:
+
+        edit:notification_registrations (non-prod)
+
+        edit:notification_registrations (prod)'
       operationId: updateNotificationRegistrationV3
       security:
       - oauth2:
@@ -375,7 +385,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Get notification registrations
-      description: Retrieve registration details. If registrationId parameter is provided, returns specified registration details. If not provided, returns an array of all registrations ordered by updated_at timestamp in descending order <br>Scopes:<br><i>view:notification_registrations</i> (non-prod)<br><i>view:notification_registrations</i> (prod)
+      description: 'Retrieve registration details. If registrationId parameter is provided, returns specified registration details. If not provided, returns an array of all registrations ordered by updated_at timestamp in descending order
+
+        Scopes:
+
+        view:notification_registrations (non-prod)
+
+        view:notification_registrations (prod)'
       operationId: getNotificationRegistrationsV2
       security:
       - oauth2:
@@ -519,7 +535,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Create registration details
-      description: Registers a webhook endpoint to start receiving PEXA event notifications. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry. <br>Scopes:<br><i>create:notification_registrations</i> (non-prod)<br><i>create:notification_registrations</i> (prod)
+      description: 'Registers a webhook endpoint to start receiving PEXA event notifications. Returns a system-generated shared secret that must be stored securely and used to verify the HMAC signature on all incoming webhook requests. The shared secret expires after 30 days and must be rotated before expiry.
+
+        Scopes:
+
+        create:notification_registrations (non-prod)
+
+        create:notification_registrations (prod)'
       operationId: createNotificationRegistration
       security:
       - oauth2:
@@ -658,7 +680,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Update registration details
-      description: Updates the webhook URI or event types for an existing registration. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it. <br>Scopes:<br><i>edit:notification_registrations</i> (non-prod)<br><i>edit:notification_registrations</i> (prod)
+      description: 'Updates the webhook URI or event types for an existing registration. The shared secret is unchanged and not returned in this response. Use the secret rotation endpoint if you need to renew it.
+
+        Scopes:
+
+        edit:notification_registrations (non-prod)
+
+        edit:notification_registrations (prod)'
       operationId: updateNotificationRegistration
       security:
       - oauth2:
@@ -814,7 +842,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Delete registration details
-      description: Deletes an existing webhook registration. Once deleted, PEXA will stop delivering event notifications to the associated webhook URI. This action cannot be undone; a new registration must be created to resume webhook delivery. <br>Scopes:<br><i>delete:notification_registrations</i> (non-prod)<br><i>delete:notification_registrations</i> (prod)
+      description: 'Deletes an existing webhook registration. Once deleted, PEXA will stop delivering event notifications to the associated webhook URI. This action cannot be undone; a new registration must be created to resume webhook delivery.
+
+        Scopes:
+
+        delete:notification_registrations (non-prod)
+
+        delete:notification_registrations (prod)'
       operationId: deleteNotificationRegistration
       security:
       - oauth2:
@@ -886,7 +920,13 @@ paths:
       tags:
       - NotificationRegistration
       summary: Rotate Shared Secret
-      description: Rotates the shared secret for an existing webhook registration. The new secret is returned in the response and must be stored securely. The previous secret remains valid for 24 hours to allow a zero-downtime transition, after which only the new secret will be accepted for HMAC signature verification. <br>Scopes:<br><i>create:notification_registrations_secret_rotation</i> (non-prod)<br><i>create:notification_registrations_secret_rotation</i> (prod)
+      description: 'Rotates the shared secret for an existing webhook registration. The new secret is returned in the response and must be stored securely. The previous secret remains valid for 24 hours to allow a zero-downtime transition, after which only the new secret will be accepted for HMAC signature verification.
+
+        Scopes:
+
+        create:notification_registrations_secret_rotation (non-prod)
+
+        create:notification_registrations_secret_rotation (prod)'
       operationId: createNotificationSecretRotation
       security:
       - oauth2:
@@ -959,112 +999,15 @@ paths:
                 - message: Internal Server Error
 components:
   schemas:
-    NotificationServiceErrorResponse:
-      type: object
-      description: Response object of the service
-      properties:
-        errors:
-          default: []
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    WebhookNotificationRegistrationResponseV3:
-      description: Response body returned after successfully creating a V3 webhook registration. Store the sharedSecret securely. It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.
-      type: object
-      properties:
-        notificationType:
-          type: string
-          example: WEBHOOK
-        eventTypes:
-          type: array
-          items:
-            type: string
-          example:
-          - WORKSPACE_PARTICIPANT_ADDED
-          - SECRET_EXPIRY
-        integratorId:
-          type: string
-          example: 344a6eb8-1201-4b80-a279-084713e300ef
-        integratorType:
-          type: string
-          example: BROKER
-        registrationId:
-          type: string
-          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
-        subscriberId:
-          type: string
-          example: '202'
-        sharedSecret:
-          type: string
-          description: System-generated shared secret for HMAC validation
-          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
-        sharedSecretExpiry:
-          type: string
-          example: '2025-03-13 04:12:51.574000 +00:00'
-        webhookURI:
-          type: string
-          format: uri
-          example: https://example.com/webhook
-        authenticationMode:
-          $ref: '#/components/schemas/AuthenticationMode'
-        authConfig:
-          $ref: '#/components/schemas/AuthConfigResponse'
-    PagedNotificationRegistrations:
-      type: object
-      description: A paginated list of notification registrations
-      required:
-      - page
-      - records
-      properties:
-        page:
-          $ref: '#/components/schemas/Page'
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationRegistrationResponseV2'
-    Page:
-      type: object
-      required:
-      - page
-      - totalRecords
-      - pageRecords
-      - limit
-      properties:
-        page:
-          type: integer
-          description: The current page number
-        totalRecords:
-          type: integer
-          description: The total number of records available
-        pageRecords:
-          type: integer
-          description: The number of records on the current page
-        limit:
-          type: integer
-          description: The maximum number of records per page
-    ClientAuthMethod:
+    AuthenticationMode:
       type: string
-      description: 'OAuth 2.0 client authentication method.
+      description: 'Authentication mode for webhook notifications.
 
 
-        Allowed values: private_key_jwt, client_secret
+        Allowed values: HMAC, HMAC_OAUTH
 
         '
-      example: private_key_jwt
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          type: string
-          example: GA.NOTIF.403003
-        message:
-          type: string
-          example: Forbidden
-        field:
-          type: string
-          nullable: true
-          example: webhookURI
+      example: HMAC_OAUTH
     NotificationRegistrationResponseV2:
       description: A single registration record returned by the V2 GET endpoint.
       type: object
@@ -1101,86 +1044,6 @@ components:
         sharedSecretExpiry:
           type: string
           example: '2025-03-13 04:12:51.574000 +00:00'
-        authenticationMode:
-          $ref: '#/components/schemas/AuthenticationMode'
-        authConfig:
-          $ref: '#/components/schemas/AuthConfigResponse'
-    AuthConfig:
-      type: object
-      required:
-      - authUrl
-      - clientId
-      - clientAuthMethod
-      properties:
-        authUrl:
-          type: string
-          format: uri
-          description: OAuth 2.0 token endpoint URL. The domain must be whitelisted.
-          example: https://auth.example.com/oauth/token
-        clientId:
-          type: string
-          description: OAuth 2.0 client identifier
-          example: client-12345
-        clientAuthMethod:
-          $ref: '#/components/schemas/ClientAuthMethod'
-        clientSecret:
-          type: string
-          description: OAuth 2.0 client secret (required only when clientAuthMethod is client_secret)
-          example: secret-67890
-        audience:
-          type: string
-          description: OAuth 2.0 audience claim
-          example: https://api.example.com
-        scope:
-          type: string
-          description: Space-delimited OAuth 2.0 scopes
-          example: api.scope1 api.scope2
-    CreateNotificationRegistrationRequest:
-      description: Request body for creating a new webhook notification registration. Provide the webhook URI where PEXA will deliver events, and the list of event types you wish to subscribe to. The response will include a system-generated shared secret used to verify the authenticity of incoming webhook requests via HMAC signature validation.
-      type: object
-      required:
-      - webhookURI
-      - eventTypes
-      properties:
-        webhookURI:
-          type: string
-          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
-          example: https://push-notifications.pexa.com.au/notifications-webhook
-        eventTypes:
-          type: array
-          items:
-            type: string
-          description: Please refer to the API documentation for the list of allowed events
-    WebhookNotificationRegistrationUpdateResponseV3:
-      description: Response body returned after updating a V3 webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.
-      type: object
-      properties:
-        notificationType:
-          type: string
-          example: WEBHOOK
-        eventTypes:
-          type: array
-          items:
-            type: string
-          example:
-          - WORKSPACE_PARTICIPANT_ADDED
-          - SECRET_EXPIRY
-        integratorId:
-          type: string
-          example: 344a6eb8-1201-4b80-a279-084713e300ef
-        integratorType:
-          type: string
-          example: BROKER
-        registrationId:
-          type: string
-          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
-        subscriberId:
-          type: string
-          example: '202'
-        webhookURI:
-          type: string
-          format: uri
-          example: https://example.com/webhook
         authenticationMode:
           $ref: '#/components/schemas/AuthenticationMode'
         authConfig:
@@ -1227,6 +1090,142 @@ components:
           description: The list of eventTypes that this registration will send notifications for
           example:
           - CHECKLIST_CHECKED
+    UpdateNotificationRegistrationRequest:
+      description: Update registration details
+      type: object
+      required:
+      - webhookURI
+      - eventTypes
+      properties:
+        webhookURI:
+          type: string
+          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: Please refer to the API documentation for the list of allowed events
+    WebhookNotificationRegistrationResponseV3:
+      description: Response body returned after successfully creating a V3 webhook registration. Store the sharedSecret securely. It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.
+      type: object
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - WORKSPACE_PARTICIPANT_ADDED
+          - SECRET_EXPIRY
+        integratorId:
+          type: string
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          example: BROKER
+        registrationId:
+          type: string
+          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+        subscriberId:
+          type: string
+          example: '202'
+        sharedSecret:
+          type: string
+          description: System-generated shared secret for HMAC validation
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+        sharedSecretExpiry:
+          type: string
+          example: '2025-03-13 04:12:51.574000 +00:00'
+        webhookURI:
+          type: string
+          format: uri
+          example: https://example.com/webhook
+        authenticationMode:
+          $ref: '#/components/schemas/AuthenticationMode'
+        authConfig:
+          $ref: '#/components/schemas/AuthConfigResponse'
+    WebhookNotificationRegistrationUpdateResponseV3:
+      description: Response body returned after updating a V3 webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.
+      type: object
+      properties:
+        notificationType:
+          type: string
+          example: WEBHOOK
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - WORKSPACE_PARTICIPANT_ADDED
+          - SECRET_EXPIRY
+        integratorId:
+          type: string
+          example: 344a6eb8-1201-4b80-a279-084713e300ef
+        integratorType:
+          type: string
+          example: BROKER
+        registrationId:
+          type: string
+          example: 28e5d78c-d642-42d1-8064-0082dc87c4e5
+        subscriberId:
+          type: string
+          example: '202'
+        webhookURI:
+          type: string
+          format: uri
+          example: https://example.com/webhook
+        authenticationMode:
+          $ref: '#/components/schemas/AuthenticationMode'
+        authConfig:
+          $ref: '#/components/schemas/AuthConfigResponse'
+    ClientAuthMethod:
+      type: string
+      description: 'OAuth 2.0 client authentication method.
+
+
+        Allowed values: private_key_jwt, client_secret
+
+        '
+      example: private_key_jwt
+    PagedNotificationRegistrations:
+      type: object
+      description: A paginated list of notification registrations
+      required:
+      - page
+      - records
+      properties:
+        page:
+          $ref: '#/components/schemas/Page'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationRegistrationResponseV2'
+    NotificationServiceErrorResponse:
+      type: object
+      description: Response object of the service
+      properties:
+        errors:
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          type: string
+          example: GA.NOTIF.403003
+        message:
+          type: string
+          example: Forbidden
+        field:
+          type: string
+          nullable: true
+          example: webhookURI
     NotificationRegistrationDto:
       description: Response body returned after updating a webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.
       type: object
@@ -1265,22 +1264,26 @@ components:
             type: string
           example:
           - CHECKLIST_CHECKED
-    UpdateNotificationRegistrationRequest:
-      description: Update registration details
+    Page:
       type: object
       required:
-      - webhookURI
-      - eventTypes
+      - page
+      - totalRecords
+      - pageRecords
+      - limit
       properties:
-        webhookURI:
-          type: string
-          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
-          example: https://push-notifications.pexa.com.au/notifications-webhook
-        eventTypes:
-          type: array
-          items:
-            type: string
-          description: Please refer to the API documentation for the list of allowed events
+        page:
+          type: integer
+          description: The current page number
+        totalRecords:
+          type: integer
+          description: The total number of records available
+        pageRecords:
+          type: integer
+          description: The number of records on the current page
+        limit:
+          type: integer
+          description: The maximum number of records per page
     WebhookNotificationRegistrationRequest:
       description: V3 webhook registration request
       type: object
@@ -1312,15 +1315,21 @@ components:
               $ref: '#/components/schemas/AuthenticationMode'
             authConfig:
               $ref: '#/components/schemas/AuthConfig'
-    AuthenticationMode:
-      type: string
-      description: 'Authentication mode for webhook notifications.
-
-
-        Allowed values: HMAC, HMAC_OAUTH
-
-        '
-      example: HMAC_OAUTH
+    NotificationSecretRotationDto:
+      description: Response body returned after rotating the shared secret. The new sharedSecret must be stored securely and used immediately for HMAC signature verification. The previous secret remains valid for 24 hours after rotation to allow a zero-downtime transition, after which only the new secret will be accepted.
+      type: object
+      required:
+      - sharedSecret
+      - expiry
+      properties:
+        expiry:
+          type: string
+          description: The time until which the shared secret is valid
+          example: '2024-02-28T06:12:42Z'
+        sharedSecret:
+          type: string
+          description: The shared secret used to validate the webhook request
+          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
     AuthConfigResponse:
       type: object
       description: OAuth configuration returned in registration responses.
@@ -1340,21 +1349,52 @@ components:
         scope:
           type: string
           example: api.scope1 api.scope2
-    NotificationSecretRotationDto:
-      description: Response body returned after rotating the shared secret. The new sharedSecret must be stored securely and used immediately for HMAC signature verification. The previous secret remains valid for 24 hours after rotation to allow a zero-downtime transition, after which only the new secret will be accepted.
+    AuthConfig:
       type: object
       required:
-      - sharedSecret
-      - expiry
+      - authUrl
+      - clientId
+      - clientAuthMethod
       properties:
-        expiry:
+        authUrl:
           type: string
-          description: The time until which the shared secret is valid
-          example: '2024-02-28T06:12:42Z'
-        sharedSecret:
+          format: uri
+          description: OAuth 2.0 token endpoint URL. The domain must be whitelisted.
+          example: https://auth.example.com/oauth/token
+        clientId:
           type: string
-          description: The shared secret used to validate the webhook request
-          example: 38e5d78c-d642-42d1-8064-0082dc87c4e5
+          description: OAuth 2.0 client identifier
+          example: client-12345
+        clientAuthMethod:
+          $ref: '#/components/schemas/ClientAuthMethod'
+        clientSecret:
+          type: string
+          description: OAuth 2.0 client secret (required only when clientAuthMethod is client_secret)
+          example: secret-67890
+        audience:
+          type: string
+          description: OAuth 2.0 audience claim
+          example: https://api.example.com
+        scope:
+          type: string
+          description: Space-delimited OAuth 2.0 scopes
+          example: api.scope1 api.scope2
+    CreateNotificationRegistrationRequest:
+      description: Request body for creating a new webhook notification registration. Provide the webhook URI where PEXA will deliver events, and the list of event types you wish to subscribe to. The response will include a system-generated shared secret used to verify the authenticity of incoming webhook requests via HMAC signature validation.
+      type: object
+      required:
+      - webhookURI
+      - eventTypes
+      properties:
+        webhookURI:
+          type: string
+          description: The secure URI of the webhook to be called when an event occurs (supports only https protocol)
+          example: https://push-notifications.pexa.com.au/notifications-webhook
+        eventTypes:
+          type: array
+          items:
+            type: string
+          description: Please refer to the API documentation for the list of allowed events
   securitySchemes:
     oauth2:
       type: oauth2

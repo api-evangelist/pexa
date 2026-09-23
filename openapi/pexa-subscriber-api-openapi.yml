@@ -13,7 +13,9 @@ paths:
       tags:
       - Subscriber
       summary: Retrieve Workgroups
-      description: "This API retrieves PEXA workgroups and workgroup user assignments.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API retrieves PEXA workgroups and workgroup user assignments.
+
+        Click here for XSDs.'
       operationId: retrieveworkgroups
       parameters:
       - name: subscriberId
@@ -84,7 +86,10 @@ paths:
       tags:
       - Subscriber
       summary: Retrieves Notifications
-      description: "This API retrieves a list of notifications a subscriber can access. \n \n\n[See details](../../docs/definitions/retrieve_notifications/) to learn more about this API."
+      description: 'This API retrieves a list of notifications a subscriber can access.
+
+
+        See details to learn more about this API.'
       operationId: retrieveNotificationsV2UsingGET
       parameters:
       - name: categoryList
@@ -156,7 +161,14 @@ paths:
       tags:
       - Subscriber
       summary: Retrieve Workgroups
-      description: "This API retrieves PEXA workgroups and workgroup user assignments.\n\n Scopes:\n<i>au_pub_cert_pexa_subscriber_api_v3_read</i> (non-prod)\n<i>au_pub_pexa_subscriber_api_v3_read</i> (prod)"
+      description: 'This API retrieves PEXA workgroups and workgroup user assignments.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_subscriber_api_v3_read (non-prod)
+
+        au_pub_pexa_subscriber_api_v3_read (prod)'
       operationId: retrieveworkgroups
       parameters:
       - name: subscriberId
@@ -185,7 +197,14 @@ paths:
       tags:
       - Subscriber
       summary: Search Subscriber
-      description: "The Subscriber API gives you the ability to search for active subscribers registered in PEXA.\n\n Scopes:\n<i>au_pub_cert_pexa_subscriber_api_v4_read</i> (non-prod)\n<i>au_pub_pexa_subscriber_api_v4_read</i> (prod)"
+      description: 'The Subscriber API gives you the ability to search for active subscribers registered in PEXA.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_subscriber_api_v4_read (non-prod)
+
+        au_pub_pexa_subscriber_api_v4_read (prod)'
       operationId: subscribersearch
       parameters:
       - name: searchSubscriberId
@@ -223,7 +242,17 @@ paths:
       tags:
       - Subscriber
       summary: Retrieves Notifications
-      description: "This API retrieves a list of notifications a subscriber can access. \n \n\n[See details](../../docs/definitions/retrieve_notifications/) to learn more about this API.\n\n Scopes:\n<i>au_pub_cert_pexa_subscriber_api_v4_read</i> (non-prod)\n<i>au_pub_pexa_subscriber_api_v4_read</i> (prod)"
+      description: 'This API retrieves a list of notifications a subscriber can access.
+
+
+        See details to learn more about this API.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_subscriber_api_v4_read (non-prod)
+
+        au_pub_pexa_subscriber_api_v4_read (prod)'
       operationId: retrieveNotificationsV2UsingGET
       parameters:
       - name: categoryList
@@ -290,6 +319,66 @@ paths:
       deprecated: false
 components:
   schemas:
+    au.net.pexa.api.schema._2.NotificationFinancialLineItemType:
+      type: object
+      properties:
+        amount:
+          type: number
+          xml:
+            name: Amount
+            attribute: false
+            wrapped: false
+        category:
+          type: string
+          xml:
+            name: Category
+            attribute: false
+            wrapped: false
+        owningSubscriberId:
+          type: string
+          xml:
+            name: OwningSubscriberId
+            attribute: false
+            wrapped: false
+        owningSubscriberName:
+          type: string
+          xml:
+            name: OwningSubscriberName
+            attribute: false
+            wrapped: false
+        type:
+          type: string
+          xml:
+            name: Type
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.NotificationFinancialLineItemType
+      xml:
+        name: FinancialLineItem
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.PropertyDetailsType:
+      type: object
+      properties:
+        landDescription:
+          type: string
+          xml:
+            name: LandDescription
+            attribute: false
+            wrapped: false
+          description: ' The land description associated to the land title reference.<br>Maximum 300 characters'
+        propertyAddress:
+          type: string
+          xml:
+            name: PropertyAddress
+            attribute: false
+            wrapped: false
+          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
+      title: au.net.pexa.api.schema._2.PropertyDetailsType
+      xml:
+        name: PropertyDetails
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._2.NotificationDocumentDetailsType:
       type: object
       properties:
@@ -318,22 +407,60 @@ components:
         name: Document
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers:
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType:
       type: object
       properties:
-        usernames:
-          type: array
-          example: xyz.bank@bank.com.au
+        partyId:
+          type: string
+          example: 654
           xml:
-            name: Username
+            name: PartyId
             attribute: false
             wrapped: false
-          description: User's email address <br> Maximum 100 characters
+          description: ' Maximum 19 characters'
+        partyRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: PartyRole
+            attribute: false
+            wrapped: false
+        partyName:
+          xml:
+            name: PartyName
+            attribute: false
+            wrapped: false
+          description: ' Must be one of the following: Full Name, Business Detail '
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyNameDetailsType'
+        associatedLandTitleReferences:
+          type: array
+          example: 98745/987
+          xml:
+            name: AssociatedLandTitleReference
+            attribute: false
+            wrapped: false
+          description: 'This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.'
           items:
             type: string
-      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType
       xml:
-        name: AssignedUsers
+        name: Party
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Signed
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+          description: ' The status of the settlement schedule.'
+      title: au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType
+      xml:
+        name: SettlementSchedule
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.NotificationDetailsType:
@@ -420,731 +547,63 @@ components:
         name: Details
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.PartyNameDetailsType:
+    au.net.pexa.api.schema._2.FullNameType:
       type: object
       properties:
-        businessDetails:
-          xml:
-            name: BusinessDetails
-            attribute: false
-            wrapped: false
-          description: ' The organisation details of the party. <br> Must be provided if the party is an organisation.'
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
-        fullName:
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-          description: ' The structured full name of the party. <br> Must be provided if the party is an individual.'
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
-      title: au.net.pexa.api.schema._2.PartyNameDetailsType
-      xml:
-        name: PartyName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType:
-      type: object
-      properties:
-        inviteId:
+        nameTitle:
           type: string
-          example: 654
+          example: Mr
           xml:
-            name: InviteId
+            name: NameTitle
             attribute: false
             wrapped: false
-          description: ' The PEXA internal reference for the invitation.<br> Maximum 19 characters'
-        subscriberId:
+          description: ' Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
+        givenNames:
+          type: array
+          example: Jhon Snow
+          xml:
+            name: GivenName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order'
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.GivenNameOrderType'
+        familyName:
           type: string
-          example: 208
+          example: Stark
           xml:
-            name: SubscriberId
+            name: FamilyName
             attribute: false
             wrapped: false
-          description: The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters
-        subscriberName:
+          description: ' Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. '
+        familyNameOrder:
           type: string
-          example: XYZ bank
+          example: 1
           xml:
-            name: SubscriberName
+            name: FamilyNameOrder
             attribute: false
             wrapped: false
-          description: ' The subscribers PEXA organisation name<br> Maximum 255 characters '
-        workspaceRole:
+          description: ' Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last '
+        nameSuffix:
           type: string
-          example: Incoming Mortgagee
+          example: Jr
           xml:
-            name: WorkspaceRole
+            name: NameSuffix
             attribute: false
             wrapped: false
-          description: ' The workspace role the subscriber user has been invited to participate in. '
-        responseReason:
-          type: string
-          example: Additional documents required
-          xml:
-            name: ResponseReason
-            attribute: false
-            wrapped: false
-          description: ' The subscribers response reason. '
-        additionalText:
-          type: string
-          example: More information
-          xml:
-            name: AdditionalText
-            attribute: false
-            wrapped: false
-          description: Additional text entered by the invited subscriber. <br> Must be provided if the response reason is Other. <br>  Maximum 250 characters
-      title: au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType
-      xml:
-        name: Response
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationTypeKeyValue:
-      type: object
-      properties:
-        key:
-          type: string
-          xml:
-            name: Key
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.NotificationTypeKeyValue
-      xml:
-        name: Type
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationFinancialLineItemType:
-      type: object
-      properties:
-        amount:
-          type: number
-          xml:
-            name: Amount
-            attribute: false
-            wrapped: false
-        category:
-          type: string
-          xml:
-            name: Category
-            attribute: false
-            wrapped: false
-        owningSubscriberId:
-          type: string
-          xml:
-            name: OwningSubscriberId
-            attribute: false
-            wrapped: false
-        owningSubscriberName:
-          type: string
-          xml:
-            name: OwningSubscriberName
-            attribute: false
-            wrapped: false
-        type:
-          type: string
-          xml:
-            name: Type
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.NotificationFinancialLineItemType
-      xml:
-        name: FinancialLineItem
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType:
-      type: object
-      properties:
-        administrativeActionTimestamp:
+          description: ' Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)'
+        dateOfBirth:
           type: string
           format: date-time
+          example: '1984-02-02'
           xml:
-            name: AdministrativeActionTimestamp
+            name: DateOfBirth
             attribute: false
             wrapped: false
-        administrativeActionType:
-          type: string
-          xml:
-            name: AdministrativeActionType
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType
+          description: ' This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
+      title: au.net.pexa.api.schema._2.FullNameType
       xml:
-        name: notificationAdministrativeActionReferenceDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
-      type: object
-      properties:
-        parties:
-          type: array
-          xml:
-            name: Party
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
-      xml:
-        name: Representing
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType:
-      type: object
-      properties:
-        inviteId:
-          type: string
-          example: 123
-          xml:
-            name: InviteId
-            attribute: false
-            wrapped: false
-          description: ' The PEXA internal reference for the invitation.<br>  Maximum 19 characters'
-        forwardedBy:
-          type: string
-          example: XYZ Bank
-          xml:
-            name: ForwardedBy
-            attribute: false
-            wrapped: false
-          description: ' If the invitation has been forwarded by a panel master, this must be provided with the panel master subscribers organisation name.<br> Alternately, if the invitation has been forwarded by another subscriber (via the Forward to another Subscriber invitation response) then this will be the subscribers organisation name.  <br>  Maximum 255 characters'
-        timestamp:
-          type: string
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-          xml:
-            name: Timestamp
-            attribute: false
-            wrapped: false
-          description: The date and time the invitation was created (in UTC).
-        jurisdiction:
-          type: string
-          example: VIC
-          xml:
-            name: Jurisdiction
-            attribute: false
-            wrapped: false
-          description: The jurisdiction of the workspace.
-        workspaceRole:
-          type: string
-          example: Incoming Mortgagee
-          xml:
-            name: WorkspaceRole
-            attribute: false
-            wrapped: false
-          description: ' The workspace role the subscriber user has been invited to participate in. '
-        settlementDate:
-          type: string
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-          xml:
-            name: SettlementDate
-            attribute: false
-            wrapped: false
-          description: The date and time of settlement if the workspace is marked as requiring financial settlement (in UTC). Must be provided if financial settlement required unless in the scenario where a workspace has been created with a parent title and no settlement date/time has been set by the participant yet.
-        expressRefinance:
-          type: string
-          example: 'Yes'
-          xml:
-            name: ExpressRefinance
-            attribute: false
-            wrapped: false
-          description: ' A flag used to specify whether the invitation is for a workspace that is marked as an express refinance. <br> Maximum 3 characters'
-        landTitleDetails:
-          xml:
-            name: LandTitleDetails
-            attribute: false
-            wrapped: false
-          description: ' Provided if the land titles are not marked as parent land titles.'
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType'
-        partyDetails:
-          xml:
-            name: PartyDetails
-            attribute: false
-            wrapped: false
-          description: ' For Principal Subscribers, this will provide the party details of all Proprietor(s) on Title and/or Incoming Proprietor(s) within the workspace at the time the invitation is sent.<br>  If land title data has not been retrieved in the workspace at the time the invitation is sent, no Proprietor on Title details will be provided.<br> Similarly, if the Proprietor on Title party is of an Indeterminate party type at the time the invitation is sent, no Proprietor on Title party details will be provided.<br> For Representative Subscribers, if available, this will provide the details of the party that the invited subscriber user will be representing upon joining the workspace.'
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType'
-        inviterSubscriberDetails:
-          xml:
-            name: InviterSubscriberDetails
-            attribute: false
-            wrapped: false
-          description: Details of the subscriber who has initiated the invite
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType
-      xml:
-        name: Outstanding
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.GivenNameOrderType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.GivenNameOrderType
-      xml:
-        name: GivenName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationTitleActivityCheck:
-      type: object
-      properties:
-        administrativeActionReferences:
-          type: array
-          xml:
-            name: AdministrativeActionReference
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType'
-        documentReferences:
-          type: array
-          xml:
-            name: DocumentReference
-            attribute: false
-            wrapped: false
-          description: A document that has been lodged or registered against the Land Title in question within the period in question
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationTitleActivityCheck
-      xml:
-        name: TitleActivityCheck
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType:
-      type: object
-      properties:
-        subscriberId:
-          type: string
-          example: 208
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-          description: ' The PEXA internal reference for the inviter subscriber. <br>Maximum 19 characters'
-        subscriberType:
-          type: string
-          example: Financial Institution
-          xml:
-            name: SubscriberType
-            attribute: false
-            wrapped: false
-          description: The type of subscriber the inviter is registered as within PEXA.
-        subscriberName:
-          type: string
-          example: XYZ Bank
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-          description: ' The subscriber who has initiated the invite.<br> Maximum 255 characters'
-        subscriberWorkspaceRole:
-          type: string
-          example: Incoming Mortgagee
-          xml:
-            name: SubscriberWorkspaceRole
-            attribute: false
-            wrapped: false
-          description: ' The workspace role of the subscriber who has initiated the invite.<br>  If Inviter subscriber is acting in multiple roles, the primary role will be provided'
-        representing:
-          xml:
-            name: Representing
-            attribute: false
-            wrapped: false
-          description: Details of any party(s) the inviter subscriber is representing at the time the invitation is sent.<br> If the subscriber type of the Inviter Subscriber is Financial Institution, no representation details will be provided in the invitation. <br>  Alternatively, if the subscriber type of the Inviter Subscriber is not Financial Institution and the subscriber is not representing any party(s) at the time the invitation is sent, no representation details will be provided in the invitation.<br>If the Inviter subscriber is representing a Proprietor on Title party who is an Indeterminate party type at the time the invitation is sent, no representing party details will be provided.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting'
-        notes:
-          type: string
-          example: Additional notes
-          xml:
-            name: Notes
-            attribute: false
-            wrapped: false
-          description: ' Notes entered in by the subscriber who initiated the invite.<br>  Any forwarding notes which may have been provided by the Subscriber who has forwarded the invitation will appear here.<br>May contain line feeds  Maximum 160 characters'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType
-      xml:
-        name: notificationInvitationOutstandingInviterSubscriberDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.OperatingInDetailsType:
-      type: object
-      properties:
-        jurisdictions:
-          type: array
-          example: VIC
-          xml:
-            name: Jurisdictions
-            attribute: false
-            wrapped: false
-          items:
-            type: string
-            enum:
-            - VIC
-            - NSW
-            - SA
-      title: au.net.pexa.api.schema._2.OperatingInDetailsType
-      xml:
-        name: OperatingIn
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType:
-      type: object
-      properties:
-        documentStatus:
-          type: string
-          xml:
-            name: DocumentStatus
-            attribute: false
-            wrapped: false
-        documentType:
-          type: string
-          xml:
-            name: DocumentType
-            attribute: false
-            wrapped: false
-        landTitleReferences:
-          type: array
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-          items:
-            type: string
-        documentId:
-          type: string
-          example: 664
-          xml:
-            name: DocumentId
-            attribute: false
-            wrapped: false
-          description: ' The PEXA internal document identifier. <br> Maximum 19 characters'
-        dealingNumber:
-          type: string
-          example: 987
-          xml:
-            name: DealingNumber
-            attribute: false
-            wrapped: false
-          description: 'Maximum 30 characters '
-        mortgageDate:
-          type: string
-          format: date-time
-          example: '2019-02-02'
-          xml:
-            name: MortgageDate
-            attribute: false
-            wrapped: false
-          description: Will only be provided if the document type is Mortgage.
-        timestamp:
-          type: string
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-          xml:
-            name: Timestamp
-            attribute: false
-            wrapped: false
-          description: ' The date and time the document status last changed (in UTC).'
-      title: au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType
-      xml:
-        name: Document
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.RetrieveNotificationsResponse:
-      type: object
-      properties:
-        notificationsList:
-          xml:
-            name: NotificationsList
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationsListType'
-      title: au.net.pexa.api.schema._2.RetrieveNotificationsResponse
-      xml:
-        name: RetrieveNotificationsResponse
-        namespace: http://api.pexa.net.au/schema/2/
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType:
-      type: object
-      properties:
-        status:
-          type: string
-          example: Signed
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-          description: ' The status of the settlement schedule.'
-      title: au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType
-      xml:
-        name: SettlementSchedule
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationPartyDetailsType:
-      type: object
-      properties:
-        partyName:
-          xml:
-            name: PartyName
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyNameDetailsType'
-        partyRole:
-          type: string
-          xml:
-            name: PartyRole
-            attribute: false
-            wrapped: false
-        partyId:
-          type: string
-          example: 989
-          xml:
-            name: PartyId
-            attribute: false
-            wrapped: false
-          description: ' Maximum 19 characters '
-      title: au.net.pexa.api.schema._2.NotificationPartyDetailsType
-      xml:
-        name: Party
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup:
-      type: object
-      properties:
-        workgroupId:
-          type: string
-          example: 212
-          xml:
-            name: WorkgroupId
-            attribute: false
-            wrapped: false
-          description: Maximum 19 characters
-        workgroupName:
-          type: string
-          example: Default workgroup
-          xml:
-            name: WorkgroupName
-            attribute: false
-            wrapped: false
-          description: Maximum 250 characters
-        isParent:
-          type: string
-          example: 'Yes'
-          xml:
-            name: IsParent
-            attribute: false
-            wrapped: false
-          description: Whether the workgroup is a parent
-        childWorkgroupList:
-          xml:
-            name: ChildWorkgroupList
-            attribute: false
-            wrapped: false
-          description: The workgroups child workgroup  <br> Must only be provided if Is Parent is 'Yes' and child workgroups exist.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList'
-        parentWorkgroupList:
-          xml:
-            name: ParentWorkgroupList
-            attribute: false
-            wrapped: false
-          description: The workgroups parent workgroup
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ParentWorkgroupList'
-        assignedUsers:
-          example: xyz.bank@bank.com.au
-          xml:
-            name: AssignedUsers
-            attribute: false
-            wrapped: false
-          description: Users assigned to the workgroup
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers'
-      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup
-      xml:
-        name: Workgroup
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationDetailsType:
-      type: object
-      properties:
-        outstanding:
-          xml:
-            name: Outstanding
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType'
-        response:
-          xml:
-            name: Response
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationDetailsType
-      xml:
-        name: Invitation
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.PropertyDetailsType:
-      type: object
-      properties:
-        landDescription:
-          type: string
-          xml:
-            name: LandDescription
-            attribute: false
-            wrapped: false
-          description: ' The land description associated to the land title reference.<br>Maximum 300 characters'
-        propertyAddress:
-          type: string
-          xml:
-            name: PropertyAddress
-            attribute: false
-            wrapped: false
-          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
-      title: au.net.pexa.api.schema._2.PropertyDetailsType
-      xml:
-        name: PropertyDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationLandTitleDetailsType:
-      type: object
-      properties:
-        landTitleReference:
-          type: string
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-        titleActivityCheck:
-          xml:
-            name: TitleActivityCheck
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationTitleActivityCheck'
-        propertyDetails:
-          xml:
-            name: PropertyDetails
-            attribute: false
-            wrapped: false
-          description: The property details associated to the land title reference. <br> Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PropertyDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationLandTitleDetailsType
-      xml:
-        name: LandTitle
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationLodgementDetailsType:
-      type: object
-      properties:
-        documents:
-          type: array
-          xml:
-            name: Document
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType'
-        lodgementCaseStatus:
-          type: string
-          xml:
-            name: LodgementCaseStatus
-            attribute: false
-            wrapped: false
-        lodgementCaseId:
-          type: string
-          example: 123
-          xml:
-            name: LodgementCaseId
-            attribute: false
-            wrapped: false
-          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
-      title: au.net.pexa.api.schema._2.NotificationLodgementDetailsType
-      xml:
-        name: Lodgement
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationSettlementDetailsType:
-      type: object
-      properties:
-        settlementDate:
-          type: string
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-          xml:
-            name: SettlementDate
-            attribute: false
-            wrapped: false
-          description: 'The date and time of the settlement (in UTC). '
-        reason:
-          type: string
-          example: Settlement completed
-          xml:
-            name: Reason
-            attribute: false
-            wrapped: false
-          description: Maximum 255 characters
-      title: au.net.pexa.api.schema._2.NotificationSettlementDetailsType
-      xml:
-        name: Settlement
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationParticipantDetailsType:
-      type: object
-      properties:
-        subscriberName:
-          type: string
-          example: XYZ bank
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-          description: The subscribers PEXA organisation name. <br> Maximum 255 characters
-        workspaceRoles:
-          type: array
-          example: Incoming Mortgagee
-          xml:
-            name: WorkspaceRole
-            attribute: false
-            wrapped: false
-          description: The workspace role the subscriber was performing in.
-          items:
-            type: string
-      title: au.net.pexa.api.schema._2.NotificationParticipantDetailsType
-      xml:
-        name: Participant
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType:
-      type: object
-      properties:
-        documentStatusTimestamp:
-          type: string
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-          xml:
-            name: DocumentStatusTimestamp
-            attribute: false
-            wrapped: false
-          description: ' The date and time at which the status occurred (in UTC).<br> This provides the equivalent of lodgement date, registration date or another appropriate document date'
-        documentStatus:
-          type: string
-          example: Verifying
-          xml:
-            name: DocumentStatus
-            attribute: false
-            wrapped: false
-          description: Information that specifies the current state of a Document in a Land Registry
-      title: au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType
-      xml:
-        name: DocumentStatusDetails
+        name: FullName
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType:
@@ -1180,20 +639,80 @@ components:
         name: DocumentReference
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType:
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType:
       type: object
       properties:
-        parties:
+        landTitles:
           type: array
           xml:
-            name: Party
+            name: LandTitle
             attribute: false
             wrapped: false
+          description: ' Provided if the land titles are not marked as parent land titles. '
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType
       xml:
-        name: PartyDetails
+        name: LandTitleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType:
+      type: object
+      properties:
+        administrativeActionTimestamp:
+          type: string
+          format: date-time
+          xml:
+            name: AdministrativeActionTimestamp
+            attribute: false
+            wrapped: false
+        administrativeActionType:
+          type: string
+          xml:
+            name: AdministrativeActionType
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType
+      xml:
+        name: notificationAdministrativeActionReferenceDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.IdentificationDetailsType:
+      type: object
+      properties:
+        identifier:
+          type: string
+          example: ABN
+          xml:
+            name: Identifier
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          example: 0421568963
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+          description: Maximum 20 characters <br> Must be provided without whitespaces.
+      title: au.net.pexa.api.schema._2.IdentificationDetailsType
+      xml:
+        name: Identification
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.RetrieveNotificationsResponse:
+      type: object
+      properties:
+        notificationsList:
+          xml:
+            name: NotificationsList
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationsListType'
+      title: au.net.pexa.api.schema._2.RetrieveNotificationsResponse
+      xml:
+        name: RetrieveNotificationsResponse
+        namespace: http://api.pexa.net.au/schema/2/
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.NotificationsListType:
@@ -1243,155 +762,6 @@ components:
       title: au.net.pexa.api.schema._2.NotificationsListType
       xml:
         name: NotificationsList
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.IdentificationDetailsType:
-      type: object
-      properties:
-        identifier:
-          type: string
-          example: ABN
-          xml:
-            name: Identifier
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          example: 0421568963
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-          description: Maximum 20 characters <br> Must be provided without whitespaces.
-      title: au.net.pexa.api.schema._2.IdentificationDetailsType
-      xml:
-        name: Identification
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse:
-      type: object
-      properties:
-        workgroups:
-          type: array
-          xml:
-            name: Workgroup
-            attribute: false
-            wrapped: false
-          description: Must not be populated if there are no workgroup(s) for the subscriber.
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup'
-      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse
-      xml:
-        name: WorkgroupRetrievalResponse
-        namespace: http://api.pexa.net.au/schema/1/
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.SubscriberTransactionLimitations:
-      type: object
-      properties:
-        receivingInvitations:
-          type: string
-          example: 'Yes'
-          xml:
-            name: ReceivingInvitations
-            attribute: false
-            wrapped: false
-          description: A yes/no flag to indicate whether the subscriber can receive invitations to join PEXA workspaces.
-        limitationDetail:
-          type: string
-          example: Transactions include discharges
-          xml:
-            name: LimitationDetail
-            attribute: false
-            wrapped: false
-          description: Maximum 300 characters  \n Must be provided if Receiving Invitations flag is set to No.  \n Can be optionally provided if Receiving Invitations flag is set to Yes and only if the subscriber returned is of a subscriber type 'Financial Institution' or 'Non-Transactional Panel Master'.
-      title: au.net.pexa.api.schema._2.SubscriberTransactionLimitations
-      xml:
-        name: SubscriberTransactionLimitations
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.SubscriberReferenceType:
-      type: object
-      properties:
-        workspaceRole:
-          type: string
-          example: Incoming Mortgagee
-          xml:
-            name: WorkspaceRole
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          example: Matter-123312
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-          description: The subscriber reference for the workspace based on the subscribers role  <br> Maximum 30 characters
-      title: au.net.pexa.api.schema._2.SubscriberReferenceType
-      xml:
-        name: SubscriberReference
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.SubscriberSearchResponse:
-      type: object
-      properties:
-        onboardingLink:
-          type: string
-          example: https://api.pexa.com.au/pexa_web/showSubscriberLeadForm.html
-          xml:
-            name: OnboardingLink
-            attribute: false
-            wrapped: false
-          description: Maximum 2000 characters  <br> Absolute URL into the on boarding request form in PEXA. Used for deep linking.
-        subscribers:
-          type: array
-          xml:
-            name: Subscriber
-            attribute: false
-            wrapped: false
-          description: List of the possible matches found. When subscriberName is used to search, only the first 50 will be sent in the response. Where More Results = 'Yes', the subscriberName query parameter must be refined if the first 50 results do not contain the subscriber required.  \n When searchSubscriberId is used to search, the details of the subscriber who is assigned to that internal PEXA identifier will be returned.  \n Must not be populated if there are no results.
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.SubscriberDetailsType'
-        moreResults:
-          type: string
-          example: 'Yes'
-          xml:
-            name: MoreResults
-            attribute: false
-            wrapped: false
-          description: Set to Yes when results exceed 50 results else must not be provided.
-      title: au.net.pexa.api.schema._2.SubscriberSearchResponse
-      xml:
-        name: SubscriberSearchResponse
-        namespace: http://api.pexa.net.au/schema/2/
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.AdministrationStatusDetailsType:
-      type: object
-      properties:
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.AdministrationStatusDetailsType
-      xml:
-        name: AdministrationStatus
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          xml:
-            name: LandTitle
-            attribute: false
-            wrapped: false
-          description: ' Provided if the land titles are not marked as parent land titles. '
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType
-      xml:
-        name: LandTitleDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.SubscriberDetailsType:
@@ -1473,6 +843,295 @@ components:
         name: ParentWorkgroupList
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType:
+      type: object
+      properties:
+        documentStatus:
+          type: string
+          xml:
+            name: DocumentStatus
+            attribute: false
+            wrapped: false
+        documentType:
+          type: string
+          xml:
+            name: DocumentType
+            attribute: false
+            wrapped: false
+        landTitleReferences:
+          type: array
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+        documentId:
+          type: string
+          example: 664
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+          description: ' The PEXA internal document identifier. <br> Maximum 19 characters'
+        dealingNumber:
+          type: string
+          example: 987
+          xml:
+            name: DealingNumber
+            attribute: false
+            wrapped: false
+          description: 'Maximum 30 characters '
+        mortgageDate:
+          type: string
+          format: date-time
+          example: '2019-02-02'
+          xml:
+            name: MortgageDate
+            attribute: false
+            wrapped: false
+          description: Will only be provided if the document type is Mortgage.
+        timestamp:
+          type: string
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+          xml:
+            name: Timestamp
+            attribute: false
+            wrapped: false
+          description: ' The date and time the document status last changed (in UTC).'
+      title: au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType
+      xml:
+        name: Document
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationPartyDetailsType:
+      type: object
+      properties:
+        partyName:
+          xml:
+            name: PartyName
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyNameDetailsType'
+        partyRole:
+          type: string
+          xml:
+            name: PartyRole
+            attribute: false
+            wrapped: false
+        partyId:
+          type: string
+          example: 989
+          xml:
+            name: PartyId
+            attribute: false
+            wrapped: false
+          description: ' Maximum 19 characters '
+      title: au.net.pexa.api.schema._2.NotificationPartyDetailsType
+      xml:
+        name: Party
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationSettlementDetailsType:
+      type: object
+      properties:
+        settlementDate:
+          type: string
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+          xml:
+            name: SettlementDate
+            attribute: false
+            wrapped: false
+          description: 'The date and time of the settlement (in UTC). '
+        reason:
+          type: string
+          example: Settlement completed
+          xml:
+            name: Reason
+            attribute: false
+            wrapped: false
+          description: Maximum 255 characters
+      title: au.net.pexa.api.schema._2.NotificationSettlementDetailsType
+      xml:
+        name: Settlement
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationInvitationDetailsType:
+      type: object
+      properties:
+        outstanding:
+          xml:
+            name: Outstanding
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType'
+        response:
+          xml:
+            name: Response
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationDetailsType
+      xml:
+        name: Invitation
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.OperatingInDetailsType:
+      type: object
+      properties:
+        jurisdictions:
+          type: array
+          example: VIC
+          xml:
+            name: Jurisdictions
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+            enum:
+            - VIC
+            - NSW
+            - SA
+      title: au.net.pexa.api.schema._2.OperatingInDetailsType
+      xml:
+        name: OperatingIn
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationLodgementDetailsType:
+      type: object
+      properties:
+        documents:
+          type: array
+          xml:
+            name: Document
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType'
+        lodgementCaseStatus:
+          type: string
+          xml:
+            name: LodgementCaseStatus
+            attribute: false
+            wrapped: false
+        lodgementCaseId:
+          type: string
+          example: 123
+          xml:
+            name: LodgementCaseId
+            attribute: false
+            wrapped: false
+          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
+      title: au.net.pexa.api.schema._2.NotificationLodgementDetailsType
+      xml:
+        name: Lodgement
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationLandTitleDetailsType:
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+        titleActivityCheck:
+          xml:
+            name: TitleActivityCheck
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationTitleActivityCheck'
+        propertyDetails:
+          xml:
+            name: PropertyDetails
+            attribute: false
+            wrapped: false
+          description: The property details associated to the land title reference. <br> Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PropertyDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationLandTitleDetailsType
+      xml:
+        name: LandTitle
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.SubscriberSearchResponse:
+      type: object
+      properties:
+        onboardingLink:
+          type: string
+          example: https://api.pexa.com.au/pexa_web/showSubscriberLeadForm.html
+          xml:
+            name: OnboardingLink
+            attribute: false
+            wrapped: false
+          description: Maximum 2000 characters  <br> Absolute URL into the on boarding request form in PEXA. Used for deep linking.
+        subscribers:
+          type: array
+          xml:
+            name: Subscriber
+            attribute: false
+            wrapped: false
+          description: List of the possible matches found. When subscriberName is used to search, only the first 50 will be sent in the response. Where More Results = 'Yes', the subscriberName query parameter must be refined if the first 50 results do not contain the subscriber required.  \n When searchSubscriberId is used to search, the details of the subscriber who is assigned to that internal PEXA identifier will be returned.  \n Must not be populated if there are no results.
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.SubscriberDetailsType'
+        moreResults:
+          type: string
+          example: 'Yes'
+          xml:
+            name: MoreResults
+            attribute: false
+            wrapped: false
+          description: Set to Yes when results exceed 50 results else must not be provided.
+      title: au.net.pexa.api.schema._2.SubscriberSearchResponse
+      xml:
+        name: SubscriberSearchResponse
+        namespace: http://api.pexa.net.au/schema/2/
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers:
+      type: object
+      properties:
+        usernames:
+          type: array
+          example: xyz.bank@bank.com.au
+          xml:
+            name: Username
+            attribute: false
+            wrapped: false
+          description: User's email address <br> Maximum 100 characters
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers
+      xml:
+        name: AssignedUsers
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.SubscriberTransactionLimitations:
+      type: object
+      properties:
+        receivingInvitations:
+          type: string
+          example: 'Yes'
+          xml:
+            name: ReceivingInvitations
+            attribute: false
+            wrapped: false
+          description: A yes/no flag to indicate whether the subscriber can receive invitations to join PEXA workspaces.
+        limitationDetail:
+          type: string
+          example: Transactions include discharges
+          xml:
+            name: LimitationDetail
+            attribute: false
+            wrapped: false
+          description: Maximum 300 characters  \n Must be provided if Receiving Invitations flag is set to No.  \n Can be optionally provided if Receiving Invitations flag is set to Yes and only if the subscriber returned is of a subscriber type 'Financial Institution' or 'Non-Transactional Panel Master'.
+      title: au.net.pexa.api.schema._2.SubscriberTransactionLimitations
+      xml:
+        name: SubscriberTransactionLimitations
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._2.BusinessType:
       type: object
       properties:
@@ -1532,121 +1191,42 @@ components:
         name: BusinessDetails
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType:
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType:
       type: object
       properties:
-        partyId:
+        landTitleReference:
           type: string
-          example: 654
+          example: 123/654
           xml:
-            name: PartyId
+            name: LandTitleReference
             attribute: false
             wrapped: false
-          description: ' Maximum 19 characters'
-        partyRole:
-          type: string
-          example: Incoming Mortgagee
+        propertyDetails:
           xml:
-            name: PartyRole
+            name: PropertyDetails
             attribute: false
             wrapped: false
-        partyName:
-          xml:
-            name: PartyName
-            attribute: false
-            wrapped: false
-          description: ' Must be one of the following: Full Name, Business Detail '
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyNameDetailsType'
-        associatedLandTitleReferences:
-          type: array
-          example: 98745/987
-          xml:
-            name: AssociatedLandTitleReference
-            attribute: false
-            wrapped: false
-          description: 'This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.'
-          items:
-            type: string
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType
+          description: ' The property details associated to the land title reference. <br>  Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.  '
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PropertyDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType
       xml:
-        name: Party
+        name: LandTitle
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.FullNameType:
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
       type: object
       properties:
-        nameTitle:
-          type: string
-          example: Mr
-          xml:
-            name: NameTitle
-            attribute: false
-            wrapped: false
-          description: ' Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
-        givenNames:
+        parties:
           type: array
-          example: Jhon Snow
           xml:
-            name: GivenName
+            name: Party
             attribute: false
             wrapped: false
-          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order'
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.GivenNameOrderType'
-        familyName:
-          type: string
-          example: Stark
-          xml:
-            name: FamilyName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. '
-        familyNameOrder:
-          type: string
-          example: 1
-          xml:
-            name: FamilyNameOrder
-            attribute: false
-            wrapped: false
-          description: ' Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last '
-        nameSuffix:
-          type: string
-          example: Jr
-          xml:
-            name: NameSuffix
-            attribute: false
-            wrapped: false
-          description: ' Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)'
-        dateOfBirth:
-          type: string
-          format: date-time
-          example: '1984-02-02'
-          xml:
-            name: DateOfBirth
-            attribute: false
-            wrapped: false
-          description: ' This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
-      title: au.net.pexa.api.schema._2.FullNameType
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
       xml:
-        name: FullName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList:
-      type: object
-      properties:
-        childWorkgroupIds:
-          type: array
-          example: 231
-          xml:
-            name: ChildWorkgroupId
-            attribute: false
-            wrapped: false
-          description: PEXA workgroup number <br> Maximum 19 characters
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList
-      xml:
-        name: ChildWorkgroupList
+        name: Representing
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.NotificationType:
@@ -1763,6 +1343,265 @@ components:
         name: Notification
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._2.PartyNameDetailsType:
+      type: object
+      properties:
+        businessDetails:
+          xml:
+            name: BusinessDetails
+            attribute: false
+            wrapped: false
+          description: ' The organisation details of the party. <br> Must be provided if the party is an organisation.'
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
+        fullName:
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+          description: ' The structured full name of the party. <br> Must be provided if the party is an individual.'
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
+      title: au.net.pexa.api.schema._2.PartyNameDetailsType
+      xml:
+        name: PartyName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationTitleActivityCheck:
+      type: object
+      properties:
+        administrativeActionReferences:
+          type: array
+          xml:
+            name: AdministrativeActionReference
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType'
+        documentReferences:
+          type: array
+          xml:
+            name: DocumentReference
+            attribute: false
+            wrapped: false
+          description: A document that has been lodged or registered against the Land Title in question within the period in question
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationTitleActivityCheck
+      xml:
+        name: TitleActivityCheck
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationTypeKeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+          xml:
+            name: Key
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.NotificationTypeKeyValue
+      xml:
+        name: Type
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType:
+      type: object
+      properties:
+        inviteId:
+          type: string
+          example: 654
+          xml:
+            name: InviteId
+            attribute: false
+            wrapped: false
+          description: ' The PEXA internal reference for the invitation.<br> Maximum 19 characters'
+        subscriberId:
+          type: string
+          example: 208
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+          description: The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters
+        subscriberName:
+          type: string
+          example: XYZ bank
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+          description: ' The subscribers PEXA organisation name<br> Maximum 255 characters '
+        workspaceRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: WorkspaceRole
+            attribute: false
+            wrapped: false
+          description: ' The workspace role the subscriber user has been invited to participate in. '
+        responseReason:
+          type: string
+          example: Additional documents required
+          xml:
+            name: ResponseReason
+            attribute: false
+            wrapped: false
+          description: ' The subscribers response reason. '
+        additionalText:
+          type: string
+          example: More information
+          xml:
+            name: AdditionalText
+            attribute: false
+            wrapped: false
+          description: Additional text entered by the invited subscriber. <br> Must be provided if the response reason is Other. <br>  Maximum 250 characters
+      title: au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType
+      xml:
+        name: Response
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType:
+      type: object
+      properties:
+        parties:
+          type: array
+          xml:
+            name: Party
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType
+      xml:
+        name: PartyDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList:
+      type: object
+      properties:
+        childWorkgroupIds:
+          type: array
+          example: 231
+          xml:
+            name: ChildWorkgroupId
+            attribute: false
+            wrapped: false
+          description: PEXA workgroup number <br> Maximum 19 characters
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList
+      xml:
+        name: ChildWorkgroupList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.SubscriberReferenceType:
+      type: object
+      properties:
+        workspaceRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: WorkspaceRole
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          example: Matter-123312
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+          description: The subscriber reference for the workspace based on the subscribers role  <br> Maximum 30 characters
+      title: au.net.pexa.api.schema._2.SubscriberReferenceType
+      xml:
+        name: SubscriberReference
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup:
+      type: object
+      properties:
+        workgroupId:
+          type: string
+          example: 212
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+          description: Maximum 19 characters
+        workgroupName:
+          type: string
+          example: Default workgroup
+          xml:
+            name: WorkgroupName
+            attribute: false
+            wrapped: false
+          description: Maximum 250 characters
+        isParent:
+          type: string
+          example: 'Yes'
+          xml:
+            name: IsParent
+            attribute: false
+            wrapped: false
+          description: Whether the workgroup is a parent
+        childWorkgroupList:
+          xml:
+            name: ChildWorkgroupList
+            attribute: false
+            wrapped: false
+          description: The workgroups child workgroup  <br> Must only be provided if Is Parent is 'Yes' and child workgroups exist.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList'
+        parentWorkgroupList:
+          xml:
+            name: ParentWorkgroupList
+            attribute: false
+            wrapped: false
+          description: The workgroups parent workgroup
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ParentWorkgroupList'
+        assignedUsers:
+          example: xyz.bank@bank.com.au
+          xml:
+            name: AssignedUsers
+            attribute: false
+            wrapped: false
+          description: Users assigned to the workgroup
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers'
+      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup
+      xml:
+        name: Workgroup
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationConversationDetailsType:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          example: 456
+          xml:
+            name: ConversationId
+            attribute: false
+            wrapped: false
+          description: The unique identifier of the conversation <br> Maximum 19 characters
+        timestamp:
+          type: string
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+          xml:
+            name: Timestamp
+            attribute: false
+            wrapped: false
+          description: The timestamp that the conversation was created in PEXA (in UTC).
+      title: au.net.pexa.api.schema._2.NotificationConversationDetailsType
+      xml:
+        name: Conversation
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType:
       type: object
       properties:
@@ -1789,39 +1628,140 @@ components:
         name: Party
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType:
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType:
       type: object
       properties:
-        landTitleReference:
+        subscriberId:
           type: string
-          example: 123/654
+          example: 208
           xml:
-            name: LandTitleReference
+            name: SubscriberId
             attribute: false
             wrapped: false
-        propertyDetails:
+          description: ' The PEXA internal reference for the inviter subscriber. <br>Maximum 19 characters'
+        subscriberType:
+          type: string
+          example: Financial Institution
           xml:
-            name: PropertyDetails
+            name: SubscriberType
             attribute: false
             wrapped: false
-          description: ' The property details associated to the land title reference. <br>  Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.  '
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PropertyDetailsType'
-      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType
+          description: The type of subscriber the inviter is registered as within PEXA.
+        subscriberName:
+          type: string
+          example: XYZ Bank
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+          description: ' The subscriber who has initiated the invite.<br> Maximum 255 characters'
+        subscriberWorkspaceRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: SubscriberWorkspaceRole
+            attribute: false
+            wrapped: false
+          description: ' The workspace role of the subscriber who has initiated the invite.<br>  If Inviter subscriber is acting in multiple roles, the primary role will be provided'
+        representing:
+          xml:
+            name: Representing
+            attribute: false
+            wrapped: false
+          description: Details of any party(s) the inviter subscriber is representing at the time the invitation is sent.<br> If the subscriber type of the Inviter Subscriber is Financial Institution, no representation details will be provided in the invitation. <br>  Alternatively, if the subscriber type of the Inviter Subscriber is not Financial Institution and the subscriber is not representing any party(s) at the time the invitation is sent, no representation details will be provided in the invitation.<br>If the Inviter subscriber is representing a Proprietor on Title party who is an Indeterminate party type at the time the invitation is sent, no representing party details will be provided.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting'
+        notes:
+          type: string
+          example: Additional notes
+          xml:
+            name: Notes
+            attribute: false
+            wrapped: false
+          description: ' Notes entered in by the subscriber who initiated the invite.<br>  Any forwarding notes which may have been provided by the Subscriber who has forwarded the invitation will appear here.<br>May contain line feeds  Maximum 160 characters'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType
       xml:
-        name: LandTitle
+        name: notificationInvitationOutstandingInviterSubscriberDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.NotificationConversationDetailsType:
+    au.net.pexa.api.schema._2.NotificationParticipantDetailsType:
       type: object
       properties:
-        conversationId:
+        subscriberName:
           type: string
-          example: 456
+          example: XYZ bank
           xml:
-            name: ConversationId
+            name: SubscriberName
             attribute: false
             wrapped: false
-          description: The unique identifier of the conversation <br> Maximum 19 characters
+          description: The subscribers PEXA organisation name. <br> Maximum 255 characters
+        workspaceRoles:
+          type: array
+          example: Incoming Mortgagee
+          xml:
+            name: WorkspaceRole
+            attribute: false
+            wrapped: false
+          description: The workspace role the subscriber was performing in.
+          items:
+            type: string
+      title: au.net.pexa.api.schema._2.NotificationParticipantDetailsType
+      xml:
+        name: Participant
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkgroupRetrievalResponse:
+      type: object
+      properties:
+        workgroups:
+          type: array
+          xml:
+            name: Workgroup
+            attribute: false
+            wrapped: false
+          description: Must not be populated if there are no workgroup(s) for the subscriber.
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup'
+      title: au.net.pexa.api.schema._1.WorkgroupRetrievalResponse
+      xml:
+        name: WorkgroupRetrievalResponse
+        namespace: http://api.pexa.net.au/schema/1/
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.GivenNameOrderType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.GivenNameOrderType
+      xml:
+        name: GivenName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType:
+      type: object
+      properties:
+        inviteId:
+          type: string
+          example: 123
+          xml:
+            name: InviteId
+            attribute: false
+            wrapped: false
+          description: ' The PEXA internal reference for the invitation.<br>  Maximum 19 characters'
+        forwardedBy:
+          type: string
+          example: XYZ Bank
+          xml:
+            name: ForwardedBy
+            attribute: false
+            wrapped: false
+          description: ' If the invitation has been forwarded by a panel master, this must be provided with the panel master subscribers organisation name.<br> Alternately, if the invitation has been forwarded by another subscriber (via the Forward to another Subscriber invitation response) then this will be the subscribers organisation name.  <br>  Maximum 255 characters'
         timestamp:
           type: string
           format: date-time
@@ -1830,10 +1770,99 @@ components:
             name: Timestamp
             attribute: false
             wrapped: false
-          description: The timestamp that the conversation was created in PEXA (in UTC).
-      title: au.net.pexa.api.schema._2.NotificationConversationDetailsType
+          description: The date and time the invitation was created (in UTC).
+        jurisdiction:
+          type: string
+          example: VIC
+          xml:
+            name: Jurisdiction
+            attribute: false
+            wrapped: false
+          description: The jurisdiction of the workspace.
+        workspaceRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: WorkspaceRole
+            attribute: false
+            wrapped: false
+          description: ' The workspace role the subscriber user has been invited to participate in. '
+        settlementDate:
+          type: string
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+          xml:
+            name: SettlementDate
+            attribute: false
+            wrapped: false
+          description: The date and time of settlement if the workspace is marked as requiring financial settlement (in UTC). Must be provided if financial settlement required unless in the scenario where a workspace has been created with a parent title and no settlement date/time has been set by the participant yet.
+        expressRefinance:
+          type: string
+          example: 'Yes'
+          xml:
+            name: ExpressRefinance
+            attribute: false
+            wrapped: false
+          description: ' A flag used to specify whether the invitation is for a workspace that is marked as an express refinance. <br> Maximum 3 characters'
+        landTitleDetails:
+          xml:
+            name: LandTitleDetails
+            attribute: false
+            wrapped: false
+          description: ' Provided if the land titles are not marked as parent land titles.'
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType'
+        partyDetails:
+          xml:
+            name: PartyDetails
+            attribute: false
+            wrapped: false
+          description: ' For Principal Subscribers, this will provide the party details of all Proprietor(s) on Title and/or Incoming Proprietor(s) within the workspace at the time the invitation is sent.<br>  If land title data has not been retrieved in the workspace at the time the invitation is sent, no Proprietor on Title details will be provided.<br> Similarly, if the Proprietor on Title party is of an Indeterminate party type at the time the invitation is sent, no Proprietor on Title party details will be provided.<br> For Representative Subscribers, if available, this will provide the details of the party that the invited subscriber user will be representing upon joining the workspace.'
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType'
+        inviterSubscriberDetails:
+          xml:
+            name: InviterSubscriberDetails
+            attribute: false
+            wrapped: false
+          description: Details of the subscriber who has initiated the invite
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType'
+      title: au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType
       xml:
-        name: Conversation
+        name: Outstanding
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.AdministrationStatusDetailsType:
+      type: object
+      properties:
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.AdministrationStatusDetailsType
+      xml:
+        name: AdministrationStatus
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType:
+      type: object
+      properties:
+        documentStatusTimestamp:
+          type: string
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+          xml:
+            name: DocumentStatusTimestamp
+            attribute: false
+            wrapped: false
+          description: ' The date and time at which the status occurred (in UTC).<br> This provides the equivalent of lodgement date, registration date or another appropriate document date'
+        documentStatus:
+          type: string
+          example: Verifying
+          xml:
+            name: DocumentStatus
+            attribute: false
+            wrapped: false
+          description: Information that specifies the current state of a Document in a Land Registry
+      title: au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType
+      xml:
+        name: DocumentStatusDetails
         attribute: false
         wrapped: false
 x-refined-from:

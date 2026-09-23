@@ -41,7 +41,9 @@ paths:
       tags:
       - Invitation
       summary: Retrieves outstanding invitations
-      description: "This API provides details of outstanding invitations within a workgroup.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API provides details of outstanding invitations within a workgroup.
+
+        Click here for XSDs.'
       operationId: retrieveOutstandingInvitationsV1UsingGET
       parameters:
       - name: lastInviteId
@@ -83,7 +85,9 @@ paths:
       tags:
       - Invitation
       summary: Create Workspace Invitation
-      description: "This API allows a user to create and send an invitation to another subscriber to join a workspace.  \nClick here for [XSDs](../../docs/assets/pexa-xsd.zip)."
+      description: 'This API allows a user to create and send an invitation to another subscriber to join a workspace.
+
+        Click here for XSDs.'
       operationId: createInvitationUsingPOST
       responses:
         '200':
@@ -115,7 +119,14 @@ paths:
       tags:
       - Invitation
       summary: Respond to invitation
-      description: "This API allows a subscriber (invitee) to respond to an invitation or a subscriber (invitor) to withdraw an invitation\n\n Scopes:\n<i>au_pub_cert_pexa_invitation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_invitation_api_v2_write</i> (prod)"
+      description: 'This API allows a subscriber (invitee) to respond to an invitation or a subscriber (invitor) to withdraw an invitation
+
+
+        Scopes:
+
+        au_pub_cert_pexa_invitation_api_v2_write (non-prod)
+
+        au_pub_pexa_invitation_api_v2_write (prod)'
       operationId: respondInvitationV1UsingPUT
       responses:
         '200':
@@ -141,7 +152,14 @@ paths:
       tags:
       - Invitation
       summary: Retrieve outstanding invitations
-      description: "This API provides details of outstanding invitations.\n\n Scopes:\n<i>au_pub_cert_pexa_invitation_api_v2_read</i> (non-prod)\n<i>au_pub_pexa_invitation_api_v2_read</i> (prod)"
+      description: 'This API provides details of outstanding invitations.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_invitation_api_v2_read (non-prod)
+
+        au_pub_pexa_invitation_api_v2_read (prod)'
       operationId: retrieveOutstandingInvitationsV1UsingGET
       parameters:
       - name: lastInviteId
@@ -181,7 +199,14 @@ paths:
       tags:
       - Invitation
       summary: Create workspace Invitation
-      description: "This API allows a user to create and send an invitation to another subscriber.\n\n Scopes:\n<i>au_pub_cert_pexa_invitation_api_v2_write</i> (non-prod)\n<i>au_pub_pexa_invitation_api_v2_write</i> (prod)"
+      description: 'This API allows a user to create and send an invitation to another subscriber.
+
+
+        Scopes:
+
+        au_pub_cert_pexa_invitation_api_v2_write (non-prod)
+
+        au_pub_pexa_invitation_api_v2_write (prod)'
       operationId: createInvitationUsingPOST
       responses:
         '200':
@@ -208,104 +233,24 @@ paths:
         required: true
 components:
   schemas:
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse:
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party:
       type: object
       properties:
-        moreData:
+        fullName:
           type: string
           xml:
-            name: MoreData
+            name: FullName
             attribute: false
             wrapped: false
-        invites:
-          type: array
+        organisationName:
+          type: string
           xml:
-            name: Invite
+            name: OrganisationName
             attribute: false
             wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite'
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party
       xml:
-        name: InvitationRetrievalResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          xml:
-            name: LandTitle
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle'
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails
-      xml:
-        name: LandTitleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.RespondInvitationRequest:
-      type: object
-      properties:
-        additionalText:
-          type: string
-          xml:
-            name: AdditionalText
-            attribute: false
-            wrapped: false
-        invitationResponse:
-          type: string
-          xml:
-            name: InvitationResponse
-            attribute: false
-            wrapped: false
-        inviteId:
-          type: string
-          xml:
-            name: InviteId
-            attribute: false
-            wrapped: false
-        projectId:
-          type: string
-          xml:
-            name: ProjectId
-            attribute: false
-            wrapped: false
-        projectName:
-          type: string
-          xml:
-            name: ProjectName
-            attribute: false
-            wrapped: false
-        responseReason:
-          type: string
-          xml:
-            name: ResponseReason
-            attribute: false
-            wrapped: false
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-        subscriberReference:
-          type: string
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-        workgroupId:
-          type: string
-          xml:
-            name: WorkgroupId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.RespondInvitationRequest
-      xml:
-        name: RespondInvitationRequest
+        name: Party
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite:
@@ -383,38 +328,118 @@ components:
         name: Invite
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party:
+    au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse:
       type: object
       properties:
-        fullName:
+        inviteId:
           type: string
           xml:
-            name: FullName
+            name: InviteId
             attribute: false
             wrapped: false
-        organisationName:
-          type: string
-          xml:
-            name: OrganisationName
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party
+      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse
       xml:
-        name: Party
+        name: CreateWorkspaceInvitationResponse
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.ParticipantDetailsDetailType:
+    au.net.pexa.api.schema._1.RespondInvitationRequest:
       type: object
       properties:
+        additionalText:
+          type: string
+          xml:
+            name: AdditionalText
+            attribute: false
+            wrapped: false
+        invitationResponse:
+          type: string
+          xml:
+            name: InvitationResponse
+            attribute: false
+            wrapped: false
+        inviteId:
+          type: string
+          xml:
+            name: InviteId
+            attribute: false
+            wrapped: false
+        projectId:
+          type: string
+          xml:
+            name: ProjectId
+            attribute: false
+            wrapped: false
+        projectName:
+          type: string
+          xml:
+            name: ProjectName
+            attribute: false
+            wrapped: false
+        responseReason:
+          type: string
+          xml:
+            name: ResponseReason
+            attribute: false
+            wrapped: false
         subscriberId:
           type: string
           xml:
             name: SubscriberId
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+        workgroupId:
+          type: string
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.RespondInvitationRequest
       xml:
-        name: participantDetailsDetailType
+        name: RespondInvitationRequest
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse:
+      type: object
+      properties:
+        moreData:
+          type: string
+          xml:
+            name: MoreData
+            attribute: false
+            wrapped: false
+        invites:
+          type: array
+          xml:
+            name: Invite
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite'
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse
+      xml:
+        name: InvitationRetrievalResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails:
+      type: object
+      properties:
+        landTitles:
+          type: array
+          xml:
+            name: LandTitle
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle'
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails
+      xml:
+        name: LandTitleDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest:
@@ -467,6 +492,20 @@ components:
         name: CreateWorkspaceInvitationRequest
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.ParticipantDetailsDetailType:
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+      xml:
+        name: participantDetailsDetailType
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle:
       type: object
       properties:
@@ -503,23 +542,9 @@ components:
         name: PartyDetails
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse:
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage:
       type: object
-      properties:
-        inviteId:
-          type: string
-          xml:
-            name: InviteId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse
-      xml:
-        name: CreateWorkspaceInvitationResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat:
-      type: object
-      description: Registered caveat dealing number
+      description: Registered mortgage dealing number
       properties:
         dealingNumber:
           type: string
@@ -527,142 +552,26 @@ components:
             name: DealingNumber
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage
       xml:
-        name: Caveat
+        name: Mortgage
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails:
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails:
       type: object
-      description: Proprietor details of the associated land title. Only returned if workspace role of the invitee is Incoming Proprietor (IP) and Mortgagee On Title (MOT).
+      description: Registered caveats on the associated land title. Only returned if the workspace role of the invitee is Caveator On Title (COT).
       properties:
-        proprietors:
+        caveats:
           type: array
           xml:
-            name: Proprietor
+            name: Caveat
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor'
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat'
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails
       xml:
-        name: ProprietorDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2:
-      type: object
-      properties:
-        subscriberId:
-          type: string
-          description: Subscriber id of the subscriber sending the invitation
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-        participantDetails:
-          xml:
-            name: ParticipantDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2'
-        participantRole:
-          type: string
-          xml:
-            name: ParticipantRole
-            attribute: false
-            wrapped: false
-        borrowersMortgagorsNames:
-          type: string
-          description: Borrowers/Mortgagors Names. Only applicable if the invitee role is Incoming Mortgagee (IM) or Source Funder (SF). The field is optional.
-          xml:
-            name: BorrowersMortgagorsNames
-            attribute: false
-            wrapped: false
-        customerAccountLoanNumber:
-          type: string
-          description: Customer/Loan Account Number. Only applicable if the invitee role is Incoming Mortgagee (IM), Mortgagee On Title (MOT), Source Funder (SF) or CT Controller (CT). The field is optional.
-          xml:
-            name: CustomerAccountLoanNumber
-            attribute: false
-            wrapped: false
-        notes:
-          type: string
-          xml:
-            name: Notes
-            attribute: false
-            wrapped: false
-        partyDetails:
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails'
-      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest
-      xml:
-        name: CreateWorkspaceInvitationRequest
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails:
-      type: object
-      description: Participant details of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'
-      properties:
-        subscriberId:
-          type: string
-          description: Subscriber id of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-        notes:
-          type: string
-          description: Notes/comments that can be provided to the participant receiving the forwarded invitation. Only applicable if invitation response is 'Forward to another Subscriber'. Field is optional
-          xml:
-            name: Notes
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails
-      xml:
-        name: ForwardedParticipantDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle_2:
-      type: object
-      properties:
-        landTitleReference:
-          type: string
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-        propertyDetails:
-          type: string
-          xml:
-            name: PropertyDetails
-            attribute: false
-            wrapped: false
-        proprietorDetails:
-          xml:
-            name: ProprietorDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails'
-        mortgageDetails:
-          xml:
-            name: MortgageDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails'
-        caveatDetails:
-          xml:
-            name: CaveatDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails'
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle
-      xml:
-        name: LandTitle
+        name: CaveatDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails:
@@ -680,115 +589,6 @@ components:
       title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails
       xml:
         name: MortgageDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.RespondInvitationRequest_2:
-      type: object
-      properties:
-        subscriberId:
-          type: string
-          description: Subscriber id. If responding to an invitation, then provide the subscriber id of the invitee. If withdrawing an invitation, then provide the subscriber id of the invitor.
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-        inviteId:
-          type: string
-          description: Invite id of the invitation
-          xml:
-            name: InviteId
-            attribute: false
-            wrapped: false
-        invitationResponse:
-          type: string
-          description: Invitation response. If responding to an invitation, valid values are 'Accept', 'Decline', 'Return to Panel Master', 'Forward to another Subscriber' and 'Forward to Panel Member'. If withdrawing an invitation, valid value is 'Withdrawn'.
-          xml:
-            name: InvitationResponse
-            attribute: false
-            wrapped: false
-        responseReason:
-          type: string
-          description: Invitation response reason. Only applicable if responding to an invitation. Mandatory if responding to an invitation. Valid values are 'Party on invitation is not known to the invitee', 'Transaction type is outside of invitee’s electronic transaction scope', 'Transaction value exceeds the invitee’s electronic transaction scope', 'Invitation sent to incorrect business unit', 'Transaction has already commenced on paper', 'This workspace is linked to another transaction that is outside of electronic conveyancing scope' and 'Other'.
-          xml:
-            name: ResponseReason
-            attribute: false
-            wrapped: false
-        additionalText:
-          type: string
-          description: Additional comments. If responding to an invitation and response reason is 'Other', then additionalText is mandatory. If withdrawing an invitation, the additionalText is optional.
-          xml:
-            name: AdditionalText
-            attribute: false
-            wrapped: false
-        subscriberReference:
-          type: string
-          description: Subscriber Reference that will be set for the participant in the workspace. Only applicable if invitation response is 'Accept'. Mandatory if the invitation response is 'Accept'
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-        workgroupId:
-          type: string
-          description: Workgroup that the workspace will be assigned to. Only applicable if invitation response is 'Accept'. Optional if the invitation response is 'Accept'
-          xml:
-            name: WorkgroupId
-            attribute: false
-            wrapped: false
-        forwardedParticipantDetails:
-          xml:
-            name: ForwardedParticipantDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails'
-        commercialTransaction:
-          type: string
-          description: The Commercial Transaction indicator to be set when accepting an invitation. Only can be provided if the the invitee role is CT Controller (CT), Source Funder (SF), Incoming Mortgagee (IM) or Mortgagee On Title (MOT). The field is optional. Possible values are 'yes' or 'no'
-          xml:
-            name: CommercialTransaction
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.RespondInvitationRequest
-      xml:
-        name: RespondInvitationRequest
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party:
-      type: object
-      properties:
-        fullName:
-          type: string
-          description: The client names or party represented names that is associated to the invitation. Can be optionally provided if subscriber being invited (invitee) is in the role of Caveator on Title, Proprietor on Title, Incoming Proprietor, To Deal with An Interest or CT Controller.
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party
-      xml:
-        name: Party
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2:
-      type: object
-      properties:
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
-      xml:
-        name: ParticipantDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails:
-      type: object
-      properties:
-        party:
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party'
-      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails
-      xml:
-        name: PartyDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite_2:
@@ -892,36 +692,150 @@ components:
         name: Invite
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails:
+    au.net.pexa.api.schema._1.RespondInvitationRequest_2:
       type: object
-      description: Registered caveats on the associated land title. Only returned if the workspace role of the invitee is Caveator On Title (COT).
       properties:
-        caveats:
-          type: array
+        subscriberId:
+          type: string
+          description: Subscriber id. If responding to an invitation, then provide the subscriber id of the invitee. If withdrawing an invitation, then provide the subscriber id of the invitor.
           xml:
-            name: Caveat
+            name: SubscriberId
             attribute: false
             wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat'
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails
+        inviteId:
+          type: string
+          description: Invite id of the invitation
+          xml:
+            name: InviteId
+            attribute: false
+            wrapped: false
+        invitationResponse:
+          type: string
+          description: Invitation response. If responding to an invitation, valid values are 'Accept', 'Decline', 'Return to Panel Master', 'Forward to another Subscriber' and 'Forward to Panel Member'. If withdrawing an invitation, valid value is 'Withdrawn'.
+          xml:
+            name: InvitationResponse
+            attribute: false
+            wrapped: false
+        responseReason:
+          type: string
+          description: Invitation response reason. Only applicable if responding to an invitation. Mandatory if responding to an invitation. Valid values are 'Party on invitation is not known to the invitee', 'Transaction type is outside of invitee’s electronic transaction scope', 'Transaction value exceeds the invitee’s electronic transaction scope', 'Invitation sent to incorrect business unit', 'Transaction has already commenced on paper', 'This workspace is linked to another transaction that is outside of electronic conveyancing scope' and 'Other'.
+          xml:
+            name: ResponseReason
+            attribute: false
+            wrapped: false
+        additionalText:
+          type: string
+          description: Additional comments. If responding to an invitation and response reason is 'Other', then additionalText is mandatory. If withdrawing an invitation, the additionalText is optional.
+          xml:
+            name: AdditionalText
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          description: Subscriber Reference that will be set for the participant in the workspace. Only applicable if invitation response is 'Accept'. Mandatory if the invitation response is 'Accept'
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+        workgroupId:
+          type: string
+          description: Workgroup that the workspace will be assigned to. Only applicable if invitation response is 'Accept'. Optional if the invitation response is 'Accept'
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+        forwardedParticipantDetails:
+          xml:
+            name: ForwardedParticipantDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails'
+        commercialTransaction:
+          type: string
+          description: The Commercial Transaction indicator to be set when accepting an invitation. Only can be provided if the the invitee role is CT Controller (CT), Source Funder (SF), Incoming Mortgagee (IM) or Mortgagee On Title (MOT). The field is optional. Possible values are 'yes' or 'no'
+          xml:
+            name: CommercialTransaction
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.RespondInvitationRequest
       xml:
-        name: CaveatDetails
+        name: RespondInvitationRequest
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage:
+    au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails:
       type: object
-      description: Registered mortgage dealing number
+      description: Participant details of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'
       properties:
-        dealingNumber:
+        subscriberId:
           type: string
+          description: Subscriber id of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'
           xml:
-            name: DealingNumber
+            name: SubscriberId
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage
+        notes:
+          type: string
+          description: Notes/comments that can be provided to the participant receiving the forwarded invitation. Only applicable if invitation response is 'Forward to another Subscriber'. Field is optional
+          xml:
+            name: Notes
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails
       xml:
-        name: Mortgage
+        name: ForwardedParticipantDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle_2:
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+        propertyDetails:
+          type: string
+          xml:
+            name: PropertyDetails
+            attribute: false
+            wrapped: false
+        proprietorDetails:
+          xml:
+            name: ProprietorDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails'
+        mortgageDetails:
+          xml:
+            name: MortgageDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails'
+        caveatDetails:
+          xml:
+            name: CaveatDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails'
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle
+      xml:
+        name: LandTitle
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party:
+      type: object
+      properties:
+        fullName:
+          type: string
+          description: The client names or party represented names that is associated to the invitation. Can be optionally provided if subscriber being invited (invitee) is in the role of Caveator on Title, Proprietor on Title, Incoming Proprietor, To Deal with An Interest or CT Controller.
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party
+      xml:
+        name: Party
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor:
@@ -937,6 +851,117 @@ components:
       title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor
       xml:
         name: Proprietor
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2:
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+      xml:
+        name: ParticipantDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails:
+      type: object
+      description: Proprietor details of the associated land title. Only returned if workspace role of the invitee is Incoming Proprietor (IP) and Mortgagee On Title (MOT).
+      properties:
+        proprietors:
+          type: array
+          xml:
+            name: Proprietor
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor'
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails
+      xml:
+        name: ProprietorDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat:
+      type: object
+      description: Registered caveat dealing number
+      properties:
+        dealingNumber:
+          type: string
+          xml:
+            name: DealingNumber
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat
+      xml:
+        name: Caveat
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2:
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          description: Subscriber id of the subscriber sending the invitation
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+        participantDetails:
+          xml:
+            name: ParticipantDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2'
+        participantRole:
+          type: string
+          xml:
+            name: ParticipantRole
+            attribute: false
+            wrapped: false
+        borrowersMortgagorsNames:
+          type: string
+          description: Borrowers/Mortgagors Names. Only applicable if the invitee role is Incoming Mortgagee (IM) or Source Funder (SF). The field is optional.
+          xml:
+            name: BorrowersMortgagorsNames
+            attribute: false
+            wrapped: false
+        customerAccountLoanNumber:
+          type: string
+          description: Customer/Loan Account Number. Only applicable if the invitee role is Incoming Mortgagee (IM), Mortgagee On Title (MOT), Source Funder (SF) or CT Controller (CT). The field is optional.
+          xml:
+            name: CustomerAccountLoanNumber
+            attribute: false
+            wrapped: false
+        notes:
+          type: string
+          xml:
+            name: Notes
+            attribute: false
+            wrapped: false
+        partyDetails:
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails'
+      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest
+      xml:
+        name: CreateWorkspaceInvitationRequest
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails:
+      type: object
+      properties:
+        party:
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party'
+      title: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails
+      xml:
+        name: PartyDetails
         attribute: false
         wrapped: false
 x-refined-from:
