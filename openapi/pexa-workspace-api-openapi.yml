@@ -287,7 +287,7 @@ paths:
         au_pub_cert_pexa_workspace_api_v4_write (non-prod)
 
         au_pub_pexa_workspace_api_v4_write (prod)'
-      operationId: workspacecreation_1
+      operationId: putV4Workspace
       responses:
         '200':
           description: OK
@@ -311,6 +311,8 @@ paths:
               $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest_2'
         description: workspaceUpdateRequest
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: workspacecreation_1
   /v4/workspace/duty:
     put:
       tags:
@@ -324,7 +326,7 @@ paths:
         au_pub_cert_pexa_workspace_api_v4_write (non-prod)
 
         au_pub_pexa_workspace_api_v4_write (prod)'
-      operationId: updateV1UsingPUT
+      operationId: putV4WorkspaceDuty
       responses:
         '200':
           description: OK
@@ -344,6 +346,8 @@ paths:
               $ref: '#/components/schemas/au.net.pexa.api.schema._1.ManageTransferDutyRequest'
         description: manageTransferDutyRequest
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: updateV1UsingPUT
   /v5/workspace:
     get:
       tags:
@@ -357,7 +361,7 @@ paths:
         au_pub_cert_pexa_workspace_api_v5_read (non-prod)
 
         au_pub_pexa_workspace_api_v5_read (prod)'
-      operationId: retrieveWorkspaceSummaryV2UsingGET
+      operationId: getV5Workspace
       parameters:
       - name: lastEventId
         in: query
@@ -406,6 +410,8 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      x-operation-id-source: normalized
+      x-operation-id-original: retrieveWorkspaceSummaryV2UsingGET
     post:
       tags:
       - Workspace
@@ -418,7 +424,7 @@ paths:
         au_pub_cert_pexa_workspace_api_v5_write (non-prod)
 
         au_pub_pexa_workspace_api_v5_write (prod)'
-      operationId: workspacecreation
+      operationId: postV5Workspace
       responses:
         '200':
           description: OK
@@ -454,6 +460,8 @@ paths:
               $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest_2'
         description: workspaceCreationRequest
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: workspacecreation
   /v6/subscriber/workspaces:
     get:
       tags:
@@ -470,7 +478,7 @@ paths:
         au_pub_cert_pexa_workspace_api_v6_read (non-prod)
 
         au_pub_pexa_workspace_api_v6_read (prod)'
-      operationId: retrieveWorkspacesV3UsingGET
+      operationId: getV6SubscriberWorkspaces
       parameters:
       - name: jurisdiction
         in: query
@@ -531,215 +539,20 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      x-operation-id-source: normalized
+      x-operation-id-original: retrieveWorkspacesV3UsingGET
 components:
   schemas:
-    au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType:
+    au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails:
       type: object
       properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType
-    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse:
-      type: object
-      properties:
-        moreData:
-          type: string
-          xml:
-            name: MoreData
-            attribute: false
-            wrapped: false
-        workspaces:
+        parties:
           type: array
-          xml:
-            name: Workspace
-            attribute: false
-            wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace'
-      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails
       xml:
-        name: WorkspaceRetrievalResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.TypeDetailsType:
-      type: object
-      properties:
-        key:
-          type: string
-          xml:
-            name: Key
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.TypeDetailsType
-      xml:
-        name: typeDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address1StreetAddressDetailsType:
-      type: object
-      properties:
-        addressSiteName:
-          type: string
-          xml:
-            name: AddressSiteName
-            attribute: false
-            wrapped: false
-        complexRoads:
-          type: array
-          xml:
-            name: ComplexRoad
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadDetailsType'
-        level:
-          xml:
-            name: Level
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType'
-        localityName:
-          type: string
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-        postcode:
-          type: string
-          xml:
-            name: Postcode
-            attribute: false
-            wrapped: false
-        road:
-          xml:
-            name: Road
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType'
-        secondaryComplex:
-          type: string
-          xml:
-            name: SecondaryComplex
-            attribute: false
-            wrapped: false
-        state:
-          type: string
-          xml:
-            name: State
-            attribute: false
-            wrapped: false
-        subDwellingUnitType:
-          xml:
-            name: SubDwellingUnitType
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType'
-      title: au.net.pexa.api.schema._2.Address1StreetAddressDetailsType
-      xml:
-        name: address1StreetAddressDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.LodgementDetailsType:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date-time
-          xml:
-            name: Date
-            attribute: false
-            wrapped: false
-        dealingNumber:
-          type: string
-          xml:
-            name: DealingNumber
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.LodgementDetailsType
-      xml:
-        name: lodgementDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle:
-      type: object
-      properties:
-        obsoleteLandTitleReference:
-          type: string
-          xml:
-            name: ObsoleteLandTitleReference
-            attribute: false
-            wrapped: false
-        newLandTitleReference:
-          type: string
-          xml:
-            name: NewLandTitleReference
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle
-      xml:
-        name: LandTitle
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          xml:
-            name: LandTitle
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType
-      xml:
-        name: workspaceSummaryLandTitleDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType:
-      type: object
-      properties:
-        postalDeliveryTypeCode:
-          type: string
-          example: PO BOX
-          xml:
-            name: PostalDeliveryTypeCode
-            attribute: false
-            wrapped: false
-        postalDeliveryNumber:
-          type: string
-          example: 2
-          xml:
-            name: PostalDeliveryNumber
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType
-    au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType:
-      type: object
-      properties:
-        participants:
-          type: array
-          xml:
-            name: Participant
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType
-      xml:
-        name: workspaceSummaryParticipantDetailsType
+        name: PartyDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.PartyCapacityDetailsType:
@@ -762,61 +575,9 @@ components:
         name: partyCapacityDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType:
+    au.net.pexa.api.schema._2.StampDutyDetailsType:
       type: object
       properties:
-        unitNumber:
-          type: string
-          xml:
-            name: UnitNumber
-            attribute: false
-            wrapped: false
-        unitTypeCode:
-          type: string
-          xml:
-            name: UnitTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType
-      xml:
-        name: address1StreetAddressSubDwellingUnitTypeDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle:
-      type: object
-      properties:
-        landTitleActionType:
-          type: string
-          xml:
-            name: LandTitleActionType
-            attribute: false
-            wrapped: false
-        landTitleReference:
-          type: string
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-        unregisteredLotReference:
-          type: string
-          xml:
-            name: UnregisteredLotReference
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle
-      xml:
-        name: LandTitle
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.EventDetailsType:
-      type: object
-      properties:
-        category:
-          type: string
-          xml:
-            name: Category
-            attribute: false
-            wrapped: false
         date:
           type: string
           format: date-time
@@ -824,33 +585,401 @@ components:
             name: Date
             attribute: false
             wrapped: false
-        detail:
+        verificationResult:
           type: string
           xml:
-            name: Detail
+            name: VerificationResult
             attribute: false
             wrapped: false
-        eventId:
-          type: string
-          xml:
-            name: EventId
-            attribute: false
-            wrapped: false
-        severity:
-          type: string
-          xml:
-            name: Severity
-            attribute: false
-            wrapped: false
-        type:
-          xml:
-            name: Type
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
-      title: au.net.pexa.api.schema._2.EventDetailsType
+      title: au.net.pexa.api.schema._2.StampDutyDetailsType
       xml:
-        name: eventDetailsType
+        name: stampDutyDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.ForeignPartyDetailsType:
+      type: object
+      properties:
+        foreignCountry:
+          type: string
+          xml:
+            name: ForeignCountry
+            attribute: false
+            wrapped: false
+        foreignCountryShares:
+          type: array
+          xml:
+            name: ForeignCountryShare
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ForeignCountryShareDetailsType'
+        foreignPartyIndicator:
+          type: string
+          xml:
+            name: ForeignPartyIndicator
+            attribute: false
+            wrapped: false
+        foreignPartyType:
+          type: string
+          xml:
+            name: ForeignPartyType
+            attribute: false
+            wrapped: false
+        residentPartyIndicator:
+          type: string
+          xml:
+            name: ResidentPartyIndicator
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ForeignPartyDetailsType
+      xml:
+        name: foreignPartyDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceDataDetailType:
+      type: object
+      properties:
+        propertyDetails:
+          xml:
+            name: PropertyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PropertyDetailsDetailType'
+        transactionDetails:
+          xml:
+            name: TransactionDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.TransactionDetailsDetailType'
+      title: au.net.pexa.api.schema._1.WorkspaceDataDetailType
+      xml:
+        name: workspaceDataDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType:
+      type: object
+      properties:
+        AddressLine:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType'
+        postalCode:
+          type: string
+          example: SE1
+          xml:
+            name: PostalCode
+            attribute: false
+            wrapped: false
+          description: 'Maximum 6 characters. <br> Valid character set: alphanumeric'
+        countryCode:
+          type: string
+          example: UK
+          xml:
+            name: CountryCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType
+    au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails:
+      type: object
+      properties:
+        parties:
+          type: array
+          xml:
+            name: Party
+            attribute: false
+            wrapped: false
+          description: ' Upon successful adding of the party to the workspace, return the newly added party detail record with a Party Id.<br> In the scenario this structure is not returned, this indicates the new party detail contains an error and the party has not been added to the workspace. <br>If the subscriber creates a workspace in the role of Proprietor on Title and Request Land Title Data is Yes, the list of Proprietor on Title parties will be returned.  '
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails
+      xml:
+        name: PartyDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType
+    au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType:
+      type: object
+      properties:
+        levelTypeCode:
+          type: string
+          example: G
+          xml:
+            name: LevelTypeCode
+            attribute: false
+            wrapped: false
+        levelNumber:
+          type: string
+          example: 5
+          xml:
+            name: LevelNumber
+            attribute: false
+            wrapped: false
+          description: 'Maximum 5 characters<br> Valid character set: numeric only.'
+      title: au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType
+    au.net.pexa.api.schema._2.GivenNameOrderType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.GivenNameOrderType
+      xml:
+        name: GivenName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType
+      xml:
+        name: address1OverseasAddress1AddressLineDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.FullNameType:
+      type: object
+      properties:
+        nameTitle:
+          type: string
+          example: Mr
+          xml:
+            name: NameTitle
+            attribute: false
+            wrapped: false
+          description: ' Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
+        givenNames:
+          type: array
+          example: Jhon Snow
+          xml:
+            name: GivenName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order'
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.GivenNameOrderType'
+        familyName:
+          type: string
+          example: Stark
+          xml:
+            name: FamilyName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. '
+        familyNameOrder:
+          type: string
+          example: 1
+          xml:
+            name: FamilyNameOrder
+            attribute: false
+            wrapped: false
+          description: ' Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last '
+        nameSuffix:
+          type: string
+          example: Jr
+          xml:
+            name: NameSuffix
+            attribute: false
+            wrapped: false
+          description: ' Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)'
+        dateOfBirth:
+          type: string
+          format: date-time
+          example: '1984-02-02'
+          xml:
+            name: DateOfBirth
+            attribute: false
+            wrapped: false
+          description: ' This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
+      title: au.net.pexa.api.schema._2.FullNameType
+      xml:
+        name: FullName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.ForeignCountryShareDetailsType:
+      type: object
+      properties:
+        foreignPercent:
+          type: number
+          xml:
+            name: ForeignPercent
+            attribute: false
+            wrapped: false
+        foreignShareholderCountry:
+          type: string
+          xml:
+            name: ForeignShareholderCountry
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ForeignCountryShareDetailsType
+      xml:
+        name: ForeignCountryShare
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole:
+      type: object
+      properties:
+        roleActionType:
+          type: string
+          xml:
+            name: RoleActionType
+            attribute: false
+            wrapped: false
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+        isDefaultRole:
+          type: string
+          xml:
+            name: IsDefaultRole
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole
+      xml:
+        name: OtherRole
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.FullNameType:
+      type: object
+      properties:
+        dateOfBirth:
+          type: string
+          format: date-time
+          xml:
+            name: DateOfBirth
+            attribute: false
+            wrapped: false
+        familyName:
+          type: string
+          xml:
+            name: FamilyName
+            attribute: false
+            wrapped: false
+        familyNameOrder:
+          type: string
+          xml:
+            name: FamilyNameOrder
+            attribute: false
+            wrapped: false
+        givenNames:
+          type: array
+          xml:
+            name: GivenName
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.GivenNameOrderType'
+        nameSuffix:
+          type: string
+          xml:
+            name: NameSuffix
+            attribute: false
+            wrapped: false
+        nameTitle:
+          type: string
+          xml:
+            name: NameTitle
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.FullNameType
+      xml:
+        name: FullName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType:
+      type: object
+      properties:
+        feeItems:
+          type: array
+          xml:
+            name: FeeItem
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.FeeItemDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType
+      xml:
+        name: workspaceSummaryFeesDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber:
+      type: object
+      properties:
+        participantSettlementAcceptanceStatus:
+          type: string
+          xml:
+            name: ParticipantSettlementAcceptanceStatus
+            attribute: false
+            wrapped: false
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber
+      xml:
+        name: ChildWorkgroupList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.IdentificationDetailsType:
+      type: object
+      properties:
+        identifier:
+          type: string
+          example: ABN
+          xml:
+            name: Identifier
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          example: 0421568963
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+          description: Maximum 20 characters <br> Must be provided without whitespaces.
+      title: au.net.pexa.api.schema._2.IdentificationDetailsType
+      xml:
+        name: Identification
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadDetailsType:
@@ -893,120 +1022,166 @@ components:
         name: address1StreetAddressComplexRoadDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.SafetySwitchDetailType:
+    au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType:
       type: object
       properties:
-        safetySwitchInformed:
-          type: string
-          xml:
-            name: SafetySwitchInformed
-            attribute: false
-            wrapped: false
-        safetySwitchInstalled:
-          type: string
-          xml:
-            name: SafetySwitchInstalled
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.SafetySwitchDetailType
-      xml:
-        name: safetySwitchDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails
-      xml:
-        name: LandTitleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.PropertyDetailsDetailType:
-      type: object
-      properties:
-        areaOfLand:
-          xml:
-            name: AreaOfLand
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.AreaOfLandDetailType'
-        constructionType:
-          xml:
-            name: ConstructionType
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConstructionTypeDetailType'
-        currentLandUse:
-          xml:
-            name: CurrentLandUse
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CurrentLandUseDetailType'
-        localityName:
-          type: string
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-        municipalityName:
-          type: string
-          xml:
-            name: MunicipalityName
-            attribute: false
-            wrapped: false
-        natureOfProperty:
-          type: string
-          xml:
-            name: NatureOfProperty
-            attribute: false
-            wrapped: false
-        numberOfBedrooms:
+        order:
           type: integer
           xml:
-            name: NumberOfBedrooms
-            attribute: false
+            name: order
+            attribute: true
             wrapped: false
-        primaryLandUse:
+        roadName:
+          type: string
           xml:
-            name: PrimaryLandUse
+            name: RoadName
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PrimaryLandUseDetailType'
-        safetySwitch:
-          xml:
-            name: SafetySwitch
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SafetySwitchDetailType'
-        smokeAlarm:
-          xml:
-            name: SmokeAlarm
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SmokeAlarmDetailType'
-      title: au.net.pexa.api.schema._1.PropertyDetailsDetailType
-      xml:
-        name: propertyDetailsDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType:
-      type: object
-      properties:
-        lodgementCases:
+        roadNumbers:
           type: array
           xml:
-            name: LodgementCase
+            name: RoadNumber
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementCaseDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType'
+        roadSuffixCode:
+          type: string
+          xml:
+            name: RoadSuffixCode
+            attribute: false
+            wrapped: false
+        roadTypeCode:
+          type: string
+          xml:
+            name: RoadTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType
+    au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType:
+      type: object
+      properties:
+        postalDeliveryNumber:
+          type: string
+          xml:
+            name: PostalDeliveryNumber
+            attribute: false
+            wrapped: false
+        postalDeliveryTypeCode:
+          type: string
+          xml:
+            name: PostalDeliveryTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType
+    au.net.pexa.api.schema._2.AdministrationStatusDetailsType:
+      type: object
+      properties:
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.AdministrationStatusDetailsType
       xml:
-        name: workspaceSummaryDocumentSummaryDetailsType
+        name: AdministrationStatus
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party:
+      type: object
+      properties:
+        representingParty:
+          type: string
+          example: 'Yes'
+          xml:
+            name: RepresentingParty
+            attribute: false
+            wrapped: false
+          description: 'Indicator that the party is being represented by the subscriber. Only parties that are represented by the subscriber can be created except for the Proprietor on Title who can create an Incoming Proprietor party whom they dont represent. <br> When the Role Proprietor on Title creates an Incoming Proprietor party, this value must be set to No <br> For any other Role creating a party, this value must be set to Yes. '
+        partyType:
+          type: string
+          example: Individual
+          xml:
+            name: PartyType
+            attribute: false
+            wrapped: false
+        partyRole:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: PartyRole
+            attribute: false
+            wrapped: false
+          description: All '%on Title' roles are invalid values.
+        fullName:
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+          description: Must be provided if Party Type is Individual else must not be provided
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
+        business:
+          xml:
+            name: Business
+            attribute: false
+            wrapped: false
+          description: Must be provided if Party Type is 'Organisation' else must not be provided
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
+        CurrentAddress:
+          xml:
+            name: CurrentAddress
+            attribute: false
+            wrapped: false
+          description: One of the following 'Street Address' or Overseas Address
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2Type'
+        FutureAddress:
+          xml:
+            name: FutureAddress
+            attribute: false
+            wrapped: false
+          description: One of the following Street Address or Overseas Address
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2Type'
+        partyCapacityDetails:
+          xml:
+            name: PartyCapacityDetails
+            attribute: false
+            wrapped: false
+          description: The capacity that the Incoming Proprietor or Proprietor on Title party is acting in. Provided as input to VIC transfer supporting document.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyCapacityDetailsType'
+        trustDetails:
+          xml:
+            name: TrustDetails
+            attribute: false
+            wrapped: false
+          description: The details of the trust for the Incoming Proprietor or Proprietor on Title party.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TrustDetailsType'
+        foreignPartyDetails:
+          xml:
+            name: ForeignPartyDetails
+            attribute: false
+            wrapped: false
+          description: The foreign details of the Incoming Proprietor party who is foreign to Australia. Provided as input to QLD transfer supporting documents. If Foreign Party Details complex is not provided where jurisdiction of the workspace is QLD, Resident Party Indicator will default to Yes for Individuals and Foreign Party Indicator will default to No for all parties.
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignPartyDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party
+      xml:
+        name: Party
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.IdentificationDetailsType:
+      type: object
+      properties:
+        identifier:
+          type: string
+          xml:
+            name: Identifier
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.IdentificationDetailsType
+      xml:
+        name: Identification
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.TransferDutyDetailType:
@@ -1021,25 +1196,456 @@ components:
         name: transferDutyDetailType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.StampDutyDetailsType:
+    au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType:
       type: object
       properties:
-        date:
+        PostalDelivery:
+          xml:
+            name: PostalDelivery
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType'
+        Road:
+          xml:
+            name: Road
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType'
+        localityName:
+          type: string
+          example: Caroline Springs
+          xml:
+            name: LocalityName
+            attribute: false
+            wrapped: false
+        postcode:
+          type: string
+          example: 3023
+          xml:
+            name: Postcode
+            attribute: false
+            wrapped: false
+        state:
+          type: string
+          example: VIC
+          xml:
+            name: State
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType
+    au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType:
+      type: object
+      properties:
+        unitNumber:
+          type: string
+          xml:
+            name: UnitNumber
+            attribute: false
+            wrapped: false
+        unitTypeCode:
+          type: string
+          xml:
+            name: UnitTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType
+    au.net.pexa.api.schema._1.PrimaryLandUseDetailType:
+      type: object
+      properties:
+        key:
+          type: string
+          xml:
+            name: Key
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.PrimaryLandUseDetailType
+      xml:
+        name: primaryLandUseDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadNumberType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadNumberType
+      xml:
+        name: address1StreetAddressComplexRoadNumberType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.DutyDataDetailType:
+      type: object
+      properties:
+        documentId:
+          type: string
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+        revenueOfficeTransactionId:
+          type: string
+          xml:
+            name: RevenueOfficeTransactionId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.DutyDataDetailType
+      xml:
+        name: dutyDataDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2StreetAddressDetailsType:
+      type: object
+      properties:
+        addressSiteName:
+          type: string
+          xml:
+            name: AddressSiteName
+            attribute: false
+            wrapped: false
+        complexRoads:
+          type: array
+          xml:
+            name: ComplexRoad
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType'
+        level:
+          xml:
+            name: Level
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType'
+        localityName:
+          type: string
+          xml:
+            name: LocalityName
+            attribute: false
+            wrapped: false
+        postcode:
+          type: string
+          xml:
+            name: Postcode
+            attribute: false
+            wrapped: false
+        road:
+          xml:
+            name: Road
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType'
+        secondaryComplex:
+          type: string
+          xml:
+            name: SecondaryComplex
+            attribute: false
+            wrapped: false
+        state:
+          type: string
+          xml:
+            name: State
+            attribute: false
+            wrapped: false
+        subDwellingUnitType:
+          xml:
+            name: SubDwellingUnitType
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType'
+      title: au.net.pexa.api.schema._1.Address2StreetAddressDetailsType
+    au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails:
+      type: object
+      properties:
+        landTitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle'
+        parentTitle:
+          type: string
+          example: 'Yes'
+          xml:
+            name: ParentTitle
+            attribute: false
+            wrapped: false
+          description: ' Whether the land title reference is a parent title awaiting sub-division. This indicator applies to all land title references.<br>  <br>  Must be set to No if Role is CT Controller or Consentor.'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails
+      xml:
+        name: LandTitleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType:
+      type: object
+      properties:
+        postalDeliveryTypeCode:
+          type: string
+          example: PO BOX
+          xml:
+            name: PostalDeliveryTypeCode
+            attribute: false
+            wrapped: false
+        postalDeliveryNumber:
+          type: string
+          example: 2
+          xml:
+            name: PostalDeliveryNumber
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType
+    au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType:
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+        parentTitle:
+          type: string
+          xml:
+            name: ParentTitle
+            attribute: false
+            wrapped: false
+        propertyDetails:
+          type: string
+          xml:
+            name: PropertyDetails
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType
+      xml:
+        name: workspaceSummaryLandTitlesType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType:
+      type: object
+      properties:
+        count:
+          type: integer
+          xml:
+            name: Count
+            attribute: false
+            wrapped: false
+        events:
+          type: array
+          xml:
+            name: Event
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.EventDetailsType'
+        moreData:
+          type: string
+          xml:
+            name: MoreData
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType
+      xml:
+        name: workspaceSummaryBusinessEventsListDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails:
+      type: object
+      properties:
+        landTitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails
+      xml:
+        name: LandTitleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.DocumentDetailsType:
+      type: object
+      properties:
+        documentId:
+          type: string
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+        documentStatus:
+          type: string
+          xml:
+            name: DocumentStatus
+            attribute: false
+            wrapped: false
+        documentType:
+          type: string
+          xml:
+            name: DocumentType
+            attribute: false
+            wrapped: false
+        landTitleReferences:
+          type: array
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+        lastModified:
           type: string
           format: date-time
           xml:
-            name: Date
+            name: LastModified
             attribute: false
             wrapped: false
-        verificationResult:
+        lodgement:
+          xml:
+            name: Lodgement
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementDetailsType'
+        lodgementVerification:
+          xml:
+            name: LodgementVerification
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementVerificationDetailsType'
+        relatedDocumentId:
           type: string
           xml:
-            name: VerificationResult
+            name: RelatedDocumentId
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._2.StampDutyDetailsType
+        signaturesReceived:
+          type: integer
+          xml:
+            name: SignaturesReceived
+            attribute: false
+            wrapped: false
+        signaturesRequired:
+          type: integer
+          xml:
+            name: SignaturesRequired
+            attribute: false
+            wrapped: false
+        stampDuty:
+          xml:
+            name: StampDuty
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.StampDutyDetailsType'
+      title: au.net.pexa.api.schema._2.DocumentDetailsType
       xml:
-        name: stampDutyDetailsType
+        name: documentDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.ForeignPartyDetailsType:
+      type: object
+      properties:
+        foreignPartyIndicator:
+          type: string
+          example: 'No'
+          xml:
+            name: ForeignPartyIndicator
+            attribute: false
+            wrapped: false
+        foreignPartyType:
+          type: string
+          example: Natural Person
+          xml:
+            name: ForeignPartyType
+            attribute: false
+            wrapped: false
+        foreignCountry:
+          type: string
+          example: CA
+          xml:
+            name: ForeignCountry
+            attribute: false
+            wrapped: false
+        residentPartyIndicator:
+          type: string
+          example: 'Yes'
+          xml:
+            name: ResidentPartyIndicator
+            attribute: false
+            wrapped: false
+        foreignCountryShares:
+          type: array
+          xml:
+            name: ForeignCountryShare
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignCountryShareDetailsType'
+      title: au.net.pexa.api.schema._2.ForeignPartyDetailsType
+      xml:
+        name: ForeignPartyDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType:
+      type: object
+      properties:
+        lotNumber:
+          type: string
+          xml:
+            name: LotNumber
+            attribute: false
+            wrapped: false
+        roadName:
+          type: string
+          xml:
+            name: RoadName
+            attribute: false
+            wrapped: false
+        roadNumber:
+          type: string
+          xml:
+            name: RoadNumber
+            attribute: false
+            wrapped: false
+        roadSuffixCode:
+          type: string
+          xml:
+            name: RoadSuffixCode
+            attribute: false
+            wrapped: false
+        roadTypeCode:
+          type: string
+          xml:
+            name: RoadTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType
+      xml:
+        name: address1StreetAddressRoadDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType:
+      type: object
+      properties:
+        levelNumber:
+          type: string
+          xml:
+            name: LevelNumber
+            attribute: false
+            wrapped: false
+        levelTypeCode:
+          type: string
+          xml:
+            name: LevelTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType
+      xml:
+        name: address1StreetAddressLevelDetailsType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.SmokeAlarmDetailType:
@@ -1062,62 +1668,1102 @@ components:
         name: smokeAlarmDetailType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.TrustDetailsType:
+    au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle:
+      type: object
+      properties:
+        landTitleActionType:
+          type: string
+          xml:
+            name: LandTitleActionType
+            attribute: false
+            wrapped: false
+        landTitleReference:
+          type: string
+          xml:
+            name: LandTitleReference
+            attribute: false
+            wrapped: false
+        unregisteredLotReference:
+          type: string
+          xml:
+            name: UnregisteredLotReference
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle
+      xml:
+        name: LandTitle
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType:
+      type: object
+      properties:
+        unitNumber:
+          type: string
+          xml:
+            name: UnitNumber
+            attribute: false
+            wrapped: false
+        unitTypeCode:
+          type: string
+          xml:
+            name: UnitTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType
+      xml:
+        name: address1StreetAddressSubDwellingUnitTypeDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2Type:
+      type: object
+      properties:
+        StreetAddress:
+          xml:
+            name: StreetAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressDetailsType'
+        OverseasAddress:
+          xml:
+            name: OverseasAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType'
+        CorrespondenceAddress:
+          xml:
+            name: CorrespondenceAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType'
+      title: au.net.pexa.api.schema._2.Address2Type
+    au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType:
+      type: object
+      properties:
+        participants:
+          type: array
+          xml:
+            name: Participant
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType
+      xml:
+        name: workspaceSummaryParticipantDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse:
+      type: object
+      properties:
+        moreData:
+          type: string
+          xml:
+            name: MoreData
+            attribute: false
+            wrapped: false
+        workspaces:
+          type: array
+          xml:
+            name: Workspace
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace'
+      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse
+      xml:
+        name: WorkspaceRetrievalResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.AdministrationStatusDetailsType:
+      type: object
+      properties:
+        value:
+          type: string
+      title: au.net.pexa.api.schema._1.AdministrationStatusDetailsType
+      xml:
+        name: AdministrationStatus
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle:
+      type: object
+      properties:
+        obsoleteLandTitleReference:
+          type: string
+          xml:
+            name: ObsoleteLandTitleReference
+            attribute: false
+            wrapped: false
+        newLandTitleReference:
+          type: string
+          xml:
+            name: NewLandTitleReference
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle
+      xml:
+        name: LandTitle
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.SigningSubscriberDetailsType:
+      type: object
+      properties:
+        subscriberNames:
+          type: array
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+      title: au.net.pexa.api.schema._2.SigningSubscriberDetailsType
+      xml:
+        name: signingSubscriberDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.GivenNameOrderType:
+      type: object
+      properties:
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        value:
+          type: string
+      title: au.net.pexa.api.schema._1.GivenNameOrderType
+      xml:
+        name: GivenName
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType:
+      type: object
+      properties:
+        addressLines:
+          type: array
+          xml:
+            name: AddressLine
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType'
+        countryCode:
+          type: string
+          xml:
+            name: CountryCode
+            attribute: false
+            wrapped: false
+        postalCode:
+          type: string
+          xml:
+            name: PostalCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType
+    au.net.pexa.api.schema._2.FeeItemDetailsType:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          xml:
+            name: Date
+            attribute: false
+            wrapped: false
+        documentType:
+          type: string
+          xml:
+            name: DocumentType
+            attribute: false
+            wrapped: false
+        gstAmount:
+          type: number
+          xml:
+            name: GstAmount
+            attribute: false
+            wrapped: false
+        netAmount:
+          type: number
+          xml:
+            name: NetAmount
+            attribute: false
+            wrapped: false
+        signingSubscriber:
+          xml:
+            name: SigningSubscriber
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.SigningSubscriberDetailsType'
+        totalAmount:
+          type: number
+          xml:
+            name: TotalAmount
+            attribute: false
+            wrapped: false
+        type:
+          xml:
+            name: Type
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
+      title: au.net.pexa.api.schema._2.FeeItemDetailsType
+      xml:
+        name: feeItemDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.LodgementCaseDetailsType:
+      type: object
+      properties:
+        documents:
+          xml:
+            name: Documents
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType'
+        lodgementCaseId:
+          type: string
+          xml:
+            name: LodgementCaseId
+            attribute: false
+            wrapped: false
+        lodgementCaseStatus:
+          type: string
+          xml:
+            name: LodgementCaseStatus
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.LodgementCaseDetailsType
+      xml:
+        name: lodgementCaseDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest:
+      type: object
+      properties:
+        subscriberId:
+          type: string
+          example: 208
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+          description: ' The PEXA internal reference for the subscriber initiating the API service call.<br> Note: Subscriber Id is not required for any subscribers using token based authentication (OAuth, SAML etc.).<br> For mutual SSL authentication, the Subscriber Id must be provided. <br> Maximum 19 characters'
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+        landTitleDetails:
+          xml:
+            name: LandTitleDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails'
+        newSubscriberReference:
+          type: string
+          xml:
+            name: NewSubscriberReference
+            attribute: false
+            wrapped: false
+        additionalRoleDetails:
+          xml:
+            name: AdditionalRoleDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails'
+        partyDetails:
+          xml:
+            name: PartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest
+      xml:
+        name: WorkspaceUpdateRequest
+        namespace: http://api.pexa.net.au/schema/1/
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType:
+      type: object
+      properties:
+        levelNumber:
+          type: string
+          xml:
+            name: LevelNumber
+            attribute: false
+            wrapped: false
+        levelTypeCode:
+          type: string
+          xml:
+            name: LevelTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType
+    au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle:
+      type: object
+      properties:
+        obsoleteLandTitleReference:
+          type: string
+          example: 12345/878
+          xml:
+            name: ObsoleteLandTitleReference
+            attribute: false
+            wrapped: false
+          description: The land title reference sent as part of the request which is now obsolete.
+        newLandTitleReference:
+          type: string
+          example: 123456/987
+          xml:
+            name: NewLandTitleReference
+            attribute: false
+            wrapped: false
+          description: The new land title reference which has superseded the obsolete land title reference.
+      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle
+      xml:
+        name: LandTitle
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party:
+      type: object
+      properties:
+        partyId:
+          type: string
+          xml:
+            name: PartyId
+            attribute: false
+            wrapped: false
+        partyType:
+          type: string
+          xml:
+            name: PartyType
+            attribute: false
+            wrapped: false
+        partyRole:
+          type: string
+          xml:
+            name: PartyRole
+            attribute: false
+            wrapped: false
+        fullName:
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.FullNameType'
+        business:
+          xml:
+            name: Business
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.BusinessType'
+        currentAddress:
+          xml:
+            name: CurrentAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
+        futureAddress:
+          xml:
+            name: FutureAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party
+      xml:
+        name: Party
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.BusinessType:
+      type: object
+      properties:
+        administrationStatuses:
+          type: array
+          xml:
+            name: AdministrationStatus
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.AdministrationStatusDetailsType'
+        businessName:
+          type: string
+          xml:
+            name: BusinessName
+            attribute: false
+            wrapped: false
+        businessUnit:
+          type: string
+          xml:
+            name: BusinessUnit
+            attribute: false
+            wrapped: false
+        identifications:
+          type: array
+          xml:
+            name: Identification
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.IdentificationDetailsType'
+        legalEntityName:
+          type: string
+          xml:
+            name: LegalEntityName
+            attribute: false
+            wrapped: false
+        organisationType:
+          type: string
+          xml:
+            name: OrganisationType
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.BusinessType
+      xml:
+        name: BusinessDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType:
+      type: object
+      properties:
+        RoadNumber:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType'
+        order:
+          type: integer
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+        roadName:
+          type: string
+          example: Gladesville
+          xml:
+            name: RoadName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters<br>Valid character set: alphabetic, hyphens, apostrophes and spaces only.'
+        roadTypeCode:
+          type: string
+          example: BVD
+          xml:
+            name: RoadTypeCode
+            attribute: false
+            wrapped: false
+        roadSuffixCode:
+          type: string
+          example: DV
+          xml:
+            name: RoadSuffixCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType
+    au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType:
+      type: object
+      properties:
+        addressLines:
+          type: array
+          xml:
+            name: AddressLine
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType'
+        countryCode:
+          type: string
+          xml:
+            name: CountryCode
+            attribute: false
+            wrapped: false
+        postalCode:
+          type: string
+          xml:
+            name: PostalCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType
+      xml:
+        name: address1OverseasAddressDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.TaskDetailsType:
+      type: object
+      properties:
+        dateCompleted:
+          type: string
+          format: date-time
+          xml:
+            name: DateCompleted
+            attribute: false
+            wrapped: false
+        dateCreated:
+          type: string
+          format: date-time
+          xml:
+            name: DateCreated
+            attribute: false
+            wrapped: false
+        status:
+          type: string
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+        taskId:
+          type: string
+          xml:
+            name: TaskId
+            attribute: false
+            wrapped: false
+        type:
+          xml:
+            name: Type
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
+      title: au.net.pexa.api.schema._2.TaskDetailsType
+      xml:
+        name: taskDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType:
+      type: object
+      properties:
+        representedParty:
+          xml:
+            name: RepresentedParty
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType'
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        settlementDateTimeAcceptance:
+          type: string
+          xml:
+            name: SettlementDateTimeAcceptance
+            attribute: false
+            wrapped: false
+        status:
+          type: string
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+        subscriberReference:
+          type: string
+          xml:
+            name: SubscriberReference
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType
+      xml:
+        name: workspaceSummaryWorkspaceDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.ConstructionTypeDetailType:
+      type: object
+      properties:
+        key:
+          type: string
+          xml:
+            name: Key
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.ConstructionTypeDetailType
+      xml:
+        name: constructionTypeDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails:
+      type: object
+      properties:
+        landTitles:
+          type: array
+          xml:
+            name: LandTitle
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails
+      xml:
+        name: LandTitleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party:
+      type: object
+      properties:
+        partyActionType:
+          type: string
+          xml:
+            name: PartyActionType
+            attribute: false
+            wrapped: false
+        partyId:
+          type: string
+          xml:
+            name: PartyId
+            attribute: false
+            wrapped: false
+        representingParty:
+          type: string
+          xml:
+            name: RepresentingParty
+            attribute: false
+            wrapped: false
+        partyType:
+          type: string
+          xml:
+            name: PartyType
+            attribute: false
+            wrapped: false
+        partyRole:
+          type: string
+          xml:
+            name: PartyRole
+            attribute: false
+            wrapped: false
+        fullName:
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.FullNameType'
+        business:
+          xml:
+            name: Business
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.BusinessType'
+        currentAddress:
+          xml:
+            name: CurrentAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
+        futureAddress:
+          xml:
+            name: FutureAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
+        partyCapacityDetails:
+          xml:
+            name: PartyCapacityDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PartyCapacityDetailsType'
+        trustDetails:
+          xml:
+            name: TrustDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.TrustDetailsType'
+        foreignPartyDetails:
+          xml:
+            name: ForeignPartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ForeignPartyDetailsType'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party
+      xml:
+        name: Party
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryResponse:
+      type: object
+      properties:
+        businessEventsList:
+          xml:
+            name: BusinessEventsList
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType'
+        documentSummary:
+          xml:
+            name: DocumentSummary
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType'
+        fees:
+          xml:
+            name: Fees
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType'
+        jurisdiction:
+          type: string
+          xml:
+            name: Jurisdiction
+            attribute: false
+            wrapped: false
+        landTitleDetails:
+          xml:
+            name: LandTitleDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType'
+        participantDetails:
+          xml:
+            name: ParticipantDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType'
+        partyDetails:
+          xml:
+            name: PartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType'
+        role:
+          type: string
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+        settlementSchedule:
+          xml:
+            name: SettlementSchedule
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType'
+        status:
+          type: string
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+        taskList:
+          xml:
+            name: TaskList
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType'
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryResponse
+      xml:
+        name: WorkspaceSummaryResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType:
+      type: object
+      properties:
+        documents:
+          type: array
+          xml:
+            name: Document
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.DocumentDetailsType'
+      title: au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType
+      xml:
+        name: lodgementCaseDocumentDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.TrustDetailsType:
       type: object
       properties:
         trustIndicator:
           type: string
-          example: 'Yes'
           xml:
             name: TrustIndicator
             attribute: false
             wrapped: false
         trustName:
           type: string
-          example: MLC Super Fund
           xml:
             name: TrustName
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._2.TrustDetailsType
+      title: au.net.pexa.api.schema._1.TrustDetailsType
       xml:
-        name: TrustDetails
+        name: trustDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.Address1Type:
+    au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails:
       type: object
       properties:
-        overseasAddress:
-          xml:
-            name: OverseasAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType'
-        streetAddress:
-          xml:
-            name: StreetAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressDetailsType'
-      title: au.net.pexa.api.schema._2.Address1Type
-      xml:
-        name: address1Type
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType:
-      type: object
-      properties:
-        feeItems:
+        landTitles:
           type: array
           xml:
-            name: FeeItem
+            name: LandTitle
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.FeeItemDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails
       xml:
-        name: workspaceSummaryFeesDetailsType
+        name: LandTitleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.LodgementDetailsType:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          xml:
+            name: Date
+            attribute: false
+            wrapped: false
+        dealingNumber:
+          type: string
+          xml:
+            name: DealingNumber
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.LodgementDetailsType
+      xml:
+        name: lodgementDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType:
+      type: object
+      properties:
+        lotNumber:
+          type: string
+          xml:
+            name: LotNumber
+            attribute: false
+            wrapped: false
+        roadName:
+          type: string
+          xml:
+            name: RoadName
+            attribute: false
+            wrapped: false
+        roadNumber:
+          type: string
+          xml:
+            name: RoadNumber
+            attribute: false
+            wrapped: false
+        roadSuffixCode:
+          type: string
+          xml:
+            name: RoadSuffixCode
+            attribute: false
+            wrapped: false
+        roadTypeCode:
+          type: string
+          xml:
+            name: RoadTypeCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType
+    au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType:
+      type: object
+      properties:
+        parties:
+          type: array
+          xml:
+            name: Party
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType
+      xml:
+        name: workspaceSummaryPartyDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType:
+      type: object
+      properties:
+        landTitles:
+          type: array
+          xml:
+            name: LandTitle
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType
+      xml:
+        name: workspaceSummaryLandTitleDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType:
+      type: object
+      properties:
+        contactDetails:
+          xml:
+            name: ContactDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspacesummaryParticipantContactDetailsType'
+        subscriberName:
+          type: string
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+        workspaces:
+          type: array
+          xml:
+            name: Workspace
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType
+      xml:
+        name: workspaceSummaryParticipantType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType:
+      type: object
+      properties:
+        localityName:
+          type: string
+          xml:
+            name: LocalityName
+            attribute: false
+            wrapped: false
+        postalDelivery:
+          xml:
+            name: PostalDelivery
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType'
+        postcode:
+          type: string
+          xml:
+            name: Postcode
+            attribute: false
+            wrapped: false
+        road:
+          xml:
+            name: Road
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType'
+        state:
+          type: string
+          xml:
+            name: State
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType
+    au.net.pexa.api.schema._2.BusinessType:
+      type: object
+      properties:
+        legalEntityName:
+          type: string
+          example: National Australia Bank
+          xml:
+            name: LegalEntityName
+            attribute: false
+            wrapped: false
+          description: Maximum 150 characters
+        businessName:
+          type: string
+          example: NAB
+          xml:
+            name: BusinessName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. '
+        businessUnit:
+          type: string
+          example: Mortgage processing
+          xml:
+            name: BusinessUnit
+            attribute: false
+            wrapped: false
+          description: ' Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. '
+        organisationType:
+          type: string
+          example: Registered Company
+          xml:
+            name: OrganisationType
+            attribute: false
+            wrapped: false
+          description: Must be provided if Party Type is Organisation
+        administrationStatuses:
+          type: array
+          example: Subject to a deed of company arrangement
+          xml:
+            name: AdministrationStatus
+            attribute: false
+            wrapped: false
+          description: ' Must be provided if Organisation Type is ''Registered company in external administration'' '
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.AdministrationStatusDetailsType'
+        identifications:
+          type: array
+          xml:
+            name: Identification
+            attribute: false
+            wrapped: false
+          description: ' External identification of the party through a registered organisation.'
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.IdentificationDetailsType'
+      title: au.net.pexa.api.schema._2.BusinessType
+      xml:
+        name: BusinessDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.PartyCapacityDetailsType:
+      type: object
+      properties:
+        partyCapacityType:
+          type: string
+          example: Executor
+          xml:
+            name: PartyCapacityType
+            attribute: false
+            wrapped: false
+        partyCapacityDetail:
+          type: string
+          example: UNDER INSTRUMENT 717058293
+          xml:
+            name: PartyCapacityDetail
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.PartyCapacityDetailsType
+      xml:
+        name: PartyCapacityDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.TransactionDetailsDetailType:
@@ -1239,393 +2885,7 @@ components:
         name: transactionDetailsDetailType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party:
-      type: object
-      properties:
-        partyId:
-          type: string
-          xml:
-            name: PartyId
-            attribute: false
-            wrapped: false
-        partyType:
-          type: string
-          xml:
-            name: PartyType
-            attribute: false
-            wrapped: false
-        partyRole:
-          type: string
-          xml:
-            name: PartyRole
-            attribute: false
-            wrapped: false
-        fullName:
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.FullNameType'
-        business:
-          xml:
-            name: Business
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.BusinessType'
-        currentAddress:
-          xml:
-            name: CurrentAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
-        futureAddress:
-          xml:
-            name: FutureAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party
-      xml:
-        name: Party
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle'
-        parentTitle:
-          type: string
-          example: 'Yes'
-          xml:
-            name: ParentTitle
-            attribute: false
-            wrapped: false
-          description: ' Whether the land title reference is a parent title awaiting sub-division. This indicator applies to all land title references.<br>  <br>  Must be set to No if Role is CT Controller or Consentor.'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails
-      xml:
-        name: LandTitleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          xml:
-            name: LandTitle
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails
-      xml:
-        name: LandTitleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType:
-      type: object
-      properties:
-        landTitleReference:
-          type: string
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-        parentTitle:
-          type: string
-          xml:
-            name: ParentTitle
-            attribute: false
-            wrapped: false
-        propertyDetails:
-          type: string
-          xml:
-            name: PropertyDetails
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryLandTitlesType
-      xml:
-        name: workspaceSummaryLandTitlesType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType:
-      type: object
-      properties:
-        unitNumber:
-          type: string
-          xml:
-            name: UnitNumber
-            attribute: false
-            wrapped: false
-        unitTypeCode:
-          type: string
-          xml:
-            name: UnitTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType
-    au.net.pexa.api.schema._2.TaskDetailsType:
-      type: object
-      properties:
-        dateCompleted:
-          type: string
-          format: date-time
-          xml:
-            name: DateCompleted
-            attribute: false
-            wrapped: false
-        dateCreated:
-          type: string
-          format: date-time
-          xml:
-            name: DateCreated
-            attribute: false
-            wrapped: false
-        status:
-          type: string
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-        taskId:
-          type: string
-          xml:
-            name: TaskId
-            attribute: false
-            wrapped: false
-        type:
-          xml:
-            name: Type
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
-      title: au.net.pexa.api.schema._2.TaskDetailsType
-      xml:
-        name: taskDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryResponse:
-      type: object
-      properties:
-        businessEventsList:
-          xml:
-            name: BusinessEventsList
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType'
-        documentSummary:
-          xml:
-            name: DocumentSummary
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType'
-        fees:
-          xml:
-            name: Fees
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryFeesDetailsType'
-        jurisdiction:
-          type: string
-          xml:
-            name: Jurisdiction
-            attribute: false
-            wrapped: false
-        landTitleDetails:
-          xml:
-            name: LandTitleDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryLandTitleDetailsType'
-        participantDetails:
-          xml:
-            name: ParticipantDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryParticipantDetailsType'
-        partyDetails:
-          xml:
-            name: PartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType'
-        role:
-          type: string
-          xml:
-            name: Role
-            attribute: false
-            wrapped: false
-        settlementSchedule:
-          xml:
-            name: SettlementSchedule
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType'
-        status:
-          type: string
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-        taskList:
-          xml:
-            name: TaskList
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType'
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryResponse
-      xml:
-        name: WorkspaceSummaryResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.AreaOfLandDetailType:
-      type: object
-      properties:
-        area:
-          type: number
-          xml:
-            name: Area
-            attribute: false
-            wrapped: false
-        measurement:
-          type: string
-          xml:
-            name: Measurement
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.AreaOfLandDetailType
-      xml:
-        name: areaOfLandDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType:
-      type: object
-      properties:
-        contactDetails:
-          xml:
-            name: ContactDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspacesummaryParticipantContactDetailsType'
-        subscriberName:
-          type: string
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-        workspaces:
-          type: array
-          xml:
-            name: Workspace
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryParticipantType
-      xml:
-        name: workspaceSummaryParticipantType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType:
-      type: object
-      properties:
-        value:
-          type: string
-        order:
-          type: integer
-          example: 1
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType
-    au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType
-    au.net.pexa.api.schema._2.Address2Type:
-      type: object
-      properties:
-        StreetAddress:
-          xml:
-            name: StreetAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressDetailsType'
-        OverseasAddress:
-          xml:
-            name: OverseasAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType'
-        CorrespondenceAddress:
-          xml:
-            name: CorrespondenceAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType'
-      title: au.net.pexa.api.schema._2.Address2Type
-    au.net.pexa.api.schema._2.ForeignCountryShareDetailsType:
-      type: object
-      properties:
-        foreignShareholderCountry:
-          type: string
-          example: CA
-          xml:
-            name: ForeignShareholderCountry
-            attribute: false
-            wrapped: false
-          description: The foreign country.
-        foreignPercent:
-          type: number
-          example: 70
-          xml:
-            name: ForeignPercent
-            attribute: false
-            wrapped: false
-          description: The percentage that is foreign.
-      title: au.net.pexa.api.schema._2.ForeignCountryShareDetailsType
-      xml:
-        name: ForeignCountryShare
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType:
-      type: object
-      properties:
-        unitTypeCode:
-          type: string
-          example: UNIT
-          xml:
-            name: UnitTypeCode
-            attribute: false
-            wrapped: false
-        unitNumber:
-          type: string
-          example: 22
-          xml:
-            name: UnitNumber
-            attribute: false
-            wrapped: false
-          description: 'Maximum 7 characters <br>Valid character set: numeric, slashes and spaces only.'
-      title: au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType
-    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails:
+    au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType:
       type: object
       properties:
         parties:
@@ -1635,304 +2895,10 @@ components:
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryPartyType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType
       xml:
-        name: PartyDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadNumberType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadNumberType
-      xml:
-        name: address1StreetAddressComplexRoadNumberType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType:
-      type: object
-      properties:
-        addressLines:
-          type: array
-          xml:
-            name: AddressLine
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType'
-        countryCode:
-          type: string
-          xml:
-            name: CountryCode
-            attribute: false
-            wrapped: false
-        postalCode:
-          type: string
-          xml:
-            name: PostalCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType
-    au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails:
-      type: object
-      properties:
-        parties:
-          type: array
-          xml:
-            name: Party
-            attribute: false
-            wrapped: false
-          description: ' Upon successful adding of the party to the workspace, return the newly added party detail record with a Party Id.<br> In the scenario this structure is not returned, this indicates the new party detail contains an error and the party has not been added to the workspace. <br>If the subscriber creates a workspace in the role of Proprietor on Title and Request Land Title Data is Yes, the list of Proprietor on Title parties will be returned.  '
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails
-      xml:
-        name: PartyDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party:
-      type: object
-      properties:
-        partyActionType:
-          type: string
-          xml:
-            name: PartyActionType
-            attribute: false
-            wrapped: false
-        partyId:
-          type: string
-          xml:
-            name: PartyId
-            attribute: false
-            wrapped: false
-        representingParty:
-          type: string
-          xml:
-            name: RepresentingParty
-            attribute: false
-            wrapped: false
-        partyType:
-          type: string
-          xml:
-            name: PartyType
-            attribute: false
-            wrapped: false
-        partyRole:
-          type: string
-          xml:
-            name: PartyRole
-            attribute: false
-            wrapped: false
-        fullName:
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.FullNameType'
-        business:
-          xml:
-            name: Business
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.BusinessType'
-        currentAddress:
-          xml:
-            name: CurrentAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
-        futureAddress:
-          xml:
-            name: FutureAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2Type'
-        partyCapacityDetails:
-          xml:
-            name: PartyCapacityDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PartyCapacityDetailsType'
-        trustDetails:
-          xml:
-            name: TrustDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.TrustDetailsType'
-        foreignPartyDetails:
-          xml:
-            name: ForeignPartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ForeignPartyDetailsType'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party
-      xml:
-        name: Party
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.TrustDetailsType:
-      type: object
-      properties:
-        trustIndicator:
-          type: string
-          xml:
-            name: TrustIndicator
-            attribute: false
-            wrapped: false
-        trustName:
-          type: string
-          xml:
-            name: TrustName
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.TrustDetailsType
-      xml:
-        name: trustDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        roadName:
-          type: string
-          xml:
-            name: RoadName
-            attribute: false
-            wrapped: false
-        roadNumbers:
-          type: array
-          xml:
-            name: RoadNumber
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType'
-        roadSuffixCode:
-          type: string
-          xml:
-            name: RoadSuffixCode
-            attribute: false
-            wrapped: false
-        roadTypeCode:
-          type: string
-          xml:
-            name: RoadTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType
-    au.net.pexa.api.schema._1.AdministrationStatusDetailsType:
-      type: object
-      properties:
-        value:
-          type: string
-      title: au.net.pexa.api.schema._1.AdministrationStatusDetailsType
-      xml:
-        name: AdministrationStatus
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.ManageWorkspaceDataRequest:
-      type: object
-      properties:
-        role:
-          type: string
-          xml:
-            name: Role
-            attribute: false
-            wrapped: false
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-        workspaceData:
-          xml:
-            name: WorkspaceData
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDataDetailType'
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.ManageWorkspaceDataRequest
-      xml:
-        name: ManageWorkspaceDataRequest
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.IdentificationDetailsType:
-      type: object
-      properties:
-        identifier:
-          type: string
-          xml:
-            name: Identifier
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.IdentificationDetailsType
-      xml:
-        name: Identification
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle:
-      type: object
-      properties:
-        landTitleReference:
-          type: string
-          example: 12345/987
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-        unregisteredLotReference:
-          type: string
-          example: 12345/982
-          xml:
-            name: UnregisteredLotReference
-            attribute: false
-            wrapped: false
-          description: ' Maximum 333 characters<br>Valid character set: alphanumeric, hyphens, apostrophes, slashes, spaces, commas, brackets, colons, semi-colons and full stops only.  <br>The unregistered lot references pending against the parent land title specified.  <br>This field can be provided when the Parent Title is ''Yes'' else must not be provided. '
-      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle
-      xml:
-        name: LandTitle
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.GivenNameOrderType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.GivenNameOrderType
-      xml:
-        name: GivenName
+        name: workspaceSummaryRepresentedPartyDetailsType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.ManageTransferDutyRequest:
@@ -1967,519 +2933,56 @@ components:
         name: ManageTransferDutyRequest
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.LodgementVerificationDetailsType:
+    au.net.pexa.api.schema._1.ManageWorkspaceDataRequest:
       type: object
       properties:
-        date:
-          type: string
-          format: date-time
-          xml:
-            name: Date
-            attribute: false
-            wrapped: false
-        verificationResult:
-          type: string
-          xml:
-            name: VerificationResult
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.LodgementVerificationDetailsType
-      xml:
-        name: lodgementVerificationDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType:
-      type: object
-      properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType
-      xml:
-        name: address1OverseasAddress1AddressLineDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressDetailsType:
-      type: object
-      properties:
-        ComplexRoad:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType'
-        SubDwellingUnitType:
-          xml:
-            name: SubDwellingUnitType
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType'
-        Level:
-          xml:
-            name: Level
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType'
-        secondaryComplex:
-          type: string
-          example: Riverside Gardens
-          xml:
-            name: SecondaryComplex
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters<br> Valid character set: alphanumeric and spaces only. <br> For complex addresses '
-        addressSiteName:
-          type: string
-          example: care of
-          xml:
-            name: AddressSiteName
-            attribute: false
-            wrapped: false
-          description: 'Maximum 30 characters <br> Valid character set: alphanumeric and spaces only.'
-        Road:
-          xml:
-            name: Road
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType'
-        localityName:
-          type: string
-          example: Aintree
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-          description: 'Maximum 100 characters<br> Valid character set: alphabetic and spaces only.'
-        postcode:
-          type: string
-          example: 3023
-          xml:
-            name: Postcode
-            attribute: false
-            wrapped: false
-        state:
-          type: string
-          example: VIC
-          xml:
-            name: State
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2StreetAddressDetailsType
-    au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType:
-      type: object
-      properties:
-        lotNumber:
-          type: string
-          xml:
-            name: LotNumber
-            attribute: false
-            wrapped: false
-        roadName:
-          type: string
-          xml:
-            name: RoadName
-            attribute: false
-            wrapped: false
-        roadNumber:
-          type: string
-          xml:
-            name: RoadNumber
-            attribute: false
-            wrapped: false
-        roadSuffixCode:
-          type: string
-          xml:
-            name: RoadSuffixCode
-            attribute: false
-            wrapped: false
-        roadTypeCode:
-          type: string
-          xml:
-            name: RoadTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType
-      xml:
-        name: address1StreetAddressRoadDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.FullNameType:
-      type: object
-      properties:
-        dateOfBirth:
-          type: string
-          format: date-time
-          xml:
-            name: DateOfBirth
-            attribute: false
-            wrapped: false
-        familyName:
-          type: string
-          xml:
-            name: FamilyName
-            attribute: false
-            wrapped: false
-        familyNameOrder:
-          type: string
-          xml:
-            name: FamilyNameOrder
-            attribute: false
-            wrapped: false
-        givenNames:
-          type: array
-          xml:
-            name: GivenName
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.GivenNameOrderType'
-        nameSuffix:
-          type: string
-          xml:
-            name: NameSuffix
-            attribute: false
-            wrapped: false
-        nameTitle:
-          type: string
-          xml:
-            name: NameTitle
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.FullNameType
-      xml:
-        name: FullName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.ForeignPartyDetailsType:
-      type: object
-      properties:
-        foreignCountry:
-          type: string
-          xml:
-            name: ForeignCountry
-            attribute: false
-            wrapped: false
-        foreignCountryShares:
-          type: array
-          xml:
-            name: ForeignCountryShare
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ForeignCountryShareDetailsType'
-        foreignPartyIndicator:
-          type: string
-          xml:
-            name: ForeignPartyIndicator
-            attribute: false
-            wrapped: false
-        foreignPartyType:
-          type: string
-          xml:
-            name: ForeignPartyType
-            attribute: false
-            wrapped: false
-        residentPartyIndicator:
-          type: string
-          xml:
-            name: ResidentPartyIndicator
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.ForeignPartyDetailsType
-      xml:
-        name: foreignPartyDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType:
-      type: object
-      properties:
-        lastModified:
-          type: string
-          format: date-time
-          xml:
-            name: LastModified
-            attribute: false
-            wrapped: false
-        overallSettlementAcceptanceStatus:
-          type: string
-          xml:
-            name: OverallSettlementAcceptanceStatus
-            attribute: false
-            wrapped: false
-        settlementDate:
-          type: string
-          format: date-time
-          xml:
-            name: SettlementDate
-            attribute: false
-            wrapped: false
-        settlementScheduleId:
-          type: string
-          xml:
-            name: SettlementScheduleId
-            attribute: false
-            wrapped: false
-        signaturesReceived:
-          type: integer
-          xml:
-            name: SignaturesReceived
-            attribute: false
-            wrapped: false
-        signaturesRequired:
-          type: integer
-          xml:
-            name: SignaturesRequired
-            attribute: false
-            wrapped: false
-        status:
-          type: string
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType
-      xml:
-        name: workspaceSummarySettlementScheduleDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType:
-      type: object
-      properties:
-        PostalDelivery:
-          xml:
-            name: PostalDelivery
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType'
-        Road:
-          xml:
-            name: Road
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType'
-        localityName:
-          type: string
-          example: Caroline Springs
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-        postcode:
-          type: string
-          example: 3023
-          xml:
-            name: Postcode
-            attribute: false
-            wrapped: false
-        state:
-          type: string
-          example: VIC
-          xml:
-            name: State
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType
-    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber:
-      type: object
-      properties:
-        participantSettlementAcceptanceStatus:
-          type: string
-          xml:
-            name: ParticipantSettlementAcceptanceStatus
-            attribute: false
-            wrapped: false
         role:
           type: string
           xml:
             name: Role
             attribute: false
             wrapped: false
-        subscriberReference:
-          type: string
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber
-      xml:
-        name: ChildWorkgroupList
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.FullNameType:
-      type: object
-      properties:
-        nameTitle:
-          type: string
-          example: Mr
-          xml:
-            name: NameTitle
-            attribute: false
-            wrapped: false
-          description: ' Title (e.g. ''Mr'', ''Ms'', ''Prof'') '
-        givenNames:
-          type: array
-          example: Jhon Snow
-          xml:
-            name: GivenName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order'
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.GivenNameOrderType'
-        familyName:
-          type: string
-          example: Stark
-          xml:
-            name: FamilyName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. '
-        familyNameOrder:
-          type: string
-          example: 1
-          xml:
-            name: FamilyNameOrder
-            attribute: false
-            wrapped: false
-          description: ' Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last '
-        nameSuffix:
-          type: string
-          example: Jr
-          xml:
-            name: NameSuffix
-            attribute: false
-            wrapped: false
-          description: ' Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)'
-        dateOfBirth:
-          type: string
-          format: date-time
-          example: '1984-02-02'
-          xml:
-            name: DateOfBirth
-            attribute: false
-            wrapped: false
-          description: ' This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
-      title: au.net.pexa.api.schema._2.FullNameType
-      xml:
-        name: FullName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle:
-      type: object
-      properties:
-        obsoleteLandTitleReference:
-          type: string
-          example: 12345/878
-          xml:
-            name: ObsoleteLandTitleReference
-            attribute: false
-            wrapped: false
-          description: The land title reference sent as part of the request which is now obsolete.
-        newLandTitleReference:
-          type: string
-          example: 123456/987
-          xml:
-            name: NewLandTitleReference
-            attribute: false
-            wrapped: false
-          description: The new land title reference which has superseded the obsolete land title reference.
-      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle
-      xml:
-        name: LandTitle
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest:
-      type: object
-      properties:
         subscriberId:
           type: string
-          example: 208
           xml:
             name: SubscriberId
             attribute: false
             wrapped: false
-          description: ' The PEXA internal reference for the subscriber initiating the API service call.<br> Note: Subscriber Id is not required for any subscribers using token based authentication (OAuth, SAML etc.).<br> For mutual SSL authentication, the Subscriber Id must be provided. <br> Maximum 19 characters'
+        workspaceData:
+          xml:
+            name: WorkspaceData
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDataDetailType'
         workspaceId:
           type: string
           xml:
             name: WorkspaceId
             attribute: false
             wrapped: false
-        role:
-          type: string
-          xml:
-            name: Role
-            attribute: false
-            wrapped: false
-        subscriberReference:
-          type: string
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-        landTitleDetails:
-          xml:
-            name: LandTitleDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails'
-        newSubscriberReference:
-          type: string
-          xml:
-            name: NewSubscriberReference
-            attribute: false
-            wrapped: false
-        additionalRoleDetails:
-          xml:
-            name: AdditionalRoleDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails'
-        partyDetails:
-          xml:
-            name: PartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest
+      title: au.net.pexa.api.schema._1.ManageWorkspaceDataRequest
       xml:
-        name: WorkspaceUpdateRequest
-        namespace: http://api.pexa.net.au/schema/1/
+        name: ManageWorkspaceDataRequest
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole:
+    au.net.pexa.api.schema._2.Address1Type:
       type: object
       properties:
-        roleActionType:
-          type: string
+        overseasAddress:
           xml:
-            name: RoleActionType
+            name: OverseasAddress
             attribute: false
             wrapped: false
-        role:
-          type: string
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType'
+        streetAddress:
           xml:
-            name: Role
+            name: StreetAddress
             attribute: false
             wrapped: false
-        subscriberReference:
-          type: string
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-        isDefaultRole:
-          type: string
-          xml:
-            name: IsDefaultRole
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressDetailsType'
+      title: au.net.pexa.api.schema._2.Address1Type
       xml:
-        name: OtherRole
+        name: address1Type
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.WorkspacesummaryParticipantContactDetailsType:
@@ -2502,204 +3005,148 @@ components:
         name: workspacesummaryParticipantContactDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType:
+    au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle:
       type: object
       properties:
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        value:
+        landTitleReference:
           type: string
-      title: au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType
-    au.net.pexa.api.schema._2.IdentificationDetailsType:
-      type: object
-      properties:
-        identifier:
-          type: string
-          example: ABN
+          example: 12345/987
           xml:
-            name: Identifier
+            name: LandTitleReference
             attribute: false
             wrapped: false
-        value:
+        unregisteredLotReference:
           type: string
-          example: 0421568963
+          example: 12345/982
           xml:
-            name: Value
+            name: UnregisteredLotReference
             attribute: false
             wrapped: false
-          description: Maximum 20 characters <br> Must be provided without whitespaces.
-      title: au.net.pexa.api.schema._2.IdentificationDetailsType
+          description: ' Maximum 333 characters<br>Valid character set: alphanumeric, hyphens, apostrophes, slashes, spaces, commas, brackets, colons, semi-colons and full stops only.  <br>The unregistered lot references pending against the parent land title specified.  <br>This field can be provided when the Parent Title is ''Yes'' else must not be provided. '
+      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle
       xml:
-        name: Identification
+        name: LandTitle
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.ForeignPartyDetailsType:
+    au.net.pexa.api.schema._2.PartyDetailsType:
       type: object
       properties:
-        foreignPartyIndicator:
+        business:
+          xml:
+            name: Business
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
+        currentAddress:
+          xml:
+            name: CurrentAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1Type'
+        foreignPartyDetails:
+          xml:
+            name: ForeignPartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignPartyDetailsType'
+        fullName:
+          xml:
+            name: FullName
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
+        futureAddress:
+          xml:
+            name: FutureAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1Type'
+        partyCapacityDetails:
+          xml:
+            name: PartyCapacityDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyCapacityDetailsType'
+        partyId:
           type: string
-          example: 'No'
           xml:
-            name: ForeignPartyIndicator
+            name: PartyId
             attribute: false
             wrapped: false
-        foreignPartyType:
+        partyRole:
           type: string
-          example: Natural Person
           xml:
-            name: ForeignPartyType
+            name: PartyRole
             attribute: false
             wrapped: false
-        foreignCountry:
+        partyType:
           type: string
-          example: CA
           xml:
-            name: ForeignCountry
+            name: PartyType
             attribute: false
             wrapped: false
-        residentPartyIndicator:
+        trustDetails:
+          xml:
+            name: TrustDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TrustDetailsType'
+        unrepresentedParty:
           type: string
-          example: 'Yes'
           xml:
-            name: ResidentPartyIndicator
+            name: UnrepresentedParty
             attribute: false
             wrapped: false
-        foreignCountryShares:
-          type: array
-          xml:
-            name: ForeignCountryShare
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignCountryShareDetailsType'
-      title: au.net.pexa.api.schema._2.ForeignPartyDetailsType
+      title: au.net.pexa.api.schema._2.PartyDetailsType
       xml:
-        name: ForeignPartyDetails
+        name: partyDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.PrimaryLandUseDetailType:
+    au.net.pexa.api.schema._2.EventDetailsType:
       type: object
       properties:
-        key:
+        category:
           type: string
           xml:
-            name: Key
+            name: Category
             attribute: false
             wrapped: false
-        value:
+        date:
+          type: string
+          format: date-time
+          xml:
+            name: Date
+            attribute: false
+            wrapped: false
+        detail:
           type: string
           xml:
-            name: Value
+            name: Detail
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.PrimaryLandUseDetailType
+        eventId:
+          type: string
+          xml:
+            name: EventId
+            attribute: false
+            wrapped: false
+        severity:
+          type: string
+          xml:
+            name: Severity
+            attribute: false
+            wrapped: false
+        type:
+          xml:
+            name: Type
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
+      title: au.net.pexa.api.schema._2.EventDetailsType
       xml:
-        name: primaryLandUseDetailType
+        name: eventDetailsType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType:
-      type: object
-      properties:
-        levelNumber:
-          type: string
-          xml:
-            name: LevelNumber
-            attribute: false
-            wrapped: false
-        levelTypeCode:
-          type: string
-          xml:
-            name: LevelTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType
-      xml:
-        name: address1StreetAddressLevelDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.SigningSubscriberDetailsType:
-      type: object
-      properties:
-        subscriberNames:
-          type: array
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-          items:
-            type: string
-      title: au.net.pexa.api.schema._2.SigningSubscriberDetailsType
-      xml:
-        name: signingSubscriberDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType:
-      type: object
-      properties:
-        levelTypeCode:
-          type: string
-          example: G
-          xml:
-            name: LevelTypeCode
-            attribute: false
-            wrapped: false
-        levelNumber:
-          type: string
-          example: 5
-          xml:
-            name: LevelNumber
-            attribute: false
-            wrapped: false
-          description: 'Maximum 5 characters<br> Valid character set: numeric only.'
-      title: au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType
-    au.net.pexa.api.schema._2.PartyCapacityDetailsType:
-      type: object
-      properties:
-        partyCapacityType:
-          type: string
-          example: Executor
-          xml:
-            name: PartyCapacityType
-            attribute: false
-            wrapped: false
-        partyCapacityDetail:
-          type: string
-          example: UNDER INSTRUMENT 717058293
-          xml:
-            name: PartyCapacityDetail
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.PartyCapacityDetailsType
-      xml:
-        name: PartyCapacityDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2Type:
-      type: object
-      properties:
-        correspondenceAddress:
-          xml:
-            name: CorrespondenceAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType'
-        overseasAddress:
-          xml:
-            name: OverseasAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType'
-        streetAddress:
-          xml:
-            name: StreetAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressDetailsType'
-      title: au.net.pexa.api.schema._1.Address2Type
     au.net.pexa.api.schema._2.WorkspaceCreationRequest:
       type: object
       properties:
@@ -2819,534 +3266,24 @@ components:
         namespace: http://api.pexa.net.au/schema/2/
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceDataDetailType:
+    au.net.pexa.api.schema._2.WorkspaceSummaryPartyType:
       type: object
       properties:
-        propertyDetails:
+        partyId:
+          type: string
           xml:
-            name: PropertyDetails
+            name: PartyId
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PropertyDetailsDetailType'
-        transactionDetails:
+        representingSelf:
+          type: string
           xml:
-            name: TransactionDetails
+            name: RepresentingSelf
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.TransactionDetailsDetailType'
-      title: au.net.pexa.api.schema._1.WorkspaceDataDetailType
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryPartyType
       xml:
-        name: workspaceDataDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2StreetAddressDetailsType:
-      type: object
-      properties:
-        addressSiteName:
-          type: string
-          xml:
-            name: AddressSiteName
-            attribute: false
-            wrapped: false
-        complexRoads:
-          type: array
-          xml:
-            name: ComplexRoad
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType'
-        level:
-          xml:
-            name: Level
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType'
-        localityName:
-          type: string
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-        postcode:
-          type: string
-          xml:
-            name: Postcode
-            attribute: false
-            wrapped: false
-        road:
-          xml:
-            name: Road
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType'
-        secondaryComplex:
-          type: string
-          xml:
-            name: SecondaryComplex
-            attribute: false
-            wrapped: false
-        state:
-          type: string
-          xml:
-            name: State
-            attribute: false
-            wrapped: false
-        subDwellingUnitType:
-          xml:
-            name: SubDwellingUnitType
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType'
-      title: au.net.pexa.api.schema._1.Address2StreetAddressDetailsType
-    au.net.pexa.api.schema._2.WorkspaceCreationResponse:
-      type: object
-      properties:
-        landTitleDetails:
-          xml:
-            name: LandTitleDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails'
-        workspaceId:
-          type: string
-          example: PEXA2000456897
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-          description: ' Maximum 13 characters<br>PEXA workspace number'
-        workspaceStatus:
-          type: string
-          example: In Preparation
-          xml:
-            name: WorkspaceStatus
-            attribute: false
-            wrapped: false
-        partyDetails:
-          xml:
-            name: PartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse
-      xml:
-        name: WorkspaceCreationResponse
-        namespace: http://api.pexa.net.au/schema/2/
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType:
-      type: object
-      properties:
-        parties:
-          type: array
-          xml:
-            name: Party
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryPartyDetailsType
-      xml:
-        name: workspaceSummaryPartyDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.DutyDataDetailType:
-      type: object
-      properties:
-        documentId:
-          type: string
-          xml:
-            name: DocumentId
-            attribute: false
-            wrapped: false
-        revenueOfficeTransactionId:
-          type: string
-          xml:
-            name: RevenueOfficeTransactionId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.DutyDataDetailType
-      xml:
-        name: dutyDataDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType:
-      type: object
-      properties:
-        representedParty:
-          xml:
-            name: RepresentedParty
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType'
-        role:
-          type: string
-          xml:
-            name: Role
-            attribute: false
-            wrapped: false
-        settlementDateTimeAcceptance:
-          type: string
-          xml:
-            name: SettlementDateTimeAcceptance
-            attribute: false
-            wrapped: false
-        status:
-          type: string
-          xml:
-            name: Status
-            attribute: false
-            wrapped: false
-        subscriberReference:
-          type: string
-          xml:
-            name: SubscriberReference
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryWorkspaceDetailsType
-      xml:
-        name: workspaceSummaryWorkspaceDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.FeeItemDetailsType:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date-time
-          xml:
-            name: Date
-            attribute: false
-            wrapped: false
-        documentType:
-          type: string
-          xml:
-            name: DocumentType
-            attribute: false
-            wrapped: false
-        gstAmount:
-          type: number
-          xml:
-            name: GstAmount
-            attribute: false
-            wrapped: false
-        netAmount:
-          type: number
-          xml:
-            name: NetAmount
-            attribute: false
-            wrapped: false
-        signingSubscriber:
-          xml:
-            name: SigningSubscriber
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.SigningSubscriberDetailsType'
-        totalAmount:
-          type: number
-          xml:
-            name: TotalAmount
-            attribute: false
-            wrapped: false
-        type:
-          xml:
-            name: Type
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TypeDetailsType'
-      title: au.net.pexa.api.schema._2.FeeItemDetailsType
-      xml:
-        name: feeItemDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateResponse:
-      type: object
-      properties:
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-        landTitleDetails:
-          xml:
-            name: LandTitleDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails'
-        workspaceStatus:
-          type: string
-          xml:
-            name: WorkspaceStatus
-            attribute: false
-            wrapped: false
-        partyDetails:
-          xml:
-            name: PartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse
-      xml:
-        name: WorkspaceUpdateResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType:
-      type: object
-      properties:
-        documents:
-          type: array
-          xml:
-            name: Document
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.DocumentDetailsType'
-      title: au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType
-      xml:
-        name: lodgementCaseDocumentDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.AdministrationStatusDetailsType:
-      type: object
-      properties:
-        value:
-          type: string
-      title: au.net.pexa.api.schema._2.AdministrationStatusDetailsType
-      xml:
-        name: AdministrationStatus
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType:
-      type: object
-      properties:
-        addressLines:
-          type: array
-          xml:
-            name: AddressLine
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1OverseasAddress1AddressLineDetailsType'
-        countryCode:
-          type: string
-          xml:
-            name: CountryCode
-            attribute: false
-            wrapped: false
-        postalCode:
-          type: string
-          xml:
-            name: PostalCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address1OverseasAddressDetailsType
-      xml:
-        name: address1OverseasAddressDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.DocumentDetailsType:
-      type: object
-      properties:
-        documentId:
-          type: string
-          xml:
-            name: DocumentId
-            attribute: false
-            wrapped: false
-        documentStatus:
-          type: string
-          xml:
-            name: DocumentStatus
-            attribute: false
-            wrapped: false
-        documentType:
-          type: string
-          xml:
-            name: DocumentType
-            attribute: false
-            wrapped: false
-        landTitleReferences:
-          type: array
-          xml:
-            name: LandTitleReference
-            attribute: false
-            wrapped: false
-          items:
-            type: string
-        lastModified:
-          type: string
-          format: date-time
-          xml:
-            name: LastModified
-            attribute: false
-            wrapped: false
-        lodgement:
-          xml:
-            name: Lodgement
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementDetailsType'
-        lodgementVerification:
-          xml:
-            name: LodgementVerification
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementVerificationDetailsType'
-        relatedDocumentId:
-          type: string
-          xml:
-            name: RelatedDocumentId
-            attribute: false
-            wrapped: false
-        signaturesReceived:
-          type: integer
-          xml:
-            name: SignaturesReceived
-            attribute: false
-            wrapped: false
-        signaturesRequired:
-          type: integer
-          xml:
-            name: SignaturesRequired
-            attribute: false
-            wrapped: false
-        stampDuty:
-          xml:
-            name: StampDuty
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.StampDutyDetailsType'
-      title: au.net.pexa.api.schema._2.DocumentDetailsType
-      xml:
-        name: documentDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType:
-      type: object
-      properties:
-        levelNumber:
-          type: string
-          xml:
-            name: LevelNumber
-            attribute: false
-            wrapped: false
-        levelTypeCode:
-          type: string
-          xml:
-            name: LevelTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType
-    au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType:
-      type: object
-      properties:
-        parties:
-          type: array
-          xml:
-            name: Party
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceSummaryPartyType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryRepresentedPartyDetailsType
-      xml:
-        name: workspaceSummaryRepresentedPartyDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType:
-      type: object
-      properties:
-        lotNumber:
-          type: string
-          xml:
-            name: LotNumber
-            attribute: false
-            wrapped: false
-        roadName:
-          type: string
-          xml:
-            name: RoadName
-            attribute: false
-            wrapped: false
-        roadNumber:
-          type: string
-          xml:
-            name: RoadNumber
-            attribute: false
-            wrapped: false
-        roadSuffixCode:
-          type: string
-          xml:
-            name: RoadSuffixCode
-            attribute: false
-            wrapped: false
-        roadTypeCode:
-          type: string
-          xml:
-            name: RoadTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType
-    au.net.pexa.api.schema._1.BusinessType:
-      type: object
-      properties:
-        administrationStatuses:
-          type: array
-          xml:
-            name: AdministrationStatus
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.AdministrationStatusDetailsType'
-        businessName:
-          type: string
-          xml:
-            name: BusinessName
-            attribute: false
-            wrapped: false
-        businessUnit:
-          type: string
-          xml:
-            name: BusinessUnit
-            attribute: false
-            wrapped: false
-        identifications:
-          type: array
-          xml:
-            name: Identification
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.IdentificationDetailsType'
-        legalEntityName:
-          type: string
-          xml:
-            name: LegalEntityName
-            attribute: false
-            wrapped: false
-        organisationType:
-          type: string
-          xml:
-            name: OrganisationType
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.BusinessType
-      xml:
-        name: BusinessDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails:
-      type: object
-      properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails
-      xml:
-        name: PartyDetails
+        name: workspaceSummaryPartyType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.CurrentLandUseDetailType:
@@ -3411,556 +3348,20 @@ components:
         name: currentLandUseDetailType
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails:
+    au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType:
       type: object
       properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails
-      xml:
-        name: PartyDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType:
-      type: object
-      properties:
-        AddressLine:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType'
-        postalCode:
-          type: string
-          example: SE1
-          xml:
-            name: PostalCode
-            attribute: false
-            wrapped: false
-          description: 'Maximum 6 characters. <br> Valid character set: alphanumeric'
-        countryCode:
-          type: string
-          example: UK
-          xml:
-            name: CountryCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType
-    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace:
-      type: object
-      properties:
-        jurisdiction:
-          type: string
-          xml:
-            name: Jurisdiction
-            attribute: false
-            wrapped: false
-        lastActivity:
-          type: string
-          format: date-time
-          xml:
-            name: LastActivity
-            attribute: false
-            wrapped: false
-        settlementDateAndTime:
-          type: string
-          format: date-time
-          xml:
-            name: SettlementDateAndTime
-            attribute: false
-            wrapped: false
-        subscribers:
+        tasks:
           type: array
           xml:
-            name: Subscriber
+            name: Task
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber'
-        workgroupId:
-          type: string
-          xml:
-            name: WorkgroupId
-            attribute: false
-            wrapped: false
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-        workspaceStatus:
-          type: string
-          xml:
-            name: WorkspaceStatus
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.TaskDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType
       xml:
-        name: Workspace
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType:
-      type: object
-      properties:
-        lotNumber:
-          type: string
-          example: 5
-          xml:
-            name: LotNumber
-            attribute: false
-            wrapped: false
-          description: 'Maximum 6 characters <br>Valid character set: numeric and spaces only.'
-        roadNumber:
-          type: string
-          example: 12
-          xml:
-            name: RoadNumber
-            attribute: false
-            wrapped: false
-          description: 'Maximum 6 characters. Valid character set: alphanumeric only.'
-        roadName:
-          type: string
-          example: The esplanade
-          xml:
-            name: RoadName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only.'
-        roadTypeCode:
-          type: string
-          example: ALLY
-          xml:
-            name: RoadTypeCode
-            attribute: false
-            wrapped: false
-        roadSuffixCode:
-          type: string
-          example: EX
-          xml:
-            name: RoadSuffixCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType
-    au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party:
-      type: object
-      properties:
-        representingParty:
-          type: string
-          example: 'Yes'
-          xml:
-            name: RepresentingParty
-            attribute: false
-            wrapped: false
-          description: 'Indicator that the party is being represented by the subscriber. Only parties that are represented by the subscriber can be created except for the Proprietor on Title who can create an Incoming Proprietor party whom they dont represent. <br> When the Role Proprietor on Title creates an Incoming Proprietor party, this value must be set to No <br> For any other Role creating a party, this value must be set to Yes. '
-        partyType:
-          type: string
-          example: Individual
-          xml:
-            name: PartyType
-            attribute: false
-            wrapped: false
-        partyRole:
-          type: string
-          example: Incoming Mortgagee
-          xml:
-            name: PartyRole
-            attribute: false
-            wrapped: false
-          description: All '%on Title' roles are invalid values.
-        fullName:
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-          description: Must be provided if Party Type is Individual else must not be provided
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
-        business:
-          xml:
-            name: Business
-            attribute: false
-            wrapped: false
-          description: Must be provided if Party Type is 'Organisation' else must not be provided
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
-        CurrentAddress:
-          xml:
-            name: CurrentAddress
-            attribute: false
-            wrapped: false
-          description: One of the following 'Street Address' or Overseas Address
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2Type'
-        FutureAddress:
-          xml:
-            name: FutureAddress
-            attribute: false
-            wrapped: false
-          description: One of the following Street Address or Overseas Address
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2Type'
-        partyCapacityDetails:
-          xml:
-            name: PartyCapacityDetails
-            attribute: false
-            wrapped: false
-          description: The capacity that the Incoming Proprietor or Proprietor on Title party is acting in. Provided as input to VIC transfer supporting document.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyCapacityDetailsType'
-        trustDetails:
-          xml:
-            name: TrustDetails
-            attribute: false
-            wrapped: false
-          description: The details of the trust for the Incoming Proprietor or Proprietor on Title party.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TrustDetailsType'
-        foreignPartyDetails:
-          xml:
-            name: ForeignPartyDetails
-            attribute: false
-            wrapped: false
-          description: The foreign details of the Incoming Proprietor party who is foreign to Australia. Provided as input to QLD transfer supporting documents. If Foreign Party Details complex is not provided where jurisdiction of the workspace is QLD, Resident Party Indicator will default to Yes for Individuals and Foreign Party Indicator will default to No for all parties.
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignPartyDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party
-      xml:
-        name: Party
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType:
-      type: object
-      properties:
-        RoadNumber:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType'
-        order:
-          type: integer
-          xml:
-            name: order
-            attribute: true
-            wrapped: false
-        roadName:
-          type: string
-          example: Gladesville
-          xml:
-            name: RoadName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 100 characters<br>Valid character set: alphabetic, hyphens, apostrophes and spaces only.'
-        roadTypeCode:
-          type: string
-          example: BVD
-          xml:
-            name: RoadTypeCode
-            attribute: false
-            wrapped: false
-        roadSuffixCode:
-          type: string
-          example: DV
-          xml:
-            name: RoadSuffixCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType
-    au.net.pexa.api.schema._2.LodgementCaseDetailsType:
-      type: object
-      properties:
-        documents:
-          xml:
-            name: Documents
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementCaseDocumentDetailsType'
-        lodgementCaseId:
-          type: string
-          xml:
-            name: LodgementCaseId
-            attribute: false
-            wrapped: false
-        lodgementCaseStatus:
-          type: string
-          xml:
-            name: LodgementCaseStatus
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.LodgementCaseDetailsType
-      xml:
-        name: lodgementCaseDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails:
-      type: object
-      properties:
-        otherRoles:
-          type: array
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails
-      xml:
-        name: AdditionalRoleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.BusinessType:
-      type: object
-      properties:
-        legalEntityName:
-          type: string
-          example: National Australia Bank
-          xml:
-            name: LegalEntityName
-            attribute: false
-            wrapped: false
-          description: Maximum 150 characters
-        businessName:
-          type: string
-          example: NAB
-          xml:
-            name: BusinessName
-            attribute: false
-            wrapped: false
-          description: ' Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. '
-        businessUnit:
-          type: string
-          example: Mortgage processing
-          xml:
-            name: BusinessUnit
-            attribute: false
-            wrapped: false
-          description: ' Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. '
-        organisationType:
-          type: string
-          example: Registered Company
-          xml:
-            name: OrganisationType
-            attribute: false
-            wrapped: false
-          description: Must be provided if Party Type is Organisation
-        administrationStatuses:
-          type: array
-          example: Subject to a deed of company arrangement
-          xml:
-            name: AdministrationStatus
-            attribute: false
-            wrapped: false
-          description: ' Must be provided if Organisation Type is ''Registered company in external administration'' '
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.AdministrationStatusDetailsType'
-        identifications:
-          type: array
-          xml:
-            name: Identification
-            attribute: false
-            wrapped: false
-          description: ' External identification of the party through a registered organisation.'
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.IdentificationDetailsType'
-      title: au.net.pexa.api.schema._2.BusinessType
-      xml:
-        name: BusinessDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.PartyDetailsType:
-      type: object
-      properties:
-        business:
-          xml:
-            name: Business
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.BusinessType'
-        currentAddress:
-          xml:
-            name: CurrentAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1Type'
-        foreignPartyDetails:
-          xml:
-            name: ForeignPartyDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.ForeignPartyDetailsType'
-        fullName:
-          xml:
-            name: FullName
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.FullNameType'
-        futureAddress:
-          xml:
-            name: FutureAddress
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1Type'
-        partyCapacityDetails:
-          xml:
-            name: PartyCapacityDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.PartyCapacityDetailsType'
-        partyId:
-          type: string
-          xml:
-            name: PartyId
-            attribute: false
-            wrapped: false
-        partyRole:
-          type: string
-          xml:
-            name: PartyRole
-            attribute: false
-            wrapped: false
-        partyType:
-          type: string
-          xml:
-            name: PartyType
-            attribute: false
-            wrapped: false
-        trustDetails:
-          xml:
-            name: TrustDetails
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._2.TrustDetailsType'
-        unrepresentedParty:
-          type: string
-          xml:
-            name: UnrepresentedParty
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.PartyDetailsType
-      xml:
-        name: partyDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType:
-      type: object
-      properties:
-        postalDeliveryNumber:
-          type: string
-          xml:
-            name: PostalDeliveryNumber
-            attribute: false
-            wrapped: false
-        postalDeliveryTypeCode:
-          type: string
-          xml:
-            name: PostalDeliveryTypeCode
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType
-    au.net.pexa.api.schema._1.ConstructionTypeDetailType:
-      type: object
-      properties:
-        key:
-          type: string
-          xml:
-            name: Key
-            attribute: false
-            wrapped: false
-        value:
-          type: string
-          xml:
-            name: Value
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.ConstructionTypeDetailType
-      xml:
-        name: constructionTypeDetailType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails:
-      type: object
-      properties:
-        landTitles:
-          type: array
-          xml:
-            name: LandTitle
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails.LandTitle'
-      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails
-      xml:
-        name: LandTitleDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType:
-      type: object
-      properties:
-        localityName:
-          type: string
-          xml:
-            name: LocalityName
-            attribute: false
-            wrapped: false
-        postalDelivery:
-          xml:
-            name: PostalDelivery
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType'
-        postcode:
-          type: string
-          xml:
-            name: Postcode
-            attribute: false
-            wrapped: false
-        road:
-          xml:
-            name: Road
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType'
-        state:
-          type: string
-          xml:
-            name: State
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType
-    au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType:
-      type: object
-      properties:
-        count:
-          type: integer
-          xml:
-            name: Count
-            attribute: false
-            wrapped: false
-        events:
-          type: array
-          xml:
-            name: Event
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.EventDetailsType'
-        moreData:
-          type: string
-          xml:
-            name: MoreData
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryBusinessEventsListDetailsType
-      xml:
-        name: workspaceSummaryBusinessEventsListDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.ForeignCountryShareDetailsType:
-      type: object
-      properties:
-        foreignPercent:
-          type: number
-          xml:
-            name: ForeignPercent
-            attribute: false
-            wrapped: false
-        foreignShareholderCountry:
-          type: string
-          xml:
-            name: ForeignShareholderCountry
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.ForeignCountryShareDetailsType
-      xml:
-        name: ForeignCountryShare
+        name: workspaceSummaryTaskListDetailsType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party:
@@ -4021,7 +3422,492 @@ components:
         name: Party
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.GivenNameOrderType:
+    au.net.pexa.api.schema._2.ForeignCountryShareDetailsType:
+      type: object
+      properties:
+        foreignShareholderCountry:
+          type: string
+          example: CA
+          xml:
+            name: ForeignShareholderCountry
+            attribute: false
+            wrapped: false
+          description: The foreign country.
+        foreignPercent:
+          type: number
+          example: 70
+          xml:
+            name: ForeignPercent
+            attribute: false
+            wrapped: false
+          description: The percentage that is foreign.
+      title: au.net.pexa.api.schema._2.ForeignCountryShareDetailsType
+      xml:
+        name: ForeignCountryShare
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.SafetySwitchDetailType:
+      type: object
+      properties:
+        safetySwitchInformed:
+          type: string
+          xml:
+            name: SafetySwitchInformed
+            attribute: false
+            wrapped: false
+        safetySwitchInstalled:
+          type: string
+          xml:
+            name: SafetySwitchInstalled
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.SafetySwitchDetailType
+      xml:
+        name: safetySwitchDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2StreetAddressDetailsType:
+      type: object
+      properties:
+        ComplexRoad:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType'
+        SubDwellingUnitType:
+          xml:
+            name: SubDwellingUnitType
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType'
+        Level:
+          xml:
+            name: Level
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType'
+        secondaryComplex:
+          type: string
+          example: Riverside Gardens
+          xml:
+            name: SecondaryComplex
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters<br> Valid character set: alphanumeric and spaces only. <br> For complex addresses '
+        addressSiteName:
+          type: string
+          example: care of
+          xml:
+            name: AddressSiteName
+            attribute: false
+            wrapped: false
+          description: 'Maximum 30 characters <br> Valid character set: alphanumeric and spaces only.'
+        Road:
+          xml:
+            name: Road
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType'
+        localityName:
+          type: string
+          example: Aintree
+          xml:
+            name: LocalityName
+            attribute: false
+            wrapped: false
+          description: 'Maximum 100 characters<br> Valid character set: alphabetic and spaces only.'
+        postcode:
+          type: string
+          example: 3023
+          xml:
+            name: Postcode
+            attribute: false
+            wrapped: false
+        state:
+          type: string
+          example: VIC
+          xml:
+            name: State
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2StreetAddressDetailsType
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails:
+      type: object
+      properties:
+        otherRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails
+      xml:
+        name: AdditionalRoleDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType:
+      type: object
+      properties:
+        value:
+          type: string
+        order:
+          type: integer
+          example: 1
+          xml:
+            name: order
+            attribute: true
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType
+    au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails:
+      type: object
+      properties:
+        parties:
+          type: array
+          xml:
+            name: Party
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails.Party'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails
+      xml:
+        name: PartyDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateResponse:
+      type: object
+      properties:
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+        landTitleDetails:
+          xml:
+            name: LandTitleDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.LandTitleDetails'
+        workspaceStatus:
+          type: string
+          xml:
+            name: WorkspaceStatus
+            attribute: false
+            wrapped: false
+        partyDetails:
+          xml:
+            name: PartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateResponse.PartyDetails'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateResponse
+      xml:
+        name: WorkspaceUpdateResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType:
+      type: object
+      properties:
+        lotNumber:
+          type: string
+          example: 5
+          xml:
+            name: LotNumber
+            attribute: false
+            wrapped: false
+          description: 'Maximum 6 characters <br>Valid character set: numeric and spaces only.'
+        roadNumber:
+          type: string
+          example: 12
+          xml:
+            name: RoadNumber
+            attribute: false
+            wrapped: false
+          description: 'Maximum 6 characters. Valid character set: alphanumeric only.'
+        roadName:
+          type: string
+          example: The esplanade
+          xml:
+            name: RoadName
+            attribute: false
+            wrapped: false
+          description: ' Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only.'
+        roadTypeCode:
+          type: string
+          example: ALLY
+          xml:
+            name: RoadTypeCode
+            attribute: false
+            wrapped: false
+        roadSuffixCode:
+          type: string
+          example: EX
+          xml:
+            name: RoadSuffixCode
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType
+    au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType:
+      type: object
+      properties:
+        unitTypeCode:
+          type: string
+          example: UNIT
+          xml:
+            name: UnitTypeCode
+            attribute: false
+            wrapped: false
+        unitNumber:
+          type: string
+          example: 22
+          xml:
+            name: UnitNumber
+            attribute: false
+            wrapped: false
+          description: 'Maximum 7 characters <br>Valid character set: numeric, slashes and spaces only.'
+      title: au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType
+    au.net.pexa.api.schema._1.Address2Type:
+      type: object
+      properties:
+        correspondenceAddress:
+          xml:
+            name: CorrespondenceAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType'
+        overseasAddress:
+          xml:
+            name: OverseasAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType'
+        streetAddress:
+          xml:
+            name: StreetAddress
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.Address2StreetAddressDetailsType'
+      title: au.net.pexa.api.schema._1.Address2Type
+    au.net.pexa.api.schema._1.AreaOfLandDetailType:
+      type: object
+      properties:
+        area:
+          type: number
+          xml:
+            name: Area
+            attribute: false
+            wrapped: false
+        measurement:
+          type: string
+          xml:
+            name: Measurement
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.AreaOfLandDetailType
+      xml:
+        name: areaOfLandDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.LodgementVerificationDetailsType:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          xml:
+            name: Date
+            attribute: false
+            wrapped: false
+        verificationResult:
+          type: string
+          xml:
+            name: VerificationResult
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.LodgementVerificationDetailsType
+      xml:
+        name: lodgementVerificationDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.PropertyDetailsDetailType:
+      type: object
+      properties:
+        areaOfLand:
+          xml:
+            name: AreaOfLand
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.AreaOfLandDetailType'
+        constructionType:
+          xml:
+            name: ConstructionType
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConstructionTypeDetailType'
+        currentLandUse:
+          xml:
+            name: CurrentLandUse
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.CurrentLandUseDetailType'
+        localityName:
+          type: string
+          xml:
+            name: LocalityName
+            attribute: false
+            wrapped: false
+        municipalityName:
+          type: string
+          xml:
+            name: MunicipalityName
+            attribute: false
+            wrapped: false
+        natureOfProperty:
+          type: string
+          xml:
+            name: NatureOfProperty
+            attribute: false
+            wrapped: false
+        numberOfBedrooms:
+          type: integer
+          xml:
+            name: NumberOfBedrooms
+            attribute: false
+            wrapped: false
+        primaryLandUse:
+          xml:
+            name: PrimaryLandUse
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.PrimaryLandUseDetailType'
+        safetySwitch:
+          xml:
+            name: SafetySwitch
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SafetySwitchDetailType'
+        smokeAlarm:
+          xml:
+            name: SmokeAlarm
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.SmokeAlarmDetailType'
+      title: au.net.pexa.api.schema._1.PropertyDetailsDetailType
+      xml:
+        name: propertyDetailsDetailType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.TrustDetailsType:
+      type: object
+      properties:
+        trustIndicator:
+          type: string
+          example: 'Yes'
+          xml:
+            name: TrustIndicator
+            attribute: false
+            wrapped: false
+        trustName:
+          type: string
+          example: MLC Super Fund
+          xml:
+            name: TrustName
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.TrustDetailsType
+      xml:
+        name: TrustDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace:
+      type: object
+      properties:
+        jurisdiction:
+          type: string
+          xml:
+            name: Jurisdiction
+            attribute: false
+            wrapped: false
+        lastActivity:
+          type: string
+          format: date-time
+          xml:
+            name: LastActivity
+            attribute: false
+            wrapped: false
+        settlementDateAndTime:
+          type: string
+          format: date-time
+          xml:
+            name: SettlementDateAndTime
+            attribute: false
+            wrapped: false
+        subscribers:
+          type: array
+          xml:
+            name: Subscriber
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace.Subscriber'
+        workgroupId:
+          type: string
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+        workspaceStatus:
+          type: string
+          xml:
+            name: WorkspaceStatus
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._3.WorkspaceRetrievalResponse.Workspace
+      xml:
+        name: Workspace
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.TypeDetailsType:
+      type: object
+      properties:
+        key:
+          type: string
+          xml:
+            name: Key
+            attribute: false
+            wrapped: false
+        value:
+          type: string
+          xml:
+            name: Value
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.TypeDetailsType
+      xml:
+        name: typeDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType:
+      type: object
+      properties:
+        lodgementCases:
+          type: array
+          xml:
+            name: LodgementCase
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.LodgementCaseDetailsType'
+      title: au.net.pexa.api.schema._2.WorkspaceSummaryDocumentSummaryDetailsType
+      xml:
+        name: workspaceSummaryDocumentSummaryDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType:
       type: object
       properties:
         order:
@@ -4032,45 +3918,169 @@ components:
             wrapped: false
         value:
           type: string
-      title: au.net.pexa.api.schema._1.GivenNameOrderType
-      xml:
-        name: GivenName
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType:
+      title: au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType
+    au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType:
       type: object
       properties:
-        tasks:
+        lastModified:
+          type: string
+          format: date-time
+          xml:
+            name: LastModified
+            attribute: false
+            wrapped: false
+        overallSettlementAcceptanceStatus:
+          type: string
+          xml:
+            name: OverallSettlementAcceptanceStatus
+            attribute: false
+            wrapped: false
+        settlementDate:
+          type: string
+          format: date-time
+          xml:
+            name: SettlementDate
+            attribute: false
+            wrapped: false
+        settlementScheduleId:
+          type: string
+          xml:
+            name: SettlementScheduleId
+            attribute: false
+            wrapped: false
+        signaturesReceived:
+          type: integer
+          xml:
+            name: SignaturesReceived
+            attribute: false
+            wrapped: false
+        signaturesRequired:
+          type: integer
+          xml:
+            name: SignaturesRequired
+            attribute: false
+            wrapped: false
+        status:
+          type: string
+          xml:
+            name: Status
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._2.WorkspaceSummarySettlementScheduleDetailsType
+      xml:
+        name: workspaceSummarySettlementScheduleDetailsType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.WorkspaceCreationResponse:
+      type: object
+      properties:
+        landTitleDetails:
+          xml:
+            name: LandTitleDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails'
+        workspaceId:
+          type: string
+          example: PEXA2000456897
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+          description: ' Maximum 13 characters<br>PEXA workspace number'
+        workspaceStatus:
+          type: string
+          example: In Preparation
+          xml:
+            name: WorkspaceStatus
+            attribute: false
+            wrapped: false
+        partyDetails:
+          xml:
+            name: PartyDetails
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails'
+      title: au.net.pexa.api.schema._2.WorkspaceCreationResponse
+      xml:
+        name: WorkspaceCreationResponse
+        namespace: http://api.pexa.net.au/schema/2/
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails:
+      type: object
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party'
+      title: au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails
+      xml:
+        name: PartyDetails
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._2.Address1StreetAddressDetailsType:
+      type: object
+      properties:
+        addressSiteName:
+          type: string
+          xml:
+            name: AddressSiteName
+            attribute: false
+            wrapped: false
+        complexRoads:
           type: array
           xml:
-            name: Task
+            name: ComplexRoad
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._2.TaskDetailsType'
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryTaskListDetailsType
-      xml:
-        name: workspaceSummaryTaskListDetailsType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._2.WorkspaceSummaryPartyType:
-      type: object
-      properties:
-        partyId:
-          type: string
+            $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressComplexRoadDetailsType'
+        level:
           xml:
-            name: PartyId
+            name: Level
             attribute: false
             wrapped: false
-        representingSelf:
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressLevelDetailsType'
+        localityName:
           type: string
           xml:
-            name: RepresentingSelf
+            name: LocalityName
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._2.WorkspaceSummaryPartyType
+        postcode:
+          type: string
+          xml:
+            name: Postcode
+            attribute: false
+            wrapped: false
+        road:
+          xml:
+            name: Road
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressRoadDetailsType'
+        secondaryComplex:
+          type: string
+          xml:
+            name: SecondaryComplex
+            attribute: false
+            wrapped: false
+        state:
+          type: string
+          xml:
+            name: State
+            attribute: false
+            wrapped: false
+        subDwellingUnitType:
+          xml:
+            name: SubDwellingUnitType
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._2.Address1StreetAddressSubDwellingUnitTypeDetailsType'
+      title: au.net.pexa.api.schema._2.Address1StreetAddressDetailsType
       xml:
-        name: workspaceSummaryPartyType
+        name: address1StreetAddressDetailsType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.WorkspaceUpdateRequest_2:

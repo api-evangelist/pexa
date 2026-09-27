@@ -42,7 +42,7 @@ paths:
         au_pub_cert_pexa_healthcheck_api_v2_read (non-prod)
 
         au_pub_pexa_healthcheck_api_v2_read (prod)'
-      operationId: HealthCheck
+      operationId: getV2Health
       responses:
         '200':
           description: OK
@@ -53,6 +53,8 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      x-operation-id-source: normalized
+      x-operation-id-original: HealthCheck
 components:
   schemas:
     Error:
@@ -81,15 +83,6 @@ components:
           items:
             allOf:
             - $ref: '#/components/schemas/Error'
-  parameters:
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
-      required: true
-      schema:
-        type: integer
-        example: 12345
   responses:
     InternalServerError:
       description: Internal server error
@@ -101,6 +94,15 @@ components:
             errors:
             - code: '500001'
               message: An internal error has occurred
+  parameters:
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

@@ -92,58 +92,17 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  parameters:
-    ReferenceQuery:
-      description: Reference for billing query (optional)
-      in: query
-      name: reference
-      required: false
-      schema:
-        type: string
-        example: ABC Reference
-    FormatQuery:
-      description: Response format for billing query (optional)
-      in: query
-      name: format
-      required: false
-      schema:
-        type: string
-        example: pdf
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
-      required: true
-      schema:
-        type: integer
-        example: 12345
-    EndDateQuery:
-      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
-      in: query
-      name: endDate
-      required: true
-      schema:
-        type: string
-        format: date-time
-        example: '2020-12-20T16:09:53Z'
-    StartDateQuery:
-      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
-      in: query
-      name: startDate
-      required: true
-      schema:
-        type: string
-        format: date-time
-        example: '2020-09-20T16:09:53Z'
-    LandTitleReferenceQuery:
-      description: Land title reference for billing query (optional)
-      in: query
-      name: landTitleReference
-      required: false
-      schema:
-        type: string
-        example: 100/789171
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
     BadRequest:
       description: Bad request
       content:
@@ -155,43 +114,58 @@ components:
             - code: PL.TITSE.001
               message: The land title reference provided is invalid for the jurisdiction.
               field: landTitleReference
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
+  parameters:
+    FormatQuery:
+      description: Response format for billing query (optional)
+      in: query
+      name: format
+      required: false
+      schema:
+        type: string
+        example: pdf
+    LandTitleReferenceQuery:
+      description: Land title reference for billing query (optional)
+      in: query
+      name: landTitleReference
+      required: false
+      schema:
+        type: string
+        example: 100/789171
+    ReferenceQuery:
+      description: Reference for billing query (optional)
+      in: query
+      name: reference
+      required: false
+      schema:
+        type: string
+        example: ABC Reference
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
+    StartDateQuery:
+      description: The start date for the query range in RFC3339 format. Must be used together with `endDate`.
+      in: query
+      name: startDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-09-20T16:09:53Z'
+    EndDateQuery:
+      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
+      in: query
+      name: endDate
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2020-12-20T16:09:53Z'
   schemas:
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          description: The error code
-          type: string
-          example: PL.TITSE.001
-        message:
-          description: Human-readable description of the error for debugging purposes
-          type: string
-          example: The land title reference provided is invalid for the jurisdiction.
-        field:
-          description: Name of the field provided in the original request (if any) that the error pertains to
-          type: string
-          example: landTitleReference
     Invoice:
       description: Invoice
       type: object
@@ -271,3 +245,29 @@ components:
           description: The type of currency, in ISO 4217 format
           type: string
           example: AUD
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'

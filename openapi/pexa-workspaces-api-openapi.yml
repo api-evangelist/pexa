@@ -509,30 +509,30 @@ paths:
       deprecated: false
 components:
   schemas:
-    Schedule.LineItem:
-      title: Schedule.LineItem
+    Schedule.LineItem.AccountDetails.Source:
+      title: Schedule.LineItem.AccountDetails.Source
       type: object
       properties:
-        accountDetails:
-          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails'
-        associatedSubscriber:
+        defaultAccount:
           type: string
-        category:
+        preverifiedAccount:
           type: string
-        customCategory:
+    Schedule.LineItem.AccountDetails.Destination.BPay:
+      title: Schedule.LineItem.AccountDetails.Destination.BPay
+      type: object
+      properties:
+        billerCode:
           type: string
-        clientName:
+        reference:
           type: string
-        transactionDescription:
-          type: string
-        verified:
-          type: string
-        verifiedBy:
-          type: string
-        type:
-          type: string
-        value:
-          type: number
+    Schedule.LineItem.AccountDetails:
+      title: Schedule.LineItem.AccountDetails
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination'
+        source:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Source'
     IncomingProprietor:
       type: object
       description: Details for an Incoming Proprietor
@@ -549,48 +549,55 @@ components:
           description: The name of the Incoming Proprietor
           type: string
           example: Example Bank
-    UpdateWorkspaceRequest:
+    DeleteParty:
       type: object
-      description: Request to update a workspace
+      description: Party to be deleted
+      required:
+      - partyId
       properties:
-        newSubscriberReference:
+        partyId:
+          type: integer
+          description: Id of party to be deleted
+          format: int64
+          minimum: 1
+          example: 123
+    ResponseParticipant:
+      type: object
+      description: Response object when adding a participant
+      properties:
+        role:
           type: string
-          description: New subscriber reference to use for the workspace
-          example: Workspace123
-        childTitles:
+          description: Role of the participant
+          example: Incoming Proprietor
+        subscriberId:
+          type: integer
+          format: int64
+          description: Subscriber id of the participant
+          example: 1087
+        reference:
+          type: string
+          description: Reference for the participant
+          example: Reference1
+        status:
+          type: string
+          description: Status of the participant
+          example: Invited
+        prCreated:
+          type: boolean
+          description: Has the Participant Request been created?
+          example: false
+        prAccepted:
+          type: boolean
+          description: Has the Participation Request been accepted?
+          example: false
+    Schedule:
+      title: Schedule
+      type: object
+      properties:
+        lineItems:
           type: array
-          description: List of child titles to add to the workspace
           items:
-            description: Child title
-            type: string
-            example: '1001'
-    Schedule.LineItem.AccountDetails.Source:
-      title: Schedule.LineItem.AccountDetails.Source
-      type: object
-      properties:
-        defaultAccount:
-          type: string
-        preverifiedAccount:
-          type: string
-    Schedule.LineItem.AccountDetails.Destination.Account:
-      title: Schedule.LineItem.AccountDetails.Destination.Account
-      type: object
-      properties:
-        accountBsb:
-          type: string
-        accountName:
-          type: string
-        accountNumber:
-          type: string
-    DeleteParticipantsRequest:
-      title: DeleteParticipantsRequest
-      description: Request to delete participants
-      type: object
-      properties:
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncomingProprietor'
+            $ref: '#/components/schemas/Schedule.LineItem'
     Party:
       type: object
       description: A party
@@ -638,322 +645,6 @@ components:
           type: string
           description: The type of organisation
           example: Incorporated Association
-    Error:
-      description: Error related to the API
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          example: OB0001.000
-        message:
-          description: Error message
-          type: string
-          example: The request is invalid
-        details:
-          description: Optional list of error details
-          type: array
-          items:
-            type: string
-            description: Error details
-    WarningResponseType:
-      title: WarningResponseType
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-    UpdateWorkspaceResponse:
-      type: object
-      description: Response to updating a workspace
-      properties:
-        workspaceId:
-          type: string
-          description: The id of the updated workspace
-          example: PEXA1234
-        subscriberReference:
-          type: string
-          description: The updated subscriber reference
-        childTitles:
-          type: array
-          description: List of child titles used in the workspace
-          items:
-            description: Child title
-            type: string
-            example: '1001'
-    Workspace:
-      type: object
-      description: Object with all required details for a workspace
-      required:
-      - subscriberReference
-      - unregisteredLotNumbers
-      properties:
-        subscriberReference:
-          description: Reference for the subscriber to refer to the workspace
-          type: string
-          example: test_workspace_001
-        unregisteredLotNumbers:
-          type: array
-          description: Unregistered lot numbers to be used in the workspace
-          minItems: 1
-          maxItems: 333
-          items:
-            description: An unregistered lot number
-            type: string
-            example: '1001'
-        childTitles:
-          type: array
-          description: Child titles to be used in the workspace
-          items:
-            description: A child title
-            type: string
-            example: 01/1001
-        grossConsiderationAmount:
-          type: number
-          format: decimal
-          description: The gross consideration amount for the workspace
-          example: 1000000.0
-        incomingProprietors:
-          type: array
-          description: Details for any Incoming Proprietors
-          items:
-            $ref: '#/components/schemas/IncomingProprietor'
-        qldWorkspaceDetails:
-          $ref: '#/components/schemas/QldWorkspaceDetails'
-        workspaceId:
-          type: string
-          description: The workspace id
-          example: PEXA123456789
-          readOnly: true
-        workspaceStatus:
-          type: string
-          description: The current status of the workspace
-          example: In Preparation
-          readOnly: true
-    SettlementUploadRequest:
-      title: SettlementUploadRequest
-      type: object
-      properties:
-        role:
-          type: string
-        schedule:
-          $ref: '#/components/schemas/Schedule'
-    AddParticipantsRequest:
-      title: AddParticipantsRequest
-      type: object
-      description: Request to add participants to an existing workspace
-      properties:
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncomingProprietor'
-    Schedule:
-      title: Schedule
-      type: object
-      properties:
-        lineItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule.LineItem'
-    Schedule.LineItem.AccountDetails.Destination:
-      title: Schedule.LineItem.AccountDetails.Destination
-      type: object
-      properties:
-        account:
-          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.Account'
-        bpay:
-          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.BPay'
-        officeAccount:
-          type: string
-        preverifiedAccount:
-          type: string
-    Schedule.LineItem.AccountDetails.Destination.BPay:
-      title: Schedule.LineItem.AccountDetails.Destination.BPay
-      type: object
-      properties:
-        billerCode:
-          type: string
-        reference:
-          type: string
-    UpdatePartiesRequest:
-      title: UpdatePartiesRequest
-      type: object
-      description: Request to update parties on an existing workspace
-      required:
-      - parties
-      properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/UpdateParty'
-    Schedule.LineItem.AccountDetails:
-      title: Schedule.LineItem.AccountDetails
-      type: object
-      properties:
-        destination:
-          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination'
-        source:
-          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Source'
-    DeletePartiesRequest:
-      title: DeletePartiesRequest
-      type: object
-      description: Request to delete parties on an existing workspace
-      required:
-      - parties
-      properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeleteParty'
-    PartyResponse:
-      type: object
-      description: Response object for a party
-      properties:
-        name:
-          type: string
-          description: The name of the individual or organisation
-          example: Business Name
-        partyId:
-          type: string
-          description: The id of the party
-          example: '1234'
-        role:
-          type: string
-          description: Role of the party
-          example: Incoming Proprietor
-        partyType:
-          type: string
-          description: The type of party
-          example: Organisation
-    AddPartiesResponse:
-      title: CreatePartiesRequest
-      description: Response when adding parties
-      type: object
-      properties:
-        pexaWorkspaceId:
-          type: string
-          example: PEXA12345
-          description: Workspace Id as used in Exchange
-        parties:
-          type: array
-          description: A list of parties in the workspace
-          items:
-            $ref: '#/components/schemas/PartyResponse'
-    DeleteParty:
-      type: object
-      description: Party to be deleted
-      required:
-      - partyId
-      properties:
-        partyId:
-          type: integer
-          description: Id of party to be deleted
-          format: int64
-          minimum: 1
-          example: 123
-    ResponseParticipant:
-      type: object
-      description: Response object when adding a participant
-      properties:
-        role:
-          type: string
-          description: Role of the participant
-          example: Incoming Proprietor
-        subscriberId:
-          type: integer
-          format: int64
-          description: Subscriber id of the participant
-          example: 1087
-        reference:
-          type: string
-          description: Reference for the participant
-          example: Reference1
-        status:
-          type: string
-          description: Status of the participant
-          example: Invited
-        prCreated:
-          type: boolean
-          description: Has the Participant Request been created?
-          example: false
-        prAccepted:
-          type: boolean
-          description: Has the Participation Request been accepted?
-          example: false
-    AddPartiesRequest:
-      title: AddPartiesRequest
-      type: object
-      description: Request to add parties to an existing workspace
-      properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Party'
-    QldWorkspaceDetails:
-      type: object
-      description: Workspace details for the QLD jurisdiction
-      properties:
-        cashAmount:
-          type: number
-          format: decimal
-          description: The cash amount for the transaction
-          minimum: 0
-          example: 50000.0
-        depositPaid:
-          type: number
-          format: decimal
-          description: The deposit amount paid
-          minimum: 0
-          example: 25000.0
-        vendorTermsAmount:
-          type: number
-          format: decimal
-          description: The vendor terms amount
-          minimum: 0
-          example: 10000.0
-        liabilitiesAmount:
-          type: number
-          format: decimal
-          description: The liabilities amount
-          minimum: 0
-          example: 5000.0
-        contractRebateAmount:
-          type: number
-          description: The contract rebate amount
-          minimum: 0
-          example: 2000.0
-        agreementDate:
-          type: string
-          format: date
-          description: The agreement/contract of sale date
-          example: '2024-01-15'
-        dateOfPossession:
-          type: string
-          format: date
-          description: The date of possession
-          example: '2024-12-29'
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        exceptionList:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
-    AddParticipantsResponse:
-      title: AddParticipantsResponse
-      description: Response when adding participants
-      type: object
-      properties:
-        pexaWorkspaceId:
-          type: string
-          example: PEXA12345
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseParticipant'
     UpdateParty:
       type: object
       description: A party
@@ -1008,6 +699,286 @@ components:
           type: string
           description: The type of organisation
           example: Incorporated Association
+    Workspace:
+      type: object
+      description: Object with all required details for a workspace
+      required:
+      - subscriberReference
+      - unregisteredLotNumbers
+      properties:
+        subscriberReference:
+          description: Reference for the subscriber to refer to the workspace
+          type: string
+          example: test_workspace_001
+        unregisteredLotNumbers:
+          type: array
+          description: Unregistered lot numbers to be used in the workspace
+          minItems: 1
+          maxItems: 333
+          items:
+            description: An unregistered lot number
+            type: string
+            example: '1001'
+        childTitles:
+          type: array
+          description: Child titles to be used in the workspace
+          items:
+            description: A child title
+            type: string
+            example: 01/1001
+        grossConsiderationAmount:
+          type: number
+          format: decimal
+          description: The gross consideration amount for the workspace
+          example: 1000000.0
+        incomingProprietors:
+          type: array
+          description: Details for any Incoming Proprietors
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+        qldWorkspaceDetails:
+          $ref: '#/components/schemas/QldWorkspaceDetails'
+        workspaceId:
+          type: string
+          description: The workspace id
+          example: PEXA123456789
+          readOnly: true
+        workspaceStatus:
+          type: string
+          description: The current status of the workspace
+          example: In Preparation
+          readOnly: true
+    DeletePartiesRequest:
+      title: DeletePartiesRequest
+      type: object
+      description: Request to delete parties on an existing workspace
+      required:
+      - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeleteParty'
+    AddPartiesRequest:
+      title: AddPartiesRequest
+      type: object
+      description: Request to add parties to an existing workspace
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+    AddParticipantsRequest:
+      title: AddParticipantsRequest
+      type: object
+      description: Request to add participants to an existing workspace
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    AddParticipantsResponse:
+      title: AddParticipantsResponse
+      description: Response when adding participants
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: PEXA12345
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseParticipant'
+    UpdatePartiesRequest:
+      title: UpdatePartiesRequest
+      type: object
+      description: Request to update parties on an existing workspace
+      required:
+      - parties
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateParty'
+    Schedule.LineItem.AccountDetails.Destination.Account:
+      title: Schedule.LineItem.AccountDetails.Destination.Account
+      type: object
+      properties:
+        accountBsb:
+          type: string
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+    DeleteParticipantsRequest:
+      title: DeleteParticipantsRequest
+      description: Request to delete participants
+      type: object
+      properties:
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingProprietor'
+    PartyResponse:
+      type: object
+      description: Response object for a party
+      properties:
+        name:
+          type: string
+          description: The name of the individual or organisation
+          example: Business Name
+        partyId:
+          type: string
+          description: The id of the party
+          example: '1234'
+        role:
+          type: string
+          description: Role of the party
+          example: Incoming Proprietor
+        partyType:
+          type: string
+          description: The type of party
+          example: Organisation
+    AddPartiesResponse:
+      title: CreatePartiesRequest
+      description: Response when adding parties
+      type: object
+      properties:
+        pexaWorkspaceId:
+          type: string
+          example: PEXA12345
+          description: Workspace Id as used in Exchange
+        parties:
+          type: array
+          description: A list of parties in the workspace
+          items:
+            $ref: '#/components/schemas/PartyResponse'
+    Schedule.LineItem:
+      title: Schedule.LineItem
+      type: object
+      properties:
+        accountDetails:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails'
+        associatedSubscriber:
+          type: string
+        category:
+          type: string
+        customCategory:
+          type: string
+        clientName:
+          type: string
+        transactionDescription:
+          type: string
+        verified:
+          type: string
+        verifiedBy:
+          type: string
+        type:
+          type: string
+        value:
+          type: number
+    UpdateWorkspaceResponse:
+      type: object
+      description: Response to updating a workspace
+      properties:
+        workspaceId:
+          type: string
+          description: The id of the updated workspace
+          example: PEXA1234
+        subscriberReference:
+          type: string
+          description: The updated subscriber reference
+        childTitles:
+          type: array
+          description: List of child titles used in the workspace
+          items:
+            description: Child title
+            type: string
+            example: '1001'
+    UpdateWorkspaceRequest:
+      type: object
+      description: Request to update a workspace
+      properties:
+        newSubscriberReference:
+          type: string
+          description: New subscriber reference to use for the workspace
+          example: Workspace123
+        childTitles:
+          type: array
+          description: List of child titles to add to the workspace
+          items:
+            description: Child title
+            type: string
+            example: '1001'
+    WarningResponseType:
+      title: WarningResponseType
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    QldWorkspaceDetails:
+      type: object
+      description: Workspace details for the QLD jurisdiction
+      properties:
+        cashAmount:
+          type: number
+          format: decimal
+          description: The cash amount for the transaction
+          minimum: 0
+          example: 50000.0
+        depositPaid:
+          type: number
+          format: decimal
+          description: The deposit amount paid
+          minimum: 0
+          example: 25000.0
+        vendorTermsAmount:
+          type: number
+          format: decimal
+          description: The vendor terms amount
+          minimum: 0
+          example: 10000.0
+        liabilitiesAmount:
+          type: number
+          format: decimal
+          description: The liabilities amount
+          minimum: 0
+          example: 5000.0
+        contractRebateAmount:
+          type: number
+          description: The contract rebate amount
+          minimum: 0
+          example: 2000.0
+        agreementDate:
+          type: string
+          format: date
+          description: The agreement/contract of sale date
+          example: '2024-01-15'
+        dateOfPossession:
+          type: string
+          format: date
+          description: The date of possession
+          example: '2024-12-29'
+    Error:
+      description: Error related to the API
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          example: OB0001.000
+        message:
+          description: Error message
+          type: string
+          example: The request is invalid
+        details:
+          description: Optional list of error details
+          type: array
+          items:
+            type: string
+            description: Error details
     ProposeSettlementRequest:
       title: ProposeSettlementRequest
       description: Request to propose settlement dates
@@ -1021,6 +992,35 @@ components:
           type: string
           example: Time chosen for settlement
           description: The reason to propose settlement at this time
+    SettlementUploadRequest:
+      title: SettlementUploadRequest
+      type: object
+      properties:
+        role:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+    Schedule.LineItem.AccountDetails.Destination:
+      title: Schedule.LineItem.AccountDetails.Destination
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.Account'
+        bpay:
+          $ref: '#/components/schemas/Schedule.LineItem.AccountDetails.Destination.BPay'
+        officeAccount:
+          type: string
+        preverifiedAccount:
+          type: string
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
     SettlementUploadResponse:
       title: SettlementUploadResponse
       type: object

@@ -180,56 +180,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    TitleSearchDocuments:
-      description: Title search documents
-      type: object
-      properties:
-        id:
-          description: Identifier of the title search order
-          type: string
-          format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        documents:
-          description: Documents related to the title search order
-          type: array
-          items:
-            description: Document related to the title search order
-            type: object
-            properties:
-              downloadLink:
-                description: Link to download the document related to the title search order
-                type: string
-                example: http://mock-api-server:8080/pdf/dummy.pdf
-              status:
-                description: Status of the document related to the title search order
-                type: string
-                example: processing
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          description: The error code
-          type: string
-          example: PL.TITSE.001
-        message:
-          description: Human-readable description of the error for debugging purposes
-          type: string
-          example: The land title reference provided is invalid for the jurisdiction.
-        field:
-          description: Name of the field provided in the original request (if any) that the error pertains to
-          type: string
-          example: landTitleReference
     TitleSearch:
       description: Title search
       type: object
@@ -349,7 +299,67 @@ components:
                 type: string
                 example: 'ESTATE: LEASEHOLD ESTATE CREATED BY AA123 EXPIRES 1/2/2022'
               minItems: 1
+    TitleSearchDocuments:
+      description: Title search documents
+      type: object
+      properties:
+        id:
+          description: Identifier of the title search order
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        documents:
+          description: Documents related to the title search order
+          type: array
+          items:
+            description: Document related to the title search order
+            type: object
+            properties:
+              downloadLink:
+                description: Link to download the document related to the title search order
+                type: string
+                example: http://mock-api-server:8080/pdf/dummy.pdf
+              status:
+                description: Status of the document related to the title search order
+                type: string
+                example: processing
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
   responses:
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '404001'
+              message: Invalid title search ID
     BadRequest:
       description: Bad request
       content:
@@ -371,16 +381,6 @@ components:
             errors:
             - code: '500001'
               message: An internal error has occurred
-    NotFoundError:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '404001'
-              message: Invalid title search ID
   parameters:
     TitleSearchIdPath:
       description: Title search id

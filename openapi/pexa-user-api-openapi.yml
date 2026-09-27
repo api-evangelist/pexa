@@ -49,7 +49,7 @@ paths:
         au_pub_cert_pexa_user_api_v3_read (non-prod)
 
         au_pub_pexa_user_api_v3_read (prod)'
-      operationId: getUserProfileUsingGET
+      operationId: getV3User
       responses:
         '200':
           description: OK
@@ -67,38 +67,10 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      x-operation-id-source: normalized
+      x-operation-id-original: getUserProfileUsingGET
 components:
   schemas:
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
-      type: object
-      properties:
-        userPermissions:
-          type: array
-          xml:
-            name: UserPermission
-            attribute: false
-            wrapped: false
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
-      xml:
-        name: UserPermissionsList
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
-      type: object
-      properties:
-        userProfile:
-          xml:
-            name: UserProfile
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
-      xml:
-        name: UserProfileRetrievalResponse
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList:
       type: object
       properties:
@@ -113,6 +85,22 @@ components:
       title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList
       xml:
         name: WorkgroupList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
+      type: object
+      properties:
+        userPermissions:
+          type: array
+          xml:
+            name: UserPermission
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
+      xml:
+        name: UserPermissionsList
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile:
@@ -203,6 +191,20 @@ components:
       title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile
       xml:
         name: UserProfile
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
+      type: object
+      properties:
+        userProfile:
+          xml:
+            name: UserProfile
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
+      xml:
+        name: UserProfileRetrievalResponse
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:

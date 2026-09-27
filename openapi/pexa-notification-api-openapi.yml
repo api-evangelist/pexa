@@ -101,6 +101,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        parties:
+          description: List of parties
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
+    NotificationParticipantDetailsType:
+      title: NotificationParticipantDetailsType
+      description: Details about conversation participants
+      type: object
+      properties:
+        subscriberName:
+          type: string
+          description: The subscriber’s PEXA organisation name. <br> Maximum 255 characters
+          example: XYZ bank
+        workspaceRoles:
+          type: array
+          description: The workspace role the subscriber was performing in.
+          items:
+            type: string
+            description: A workspace role the subscriber was performing in.
+            example: Incoming Mortgagee
     NotificationsListType:
       title: NotificationsListType
       description: A list of notifications
@@ -128,6 +154,99 @@ components:
           type: string
           description: The PEXA internal reference for the event. This value should match the ‘Event Id’ value for the latest notification retrieved in the below structure.  <br> This value should be used as the ‘Last Event Id’ in the subsequent request message. <br> If no notifications exist for the time period requested then this should be set to the ‘Last Event Id’ from the original Request message. <br> Maximum 19 characters
           example: '1'
+    NotificationFinancialLineItemType:
+      title: NotificationFinancialLineItemType
+      description: A financial line item
+      type: object
+      properties:
+        amount:
+          description: The amount of the line item
+          type: number
+          example: 10000
+        category:
+          type: string
+          description: The category of the line item
+          example: Water Rates
+        owningSubscriberId:
+          type: string
+          description: The owning subscriber id
+          example: '1234'
+        owningSubscriberName:
+          type: string
+          description: The owning subscribers name
+          example: John
+        type:
+          type: string
+          description: The type
+          example: Account
+    NotificationInvitationOutstandingPartyDetailsType:
+      title: NotificationInvitationOutstandingPartyDetailsType
+      description: Details on an outstanding party invitation
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: Maximum 19 characters
+          example: '654'
+        partyRole:
+          type: string
+          description: The role of the party
+          example: Incoming Mortgagee
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        associatedLandTitleReferences:
+          type: array
+          description: 'This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.'
+          example:
+          - 98745/987
+          - 98745/987
+          items:
+            type: string
+            description: A land title reference
+            example: 98745/987
+    BusinessType:
+      title: BusinessType
+      description: The business type
+      type: object
+      properties:
+        legalEntityName:
+          type: string
+          description: Maximum 150 characters
+          example: National Australia Bank
+        businessName:
+          type: string
+          description: 'Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. '
+          example: NAB
+        businessUnit:
+          type: string
+          description: 'Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. '
+          example: Mortgage processing
+        organisationType:
+          type: string
+          description: Must be provided if Party Type is ‘Organisation’
+          example: Registered Company
+        administrationStatuses:
+          type: array
+          description: 'Must be provided if Organisation Type is ''Registered company in external administration'' '
+          example:
+          - AdministrationStatus: Subject to a deed of company arrangement
+          items:
+            $ref: '#/components/schemas/AdministrationStatusDetailsType'
+        identifications:
+          type: array
+          description: External identification of the party through a registered organisation.
+          items:
+            $ref: '#/components/schemas/IdentificationDetailsType'
+    NotificationInvitationOutstandingLandTitleType:
+      title: NotificationInvitationOutstandingLandTitleType
+      description: The outstanding land titles
+      type: object
+      properties:
+        landTitles:
+          type: array
+          description: 'Provided if the land titles are not marked as parent land titles. '
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleDetailsType'
     NotificationInvitationOutstandingInviterSubscriberDetailsType:
       title: NotificationInvitationOutstandingInviterSubscriberDetailsType
       description: Details on an outstanding inviter
@@ -155,46 +274,43 @@ components:
           type: string
           description: Notes entered in by the subscriber who initiated the invite.<br>  Any forwarding notes which may have been provided by the Subscriber who has forwarded the invitation will appear here.<br>May contain line feeds  Maximum 160 characters
           example: Additional notes
-    NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType:
-      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
-      description: Details on outstanding inviter subscriber details for a representing party
+    NotificationConversationDetailsType:
+      title: NotificationConversationDetailsType
+      description: Details about a conversation
       type: object
       properties:
-        partyId:
+        conversationId:
           type: string
-          description: The id of the party
-          example: '123'
-        partyName:
-          $ref: '#/components/schemas/PartyNameDetailsType'
-        partyRole:
-          description: The role of the Party
+          description: The unique identifier of the conversation <br> Maximum 19 characters
+          example: '456'
+        timestamp:
           type: string
-          example: Mortgagee on Title
-    NotificationParticipantDetailsType:
-      title: NotificationParticipantDetailsType
-      description: Details about conversation participants
+          description: The timestamp that the conversation was created in PEXA (in UTC).
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+    PartyNameDetailsType:
+      title: PartyNameDetailsType
+      description: Details for a party name
       type: object
       properties:
-        subscriberName:
-          type: string
-          description: The subscriber’s PEXA organisation name. <br> Maximum 255 characters
-          example: XYZ bank
-        workspaceRoles:
-          type: array
-          description: The workspace role the subscriber was performing in.
-          items:
-            type: string
-            description: A workspace role the subscriber was performing in.
-            example: Incoming Mortgagee
-    NotificationInvitationDetailsType:
-      title: NotificationInvitationDetailsType
-      description: Details on an invitation
+        businessDetails:
+          $ref: '#/components/schemas/BusinessType'
+        fullName:
+          $ref: '#/components/schemas/FullNameType'
+    NotificationSettlementDetailsType:
+      title: NotificationSettlementDetailsType
+      description: Details about settlement
       type: object
       properties:
-        outstanding:
-          $ref: '#/components/schemas/NotificationInvitationOutstandingDetailsType'
-        response:
-          $ref: '#/components/schemas/NotificationInvitationResponseDetailsType'
+        settlementDate:
+          type: string
+          description: 'The date and time of the settlement (in UTC). '
+          format: date-time
+          example: '2018-11-18T02:30:20.283Z'
+        reason:
+          type: string
+          description: Maximum 255 characters
+          example: Settlement completed
     NotificationDocumentReferenceDetailsType:
       title: NotificationDocumentReferenceDetailsType
       description: Details on the document reference
@@ -213,6 +329,82 @@ components:
           description: Internal LR document status
           items:
             $ref: '#/components/schemas/NotificationDocumentStatusDetailsType'
+    NotificationSettlementScheduleDetailsType:
+      title: NotificationSettlementScheduleDetailsType
+      description: Details about settlement schedules
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the settlement schedule.
+          example: Signed
+    NotificationDocumentDetailsType:
+      title: NotificationDocumentDetailsType
+      description: Details on Documents
+      type: object
+      properties:
+        documentType:
+          type: string
+          description: The type of document
+          example: Settlement
+        status:
+          type: string
+          description: The status of the document
+          example: Open
+        documentId:
+          type: string
+          description: The PEXA internal document identifier. <br> Maximum 19 characters
+          example: '664'
+    NotificationTypeKeyValue:
+      title: NotificationTypeKeyValue
+      description: Key/Value of the notification type
+      type: object
+      properties:
+        key:
+          type: string
+          description: The key of the notification
+          example: '55'
+        value:
+          type: string
+          description: The notification value
+          example: Settlement Date and Time status changed
+    NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType:
+      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
+      description: Details on outstanding inviter subscriber details for a representing party
+      type: object
+      properties:
+        partyId:
+          type: string
+          description: The id of the party
+          example: '123'
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          description: The role of the Party
+          type: string
+          example: Mortgagee on Title
+    NotificationInvitationOutstandingPartyType:
+      title: NotificationInvitationOutstandingPartyType
+      description: The outstanding party type
+      type: object
+      properties:
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationInvitationOutstandingPartyDetailsType'
+    SubscriberReferenceType:
+      title: SubscriberReferenceType
+      description: The subscriber reference
+      type: object
+      properties:
+        workspaceRole:
+          type: string
+          description: The role of the subscriber in the workspace
+          example: Incoming Mortgagee
+        value:
+          type: string
+          description: The subscriber reference for the workspace based on the subscriber’s role  <br> Maximum 30 characters
+          example: Matter-123312
     NotificationLodgementDocumentDetailsType:
       title: NotificationLodgementDocumentDetailsType
       description: Details about lodgement documents
@@ -250,15 +442,49 @@ components:
           description: The date and time the document status last changed (in UTC).
           format: date-time
           example: '2018-11-18T02:30:20.283Z'
-    PartyNameDetailsType:
-      title: PartyNameDetailsType
-      description: Details for a party name
+    PropertyDetailsType:
+      title: PropertyDetailsType
+      description: Details on a property
       type: object
       properties:
-        businessDetails:
-          $ref: '#/components/schemas/BusinessType'
-        fullName:
-          $ref: '#/components/schemas/FullNameType'
+        landDescription:
+          type: string
+          description: The land description associated to the land title reference.<br>Maximum 300 characters
+          example: Vacant Land
+        propertyAddress:
+          type: string
+          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
+          example: 213 X street
+    NotificationLodgementDetailsType:
+      title: NotificationLodgementDetailsType
+      description: Details on lodgements
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationLodgementDocumentDetailsType'
+        lodgementCaseStatus:
+          type: string
+          description: The status of the lodgement case
+          example: Open
+        lodgementCaseId:
+          type: string
+          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
+          example: '123'
+    NotificationLandTitleDetailsType:
+      title: NotificationLandTitleDetailsType
+      description: Details on the land title
+      type: object
+      properties:
+        landTitleReference:
+          description: A land title reference
+          type: string
+          example: ABC123
+        titleActivityCheck:
+          $ref: '#/components/schemas/NotificationTitleActivityCheck'
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
     NotificationDocumentStatusDetailsType:
       title: NotificationDocumentStatusDetailsType
       description: Details on the document status
@@ -273,98 +499,6 @@ components:
           type: string
           description: Information that specifies the current state of a Document in a Land Registry
           example: Verifying
-    NotificationInvitationResponseDetailsType:
-      title: NotificationInvitationResponseDetailsType
-      description: Details on invitation responses
-      type: object
-      properties:
-        inviteId:
-          type: string
-          description: The PEXA internal reference for the invitation.<br> Maximum 19 characters
-          example: '654'
-        subscriberId:
-          type: string
-          description: The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters
-          example: '208'
-        subscriberName:
-          type: string
-          description: The subscriber’s PEXA organisation name<br> Maximum 255 characters
-          example: XYZ bank
-        workspaceRole:
-          type: string
-          description: The workspace role the subscriber user has been invited to participate in.
-          example: Incoming Mortgagee
-        responseReason:
-          type: string
-          description: The subscriber’s response reason.
-          example: Additional documents required
-        additionalText:
-          type: string
-          description: Additional text entered by the invited subscriber. <br> Must be provided if the response reason is ‘Other’. <br>  Maximum 250 characters
-          example: More information
-    NotificationSettlementScheduleDetailsType:
-      title: NotificationSettlementScheduleDetailsType
-      description: Details about settlement schedules
-      type: object
-      properties:
-        status:
-          type: string
-          description: The status of the settlement schedule.
-          example: Signed
-    Error:
-      description: Error related to the API
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          example: OB0001.000
-        message:
-          description: Error message
-          type: string
-          example: The request is invalid
-        details:
-          description: Optional list of error details
-          type: array
-          items:
-            type: string
-            description: Error details
-    NotificationPartyDetailsType:
-      title: NotificationPartyDetailsType
-      description: Details on parties
-      type: object
-      properties:
-        partyName:
-          $ref: '#/components/schemas/PartyNameDetailsType'
-        partyRole:
-          type: string
-          description: The party role
-          example: Role
-        partyId:
-          type: string
-          description: 'Maximum 19 characters '
-          example: '989'
-    NotificationInvitationOutstandingLandTitleDetailsType:
-      title: NotificationInvitationOutstandingLandTitleDetailsType
-      description: Details on invitations outstanding land title
-      type: object
-      properties:
-        landTitleReference:
-          type: string
-          description: A land title reference
-          example: 123/654
-        propertyDetails:
-          $ref: '#/components/schemas/PropertyDetailsType'
-    NotificationInvitationOutstandingLandTitleType:
-      title: NotificationInvitationOutstandingLandTitleType
-      description: The outstanding land titles
-      type: object
-      properties:
-        landTitles:
-          type: array
-          description: 'Provided if the land titles are not marked as parent land titles. '
-          items:
-            $ref: '#/components/schemas/NotificationInvitationOutstandingLandTitleDetailsType'
     FullNameType:
       title: FullNameType
       description: A full name including titles, suffixes and date of birth
@@ -398,69 +532,82 @@ components:
           description: 'This must be provided when creating or editing a party when Representing Party is ‘Yes’. <br> This is only provided outbound if Representing Party is ‘Yes’. PEXA will only return this value if the Party is Represented by the Subscriber / Role. '
           format: date-time
           example: '2018-11-18T02:30:20.283Z'
-    NotificationConversationDetailsType:
-      title: NotificationConversationDetailsType
-      description: Details about a conversation
+    IdentificationDetailsType:
+      title: IdentificationDetailsType
       type: object
+      description: An object describing how to identify an external party
       properties:
-        conversationId:
+        identifier:
           type: string
-          description: The unique identifier of the conversation <br> Maximum 19 characters
-          example: '456'
-        timestamp:
-          type: string
-          description: The timestamp that the conversation was created in PEXA (in UTC).
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-    NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting:
-      title: NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
-      description: Details on outstanding inviter subscriber details for a representing party
-      type: object
-      properties:
-        parties:
-          description: List of parties
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType'
-    SubscriberReferenceType:
-      title: SubscriberReferenceType
-      description: The subscriber reference
-      type: object
-      properties:
-        workspaceRole:
-          type: string
-          description: The role of the subscriber in the workspace
-          example: Incoming Mortgagee
+          description: The type of identifier
+          example: ABN
         value:
           type: string
-          description: The subscriber reference for the workspace based on the subscriber’s role  <br> Maximum 30 characters
-          example: Matter-123312
-    NotificationDocumentDetailsType:
-      title: NotificationDocumentDetailsType
-      description: Details on Documents
+          description: Maximum 20 characters <br> Must be provided without whitespaces.
+          example: '42156896300000000'
+    AdministrationStatusDetailsType:
+      title: AdministrationStatusDetailsType
+      description: Details on administration status
       type: object
       properties:
-        documentType:
+        value:
           type: string
-          description: The type of document
-          example: Settlement
-        status:
-          type: string
-          description: The status of the document
-          example: Open
-        documentId:
-          type: string
-          description: The PEXA internal document identifier. <br> Maximum 19 characters
-          example: '664'
-    NotificationInvitationOutstandingPartyType:
-      title: NotificationInvitationOutstandingPartyType
-      description: The outstanding party type
+          description: The value of the administration status
+          example: Subject to a deed of company arrangement
+    NotificationPartyDetailsType:
+      title: NotificationPartyDetailsType
+      description: Details on parties
       type: object
       properties:
-        parties:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationInvitationOutstandingPartyDetailsType'
+        partyName:
+          $ref: '#/components/schemas/PartyNameDetailsType'
+        partyRole:
+          type: string
+          description: The party role
+          example: Role
+        partyId:
+          type: string
+          description: 'Maximum 19 characters '
+          example: '989'
+    NotificationDetailsType:
+      title: NotificationDetailsType
+      description: Details about the notification
+      type: object
+      properties:
+        financialLineItem:
+          $ref: '#/components/schemas/NotificationFinancialLineItemType'
+        invitation:
+          $ref: '#/components/schemas/NotificationInvitationDetailsType'
+        landTitle:
+          $ref: '#/components/schemas/NotificationLandTitleDetailsType'
+        party:
+          $ref: '#/components/schemas/NotificationPartyDetailsType'
+        document:
+          $ref: '#/components/schemas/NotificationDocumentDetailsType'
+        settlementSchedule:
+          $ref: '#/components/schemas/NotificationSettlementScheduleDetailsType'
+        workspaceStatus:
+          type: string
+          description: 'Notification detail related to the workspace status. '
+        settlement:
+          $ref: '#/components/schemas/NotificationSettlementDetailsType'
+        lodgement:
+          $ref: '#/components/schemas/NotificationLodgementDetailsType'
+        participant:
+          $ref: '#/components/schemas/NotificationParticipantDetailsType'
+        conversation:
+          $ref: '#/components/schemas/NotificationConversationDetailsType'
+    NotificationInvitationOutstandingLandTitleDetailsType:
+      title: NotificationInvitationOutstandingLandTitleDetailsType
+      description: Details on invitations outstanding land title
+      type: object
+      properties:
+        landTitleReference:
+          type: string
+          description: A land title reference
+          example: 123/654
+        propertyDetails:
+          $ref: '#/components/schemas/PropertyDetailsType'
     GivenNameOrderType:
       title: GivenNameOrderType
       description: The given name order
@@ -475,89 +622,39 @@ components:
           type: string
           description: The value of the given name
           example: John
-    NotificationLodgementDetailsType:
-      title: NotificationLodgementDetailsType
-      description: Details on lodgements
+    NotificationTitleActivityCheck:
+      title: NotificationTitleActivityCheck
+      description: Title activity check details
       type: object
       properties:
-        documents:
+        administrativeActionReferences:
+          type: array
+          description: References for administrative action
+          items:
+            $ref: '#/components/schemas/NotificationAdministrativeActionReferenceDetailsType'
+        documentReferences:
+          type: array
+          description: A document that has been lodged or registered against the Land Title in question within the period in question
+          items:
+            $ref: '#/components/schemas/NotificationDocumentReferenceDetailsType'
+    Error:
+      description: Error related to the API
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          example: OB0001.000
+        message:
+          description: Error message
+          type: string
+          example: The request is invalid
+        details:
+          description: Optional list of error details
           type: array
           items:
-            $ref: '#/components/schemas/NotificationLodgementDocumentDetailsType'
-        lodgementCaseStatus:
-          type: string
-          description: The status of the lodgement case
-          example: Open
-        lodgementCaseId:
-          type: string
-          description: The PEXA internal lodgement case identifier. <br> Maximum 19 characters
-          example: '123'
-    PropertyDetailsType:
-      title: PropertyDetailsType
-      description: Details on a property
-      type: object
-      properties:
-        landDescription:
-          type: string
-          description: The land description associated to the land title reference.<br>Maximum 300 characters
-          example: Vacant Land
-        propertyAddress:
-          type: string
-          description: Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters
-          example: 213 X street
-    BusinessType:
-      title: BusinessType
-      description: The business type
-      type: object
-      properties:
-        legalEntityName:
-          type: string
-          description: Maximum 150 characters
-          example: National Australia Bank
-        businessName:
-          type: string
-          description: 'Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. '
-          example: NAB
-        businessUnit:
-          type: string
-          description: 'Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. '
-          example: Mortgage processing
-        organisationType:
-          type: string
-          description: Must be provided if Party Type is ‘Organisation’
-          example: Registered Company
-        administrationStatuses:
-          type: array
-          description: 'Must be provided if Organisation Type is ''Registered company in external administration'' '
-          example:
-          - AdministrationStatus: Subject to a deed of company arrangement
-          items:
-            $ref: '#/components/schemas/AdministrationStatusDetailsType'
-        identifications:
-          type: array
-          description: External identification of the party through a registered organisation.
-          items:
-            $ref: '#/components/schemas/IdentificationDetailsType'
-    NotificationTypeKeyValue:
-      title: NotificationTypeKeyValue
-      description: Key/Value of the notification type
-      type: object
-      properties:
-        key:
-          type: string
-          description: The key of the notification
-          example: '55'
-        value:
-          type: string
-          description: The notification value
-          example: Settlement Date and Time status changed
-    RetrieveNotificationsResponse:
-      title: RetrieveNotificationsResponse
-      description: The response containing notifications
-      type: object
-      properties:
-        notificationsList:
-          $ref: '#/components/schemas/NotificationsListType'
+            type: string
+            description: Error details
     NotificationInvitationOutstandingDetailsType:
       title: NotificationInvitationOutstandingDetailsType
       description: Details on a outstanding invitation
@@ -599,6 +696,74 @@ components:
           $ref: '#/components/schemas/NotificationInvitationOutstandingPartyType'
         inviterSubscriberDetails:
           $ref: '#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsType'
+    RetrieveNotificationsResponse:
+      title: RetrieveNotificationsResponse
+      description: The response containing notifications
+      type: object
+      properties:
+        notificationsList:
+          $ref: '#/components/schemas/NotificationsListType'
+    NotificationAdministrativeActionReferenceDetailsType:
+      title: NotificationAdministrativeActionReferenceDetailsType
+      description: Details on the administrative action reference
+      type: object
+      properties:
+        administrativeActionTimestamp:
+          type: string
+          format: date-time
+          description: Date of the administrative action
+          example: '2018-11-18T02:30:20.283Z'
+        administrativeActionType:
+          type: string
+          description: The action type
+          example: Action
+    NotificationInvitationDetailsType:
+      title: NotificationInvitationDetailsType
+      description: Details on an invitation
+      type: object
+      properties:
+        outstanding:
+          $ref: '#/components/schemas/NotificationInvitationOutstandingDetailsType'
+        response:
+          $ref: '#/components/schemas/NotificationInvitationResponseDetailsType'
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        exceptionList:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+    NotificationInvitationResponseDetailsType:
+      title: NotificationInvitationResponseDetailsType
+      description: Details on invitation responses
+      type: object
+      properties:
+        inviteId:
+          type: string
+          description: The PEXA internal reference for the invitation.<br> Maximum 19 characters
+          example: '654'
+        subscriberId:
+          type: string
+          description: The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters
+          example: '208'
+        subscriberName:
+          type: string
+          description: The subscriber’s PEXA organisation name<br> Maximum 255 characters
+          example: XYZ bank
+        workspaceRole:
+          type: string
+          description: The workspace role the subscriber user has been invited to participate in.
+          example: Incoming Mortgagee
+        responseReason:
+          type: string
+          description: The subscriber’s response reason.
+          example: Additional documents required
+        additionalText:
+          type: string
+          description: Additional text entered by the invited subscriber. <br> Must be provided if the response reason is ‘Other’. <br>  Maximum 250 characters
+          example: More information
     NotificationType:
       title: NotificationType
       description: Notification type
@@ -656,171 +821,6 @@ components:
           example: Settlement completed
         details:
           $ref: '#/components/schemas/NotificationDetailsType'
-    NotificationTitleActivityCheck:
-      title: NotificationTitleActivityCheck
-      description: Title activity check details
-      type: object
-      properties:
-        administrativeActionReferences:
-          type: array
-          description: References for administrative action
-          items:
-            $ref: '#/components/schemas/NotificationAdministrativeActionReferenceDetailsType'
-        documentReferences:
-          type: array
-          description: A document that has been lodged or registered against the Land Title in question within the period in question
-          items:
-            $ref: '#/components/schemas/NotificationDocumentReferenceDetailsType'
-    AdministrationStatusDetailsType:
-      title: AdministrationStatusDetailsType
-      description: Details on administration status
-      type: object
-      properties:
-        value:
-          type: string
-          description: The value of the administration status
-          example: Subject to a deed of company arrangement
-    NotificationAdministrativeActionReferenceDetailsType:
-      title: NotificationAdministrativeActionReferenceDetailsType
-      description: Details on the administrative action reference
-      type: object
-      properties:
-        administrativeActionTimestamp:
-          type: string
-          format: date-time
-          description: Date of the administrative action
-          example: '2018-11-18T02:30:20.283Z'
-        administrativeActionType:
-          type: string
-          description: The action type
-          example: Action
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        exceptionList:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
-    NotificationInvitationOutstandingPartyDetailsType:
-      title: NotificationInvitationOutstandingPartyDetailsType
-      description: Details on an outstanding party invitation
-      type: object
-      properties:
-        partyId:
-          type: string
-          description: Maximum 19 characters
-          example: '654'
-        partyRole:
-          type: string
-          description: The role of the party
-          example: Incoming Mortgagee
-        partyName:
-          $ref: '#/components/schemas/PartyNameDetailsType'
-        associatedLandTitleReferences:
-          type: array
-          description: 'This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.'
-          example:
-          - 98745/987
-          - 98745/987
-          items:
-            type: string
-            description: A land title reference
-            example: 98745/987
-    IdentificationDetailsType:
-      title: IdentificationDetailsType
-      type: object
-      description: An object describing how to identify an external party
-      properties:
-        identifier:
-          type: string
-          description: The type of identifier
-          example: ABN
-        value:
-          type: string
-          description: Maximum 20 characters <br> Must be provided without whitespaces.
-          example: '42156896300000000'
-    NotificationFinancialLineItemType:
-      title: NotificationFinancialLineItemType
-      description: A financial line item
-      type: object
-      properties:
-        amount:
-          description: The amount of the line item
-          type: number
-          example: 10000
-        category:
-          type: string
-          description: The category of the line item
-          example: Water Rates
-        owningSubscriberId:
-          type: string
-          description: The owning subscriber id
-          example: '1234'
-        owningSubscriberName:
-          type: string
-          description: The owning subscribers name
-          example: John
-        type:
-          type: string
-          description: The type
-          example: Account
-    NotificationSettlementDetailsType:
-      title: NotificationSettlementDetailsType
-      description: Details about settlement
-      type: object
-      properties:
-        settlementDate:
-          type: string
-          description: 'The date and time of the settlement (in UTC). '
-          format: date-time
-          example: '2018-11-18T02:30:20.283Z'
-        reason:
-          type: string
-          description: Maximum 255 characters
-          example: Settlement completed
-    NotificationLandTitleDetailsType:
-      title: NotificationLandTitleDetailsType
-      description: Details on the land title
-      type: object
-      properties:
-        landTitleReference:
-          description: A land title reference
-          type: string
-          example: ABC123
-        titleActivityCheck:
-          $ref: '#/components/schemas/NotificationTitleActivityCheck'
-        propertyDetails:
-          $ref: '#/components/schemas/PropertyDetailsType'
-    NotificationDetailsType:
-      title: NotificationDetailsType
-      description: Details about the notification
-      type: object
-      properties:
-        financialLineItem:
-          $ref: '#/components/schemas/NotificationFinancialLineItemType'
-        invitation:
-          $ref: '#/components/schemas/NotificationInvitationDetailsType'
-        landTitle:
-          $ref: '#/components/schemas/NotificationLandTitleDetailsType'
-        party:
-          $ref: '#/components/schemas/NotificationPartyDetailsType'
-        document:
-          $ref: '#/components/schemas/NotificationDocumentDetailsType'
-        settlementSchedule:
-          $ref: '#/components/schemas/NotificationSettlementScheduleDetailsType'
-        workspaceStatus:
-          type: string
-          description: 'Notification detail related to the workspace status. '
-        settlement:
-          $ref: '#/components/schemas/NotificationSettlementDetailsType'
-        lodgement:
-          $ref: '#/components/schemas/NotificationLodgementDetailsType'
-        participant:
-          $ref: '#/components/schemas/NotificationParticipantDetailsType'
-        conversation:
-          $ref: '#/components/schemas/NotificationConversationDetailsType'
   parameters:
     RequestCorrelationIdHeader:
       description: A unique request id provided by api caller to support end-to-end troubleshooting and tracing

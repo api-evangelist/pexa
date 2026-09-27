@@ -54,37 +54,54 @@ paths:
                   message: message
 components:
   schemas:
-    jurisdiction:
-      type: string
-      enum:
-      - VIC
-      - NSW
-      - QLD
-      - SA
-      - WA
-      - ACT
-      - NT
-      - TAS
-      example: VIC
-      description: The Jurisdiction for the title
-    lodgementCase:
-      title: lodgementCase
+    issuingInstructions:
+      type: object
+      description: Use this element if you want to instruct issuing for the title
+      properties:
+        titleFormat:
+          $ref: '#/components/schemas/titleFormat'
+        ctIssuedToPanelMaster:
+          type: boolean
+          description: Do you wish to issue the title to your Panel Master? (Panel clients only)
+          example: true
+      required:
+      - titleFormat
+    document:
+      title: Document
       type: object
       properties:
-        lodgementCaseId:
+        documentId:
           type: string
-        lodgementCaseStatus:
+        documentStatus:
           type: string
-        documents:
+        documentType:
+          type: string
+        landTitleReferences:
           type: array
           items:
-            $ref: '#/components/schemas/document'
+            type: string
+        lastModified:
+          type: string
+          format: date-time
+        lodgement:
+          $ref: '#/components/schemas/lodgement'
+        lodgementVerification:
+          type: object
     titleFormat:
       type: string
       description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
       enum:
       - ECT
       - PCT
+    lodgement:
+      title: lodgement
+      type: object
+      properties:
+        id:
+          type: string
+          format: date-time
+        dealingNumber:
+          type: string
     standaloneDischarge:
       type: object
       properties:
@@ -193,48 +210,6 @@ components:
       - subscriberReference
       - landTitles
       - jurisdiction
-    document:
-      title: Document
-      type: object
-      properties:
-        documentId:
-          type: string
-        documentStatus:
-          type: string
-        documentType:
-          type: string
-        landTitleReferences:
-          type: array
-          items:
-            type: string
-        lastModified:
-          type: string
-          format: date-time
-        lodgement:
-          $ref: '#/components/schemas/lodgement'
-        lodgementVerification:
-          type: object
-    issuingInstructions:
-      type: object
-      description: Use this element if you want to instruct issuing for the title
-      properties:
-        titleFormat:
-          $ref: '#/components/schemas/titleFormat'
-        ctIssuedToPanelMaster:
-          type: boolean
-          description: Do you wish to issue the title to your Panel Master? (Panel clients only)
-          example: true
-      required:
-      - titleFormat
-    lodgement:
-      title: lodgement
-      type: object
-      properties:
-        id:
-          type: string
-          format: date-time
-        dealingNumber:
-          type: string
     event:
       type: object
       properties:
@@ -252,6 +227,31 @@ components:
           type: string
           description: Only applicable when an event is interrupted
           example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
+    lodgementCase:
+      title: lodgementCase
+      type: object
+      properties:
+        lodgementCaseId:
+          type: string
+        lodgementCaseStatus:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/document'
+    jurisdiction:
+      type: string
+      enum:
+      - VIC
+      - NSW
+      - QLD
+      - SA
+      - WA
+      - ACT
+      - NT
+      - TAS
+      example: VIC
+      description: The Jurisdiction for the title
   securitySchemes:
     oauth2:
       type: oauth2
