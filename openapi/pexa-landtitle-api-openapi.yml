@@ -93,6 +93,54 @@ paths:
       x-operation-id-original: LTRV
 components:
   schemas:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants:
+      type: object
+      properties:
+        subscriberName:
+          type: string
+          example: XYZ Bank
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+          description: Maximum 255 characters <br> Subscriber organisation name
+        role:
+          type: string
+          example: Incoming Mortgagee
+          xml:
+            name: Role
+            attribute: false
+            wrapped: false
+          description: Participants role in the workspace
+        contactName:
+          type: string
+          example: XYZ Manager
+          xml:
+            name: ContactName
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact name
+        email:
+          type: string
+          example: XYZ.Manager@bank.com.au
+          xml:
+            name: Email
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact email
+        phone:
+          type: string
+          example: 0421869784
+          xml:
+            name: Phone
+            attribute: false
+            wrapped: false
+          description: Maximum 100 characters <br> Subscriber public contact phone
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants
+      xml:
+        name: Workgroup
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport:
       type: object
       properties:
@@ -143,70 +191,6 @@ components:
         name: LandTitleReferenceReport
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          xml:
-            name: Workspace
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
-      xml:
-        name: Warnings
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants:
-      type: object
-      properties:
-        subscriberName:
-          type: string
-          example: XYZ Bank
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-          description: Maximum 255 characters <br> Subscriber organisation name
-        role:
-          type: string
-          example: Incoming Mortgagee
-          xml:
-            name: Role
-            attribute: false
-            wrapped: false
-          description: Participants role in the workspace
-        contactName:
-          type: string
-          example: XYZ Manager
-          xml:
-            name: ContactName
-            attribute: false
-            wrapped: false
-          description: Maximum 100 characters <br> Subscriber public contact name
-        email:
-          type: string
-          example: XYZ.Manager@bank.com.au
-          xml:
-            name: Email
-            attribute: false
-            wrapped: false
-          description: Maximum 100 characters <br> Subscriber public contact email
-        phone:
-          type: string
-          example: 0421869784
-          xml:
-            name: Phone
-            attribute: false
-            wrapped: false
-          description: Maximum 100 characters <br> Subscriber public contact phone
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants
-      xml:
-        name: Workgroup
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace:
       type: object
       properties:
@@ -230,6 +214,38 @@ components:
         name: Workspace
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList:
+      type: object
+      properties:
+        participants:
+          type: array
+          xml:
+            name: Participants
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
+      xml:
+        name: ParticipantsList
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          xml:
+            name: Workspace
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+      xml:
+        name: Warnings
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
       type: object
       properties:
@@ -250,22 +266,6 @@ components:
       xml:
         name: LandTitleReferenceVerificationResponse
         namespace: http://api.pexa.net.au/schema/1/
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList:
-      type: object
-      properties:
-        participants:
-          type: array
-          xml:
-            name: Participants
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
-      xml:
-        name: ParticipantsList
         attribute: false
         wrapped: false
 x-refined-from:

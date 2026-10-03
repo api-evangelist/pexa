@@ -66,6 +66,50 @@ components:
           example: true
       required:
       - titleFormat
+    titleFormat:
+      type: string
+      description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
+      enum:
+      - ECT
+      - PCT
+    lodgementCase:
+      title: lodgementCase
+      type: object
+      properties:
+        lodgementCaseId:
+          type: string
+        lodgementCaseStatus:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/document'
+    event:
+      type: object
+      properties:
+        stage:
+          type: string
+          example: Workspace Setup
+        status:
+          type: string
+          example: Yay, done!
+        code:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: OB1400.001
+        message:
+          type: string
+          description: Only applicable when an event is interrupted
+          example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
+    lodgement:
+      title: lodgement
+      type: object
+      properties:
+        id:
+          type: string
+          format: date-time
+        dealingNumber:
+          type: string
     document:
       title: Document
       type: object
@@ -87,21 +131,6 @@ components:
           $ref: '#/components/schemas/lodgement'
         lodgementVerification:
           type: object
-    titleFormat:
-      type: string
-      description: PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title
-      enum:
-      - ECT
-      - PCT
-    lodgement:
-      title: lodgement
-      type: object
-      properties:
-        id:
-          type: string
-          format: date-time
-        dealingNumber:
-          type: string
     standaloneDischarge:
       type: object
       properties:
@@ -210,35 +239,6 @@ components:
       - subscriberReference
       - landTitles
       - jurisdiction
-    event:
-      type: object
-      properties:
-        stage:
-          type: string
-          example: Workspace Setup
-        status:
-          type: string
-          example: Yay, done!
-        code:
-          type: string
-          description: Only applicable when an event is interrupted
-          example: OB1400.001
-        message:
-          type: string
-          description: Only applicable when an event is interrupted
-          example: We could not find the Land Title you provided within PEXA. Can you verify the land title and resend your request
-    lodgementCase:
-      title: lodgementCase
-      type: object
-      properties:
-        lodgementCaseId:
-          type: string
-        lodgementCaseStatus:
-          type: string
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/document'
     jurisdiction:
       type: string
       enum:

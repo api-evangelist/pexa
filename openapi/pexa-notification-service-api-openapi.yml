@@ -444,60 +444,6 @@ webhooks:
       x-summary-source: derived
 components:
   schemas:
-    SubscriberNotificationPayload:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: The date and time the event occurred
-          example: '2024-06-04T03:18:58Z'
-        type:
-          type: string
-          description: Specifies the category and the event type and follows the format of <category>.<event>
-          example: Workspace.CHECKLIST_CHECKED
-        data:
-          type: object
-          description: An object containing the details of the events that triggered the notification
-          properties:
-            workspaceId:
-              type: string
-              description: The PEXA Workspace Identifier
-              example: PEXA000000000
-            subscriberId:
-              type: string
-              description: The ID of the subscriber
-              example: '100'
-            subscriberReferences:
-              type: array
-              description: An array of subscriber references that are relevant to the event.
-              items:
-                type: object
-                description: Subscriber reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
-                properties:
-                  subscriberReference:
-                    type: string
-                    description: The subscriber reference
-                    example: '100'
-                  workspaceRole:
-                    type: string
-                    description: The role of the subscriber in the workspace
-                    example: Incoming Mortgagee
-            additionalReferences:
-              type: array
-              description: An array of additional references that are relevant to the event. For subscriber notifications, this will contain a single reference
-              items:
-                type: object
-                description: Additional reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
-                properties:
-                  identifier:
-                    type: string
-                    description: The identifier
-                    example: '51'
-                  type:
-                    type: string
-                    description: The type of reference.
-                    example: CHECKLIST_ITEM_ID
     NonSubscriberNotificationPayload:
       type: object
       properties:
@@ -552,6 +498,60 @@ components:
                     type: string
                     description: The type of HTTP request to be used for the href
                     example: GET
+    SubscriberNotificationPayload:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The date and time the event occurred
+          example: '2024-06-04T03:18:58Z'
+        type:
+          type: string
+          description: Specifies the category and the event type and follows the format of <category>.<event>
+          example: Workspace.CHECKLIST_CHECKED
+        data:
+          type: object
+          description: An object containing the details of the events that triggered the notification
+          properties:
+            workspaceId:
+              type: string
+              description: The PEXA Workspace Identifier
+              example: PEXA000000000
+            subscriberId:
+              type: string
+              description: The ID of the subscriber
+              example: '100'
+            subscriberReferences:
+              type: array
+              description: An array of subscriber references that are relevant to the event.
+              items:
+                type: object
+                description: Subscriber reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
+                properties:
+                  subscriberReference:
+                    type: string
+                    description: The subscriber reference
+                    example: '100'
+                  workspaceRole:
+                    type: string
+                    description: The role of the subscriber in the workspace
+                    example: Incoming Mortgagee
+            additionalReferences:
+              type: array
+              description: An array of additional references that are relevant to the event. For subscriber notifications, this will contain a single reference
+              items:
+                type: object
+                description: Additional reference or identifier provided by third parties like financial institutions. Used to link a PEXA Workspace to an integrators system
+                properties:
+                  identifier:
+                    type: string
+                    description: The identifier
+                    example: '51'
+                  type:
+                    type: string
+                    description: The type of reference.
+                    example: CHECKLIST_ITEM_ID
   securitySchemes:
     oauth2:
       type: oauth2

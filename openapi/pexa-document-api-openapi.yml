@@ -188,6 +188,32 @@ paths:
       x-operation-id-original: createUsingPOST
 components:
   schemas:
+    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase:
+      type: object
+      properties:
+        documents:
+          xml:
+            name: Documents
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents'
+        lodgementCaseId:
+          type: string
+          xml:
+            name: LodgementCaseId
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
+      xml:
+        name: LodgementCase
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest:
       type: object
       properties:
@@ -218,48 +244,6 @@ components:
       title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest
       xml:
         name: CreateDischargeOfMortgageRequest
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval:
-      type: object
-      properties:
-        lodgementCases:
-          type: array
-          xml:
-            name: LodgementCase
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase'
-      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
-      xml:
-        name: WorkspaceDocumentRetrieval
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse:
-      type: object
-      properties:
-        documentId:
-          type: string
-          xml:
-            name: DocumentId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
-      xml:
-        name: CreateDischargeOfMortgageResponse
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails:
-      type: object
-      properties:
-        mortgageNumbers:
-          type: array
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
-      xml:
-        name: MortgageDetails
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document:
@@ -301,30 +285,20 @@ components:
         name: Document
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase:
+    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval:
       type: object
       properties:
-        documents:
+        lodgementCases:
+          type: array
           xml:
-            name: Documents
+            name: LodgementCase
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents'
-        lodgementCaseId:
-          type: string
-          xml:
-            name: LodgementCaseId
-            attribute: false
-            wrapped: false
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase'
+      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
       xml:
-        name: LodgementCase
+        name: WorkspaceDocumentRetrieval
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents:
@@ -341,6 +315,32 @@ components:
       title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents
       xml:
         name: Documents
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
+      xml:
+        name: CreateDischargeOfMortgageResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails:
+      type: object
+      properties:
+        mortgageNumbers:
+          type: array
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
+      xml:
+        name: MortgageDetails
         attribute: false
         wrapped: false
 x-refined-from:

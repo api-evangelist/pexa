@@ -368,30 +368,78 @@ components:
             wrapped: false
           $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
       title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
-    au.net.pexa.api.schema._1.MessagesType:
+    au.net.pexa.api.schema._1.ConversationsType:
       type: object
       properties:
-        messages:
+        conversations:
           type: array
           xml:
-            name: Message
+            name: Conversation
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
-      title: au.net.pexa.api.schema._1.MessagesType
-    au.net.pexa.api.schema._1.CreateMessageResponse:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
+      title: au.net.pexa.api.schema._1.ConversationsType
+    au.net.pexa.api.schema._1.MessageType:
       type: object
       properties:
+        actionRequired:
+          type: string
+          xml:
+            name: ActionRequired
+            attribute: false
+            wrapped: false
+        actionRequiredComplete:
+          type: string
+          xml:
+            name: ActionRequiredComplete
+            attribute: false
+            wrapped: false
+        firstName:
+          type: string
+          xml:
+            name: FirstName
+            attribute: false
+            wrapped: false
+        lastName:
+          type: string
+          xml:
+            name: LastName
+            attribute: false
+            wrapped: false
         message:
+          type: string
           xml:
             name: Message
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
-      title: au.net.pexa.api.schema._1.CreateMessageResponse
+        messageCreated:
+          type: string
+          xml:
+            name: MessageCreated
+            attribute: false
+            wrapped: false
+        messageId:
+          type: string
+          xml:
+            name: MessageId
+            attribute: false
+            wrapped: false
+        subscriberName:
+          type: string
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+        unread:
+          type: string
+          xml:
+            name: Unread
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.MessageType
       xml:
-        name: CreateMessageResponse
+        name: messageType
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.ConversationType:
@@ -470,6 +518,32 @@ components:
             attribute: false
             wrapped: false
       title: au.net.pexa.api.schema._1.ConversationType
+    au.net.pexa.api.schema._1.CreateMessageResponse:
+      type: object
+      properties:
+        message:
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.CreateMessageResponse
+      xml:
+        name: CreateMessageResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.MessagesType:
+      type: object
+      properties:
+        messages:
+          type: array
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.MessagesType
     au.net.pexa.api.schema._1.CreateMessageRequest:
       type: object
       properties:
@@ -496,80 +570,6 @@ components:
         name: CreateMessageRequest
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.MessageType:
-      type: object
-      properties:
-        actionRequired:
-          type: string
-          xml:
-            name: ActionRequired
-            attribute: false
-            wrapped: false
-        actionRequiredComplete:
-          type: string
-          xml:
-            name: ActionRequiredComplete
-            attribute: false
-            wrapped: false
-        firstName:
-          type: string
-          xml:
-            name: FirstName
-            attribute: false
-            wrapped: false
-        lastName:
-          type: string
-          xml:
-            name: LastName
-            attribute: false
-            wrapped: false
-        message:
-          type: string
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-        messageCreated:
-          type: string
-          xml:
-            name: MessageCreated
-            attribute: false
-            wrapped: false
-        messageId:
-          type: string
-          xml:
-            name: MessageId
-            attribute: false
-            wrapped: false
-        subscriberName:
-          type: string
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-        unread:
-          type: string
-          xml:
-            name: Unread
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.MessageType
-      xml:
-        name: messageType
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.ConversationsType:
-      type: object
-      properties:
-        conversations:
-          type: array
-          xml:
-            name: Conversation
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
-      title: au.net.pexa.api.schema._1.ConversationsType
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

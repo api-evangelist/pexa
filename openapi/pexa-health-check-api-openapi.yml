@@ -56,6 +56,26 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: HealthCheck
 components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
+  parameters:
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345
   schemas:
     Error:
       description: Detailed error related to the API
@@ -83,26 +103,6 @@ components:
           items:
             allOf:
             - $ref: '#/components/schemas/Error'
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
-  parameters:
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
-      required: true
-      schema:
-        type: integer
-        example: 12345
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json
