@@ -179,6 +179,38 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '404001'
+              message: Invalid title search ID
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: PL.TITSE.001
+              message: The land title reference provided is invalid for the jurisdiction.
+              field: landTitleReference
   schemas:
     Error:
       description: Detailed error related to the API
@@ -196,6 +228,16 @@ components:
           description: Name of the field provided in the original request (if any) that the error pertains to
           type: string
           example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
     TitleSearchDocuments:
       description: Title search documents
       type: object
@@ -220,16 +262,6 @@ components:
                 description: Status of the document related to the title search order
                 type: string
                 example: processing
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
     TitleSearch:
       description: Title search
       type: object
@@ -350,14 +382,6 @@ components:
                 example: 'ESTATE: LEASEHOLD ESTATE CREATED BY AA123 EXPIRES 1/2/2022'
               minItems: 1
   parameters:
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
-      required: true
-      schema:
-        type: integer
-        example: 12345
     TitleSearchIdPath:
       description: Title search id
       in: path
@@ -367,35 +391,11 @@ components:
         type: string
         format: uuid
         example: d290f1ee-6c54-4b01-90e6-d701748f0851
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
-    NotFoundError:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '404001'
-              message: Invalid title search ID
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: PL.TITSE.001
-              message: The land title reference provided is invalid for the jurisdiction.
-              field: landTitleReference
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
+      required: true
+      schema:
+        type: integer
+        example: 12345

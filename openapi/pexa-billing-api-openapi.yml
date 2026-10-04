@@ -93,14 +93,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   parameters:
-    ReferenceQuery:
-      description: Reference for billing query (optional)
-      in: query
-      name: reference
-      required: false
-      schema:
-        type: string
-        example: ABC Reference
     LandTitleReferenceQuery:
       description: Land title reference for billing query (optional)
       in: query
@@ -109,14 +101,23 @@ components:
       schema:
         type: string
         example: 100/789171
-    SubscriberId:
-      description: Subscriber id
-      in: header
-      name: X-Pexa-Subscriber-ID
+    ReferenceQuery:
+      description: Reference for billing query (optional)
+      in: query
+      name: reference
+      required: false
+      schema:
+        type: string
+        example: ABC Reference
+    EndDateQuery:
+      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
+      in: query
+      name: endDate
       required: true
       schema:
-        type: integer
-        example: 12345
+        type: string
+        format: date-time
+        example: '2020-12-20T16:09:53Z'
     FormatQuery:
       description: Response format for billing query (optional)
       in: query
@@ -134,15 +135,14 @@ components:
         type: string
         format: date-time
         example: '2020-09-20T16:09:53Z'
-    EndDateQuery:
-      description: The end date for the query range in RFC3339 format. Must be used together with `startDate`.
-      in: query
-      name: endDate
+    SubscriberId:
+      description: Subscriber id
+      in: header
+      name: X-Pexa-Subscriber-ID
       required: true
       schema:
-        type: string
-        format: date-time
-        example: '2020-12-20T16:09:53Z'
+        type: integer
+        example: 12345
   schemas:
     Error:
       description: Detailed error related to the API
@@ -160,29 +160,6 @@ components:
           description: Name of the field provided in the original request (if any) that the error pertains to
           type: string
           example: landTitleReference
-    Money:
-      description: Represents an amount of money
-      type: object
-      properties:
-        amount:
-          description: The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when `currency` is `AUD`, `amount` is in cents.
-          type: integer
-          format: int64
-          example: 1000
-        currency:
-          description: The type of currency, in ISO 4217 format
-          type: string
-          example: AUD
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
     Invoice:
       description: Invoice
       type: object
@@ -249,6 +226,29 @@ components:
                     description: Ordered item total cost
                     allOf:
                     - $ref: '#/components/schemas/Money'
+    Money:
+      description: Represents an amount of money
+      type: object
+      properties:
+        amount:
+          description: The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when `currency` is `AUD`, `amount` is in cents.
+          type: integer
+          format: int64
+          example: 1000
+        currency:
+          description: The type of currency, in ISO 4217 format
+          type: string
+          example: AUD
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
   responses:
     InternalServerError:
       description: Internal server error
