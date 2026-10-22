@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-invoice-schema.json",
+  "title": "Invoice",
+  "description": "Invoice",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-billing-api-openapi.yml#/components/schemas/Invoice",
+  "type": "object",
+  "properties": {
+    "invoice": {
+      "description": "Invoice attributes",
+      "type": "object",
+      "properties": {
+        "invoiceDate": {
+          "description": "Date invoice created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "invoiceDateRange": {
+          "description": "Date range requested for invoice",
+          "type": "string"
+        },
+        "invoiceTotalCostExTax": {
+          "description": "Invoice total cost excluding tax",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Money"
+            }
+          ]
+        },
+        "invoiceTotalTax": {
+          "description": "Invoice total tax",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Money"
+            }
+          ]
+        },
+        "invoiceTotalCost": {
+          "description": "Invoice total cost",
+          "allOf": [
+            {
+              "$ref": "#/$defs/Money"
+            }
+          ]
+        },
+        "orderItems": {
+          "description": "Ordered items",
+          "type": "array",
+          "items": {
+            "description": "Ordered item",
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identifier of the title search order",
+                "type": "string",
+                "format": "uuid"
+              },
+              "landTitleReference": {
+                "description": "Land title reference",
+                "type": "string"
+              },
+              "productTitle": {
+                "description": "Product title",
+                "type": "string"
+              },
+              "date": {
+                "description": "Date ordered item created",
+                "type": "string",
+                "format": "date-time"
+              },
+              "totalCostExTax": {
+                "description": "Ordered item total cost excluding tax",
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/Money"
+                  }
+                ]
+              },
+              "totalTax": {
+                "description": "Ordered item total tax",
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/Money"
+                  }
+                ]
+              },
+              "totalCost": {
+                "description": "Ordered item total cost",
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/Money"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Money": {
+      "description": "Represents an amount of money",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when `currency` is `AUD`, `amount` is in cents.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "currency": {
+          "description": "The type of currency, in ISO 4217 format",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

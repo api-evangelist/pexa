@@ -1,0 +1,1140 @@
+{
+  "@context": {
+    "@vocab": "https://pexa.com.au/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "pexa": "https://pexa.com.au/schema#",
+    "Error": "pexa:Error",
+    "code": {
+      "@id": "pexa:code",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "pexa:message",
+      "@type": "xsd:string"
+    },
+    "field": {
+      "@id": "pexa:field",
+      "@type": "xsd:string"
+    },
+    "Invoice": "pexa:Invoice",
+    "invoice": {
+      "@id": "pexa:invoice"
+    },
+    "Money": "pexa:Money",
+    "amount": {
+      "@id": "pexa:amount",
+      "@type": "xsd:integer"
+    },
+    "currency": {
+      "@id": "pexa:currency",
+      "@type": "xsd:string"
+    },
+    "Errors": "pexa:Errors",
+    "errors": {
+      "@id": "pexa:errors",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.ConversationsRetrievalResponse": "pexa:au.net.pexa.api.schema._1.ConversationsRetrievalResponse",
+    "conversations": {
+      "@id": "pexa:conversations",
+      "@type": "@id"
+    },
+    "au.net.pexa.api.schema._1.MessagesType": "pexa:au.net.pexa.api.schema._1.MessagesType",
+    "messages": {
+      "@id": "pexa:messages",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.CreateMessageResponse": "pexa:au.net.pexa.api.schema._1.CreateMessageResponse",
+    "au.net.pexa.api.schema._1.ConversationType": "pexa:au.net.pexa.api.schema._1.ConversationType",
+    "category": {
+      "@id": "pexa:category",
+      "@type": "xsd:string"
+    },
+    "conversationId": {
+      "@id": "pexa:conversationId",
+      "@type": "xsd:string"
+    },
+    "fromSubscriber": {
+      "@id": "pexa:fromSubscriber",
+      "@type": "xsd:string"
+    },
+    "fromSubscriberId": {
+      "@id": "pexa:fromSubscriberId",
+      "@type": "xsd:string"
+    },
+    "highPriority": {
+      "@id": "pexa:highPriority",
+      "@type": "xsd:string"
+    },
+    "role": {
+      "@id": "pexa:role",
+      "@type": "xsd:string"
+    },
+    "subCategory": {
+      "@id": "pexa:subCategory",
+      "@type": "xsd:string"
+    },
+    "subject": {
+      "@id": "pexa:subject",
+      "@type": "xsd:string"
+    },
+    "subscriberReference": {
+      "@id": "pexa:subscriberReference",
+      "@type": "xsd:string"
+    },
+    "transactionType": {
+      "@id": "pexa:transactionType",
+      "@type": "xsd:string"
+    },
+    "workspaceId": {
+      "@id": "pexa:workspaceId",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.CreateMessageRequest": "pexa:au.net.pexa.api.schema._1.CreateMessageRequest",
+    "actionRequired": {
+      "@id": "pexa:actionRequired",
+      "@type": "xsd:string"
+    },
+    "subscriberId": {
+      "@id": "pexa:subscriberId",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.MessageType": "pexa:au.net.pexa.api.schema._1.MessageType",
+    "actionRequiredComplete": {
+      "@id": "pexa:actionRequiredComplete",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "pexa:firstName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "pexa:lastName",
+      "@type": "xsd:string"
+    },
+    "messageCreated": {
+      "@id": "pexa:messageCreated",
+      "@type": "xsd:string"
+    },
+    "messageId": {
+      "@id": "pexa:messageId",
+      "@type": "xsd:string"
+    },
+    "subscriberName": {
+      "@id": "pexa:subscriberName",
+      "@type": "xsd:string"
+    },
+    "unread": {
+      "@id": "pexa:unread",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.ConversationsType": "pexa:au.net.pexa.api.schema._1.ConversationsType",
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase": "pexa:au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase",
+    "documents": {
+      "@id": "pexa:documents",
+      "@type": "@id"
+    },
+    "lodgementCaseId": {
+      "@id": "pexa:lodgementCaseId",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval": "pexa:au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval",
+    "lodgementCases": {
+      "@id": "pexa:lodgementCases",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents": "pexa:au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents",
+    "au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest": "pexa:au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest",
+    "mortgageDetails": {
+      "@id": "pexa:mortgageDetails",
+      "@type": "@id"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document": "pexa:au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document",
+    "documentId": {
+      "@id": "pexa:documentId",
+      "@type": "xsd:string"
+    },
+    "documentType": {
+      "@id": "pexa:documentType",
+      "@type": "xsd:string"
+    },
+    "lrDocumentId": {
+      "@id": "pexa:lrDocumentId",
+      "@type": "xsd:string"
+    },
+    "mimeType": {
+      "@id": "pexa:mimeType",
+      "@type": "xsd:string"
+    },
+    "renderedDocument": {
+      "@id": "pexa:renderedDocument",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails": "pexa:au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails",
+    "mortgageNumbers": {
+      "@id": "pexa:mortgageNumbers",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse": "pexa:au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse",
+    "au.net.pexa.api.schema._1.RespondInvitationRequest": "pexa:au.net.pexa.api.schema._1.RespondInvitationRequest",
+    "additionalText": {
+      "@id": "pexa:additionalText",
+      "@type": "xsd:string"
+    },
+    "invitationResponse": {
+      "@id": "pexa:invitationResponse",
+      "@type": "xsd:string"
+    },
+    "inviteId": {
+      "@id": "pexa:inviteId",
+      "@type": "xsd:string"
+    },
+    "projectId": {
+      "@id": "pexa:projectId",
+      "@type": "xsd:string"
+    },
+    "projectName": {
+      "@id": "pexa:projectName",
+      "@type": "xsd:string"
+    },
+    "responseReason": {
+      "@id": "pexa:responseReason",
+      "@type": "xsd:string"
+    },
+    "workgroupId": {
+      "@id": "pexa:workgroupId",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest": "pexa:au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest",
+    "borrowersMortgagorsNames": {
+      "@id": "pexa:borrowersMortgagorsNames",
+      "@type": "xsd:string"
+    },
+    "customerAccountLoanNumber": {
+      "@id": "pexa:customerAccountLoanNumber",
+      "@type": "xsd:string"
+    },
+    "notes": {
+      "@id": "pexa:notes",
+      "@type": "xsd:string"
+    },
+    "participantDetails": {
+      "@id": "pexa:participantDetails",
+      "@type": "@id"
+    },
+    "participantRole": {
+      "@id": "pexa:participantRole",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse": "pexa:au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse",
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party",
+    "fullName": {
+      "@id": "pexa:fullName",
+      "@type": "xsd:string"
+    },
+    "organisationName": {
+      "@id": "pexa:organisationName",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.ParticipantDetailsDetailType": "pexa:au.net.pexa.api.schema._1.ParticipantDetailsDetailType",
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails",
+    "parties": {
+      "@id": "pexa:parties",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle",
+    "landTitleReference": {
+      "@id": "pexa:landTitleReference",
+      "@type": "xsd:string"
+    },
+    "propertyDetails": {
+      "@id": "pexa:propertyDetails",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite",
+    "forwardedBy": {
+      "@id": "pexa:forwardedBy",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "pexa:date",
+      "@type": "xsd:dateTime"
+    },
+    "status": {
+      "@id": "pexa:status",
+      "@type": "xsd:string"
+    },
+    "workspaceRole": {
+      "@id": "pexa:workspaceRole",
+      "@type": "xsd:string"
+    },
+    "landTitleDetails": {
+      "@id": "pexa:landTitleDetails",
+      "@type": "@id"
+    },
+    "partyDetails": {
+      "@id": "pexa:partyDetails",
+      "@type": "@id"
+    },
+    "inviterSubscriberName": {
+      "@id": "pexa:inviterSubscriberName",
+      "@type": "xsd:string"
+    },
+    "inviteeSubscriberName": {
+      "@id": "pexa:inviteeSubscriberName",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse",
+    "moreData": {
+      "@id": "pexa:moreData",
+      "@type": "xsd:string"
+    },
+    "invites": {
+      "@id": "pexa:invites",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails",
+    "landTitles": {
+      "@id": "pexa:landTitles",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2": "pexa:au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2",
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party": "pexa:au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party",
+    "au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2": "pexa:au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2",
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails",
+    "proprietors": {
+      "@id": "pexa:proprietors",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails": "pexa:au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails",
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor",
+    "proprietorName": {
+      "@id": "pexa:proprietorName",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails",
+    "caveats": {
+      "@id": "pexa:caveats",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails": "pexa:au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails",
+    "party": {
+      "@id": "pexa:party",
+      "@type": "@id"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite_2": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite_2",
+    "jurisdiction": {
+      "@id": "pexa:jurisdiction",
+      "@type": "xsd:string"
+    },
+    "settlementDate": {
+      "@id": "pexa:settlementDate",
+      "@type": "xsd:dateTime"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage",
+    "dealingNumber": {
+      "@id": "pexa:dealingNumber",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.RespondInvitationRequest_2": "pexa:au.net.pexa.api.schema._1.RespondInvitationRequest_2",
+    "forwardedParticipantDetails": {
+      "@id": "pexa:forwardedParticipantDetails",
+      "@type": "@id"
+    },
+    "commercialTransaction": {
+      "@id": "pexa:commercialTransaction",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails",
+    "mortgages": {
+      "@id": "pexa:mortgages",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat",
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle_2": "pexa:au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle_2",
+    "proprietorDetails": {
+      "@id": "pexa:proprietorDetails",
+      "@type": "@id"
+    },
+    "caveatDetails": {
+      "@id": "pexa:caveatDetails",
+      "@type": "@id"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse",
+    "landTitleReferenceReport": {
+      "@id": "pexa:landTitleReferenceReport",
+      "@type": "@id"
+    },
+    "warnings": {
+      "@id": "pexa:warnings",
+      "@type": "@id"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList",
+    "participants": {
+      "@id": "pexa:participants",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants",
+    "contactName": {
+      "@id": "pexa:contactName",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "pexa:email",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "pexa:phone",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport",
+    "newLandTitleReference": {
+      "@id": "pexa:newLandTitleReference",
+      "@type": "xsd:string"
+    },
+    "electronicLodgement": {
+      "@id": "pexa:electronicLodgement",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings",
+    "workspaces": {
+      "@id": "pexa:workspaces",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace": "pexa:au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace",
+    "participantsList": {
+      "@id": "pexa:participantsList",
+      "@type": "@id"
+    },
+    "NotificationInvitationOutstandingLandTitleDetailsType": "pexa:NotificationInvitationOutstandingLandTitleDetailsType",
+    "NotificationPartyDetailsType": "pexa:NotificationPartyDetailsType",
+    "partyName": {
+      "@id": "pexa:partyName",
+      "@type": "@id"
+    },
+    "partyRole": {
+      "@id": "pexa:partyRole",
+      "@type": "xsd:string"
+    },
+    "partyId": {
+      "@id": "pexa:partyId",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationOutstandingPartyType": "pexa:NotificationInvitationOutstandingPartyType",
+    "NotificationFinancialLineItemType": "pexa:NotificationFinancialLineItemType",
+    "owningSubscriberId": {
+      "@id": "pexa:owningSubscriberId",
+      "@type": "xsd:string"
+    },
+    "owningSubscriberName": {
+      "@id": "pexa:owningSubscriberName",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "pexa:type",
+      "@type": "xsd:string"
+    },
+    "NotificationDocumentReferenceDetailsType": "pexa:NotificationDocumentReferenceDetailsType",
+    "documentStatusDetails": {
+      "@id": "pexa:documentStatusDetails",
+      "@container": "@list"
+    },
+    "AdministrationStatusDetailsType": "pexa:AdministrationStatusDetailsType",
+    "value": {
+      "@id": "pexa:value",
+      "@type": "xsd:string"
+    },
+    "PartyNameDetailsType": "pexa:PartyNameDetailsType",
+    "businessDetails": {
+      "@id": "pexa:businessDetails",
+      "@type": "@id"
+    },
+    "NotificationTitleActivityCheck": "pexa:NotificationTitleActivityCheck",
+    "administrativeActionReferences": {
+      "@id": "pexa:administrativeActionReferences",
+      "@container": "@list"
+    },
+    "documentReferences": {
+      "@id": "pexa:documentReferences",
+      "@container": "@list"
+    },
+    "NotificationDocumentStatusDetailsType": "pexa:NotificationDocumentStatusDetailsType",
+    "documentStatusTimestamp": {
+      "@id": "pexa:documentStatusTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "documentStatus": {
+      "@id": "pexa:documentStatus",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationDetailsType": "pexa:NotificationInvitationDetailsType",
+    "outstanding": {
+      "@id": "pexa:outstanding",
+      "@type": "@id"
+    },
+    "response": {
+      "@id": "pexa:response",
+      "@type": "@id"
+    },
+    "NotificationConversationDetailsType": "pexa:NotificationConversationDetailsType",
+    "timestamp": {
+      "@id": "pexa:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "NotificationDocumentDetailsType": "pexa:NotificationDocumentDetailsType",
+    "NotificationInvitationOutstandingPartyDetailsType": "pexa:NotificationInvitationOutstandingPartyDetailsType",
+    "associatedLandTitleReferences": {
+      "@id": "pexa:associatedLandTitleReferences",
+      "@container": "@list"
+    },
+    "NotificationInvitationResponseDetailsType": "pexa:NotificationInvitationResponseDetailsType",
+    "NotificationTypeKeyValue": "pexa:NotificationTypeKeyValue",
+    "key": {
+      "@id": "pexa:key",
+      "@type": "xsd:string"
+    },
+    "NotificationLandTitleDetailsType": "pexa:NotificationLandTitleDetailsType",
+    "titleActivityCheck": {
+      "@id": "pexa:titleActivityCheck",
+      "@type": "@id"
+    },
+    "NotificationLodgementDetailsType": "pexa:NotificationLodgementDetailsType",
+    "lodgementCaseStatus": {
+      "@id": "pexa:lodgementCaseStatus",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationOutstandingInviterSubscriberDetailsType": "pexa:NotificationInvitationOutstandingInviterSubscriberDetailsType",
+    "subscriberType": {
+      "@id": "pexa:subscriberType",
+      "@type": "xsd:string"
+    },
+    "subscriberWorkspaceRole": {
+      "@id": "pexa:subscriberWorkspaceRole",
+      "@type": "xsd:string"
+    },
+    "representing": {
+      "@id": "pexa:representing",
+      "@type": "@id"
+    },
+    "NotificationType": "pexa:NotificationType",
+    "systemGenerated": {
+      "@id": "pexa:systemGenerated",
+      "@type": "xsd:string"
+    },
+    "initiatingSubscriberId": {
+      "@id": "pexa:initiatingSubscriberId",
+      "@type": "xsd:string"
+    },
+    "initiatingSubscriberName": {
+      "@id": "pexa:initiatingSubscriberName",
+      "@type": "xsd:string"
+    },
+    "subscriberReferences": {
+      "@id": "pexa:subscriberReferences",
+      "@container": "@list"
+    },
+    "eventId": {
+      "@id": "pexa:eventId",
+      "@type": "xsd:string"
+    },
+    "severity": {
+      "@id": "pexa:severity",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "pexa:description",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "pexa:details",
+      "@type": "@id"
+    },
+    "NotificationDetailsType": "pexa:NotificationDetailsType",
+    "financialLineItem": {
+      "@id": "pexa:financialLineItem",
+      "@type": "@id"
+    },
+    "invitation": {
+      "@id": "pexa:invitation",
+      "@type": "@id"
+    },
+    "landTitle": {
+      "@id": "pexa:landTitle",
+      "@type": "@id"
+    },
+    "document": {
+      "@id": "pexa:document",
+      "@type": "@id"
+    },
+    "settlementSchedule": {
+      "@id": "pexa:settlementSchedule",
+      "@type": "@id"
+    },
+    "workspaceStatus": {
+      "@id": "pexa:workspaceStatus",
+      "@type": "xsd:string"
+    },
+    "settlement": {
+      "@id": "pexa:settlement",
+      "@type": "@id"
+    },
+    "lodgement": {
+      "@id": "pexa:lodgement",
+      "@type": "@id"
+    },
+    "participant": {
+      "@id": "pexa:participant",
+      "@type": "@id"
+    },
+    "conversation": {
+      "@id": "pexa:conversation",
+      "@type": "@id"
+    },
+    "NotificationInvitationOutstandingDetailsType": "pexa:NotificationInvitationOutstandingDetailsType",
+    "expressRefinance": {
+      "@id": "pexa:expressRefinance",
+      "@type": "xsd:string"
+    },
+    "inviterSubscriberDetails": {
+      "@id": "pexa:inviterSubscriberDetails",
+      "@type": "@id"
+    },
+    "IdentificationDetailsType": "pexa:IdentificationDetailsType",
+    "identifier": {
+      "@id": "pexa:identifier",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType": "pexa:NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType",
+    "BusinessType": "pexa:BusinessType",
+    "legalEntityName": {
+      "@id": "pexa:legalEntityName",
+      "@type": "xsd:string"
+    },
+    "businessName": {
+      "@id": "pexa:businessName",
+      "@type": "xsd:string"
+    },
+    "businessUnit": {
+      "@id": "pexa:businessUnit",
+      "@type": "xsd:string"
+    },
+    "organisationType": {
+      "@id": "pexa:organisationType",
+      "@type": "xsd:string"
+    },
+    "administrationStatuses": {
+      "@id": "pexa:administrationStatuses",
+      "@container": "@list"
+    },
+    "identifications": {
+      "@id": "pexa:identifications",
+      "@container": "@list"
+    },
+    "RetrieveNotificationsResponse": "pexa:RetrieveNotificationsResponse",
+    "notificationsList": {
+      "@id": "pexa:notificationsList",
+      "@type": "@id"
+    },
+    "NotificationSettlementScheduleDetailsType": "pexa:NotificationSettlementScheduleDetailsType",
+    "NotificationsListType": "pexa:NotificationsListType",
+    "notifications": {
+      "@id": "pexa:notifications",
+      "@container": "@list"
+    },
+    "count": {
+      "@id": "pexa:count",
+      "@type": "xsd:decimal"
+    },
+    "lastEventTimestamp": {
+      "@id": "pexa:lastEventTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "lastEventId": {
+      "@id": "pexa:lastEventId",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationOutstandingLandTitleType": "pexa:NotificationInvitationOutstandingLandTitleType",
+    "PropertyDetailsType": "pexa:PropertyDetailsType",
+    "landDescription": {
+      "@id": "pexa:landDescription",
+      "@type": "xsd:string"
+    },
+    "propertyAddress": {
+      "@id": "pexa:propertyAddress",
+      "@type": "xsd:string"
+    },
+    "NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting": "pexa:NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting",
+    "GivenNameOrderType": "pexa:GivenNameOrderType",
+    "order": {
+      "@id": "pexa:order",
+      "@type": "xsd:decimal"
+    },
+    "NotificationAdministrativeActionReferenceDetailsType": "pexa:NotificationAdministrativeActionReferenceDetailsType",
+    "administrativeActionTimestamp": {
+      "@id": "pexa:administrativeActionTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "administrativeActionType": {
+      "@id": "pexa:administrativeActionType",
+      "@type": "xsd:string"
+    },
+    "NotificationLodgementDocumentDetailsType": "pexa:NotificationLodgementDocumentDetailsType",
+    "landTitleReferences": {
+      "@id": "pexa:landTitleReferences",
+      "@container": "@list"
+    },
+    "mortgageDate": {
+      "@id": "pexa:mortgageDate",
+      "@type": "xsd:dateTime"
+    },
+    "NotificationSettlementDetailsType": "pexa:NotificationSettlementDetailsType",
+    "reason": {
+      "@id": "pexa:reason",
+      "@type": "xsd:string"
+    },
+    "FullNameType": "pexa:FullNameType",
+    "nameTitle": {
+      "@id": "pexa:nameTitle",
+      "@type": "xsd:string"
+    },
+    "givenNames": {
+      "@id": "pexa:givenNames",
+      "@container": "@list"
+    },
+    "familyName": {
+      "@id": "pexa:familyName",
+      "@type": "xsd:string"
+    },
+    "familyNameOrder": {
+      "@id": "pexa:familyNameOrder",
+      "@type": "xsd:string"
+    },
+    "nameSuffix": {
+      "@id": "pexa:nameSuffix",
+      "@type": "xsd:string"
+    },
+    "dateOfBirth": {
+      "@id": "pexa:dateOfBirth",
+      "@type": "xsd:dateTime"
+    },
+    "SubscriberReferenceType": "pexa:SubscriberReferenceType",
+    "NotificationParticipantDetailsType": "pexa:NotificationParticipantDetailsType",
+    "workspaceRoles": {
+      "@id": "pexa:workspaceRoles",
+      "@container": "@list"
+    },
+    "NonSubscriberNotificationPayload": "pexa:NonSubscriberNotificationPayload",
+    "data": {
+      "@id": "pexa:data"
+    },
+    "SubscriberNotificationPayload": "pexa:SubscriberNotificationPayload",
+    "NotificationSecretRotationDto": "pexa:NotificationSecretRotationDto",
+    "expiry": {
+      "@id": "pexa:expiry",
+      "@type": "xsd:string"
+    },
+    "sharedSecret": {
+      "@id": "pexa:sharedSecret",
+      "@type": "xsd:string"
+    },
+    "WebhookNotificationRegistrationUpdateResponseV3": "pexa:WebhookNotificationRegistrationUpdateResponseV3",
+    "notificationType": {
+      "@id": "pexa:notificationType",
+      "@type": "xsd:string"
+    },
+    "eventTypes": {
+      "@id": "pexa:eventTypes",
+      "@container": "@list"
+    },
+    "integratorId": {
+      "@id": "pexa:integratorId",
+      "@type": "xsd:string"
+    },
+    "integratorType": {
+      "@id": "pexa:integratorType",
+      "@type": "xsd:string"
+    },
+    "registrationId": {
+      "@id": "pexa:registrationId",
+      "@type": "xsd:string"
+    },
+    "webhookURI": {
+      "@id": "pexa:webhookURI",
+      "@type": "@id"
+    },
+    "authenticationMode": {
+      "@id": "pexa:authenticationMode",
+      "@type": "@id"
+    },
+    "authConfig": {
+      "@id": "pexa:authConfig",
+      "@type": "@id"
+    },
+    "NotificationRegistrationDto": "pexa:NotificationRegistrationDto",
+    "WebhookNotificationRegistrationResponseV3": "pexa:WebhookNotificationRegistrationResponseV3",
+    "sharedSecretExpiry": {
+      "@id": "pexa:sharedSecretExpiry",
+      "@type": "xsd:string"
+    },
+    "PagedNotificationRegistrations": "pexa:PagedNotificationRegistrations",
+    "page": {
+      "@id": "pexa:page",
+      "@type": "@id"
+    },
+    "records": {
+      "@id": "pexa:records",
+      "@container": "@list"
+    },
+    "WebhookNotificationRegistrationRequest": "pexa:WebhookNotificationRegistrationRequest",
+    "attributes": {
+      "@id": "pexa:attributes"
+    },
+    "NotificationServiceErrorResponse": "pexa:NotificationServiceErrorResponse",
+    "AuthConfig": "pexa:AuthConfig",
+    "authUrl": {
+      "@id": "pexa:authUrl",
+      "@type": "@id"
+    },
+    "clientId": {
+      "@id": "pexa:clientId",
+      "@type": "xsd:string"
+    },
+    "clientAuthMethod": {
+      "@id": "pexa:clientAuthMethod",
+      "@type": "@id"
+    },
+    "clientSecret": {
+      "@id": "pexa:clientSecret",
+      "@type": "xsd:string"
+    },
+    "audience": {
+      "@id": "pexa:audience",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "pexa:scope",
+      "@type": "xsd:string"
+    },
+    "UpdateNotificationRegistrationRequest": "pexa:UpdateNotificationRegistrationRequest",
+    "NotificationRegistrationResponseV2": "pexa:NotificationRegistrationResponseV2",
+    "AuthConfigResponse": "pexa:AuthConfigResponse",
+    "CreateNotificationRegistrationRequest": "pexa:CreateNotificationRegistrationRequest",
+    "Page": "pexa:Page",
+    "totalRecords": {
+      "@id": "pexa:totalRecords",
+      "@type": "xsd:integer"
+    },
+    "pageRecords": {
+      "@id": "pexa:pageRecords",
+      "@type": "xsd:integer"
+    },
+    "limit": {
+      "@id": "pexa:limit",
+      "@type": "xsd:integer"
+    },
+    "NotificationRegistrationCreateDto": "pexa:NotificationRegistrationCreateDto",
+    "ProjectStatus": "pexa:ProjectStatus",
+    "proprietorOnTitles": {
+      "@id": "pexa:proprietorOnTitles",
+      "@container": "@list"
+    },
+    "parentTitle": {
+      "@id": "pexa:parentTitle",
+      "@type": "xsd:string"
+    },
+    "mortgageeNames": {
+      "@id": "pexa:mortgageeNames",
+      "@container": "@list"
+    },
+    "estimatedSettlementDate": {
+      "@id": "pexa:estimatedSettlementDate",
+      "@type": "xsd:string"
+    },
+    "invitationAcceptance": {
+      "@id": "pexa:invitationAcceptance"
+    },
+    "settlementDateAcceptance": {
+      "@id": "pexa:settlementDateAcceptance"
+    },
+    "VicPropertyDetails": "pexa:VicPropertyDetails",
+    "restrictiveCovenant": {
+      "@id": "pexa:restrictiveCovenant",
+      "@type": "xsd:boolean"
+    },
+    "covenantMcpRef": {
+      "@id": "pexa:covenantMcpRef",
+      "@type": "xsd:string"
+    },
+    "covenantMcpExpiryDate": {
+      "@id": "pexa:covenantMcpExpiryDate",
+      "@type": "xsd:string"
+    },
+    "municipalityName": {
+      "@id": "pexa:municipalityName",
+      "@type": "xsd:string"
+    },
+    "natureOfProperty": {
+      "@id": "pexa:natureOfProperty",
+      "@type": "xsd:string"
+    },
+    "primaryLandUse": {
+      "@id": "pexa:primaryLandUse",
+      "@type": "@id"
+    },
+    "primaryConstructionType": {
+      "@id": "pexa:primaryConstructionType",
+      "@type": "@id"
+    },
+    "Project": "pexa:Project",
+    "proprietorOnTitle": {
+      "@id": "pexa:proprietorOnTitle",
+      "@container": "@list"
+    },
+    "supplierApplicable": {
+      "@id": "pexa:supplierApplicable",
+      "@type": "xsd:boolean"
+    },
+    "supplierDetails": {
+      "@id": "pexa:supplierDetails",
+      "@type": "@id"
+    },
+    "withMortgageeOnTitles": {
+      "@id": "pexa:withMortgageeOnTitles",
+      "@type": "xsd:boolean"
+    },
+    "mortgageeOnTitles": {
+      "@id": "pexa:mortgageeOnTitles",
+      "@container": "@list"
+    },
+    "intentionToLock": {
+      "@id": "pexa:intentionToLock",
+      "@type": "xsd:boolean"
+    },
+    "projectStages": {
+      "@id": "pexa:projectStages",
+      "@type": "xsd:boolean"
+    },
+    "settlementRestriction": {
+      "@id": "pexa:settlementRestriction",
+      "@type": "xsd:boolean"
+    },
+    "nswPropertyDetails": {
+      "@id": "pexa:nswPropertyDetails",
+      "@type": "@id"
+    },
+    "qldPropertyDetails": {
+      "@id": "pexa:qldPropertyDetails",
+      "@type": "@id"
+    },
+    "vicPropertyDetails": {
+      "@id": "pexa:vicPropertyDetails",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "pexa:id",
+      "@type": "xsd:integer"
+    },
+    "projectStatus": {
+      "@id": "pexa:projectStatus",
+      "@type": "xsd:string"
+    },
+    "historicalParentTitles": {
+      "@id": "pexa:historicalParentTitles",
+      "@container": "@list"
+    },
+    "workspacesCreated": {
+      "@id": "pexa:workspacesCreated",
+      "@type": "xsd:boolean"
+    },
+    "SupplierDetails": "pexa:SupplierDetails",
+    "name": {
+      "@id": "pexa:name",
+      "@type": "xsd:string"
+    },
+    "abn": {
+      "@id": "pexa:abn",
+      "@type": "xsd:string"
+    },
+    "addressLine1": {
+      "@id": "pexa:addressLine1",
+      "@type": "xsd:string"
+    },
+    "addressLine2": {
+      "@id": "pexa:addressLine2",
+      "@type": "xsd:string"
+    },
+    "suburb": {
+      "@id": "pexa:suburb",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "pexa:postcode",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "pexa:state",
+      "@type": "@id"
+    },
+    "NswPropertyDetails": "pexa:NswPropertyDetails",
+    "locality": {
+      "@id": "pexa:locality",
+      "@type": "xsd:string"
+    },
+    "SettlementDateAcceptanceStatus": "pexa:SettlementDateAcceptanceStatus",
+    "accepted": {
+      "@id": "pexa:accepted",
+      "@type": "xsd:integer"
+    },
+    "pending": {
+      "@id": "pexa:pending",
+      "@type": "xsd:integer"
+    },
+    "MotParticipants": "pexa:MotParticipants",
+    "participantName": {
+      "@id": "pexa:participantName",
+      "@type": "xsd:string"
+    },
+    "InvitationAcceptanceStatus": "pexa:InvitationAcceptanceStatus",
+    "declined": {
+      "@id": "pexa:declined",
+      "@type": "xsd:integer"
+    },
+    "notInvited": {
+      "@id": "pexa:notInvited",
+      "@type": "xsd:integer"
+    },
+    "QldPropertyDetails": "pexa:QldPropertyDetails",
+    "currentLandUse": {
+      "@id": "pexa:currentLandUse",
+      "@type": "@id"
+    },
+    "marginScheme": {
+      "@id": "pexa:marginScheme",
+      "@type": "xsd:boolean"
+    },
+    "safetySwitch": {
+      "@id": "pexa:safetySwitch",
+      "@type": "@id"
+    },
+    "smokeAlarm": {
+      "@id": "pexa:smokeAlarm",
+      "@type": "@id"
+    },
+    "WorkspaceCountsByStatuses": "pexa:WorkspaceCountsByStatuses",
+    "allActive": {
+      "@id": "pexa:allActive",
+      "@type": "xsd:integer"
+    },
+    "settlingToday": {
+      "@id": "pexa:settlingToday",
+      "@type": "xsd:integer"
+    },
+    "completed": {
+      "@id": "pexa:completed",
+      "@type": "xsd:integer"
+    },
+    "withdrawn": {
+      "@id": "pexa:withdrawn",
+      "@type": "xsd:integer"
+    },
+    "all": {
+      "@id": "pexa:all",
+      "@type": "xsd:integer"
+    },
+    "awaitingDigitalSignature": {
+      "@id": "pexa:awaitingDigitalSignature",
+      "@type": "xsd:integer"
+    },
+    "ProjectsWorkspace": "pexa:ProjectsWorkspace",
+    "unregisteredLotNumbers": {
+      "@id": "pexa:unregisteredLotNumbers",
+      "@container": "@list"
+    },
+    "childTitles": {
+      "@id": "pexa:childTitles",
+      "@container": "@list"
+    },
+    "participantRepresentativeData": {
+      "@id": "pexa:participantRepresentativeData"
+    },
+    "unrepresentedPartyData": {
+      "@id": "pexa:unrepresentedPartyData"
+    },
+    "lodgementStatus": {
+      "@id": "pexa:lodgementStatus",
+      "@type": "xsd:string"
+    },
+    "settlementStatus": {
+      "@id": "pexa:settlementStatus",
+      "@type": "xsd:string"
+    },
+    "financialData": {
+      "@id": "pexa:financialData"
+    },
+    "SmokeAlarm": "pexa:SmokeAlarm",
+    "installed": {
+      "@id": "pexa:installed",
+      "@type": "xsd:boolean"
+    },
+    "informed": {
+      "@id": "pexa:informed",
+      "@type": "xsd:boolean"
+    },
+    "SafetySwitch": "pexa:SafetySwitch",
+    "au.net.pexa.api.schema._1.AvailableSettlementTimeType": "pexa:au.net.pexa.api.schema._1.AvailableSettlementTimeType",
+    "times": {
+      "@id": "pexa:times",
+      "@container": "@list"
+    },
+    "au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse": "pexa:au.net.pexa.api.schema._1.BalanceDueToEffectSettlementResponse",
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination": "pexa:au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination",
+    "account": {
+      "@id": "pexa:account",
+      "@type": "@id"
+    },
+    "bpay": {
+      "@id": "pexa:bpay",
+      "@type": "@id"
+    },
+    "officeAccount": {
+      "@id": "pexa:officeAccount",
+      "@type": "xsd:string"
+    },
+    "preverifiedAccount": {
+      "@id": "pexa:preverifiedAccount",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents": "pexa:au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents",
+    "au.net.pexa.api.schema._1.SettlementDetailsType": "pexa:au.net.pexa.api.schema._1.SettlementDetailsType",
+    "settlementDateAndTime": {
+      "@id": "pexa:settlementDateAndTime",
+      "@type": "xsd:dateTime"
+    },
+    "participantSettlementAcceptanceStatus": {
+      "@id": "pexa:participantSettlementAcceptanceStatus",
+      "@type": "xsd:string"
+    },
+    "au.net.pexa.api.schema._1.SettlementAvailabilityResponse": "pexa:au.net.pexa.api.schema._1.SettlementAvailabilityResponse",
+    "availableSettlementTime": {
+      "@id": "pexa:availableSettlementTime",
+      "@type": "@id"
+    },
+    "settlementAvailability": {
+      "@id": "pexa:settlementAvailability",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "PEXA API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects PEXA's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/pexa-billing-api-openapi.yml, openapi/pexa-conversation-api-openapi.yml, openapi/pexa-document-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/pexa-billing-api-openapi.yml",
+    "openapi/pexa-conversation-api-openapi.yml",
+    "openapi/pexa-document-api-openapi.yml",
+    "openapi/pexa-health-check-api-openapi.yml",
+    "openapi/pexa-invitation-api-openapi.yml"
+  ]
+}

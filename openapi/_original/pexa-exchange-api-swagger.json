@@ -40,6 +40,41 @@
   "produces": [
     "application/xml"
   ],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://auth.pexa.com.au/oauth/authorize",
+      "tokenUrl": "https://auth.pexa.com.au/oauth/token",
+      "scopes": {
+        "au_pub_pexa_healthcheck_api_v2_read": "Health check read access",
+        "au_pub_pexa_landtitle_api_v2_read": "Land title read access",
+        "au_pub_pexa_conversation_api_v2_read": "Conversation read access",
+        "au_pub_pexa_conversation_api_v2_write": "Conversation write access",
+        "au_pub_pexa_invitation_api_v2_read": "Invitation read access",
+        "au_pub_pexa_invitation_api_v2_write": "Invitation write access",
+        "au_pub_pexa_subscriber_api_v3_read": "Subscriber v3 read access",
+        "au_pub_pexa_subscriber_api_v4_read": "Subscriber v4 read access",
+        "au_pub_pexa_user_api_v3_read": "User profile read access",
+        "au_pub_pexa_workspace_api_v4_write": "Workspace v4 write access",
+        "au_pub_pexa_workspace_api_v5_read": "Workspace v5 read access",
+        "au_pub_pexa_workspace_api_v5_write": "Workspace v5 write access",
+        "au_pub_pexa_workspace_api_v6_read": "Workspace v6 read access",
+        "au_pub_pexa_documents_api_v2_read": "Documents read access",
+        "au_pub_pexa_documents_api_v2_write": "Documents write access",
+        "au_pub_pexa_financial_settlement_schedule_api_v2_read": "Financial settlement schedule read access",
+        "au_pub_pexa_financial_settlement_schedule_api_v2_write": "Financial settlement schedule write access",
+        "au_pub_pexa_settlement_api_v2_read": "Settlement read access",
+        "au_pub_pexa_settlement_api_v2_write": "Settlement write access",
+        "au_pub_pexa_settlementcompletionrecord_api_v2_read": "Settlement completion record read access"
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
   "paths": {
     "/v2/health": {
       "get": {
@@ -2738,6 +2773,7 @@
           "description": "Subscriber id of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'",
           "xml": {
             "name": "SubscriberId",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -2747,6 +2783,7 @@
           "description": "Notes/comments that can be provided to the participant receiving the forwarded invitation. Only applicable if invitation response is 'Forward to another Subscriber'. Field is optional",
           "xml": {
             "name": "Notes",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -2755,6 +2792,7 @@
       "title": "au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails",
       "xml": {
         "name": "ForwardedParticipantDetails",
+        "prefix": "p",
         "attribute": false,
         "wrapped": false
       }
@@ -4585,6 +4623,7 @@
           "description": "Subscriber id. If responding to an invitation, then provide the subscriber id of the invitee. If withdrawing an invitation, then provide the subscriber id of the invitor.",
           "xml": {
             "name": "SubscriberId",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4594,6 +4633,7 @@
           "description": "Invite id of the invitation",
           "xml": {
             "name": "InviteId",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4603,15 +4643,17 @@
           "description": "Invitation response. If responding to an invitation, valid values are 'Accept', 'Decline', 'Return to Panel Master', 'Forward to another Subscriber' and 'Forward to Panel Member'. If withdrawing an invitation, valid value is 'Withdrawn'.",
           "xml": {
             "name": "InvitationResponse",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
         },
         "responseReason": {
           "type": "string",
-          "description": "Invitation response reason. Only applicable if responding to an invitation. Mandatory if responding to an invitation. Valid values are 'Party on invitation is not known to the invitee', 'Transaction type is outside of invitee’s electronic transaction scope', 'Transaction value exceeds the invitee’s electronic transaction scope', 'Invitation sent to incorrect business unit', 'Transaction has already commenced on paper', 'This workspace is linked to another transaction that is outside of electronic conveyancing scope' and 'Other'.",
+          "description": "Invitation response reason. Only applicable if responding to an invitation. Mandatory if responding to an invitation. Valid values are 'Party on invitation is not known to the invitee', 'Transaction type is outside of invitee's electronic transaction scope', 'Transaction value exceeds the invitee's electronic transaction scope', 'Invitation sent to incorrect business unit', 'Transaction has already commenced on paper', 'This workspace is linked to another transaction that is outside of electronic conveyancing scope' and 'Other'.",
           "xml": {
             "name": "ResponseReason",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4621,6 +4663,7 @@
           "description": "Additional comments. If responding to an invitation and response reason is 'Other', then additionalText is mandatory. If withdrawing an invitation, the additionalText is optional.",
           "xml": {
             "name": "AdditionalText",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4630,6 +4673,7 @@
           "description": "Subscriber Reference that will be set for the participant in the workspace. Only applicable if invitation response is 'Accept'. Mandatory if the invitation response is 'Accept'",
           "xml": {
             "name": "SubscriberReference",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4639,6 +4683,7 @@
           "description": "Workgroup that the workspace will be assigned to. Only applicable if invitation response is 'Accept'. Optional if the invitation response is 'Accept'",
           "xml": {
             "name": "WorkgroupId",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4646,6 +4691,7 @@
         "forwardedParticipantDetails": {
           "xml": {
             "name": "ForwardedParticipantDetails",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           },
@@ -4656,6 +4702,7 @@
           "description": "The Commercial Transaction indicator to be set when accepting an invitation. Only can be provided if the the invitee role is CT Controller (CT), Source Funder (SF), Incoming Mortgagee (IM) or Mortgagee On Title (MOT). The field is optional. Possible values are 'yes' or 'no'",
           "xml": {
             "name": "CommercialTransaction",
+            "prefix": "p",
             "attribute": false,
             "wrapped": false
           }
@@ -4664,6 +4711,8 @@
       "title": "au.net.pexa.api.schema._1.RespondInvitationRequest",
       "xml": {
         "name": "RespondInvitationRequest",
+        "namespace": "http://api.pexa.net.au/schema/1/",
+        "prefix": "p",
         "attribute": false,
         "wrapped": false
       }

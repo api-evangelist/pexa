@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-conversations-retrieval-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.ConversationsRetrievalResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse",
+  "type": "object",
+  "properties": {
+    "conversations": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.ConversationsType"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.ConversationType": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "conversationId": {
+          "type": "string"
+        },
+        "fromSubscriber": {
+          "type": "string"
+        },
+        "fromSubscriberId": {
+          "type": "string"
+        },
+        "highPriority": {
+          "type": "string"
+        },
+        "messages": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.MessagesType"
+        },
+        "role": {
+          "type": "string"
+        },
+        "subCategory": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "subscriberReference": {
+          "type": "string"
+        },
+        "transactionType": {
+          "type": "string"
+        },
+        "workspaceId": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.ConversationType"
+    },
+    "au.net.pexa.api.schema._1.ConversationsType": {
+      "type": "object",
+      "properties": {
+        "conversations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.ConversationType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.ConversationsType"
+    },
+    "au.net.pexa.api.schema._1.MessageType": {
+      "type": "object",
+      "properties": {
+        "actionRequired": {
+          "type": "string"
+        },
+        "actionRequiredComplete": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "messageCreated": {
+          "type": "string"
+        },
+        "messageId": {
+          "type": "string"
+        },
+        "subscriberName": {
+          "type": "string"
+        },
+        "unread": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.MessageType"
+    },
+    "au.net.pexa.api.schema._1.MessagesType": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.MessageType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.MessagesType"
+    }
+  }
+}

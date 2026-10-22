@@ -89,46 +89,49 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: LTRV
 components:
   schemas:
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace:
       type: object
       properties:
-        landTitleReferenceReport:
+        workspaceId:
+          type: string
+          example: PEXA1900800789
           xml:
-            name: LandTitleReferenceReport
+            name: WorkspaceId
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport'
-        warnings:
+          description: PEXA workspace number. Maximum 13 characters
+        participantsList:
           xml:
-            name: Warnings
+            name: ParticipantsList
             attribute: false
             wrapped: false
-          description: Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
+          description: List of participants currently active in the workspace
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace
       xml:
-        name: LandTitleReferenceVerificationResponse
-        namespace: http://api.pexa.net.au/schema/1/
+        name: Workspace
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
       type: object
       properties:
-        participants:
+        workspaces:
           type: array
           xml:
-            name: Participants
+            name: Workspace
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
       xml:
-        name: ParticipantsList
+        name: Warnings
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants:
@@ -229,45 +232,72 @@ components:
         name: LandTitleReferenceReport
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList:
       type: object
       properties:
-        workspaces:
+        participants:
           type: array
           xml:
-            name: Workspace
+            name: Participants
             attribute: false
             wrapped: false
           items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
       xml:
-        name: Warnings
+        name: ParticipantsList
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace:
+    au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse:
       type: object
       properties:
-        workspaceId:
-          type: string
-          example: PEXA1900800789
+        landTitleReferenceReport:
           xml:
-            name: WorkspaceId
+            name: LandTitleReferenceReport
             attribute: false
             wrapped: false
-          description: PEXA workspace number. Maximum 13 characters
-        participantsList:
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport'
+        warnings:
           xml:
-            name: ParticipantsList
+            name: Warnings
             attribute: false
             wrapped: false
-          description: List of participants currently active in the workspace
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList'
-      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace
+          description: Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings'
+      title: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
       xml:
-        name: Workspace
+        name: LandTitleReferenceVerificationResponse
+        namespace: http://api.pexa.net.au/schema/1/
         attribute: false
         wrapped: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            au_pub_pexa_healthcheck_api_v2_read: Health check read access
+            au_pub_pexa_landtitle_api_v2_read: Land title read access
+            au_pub_pexa_conversation_api_v2_read: Conversation read access
+            au_pub_pexa_conversation_api_v2_write: Conversation write access
+            au_pub_pexa_invitation_api_v2_read: Invitation read access
+            au_pub_pexa_invitation_api_v2_write: Invitation write access
+            au_pub_pexa_subscriber_api_v3_read: Subscriber v3 read access
+            au_pub_pexa_subscriber_api_v4_read: Subscriber v4 read access
+            au_pub_pexa_user_api_v3_read: User profile read access
+            au_pub_pexa_workspace_api_v4_write: Workspace v4 write access
+            au_pub_pexa_workspace_api_v5_read: Workspace v5 read access
+            au_pub_pexa_workspace_api_v5_write: Workspace v5 write access
+            au_pub_pexa_workspace_api_v6_read: Workspace v6 read access
+            au_pub_pexa_documents_api_v2_read: Documents read access
+            au_pub_pexa_documents_api_v2_write: Documents write access
+            au_pub_pexa_financial_settlement_schedule_api_v2_read: Financial settlement schedule read access
+            au_pub_pexa_financial_settlement_schedule_api_v2_write: Financial settlement schedule write access
+            au_pub_pexa_settlement_api_v2_read: Settlement read access
+            au_pub_pexa_settlement_api_v2_write: Settlement write access
+            au_pub_pexa_settlementcompletionrecord_api_v2_read: Settlement completion record read access
+          authorizationUrl: https://auth.pexa.com.au/oauth/authorize
+          tokenUrl: https://auth.pexa.com.au/oauth/token
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

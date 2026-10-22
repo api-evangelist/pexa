@@ -1,0 +1,425 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/pexa-billing-api-openapi.yml
+- openapi/pexa-conversation-api-openapi.yml
+- openapi/pexa-document-api-openapi.yml
+- openapi/pexa-health-check-api-openapi.yml
+- openapi/pexa-invitation-api-openapi.yml
+vocabulary:
+  name: PEXA Domain Vocabulary
+  description: 'Terms declared by PEXA''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions. Derived,
+    not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: NotificationRegistration
+    definition: Registration related endpoints
+    tags:
+    - Resource Group
+    source: openapi/pexa-notificationregistration-api-openapi.yml
+  - term: Error
+    definition: Detailed error related to the API
+    tags:
+    - Object
+    source: openapi/pexa-billing-api-openapi.yml#/components/schemas/Error
+  - term: Invoice
+    definition: Invoice
+    tags:
+    - Object
+    source: openapi/pexa-billing-api-openapi.yml#/components/schemas/Invoice
+  - term: Money
+    definition: Represents an amount of money
+    tags:
+    - Object
+    source: openapi/pexa-billing-api-openapi.yml#/components/schemas/Money
+  - term: Errors
+    definition: List of errors related to the API
+    tags:
+    - Object
+    source: openapi/pexa-billing-api-openapi.yml#/components/schemas/Errors
+  - term: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+    definition: 'Object declared by the contract with fields: conversations.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+  - term: au.net.pexa.api.schema._1.MessagesType
+    definition: 'Object declared by the contract with fields: messages.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.MessagesType
+  - term: au.net.pexa.api.schema._1.CreateMessageResponse
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateMessageResponse
+  - term: au.net.pexa.api.schema._1.ConversationType
+    definition: 'Object declared by the contract with fields: category, conversationId, fromSubscriber, fromSubscriberId, highPriority, messages,
+      role, subCategory, subject, subscriberReference, transactionType, workspaceId.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ConversationType
+  - term: au.net.pexa.api.schema._1.CreateMessageRequest
+    definition: 'Object declared by the contract with fields: actionRequired, message, subscriberId.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateMessageRequest
+  - term: au.net.pexa.api.schema._1.MessageType
+    definition: 'Object declared by the contract with fields: actionRequired, actionRequiredComplete, firstName, lastName, message, messageCreated,
+      messageId, subscriberName, unread.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.MessageType
+  - term: au.net.pexa.api.schema._1.ConversationsType
+    definition: 'Object declared by the contract with fields: conversations.'
+    tags:
+    - Object
+    source: openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ConversationsType
+  - term: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
+    definition: 'Object declared by the contract with fields: documents, lodgementCaseId, workspaceId.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
+  - term: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
+    definition: 'Object declared by the contract with fields: lodgementCases.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
+  - term: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents
+    definition: 'Object declared by the contract with fields: documents.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents
+  - term: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest
+    definition: 'Object declared by the contract with fields: mortgageDetails, role, subscriberId, workspaceId.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest
+  - term: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document
+    definition: 'Object declared by the contract with fields: documentId, documentType, lrDocumentId, mimeType, renderedDocument.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document
+  - term: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
+    definition: 'Object declared by the contract with fields: mortgageNumbers.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
+  - term: au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
+    definition: 'Object declared by the contract with fields: documentId.'
+    tags:
+    - Object
+    source: openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
+  - term: au.net.pexa.api.schema._1.RespondInvitationRequest
+    definition: 'Object declared by the contract with fields: additionalText, invitationResponse, inviteId, projectId, projectName, responseReason,
+      subscriberId, subscriberReference, workgroupId.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest
+  - term: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest
+    definition: 'Object declared by the contract with fields: borrowersMortgagorsNames, customerAccountLoanNumber, notes, participantDetails,
+      participantRole, subscriberId, workspaceId.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest
+  - term: au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse
+    definition: 'Object declared by the contract with fields: inviteId.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationResponse
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party
+    definition: 'Object declared by the contract with fields: fullName, organisationName.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party
+  - term: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+    definition: 'Object declared by the contract with fields: subscriberId.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails
+    definition: 'Object declared by the contract with fields: parties.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle
+    definition: 'Object declared by the contract with fields: landTitleReference, propertyDetails.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite
+    definition: 'Object declared by the contract with fields: inviteId, forwardedBy, date, status, workspaceId, workspaceRole, landTitleDetails,
+      partyDetails, inviterSubscriberName, inviteeSubscriberName, notes.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse
+    definition: 'Object declared by the contract with fields: moreData, invites.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails
+    definition: 'Object declared by the contract with fields: landTitles.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails
+  - term: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest
+    definition: 'Object declared by the contract with fields: subscriberId, workspaceId, participantDetails, participantRole, borrowersMortgagorsNames,
+      customerAccountLoanNumber, notes, partyDetails.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2
+  - term: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party
+    definition: 'Object declared by the contract with fields: fullName.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party
+  - term: au.net.pexa.api.schema._1.ParticipantDetailsDetailType
+    definition: 'Object declared by the contract with fields: subscriberId.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails
+    definition: Proprietor details of the associated land title. Only returned if workspace role of the invitee is Incoming Proprietor (IP) and
+      Mortgagee On Title (MOT).
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails
+  - term: au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails
+    definition: Participant details of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to
+      another Subscriber' or 'Forward to Panel Member'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor
+    definition: Proprietor name
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.ProprietorDetails.Proprietor
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails
+    definition: Registered caveats on the associated land title. Only returned if the workspace role of the invitee is Caveator On Title (COT).
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails
+  - term: au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails
+    definition: 'Object declared by the contract with fields: party.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite
+    definition: Invite id
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite_2
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage
+    definition: Registered mortgage dealing number
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails.Mortgage
+  - term: au.net.pexa.api.schema._1.RespondInvitationRequest
+    definition: 'Object declared by the contract with fields: subscriberId, inviteId, invitationResponse, responseReason, additionalText, subscriberReference,
+      workgroupId, forwardedParticipantDetails, commercialTransaction.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest_2
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails
+    definition: Registered mortgages on the associated land title. Only returned if the workspace role of the invitee is Mortgagee On Title (MOT).
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.MortgageDetails
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat
+    definition: Registered caveat dealing number
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle.CaveatDetails.Caveat
+  - term: au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle
+    definition: 'Object declared by the contract with fields: landTitleReference, propertyDetails, proprietorDetails, mortgageDetails, caveatDetails.'
+    tags:
+    - Object
+    source: openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle_2
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
+    definition: 'Object declared by the contract with fields: landTitleReferenceReport, warnings.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
+    definition: 'Object declared by the contract with fields: participants.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants
+    definition: 'Object declared by the contract with fields: subscriberName, role, contactName, email, phone.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport
+    definition: 'Object declared by the contract with fields: landTitleReference, newLandTitleReference, propertyDetails, electronicLodgement,
+      notes.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+    definition: 'Object declared by the contract with fields: workspaces.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings
+  - term: au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace
+    definition: 'Object declared by the contract with fields: workspaceId, participantsList.'
+    tags:
+    - Object
+    source: openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace
+  - term: NotificationInvitationOutstandingLandTitleDetailsType
+    definition: Details on invitations outstanding land title
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingLandTitleDetailsType
+  - term: NotificationPartyDetailsType
+    definition: Details on parties
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationPartyDetailsType
+  - term: NotificationInvitationOutstandingPartyType
+    definition: The outstanding party type
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingPartyType
+  - term: NotificationFinancialLineItemType
+    definition: A financial line item
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationFinancialLineItemType
+  - term: NotificationDocumentReferenceDetailsType
+    definition: Details on the document reference
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationDocumentReferenceDetailsType
+  - term: AdministrationStatusDetailsType
+    definition: Details on administration status
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/AdministrationStatusDetailsType
+  - term: PartyNameDetailsType
+    definition: Details for a party name
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/PartyNameDetailsType
+  - term: NotificationTitleActivityCheck
+    definition: Title activity check details
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationTitleActivityCheck
+  - term: NotificationDocumentStatusDetailsType
+    definition: Details on the document status
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationDocumentStatusDetailsType
+  - term: NotificationInvitationDetailsType
+    definition: Details on an invitation
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationDetailsType
+  - term: NotificationConversationDetailsType
+    definition: Details about a conversation
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationConversationDetailsType
+  - term: NotificationDocumentDetailsType
+    definition: Details on Documents
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationDocumentDetailsType
+  - term: NotificationInvitationOutstandingPartyDetailsType
+    definition: Details on an outstanding party invitation
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingPartyDetailsType
+  - term: NotificationInvitationResponseDetailsType
+    definition: Details on invitation responses
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationResponseDetailsType
+  - term: NotificationTypeKeyValue
+    definition: Key/Value of the notification type
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationTypeKeyValue
+  - term: NotificationLandTitleDetailsType
+    definition: Details on the land title
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationLandTitleDetailsType
+  - term: NotificationLodgementDetailsType
+    definition: Details on lodgements
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationLodgementDetailsType
+  - term: NotificationInvitationOutstandingInviterSubscriberDetailsType
+    definition: Details on an outstanding inviter
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsType
+  - term: NotificationType
+    definition: Notification type
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationType
+  - term: NotificationDetailsType
+    definition: Details about the notification
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationDetailsType
+  - term: NotificationInvitationOutstandingDetailsType
+    definition: Details on a outstanding invitation
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingDetailsType
+  - term: IdentificationDetailsType
+    definition: An object describing how to identify an external party
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/IdentificationDetailsType
+  - term: NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
+    definition: Details on outstanding inviter subscriber details for a representing party
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType
+  - term: BusinessType
+    definition: The business type
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/BusinessType
+  - term: RetrieveNotificationsResponse
+    definition: The response containing notifications
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/RetrieveNotificationsResponse
+  - term: NotificationSettlementScheduleDetailsType
+    definition: Details about settlement schedules
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationSettlementScheduleDetailsType
+  - term: NotificationsListType
+    definition: A list of notifications
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationsListType
+  - term: NotificationInvitationOutstandingLandTitleType
+    definition: The outstanding land titles
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingLandTitleType
+  - term: PropertyDetailsType
+    definition: Details on a property
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/PropertyDetailsType
+  - term: NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
+    definition: Details on outstanding inviter subscriber details for a representing party
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting
+  - term: GivenNameOrderType
+    definition: The given name order
+    tags:
+    - Object
+    source: openapi/pexa-notification-api-openapi.yml#/components/schemas/GivenNameOrderType

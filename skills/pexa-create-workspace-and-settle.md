@@ -1,7 +1,8 @@
 ---
-name: Create a PEXA workspace and take it to settlement
+name: pexa-create-workspace-and-settle
+title: Create a PEXA workspace and take it to settlement
 description: Verify a land title, create an Exchange workspace, invite the other participants, load the financial settlement schedule, agree the settlement date and read the settlement completion record.
-api: openapi/pexa-exchange-api-swagger.json
+api: openapi/_original/pexa-exchange-api-swagger.json
 operations:
   - LTRV
   - workspacecreation
@@ -15,7 +16,7 @@ operations:
   - retrieveSettlementCompletionRecordV1UsingGET
 generated: '2026-07-26'
 method: generated
-source: openapi/pexa-exchange-api-swagger.json + conventions/pexa-conventions.yml + errors/pexa-error-codes.yml
+source: openapi/_original/pexa-exchange-api-swagger.json + conventions/pexa-conventions.yml + errors/pexa-error-codes.yml
 ---
 
 # Create a PEXA workspace and take it to settlement

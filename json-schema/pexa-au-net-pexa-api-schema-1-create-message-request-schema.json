@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-create-message-request-schema.json",
+  "title": "au.net.pexa.api.schema._1.CreateMessageRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-conversation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateMessageRequest",
+  "type": "object",
+  "properties": {
+    "actionRequired": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "subscriberId": {
+      "type": "string"
+    }
+  }
+}

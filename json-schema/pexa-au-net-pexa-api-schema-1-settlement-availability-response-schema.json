@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-settlement-availability-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.SettlementAvailabilityResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-settlement-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.SettlementAvailabilityResponse",
+  "type": "object",
+  "properties": {
+    "availableSettlementTime": {
+      "description": "List of the all available settlement times based on the settlement date above. <br/> If Settlement Availability is No, then this will not be provided.",
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.AvailableSettlementTimeType"
+    },
+    "settlementAvailability": {
+      "type": "string",
+      "description": "A flag to indicate if there are any available times based on the settlement date provided."
+    },
+    "settlementDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The settlement date provided in the request which will be used to check available times."
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.AvailableSettlementTimeType": {
+      "type": "object",
+      "properties": {
+        "times": {
+          "type": "array",
+          "description": "Available settlement time (in UTC) for the date provided. <br/> If Settlement Availability is No, then this will not be provided. <br/> Result set will be ordered by time ascending.",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.AvailableSettlementTimeType"
+    }
+  }
+}

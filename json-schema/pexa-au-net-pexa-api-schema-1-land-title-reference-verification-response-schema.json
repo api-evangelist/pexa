@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-land-title-reference-verification-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-landtitle-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse",
+  "type": "object",
+  "properties": {
+    "landTitleReferenceReport": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport"
+    },
+    "warnings": {
+      "description": "Returned if there are other public workspaces or another private workspace where the same subscriber is a participant of is utilising the same land title reference",
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport": {
+      "type": "object",
+      "properties": {
+        "landTitleReference": {
+          "type": "string",
+          "description": "Land title reference sent in request"
+        },
+        "newLandTitleReference": {
+          "type": "string",
+          "description": "Returned when the land title reference sent as part of request is obsolete. The new land title should be used going forward and must be re-verified."
+        },
+        "propertyDetails": {
+          "type": "string",
+          "description": "Maximum 300 characters <br> Returns the property address if available else returns a land description. If both unavailable then this element will not be sent back."
+        },
+        "electronicLodgement": {
+          "type": "string",
+          "description": "Suitability for electronic lodgement"
+        },
+        "notes": {
+          "type": "array",
+          "description": "Maximum 300 characters <br> Note from land registry which may include unsuitability reason or warnings regarding the land title reference.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.LandTitleReferenceReport"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings": {
+      "type": "object",
+      "properties": {
+        "workspaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "type": "string",
+          "description": "PEXA workspace number. Maximum 13 characters"
+        },
+        "participantsList": {
+          "description": "List of participants currently active in the workspace",
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList": {
+      "type": "object",
+      "properties": {
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList"
+    },
+    "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants": {
+      "type": "object",
+      "properties": {
+        "subscriberName": {
+          "type": "string",
+          "description": "Maximum 255 characters <br> Subscriber organisation name"
+        },
+        "role": {
+          "type": "string",
+          "description": "Participants role in the workspace"
+        },
+        "contactName": {
+          "type": "string",
+          "description": "Maximum 100 characters <br> Subscriber public contact name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Maximum 100 characters <br> Subscriber public contact email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Maximum 100 characters <br> Subscriber public contact phone"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.LandTitleReferenceVerificationResponse.Warnings.Workspace.ParticipantsList.Participants"
+    }
+  }
+}

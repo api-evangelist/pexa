@@ -1,7 +1,8 @@
 ---
-name: Settle a multi-lot development through PEXA Projects
+name: pexa-settle-a-multi-lot-project
+title: Settle a multi-lot development through PEXA Projects
 description: Create a PEXA project, add a workspace per lot, attach parties and participants, load financial line items and propose the settlement date across the development.
-api: openapi/pexa-projects-api-v4-openapi.yaml
+api: openapi/_original/pexa-projects-api-v4-openapi.yaml
 operations:
   - createProject
   - updateProject
@@ -19,7 +20,7 @@ operations:
   - notification
 generated: '2026-07-26'
 method: generated
-source: openapi/pexa-projects-api-v4-openapi.yaml + conventions/pexa-conventions.yml
+source: openapi/_original/pexa-projects-api-v4-openapi.yaml + conventions/pexa-conventions.yml
 ---
 
 # Settle a multi-lot development through PEXA Projects

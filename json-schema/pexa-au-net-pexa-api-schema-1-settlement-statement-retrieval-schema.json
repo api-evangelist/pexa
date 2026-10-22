@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-settlement-statement-retrieval-schema.json",
+  "title": "au.net.pexa.api.schema._1.SettlementStatementRetrieval",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-settlement-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.SettlementStatementRetrieval",
+  "type": "object",
+  "properties": {
+    "documents": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents"
+    },
+    "workspaceId": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents": {
+      "type": "object",
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents"
+    },
+    "au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document": {
+      "type": "object",
+      "properties": {
+        "documentId": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "renderedDocument": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementStatementRetrieval.Documents.Document"
+    }
+  }
+}

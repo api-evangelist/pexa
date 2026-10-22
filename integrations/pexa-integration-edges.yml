@@ -1,0 +1,27 @@
+generated: '2026-10-20'
+method: none
+source:
+- https://zapier.com/apps/pexa/integrations
+- https://n8n.io/integrations/pexa/
+- https://composio.dev/toolkits/pexa
+- https://monid.ai/tools/pexa
+checked:
+- https://zapier.com/apps/pexa/integrations (404)
+- https://www.make.com/en/integrations/pexa (403, unreadable)
+- https://www.workato.com/integrations/pexa (404)
+- https://n8n.io/integrations/pexa/ (404)
+- https://www.pexa.com.au/pexa-apis/ (200, no named partners; integrator categories only)
+- https://www.pexa.com.au/solutions/practice-management-software-providers/ (200, says "Integrated practice management
+  software (PMS) providers" but names none)
+- https://www.pexa.com.au/digicert/ (200, client signing-software install page, not an integration)
+- openapi/*.yml (no operation, webhook or tool names another service)
+- https://composio.dev/toolkits/pexa
+- https://monid.ai/tools/pexa
+- https://n8n.io/integrations/pexa/
+- https://zapier.com/apps/pexa/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
+note: PEXA describes integrations by audience (practice management software providers, financial institutions) but
+  names no partner apps on its own pages, and holds no listing on Zapier, Workato or n8n. A checked absence.

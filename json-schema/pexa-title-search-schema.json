@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-title-search-schema.json",
+  "title": "TitleSearch",
+  "description": "Title search",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-titlesearch-api-openapi.yml#/components/schemas/TitleSearch",
+  "type": "object",
+  "required": [
+    "landTitleReference",
+    "jurisdiction"
+  ],
+  "properties": {
+    "id": {
+      "description": "Identifier of the title search order",
+      "type": "string",
+      "format": "uuid"
+    },
+    "landTitleReference": {
+      "description": "Land title reference",
+      "type": "string"
+    },
+    "jurisdiction": {
+      "description": "State of the property for the given land title reference",
+      "type": "string"
+    },
+    "reference": {
+      "description": "Matter reference",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the title search",
+      "type": "string",
+      "readOnly": true
+    },
+    "landTitle": {
+      "description": "Land Title attributes",
+      "type": "object",
+      "properties": {
+        "orderReceivedDateTime": {
+          "description": "Date order received at 3rd party provider",
+          "type": "string"
+        },
+        "orderCompletedDateTime": {
+          "description": "Date order completed at 3rd party provider",
+          "type": "string"
+        },
+        "enquiryId": {
+          "description": "ID for this enquiry with the 3rd party provider",
+          "type": "string"
+        },
+        "landTitleData": {
+          "description": "Json payload representing the land title data from the 3rd party provider",
+          "type": "object"
+        },
+        "contentType": {
+          "description": "Content type",
+          "type": "string"
+        },
+        "lotPlan": {
+          "description": "Lot plan",
+          "type": "object",
+          "properties": {
+            "landType": {
+              "description": "Land type",
+              "type": "string"
+            },
+            "lotNumber": {
+              "description": "Lot number",
+              "type": "string"
+            },
+            "planNumber": {
+              "description": "Plan number",
+              "type": "string"
+            },
+            "planType": {
+              "description": "Plan type",
+              "type": "string"
+            },
+            "text": {
+              "description": "Text",
+              "type": "string"
+            }
+          }
+        },
+        "planDetails": {
+          "description": "Plan details",
+          "type": "string"
+        },
+        "relatedProducts": {
+          "description": "Related products",
+          "type": "array",
+          "items": {
+            "description": "Related product",
+            "type": "object",
+            "properties": {
+              "classification": {
+                "description": "Classification",
+                "type": "string"
+              },
+              "dealingNumber": {
+                "description": "Dealing number",
+                "type": "string"
+              },
+              "documentType": {
+                "description": "Document type",
+                "type": "string"
+              },
+              "itemName": {
+                "description": "Item name",
+                "type": "string"
+              },
+              "itemType": {
+                "description": "Item type",
+                "type": "string"
+              },
+              "searchKey": {
+                "description": "Search key",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "vendorDetails": {
+          "description": "Vendor details",
+          "type": "array",
+          "items": {
+            "description": "Vendor details",
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

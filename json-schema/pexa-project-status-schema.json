@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-project-status-schema.json",
+  "title": "ProjectStatus",
+  "description": "Status details of a project",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-project-api-openapi.yml#/components/schemas/ProjectStatus",
+  "type": "object",
+  "properties": {
+    "jurisdiction": {
+      "$ref": "#/$defs/Jurisdiction"
+    },
+    "proprietorOnTitles": {
+      "description": "List of Proprietor(s) on Title",
+      "type": "array",
+      "items": {
+        "description": "A proprietor on title",
+        "type": "string"
+      }
+    },
+    "parentTitle": {
+      "type": "string",
+      "description": "The Parent Land Title",
+      "format": "string"
+    },
+    "mortgageeNames": {
+      "description": "List of Mortgagee(s) on Title",
+      "type": "array",
+      "items": {
+        "description": "A mortgagee on title",
+        "type": "string"
+      }
+    },
+    "estimatedSettlementDate": {
+      "type": "string",
+      "description": "The Estimated Settlement Date of the project",
+      "format": "string"
+    },
+    "invitationAcceptance": {
+      "type": "object",
+      "description": "The status of invitation acceptance",
+      "properties": {
+        "incomingMortgagee": {
+          "$ref": "#/$defs/InvitationAcceptanceStatus"
+        },
+        "mortgageeOnTitle": {
+          "$ref": "#/$defs/InvitationAcceptanceStatus"
+        },
+        "incomingProprietor": {
+          "$ref": "#/$defs/InvitationAcceptanceStatus"
+        }
+      }
+    },
+    "settlementDateAcceptance": {
+      "type": "object",
+      "description": "The status of settlement date acceptance",
+      "properties": {
+        "incomingMortgagee": {
+          "$ref": "#/$defs/SettlementDateAcceptanceStatus"
+        },
+        "mortgageeOnTitle": {
+          "$ref": "#/$defs/SettlementDateAcceptanceStatus"
+        },
+        "incomingProprietor": {
+          "$ref": "#/$defs/SettlementDateAcceptanceStatus"
+        }
+      }
+    },
+    "workspaceStatus": {
+      "$ref": "#/$defs/WorkspaceCountsByStatuses"
+    }
+  },
+  "$defs": {
+    "InvitationAcceptanceStatus": {
+      "type": "object",
+      "description": "Counts of the various statuses for an invitation",
+      "properties": {
+        "accepted": {
+          "description": "Count of accepted invitations",
+          "type": "integer",
+          "format": "int64"
+        },
+        "pending": {
+          "description": "Count of pending invitations",
+          "type": "integer",
+          "format": "int64"
+        },
+        "declined": {
+          "description": "Count of declined invitations",
+          "type": "integer",
+          "format": "int64"
+        },
+        "notInvited": {
+          "description": "Count of invitations that have not been sent",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Jurisdiction": {
+      "type": "string",
+      "description": "Jurisdiction",
+      "pattern": "ACT|NSW|VIC|WA|QLD|SA|TAS"
+    },
+    "SettlementDateAcceptanceStatus": {
+      "description": "Counts for settlement date acceptance",
+      "type": "object",
+      "properties": {
+        "accepted": {
+          "description": "Count of settlement dates that are accepted",
+          "type": "integer",
+          "format": "int64"
+        },
+        "pending": {
+          "description": "Count of settlement dates that are pending",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "WorkspaceCountsByStatuses": {
+      "type": "object",
+      "description": "Counts for various properties of workspaces under the project",
+      "properties": {
+        "allActive": {
+          "description": "Count of all active workspaces",
+          "type": "integer",
+          "format": "int64"
+        },
+        "settlingToday": {
+          "description": "Count of workspaces settling today",
+          "type": "integer",
+          "format": "int64"
+        },
+        "completed": {
+          "description": "Count of completed workspaces",
+          "type": "integer",
+          "format": "int64"
+        },
+        "withdrawn": {
+          "description": "Count of withdrawn workspaces",
+          "type": "integer",
+          "format": "int64"
+        },
+        "all": {
+          "description": "Count of workspaces",
+          "type": "integer",
+          "format": "int64"
+        },
+        "awaitingDigitalSignature": {
+          "description": "Count of workspaces that are awaiting digital signatures",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

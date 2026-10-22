@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-standalone-discharge-schema.json",
+  "title": "standaloneDischarge",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-standalone-discharge-experience-api-openapi.yml#/components/schemas/standaloneDischarge",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The id of a valid PEXA subscriber that you represent",
+      "writeOnly": true
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "A unique randomised id representing the transaction",
+      "readOnly": true
+    },
+    "workspace": {
+      "type": "object",
+      "readOnly": true,
+      "properties": {
+        "workspaceId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "documentSummary": {
+          "type": "object",
+          "properties": {
+            "lodgementCases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/lodgementCase"
+              }
+            }
+          }
+        }
+      }
+    },
+    "workspaceStatus": {
+      "type": "string",
+      "readOnly": true
+    },
+    "subscriberReference": {
+      "type": "string",
+      "description": "The subscriber's reference for the transaction"
+    },
+    "workspaceId": {
+      "type": "string",
+      "readOnly": true,
+      "description": "The PEXA workspace number that was created by the API"
+    },
+    "landTitles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The Land titles for which the standalone discharge needs to be created"
+    },
+    "panelMasterSubscriberId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The subscriber id of your Panel Master for this transaction.\nREQUIRED for Panel clients, OMIT for Financial Institution clients.\n"
+    },
+    "jurisdiction": {
+      "$ref": "#/$defs/jurisdiction"
+    },
+    "mortgageNumbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of mortgage numbers to be discharged"
+    },
+    "workgroupId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The workgroupId of the Workgroup under which the workspace will be created"
+    },
+    "retainCTControl": {
+      "type": "boolean",
+      "writeOnly": true,
+      "default": false,
+      "description": "Indicator to retain control of the newly issued Certificate of Title"
+    },
+    "status": {
+      "type": "string",
+      "readOnly": true
+    },
+    "message": {
+      "type": "string",
+      "readOnly": true
+    },
+    "lodgementInstructions": {
+      "type": "object",
+      "writeOnly": true,
+      "description": "Lodgement instructions for Title. Applicable for VIC jurisdiction.\nOPTIONAL for Financial Institution clients.\n",
+      "properties": {
+        "issuingInstructions": {
+          "$ref": "#/$defs/issuingInstructions"
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "readOnly": true,
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    }
+  },
+  "required": [
+    "subscriberReference",
+    "landTitles",
+    "jurisdiction"
+  ],
+  "$defs": {
+    "document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "documentId": {
+          "type": "string"
+        },
+        "documentStatus": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "landTitleReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lodgement": {
+          "$ref": "#/$defs/lodgement"
+        },
+        "lodgementVerification": {
+          "type": "object"
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string",
+          "description": "Only applicable when an event is interrupted"
+        },
+        "message": {
+          "type": "string",
+          "description": "Only applicable when an event is interrupted"
+        }
+      }
+    },
+    "issuingInstructions": {
+      "type": "object",
+      "description": "Use this element if you want to instruct issuing for the title",
+      "properties": {
+        "titleFormat": {
+          "$ref": "#/$defs/titleFormat"
+        },
+        "ctIssuedToPanelMaster": {
+          "type": "boolean",
+          "description": "Do you wish to issue the title to your Panel Master? (Panel clients only)"
+        }
+      },
+      "required": [
+        "titleFormat"
+      ]
+    },
+    "jurisdiction": {
+      "type": "string",
+      "enum": [
+        "VIC",
+        "NSW",
+        "QLD",
+        "SA",
+        "WA",
+        "ACT",
+        "NT",
+        "TAS"
+      ],
+      "description": "The Jurisdiction for the title"
+    },
+    "lodgement": {
+      "title": "lodgement",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dealingNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "lodgementCase": {
+      "title": "lodgementCase",
+      "type": "object",
+      "properties": {
+        "lodgementCaseId": {
+          "type": "string"
+        },
+        "lodgementCaseStatus": {
+          "type": "string"
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/document"
+          }
+        }
+      }
+    },
+    "titleFormat": {
+      "type": "string",
+      "description": "PCT for Paper Certificate of Title, ECT for Electronic Certificate of Title",
+      "enum": [
+        "ECT",
+        "PCT"
+      ]
+    }
+  }
+}

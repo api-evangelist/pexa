@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-2-subscriber-search-response-schema.json",
+  "title": "au.net.pexa.api.schema._2.SubscriberSearchResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-subscriber-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._2.SubscriberSearchResponse",
+  "type": "object",
+  "properties": {
+    "onboardingLink": {
+      "type": "string",
+      "description": "Maximum 2000 characters  <br> Absolute URL into the on boarding request form in PEXA. Used for deep linking."
+    },
+    "subscribers": {
+      "type": "array",
+      "description": "List of the possible matches found. When subscriberName is used to search, only the first 50 will be sent in the response. Where More Results = 'Yes', the subscriberName query parameter must be refined if the first 50 results do not contain the subscriber required.  \\n When searchSubscriberId is used to search, the details of the subscriber who is assigned to that internal PEXA identifier will be returned.  \\n Must not be populated if there are no results.",
+      "items": {
+        "$ref": "#/$defs/au.net.pexa.api.schema._2.SubscriberDetailsType"
+      }
+    },
+    "moreResults": {
+      "type": "string",
+      "description": "Set to Yes when results exceed 50 results else must not be provided."
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._2.IdentificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Maximum 20 characters <br> Must be provided without whitespaces."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.IdentificationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.OperatingInDetailsType": {
+      "type": "object",
+      "properties": {
+        "jurisdictions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "VIC",
+              "NSW",
+              "SA"
+            ]
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.OperatingInDetailsType"
+    },
+    "au.net.pexa.api.schema._2.SubscriberDetailsType": {
+      "type": "object",
+      "properties": {
+        "subscriberId": {
+          "type": "string",
+          "description": "The PEXA internal reference for the subscriber.  \\n Maximum 19 characters"
+        },
+        "subscriberName": {
+          "type": "string",
+          "description": "Maximum 255 characters  \\n Subscriber Organisation Name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Maximum 100 characters  \\n Subscriber public contact email"
+        },
+        "identification": {
+          "description": "External identification of the party through a registered organisation",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.IdentificationDetailsType"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Maximum 30 characters  \\n Subscriber public contact phone"
+        },
+        "operatingIn": {
+          "description": "Subscribers operating jurisdiction",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.OperatingInDetailsType"
+        },
+        "subscriberTransactionLimitations": {
+          "description": "Any transaction limitations the subscriber has indicated in PEXA.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.SubscriberTransactionLimitations"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.SubscriberDetailsType"
+    },
+    "au.net.pexa.api.schema._2.SubscriberTransactionLimitations": {
+      "type": "object",
+      "properties": {
+        "receivingInvitations": {
+          "type": "string",
+          "description": "A yes/no flag to indicate whether the subscriber can receive invitations to join PEXA workspaces."
+        },
+        "limitationDetail": {
+          "type": "string",
+          "description": "Maximum 300 characters  \\n Must be provided if Receiving Invitations flag is set to No.  \\n Can be optionally provided if Receiving Invitations flag is set to Yes and only if the subscriber returned is of a subscriber type 'Financial Institution' or 'Non-Transactional Panel Master'."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.SubscriberTransactionLimitations"
+    }
+  }
+}

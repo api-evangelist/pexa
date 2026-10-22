@@ -1,0 +1,68 @@
+generated: '2026-10-20'
+method: probed
+source: pre-flight dossier (docs platform, portal detections) + CNAME chains and response headers of the hosts apis.yml names
+registry: all/0-working/vendors.yml
+areas_vocabulary:
+- documentation
+- developer-portal
+- api-gateway
+- cdn
+- hosting
+- sdk-generation
+- api-collections
+- status-page
+- support
+- community
+- identity
+- mcp-hosting
+vendors:
+- vendor: cloudfront
+  name: Amazon CloudFront
+  area: cdn
+  host: www.pexa.com.au
+  evidence: header:x-amz-cf-id
+  signal: header
+  confidence: high
+  kin_score: []
+- vendor: swagger-ui
+  name: Swagger UI
+  area: documentation
+  host: developer.pexa.com.au
+  evidence: markup:swagger-ui
+  signal: docs-platform
+  confidence: medium
+  kin_score:
+  - openapi_published
+- vendor: auth0
+  name: Auth0 (Okta)
+  area: identity
+  host: auth.pexa.com.au
+  evidence: pexa-oauth-authorization-server.json names auth0 in its OAuth metadata
+  signal: oauth-metadata
+  confidence: high
+  kin_score:
+  - authentication
+reliance:
+  areas_vendor_served:
+  - cdn
+  - documentation
+  - identity
+  vendor_count: 3
+  areas_observed: 12
+  share_of_observable_areas: 0.25
+  note: areas where a third party was DETECTED serving this provider; an area absent here was either self-run or not observed, and this script
+    cannot tell those apart
+checked:
+- 'docs-platform: swagger-ui'
+- www.pexa.com.au (Website)
+- developer.pexa.com.au (Portal)
+- developer.pexa.com.au (Documentation)
+- www.pexa.com.au (SignUp)
+- status.pexa.com.au (StatusPage)
+- www.pexa.com.au (Support)
+- developer.pexa.com.au (DeveloperPortal)
+- developer.pexa.com.au (APIReference)
+- www.pexa.com.au (GettingStarted)
+- help.pexa.com.au (HelpCenter)
+- auth.pexa.com.au (Login)
+- api.pexa.com.au (baseURL)

@@ -1,11 +1,11 @@
 # generated: 2026-07-26
 # method: generated
-# source: openapi/pexa-exchange-api-legacy-swagger.json
+# source: openapi/_original/pexa-exchange-api-legacy-swagger.json
 overlay: 1.0.0
 info:
   title: API Evangelist enhancements for PEXA Exchange API (legacy /v1-/v3 contract)
   version: 1.0.0
-extends: openapi/pexa-exchange-api-legacy-swagger.json
+extends: ../openapi/_original/pexa-exchange-api-legacy-swagger.json
 actions:
 - target: $.info
   update:

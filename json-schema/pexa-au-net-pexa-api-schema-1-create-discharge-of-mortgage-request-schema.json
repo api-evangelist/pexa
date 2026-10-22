@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-create-discharge-of-mortgage-request-schema.json",
+  "title": "au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest",
+  "type": "object",
+  "properties": {
+    "mortgageDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails"
+    },
+    "role": {
+      "type": "string"
+    },
+    "subscriberId": {
+      "type": "string"
+    },
+    "workspaceId": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails": {
+      "type": "object",
+      "properties": {
+        "mortgageNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails"
+    }
+  }
+}

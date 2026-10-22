@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-notification-registration-create-dto-schema.json",
+  "title": "NotificationRegistrationCreateDto",
+  "description": "Response body returned after successfully creating a webhook registration. Store the sharedSecret securely (e.g. in a secrets manager). It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-notificationregistration-api-openapi.yml#/components/schemas/NotificationRegistrationCreateDto",
+  "type": "object",
+  "required": [
+    "webhookURI",
+    "registrationId"
+  ],
+  "properties": {
+    "notificationType": {
+      "type": "string"
+    },
+    "webhookURI": {
+      "type": "string"
+    },
+    "registrationId": {
+      "type": "string"
+    },
+    "subscriberId": {
+      "type": "string"
+    },
+    "sharedSecret": {
+      "type": "string",
+      "description": "The shared secret used to validate the webhook request"
+    },
+    "sharedSecretExpiry": {
+      "type": "string",
+      "description": "The expiry time for current shared secret"
+    },
+    "integratorId": {
+      "type": "string",
+      "description": "The ID of the integrator"
+    },
+    "integratorType": {
+      "type": "string",
+      "description": "The type of the integrator"
+    },
+    "eventTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The list of eventTypes that this registration will send notifications for"
+    }
+  }
+}

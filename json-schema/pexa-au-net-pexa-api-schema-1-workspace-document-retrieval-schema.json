@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-workspace-document-retrieval-schema.json",
+  "title": "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-document-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval",
+  "type": "object",
+  "properties": {
+    "lodgementCases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase"
+      }
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase": {
+      "type": "object",
+      "properties": {
+        "documents": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents"
+        },
+        "lodgementCaseId": {
+          "type": "string"
+        },
+        "workspaceId": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents": {
+      "type": "object",
+      "properties": {
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document": {
+      "type": "object",
+      "properties": {
+        "documentId": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "lrDocumentId": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "renderedDocument": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document"
+    }
+  }
+}

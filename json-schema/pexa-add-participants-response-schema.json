@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-add-participants-response-schema.json",
+  "title": "AddParticipantsResponse",
+  "description": "Response when adding participants",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspaces-api-openapi.yml#/components/schemas/AddParticipantsResponse",
+  "type": "object",
+  "properties": {
+    "pexaWorkspaceId": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ResponseParticipant"
+      }
+    }
+  },
+  "$defs": {
+    "ResponseParticipant": {
+      "type": "object",
+      "description": "Response object when adding a participant",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "Role of the participant"
+        },
+        "subscriberId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Subscriber id of the participant"
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference for the participant"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the participant"
+        },
+        "prCreated": {
+          "type": "boolean",
+          "description": "Has the Participant Request been created?"
+        },
+        "prAccepted": {
+          "type": "boolean",
+          "description": "Has the Participation Request been accepted?"
+        }
+      }
+    }
+  }
+}

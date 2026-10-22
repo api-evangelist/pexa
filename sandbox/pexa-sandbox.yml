@@ -7,6 +7,16 @@ source:
 - https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
 - openapi/pexa-notification-service-openapi.yaml (servers[])
 - openapi/pexa-standalone-discharge-experience-api-openapi.yaml (servers[])
+description: >-
+  PEXA offers a fully-managed, credentialed test environment (PEXA Labs, api-tst.pexalabs.com.au with
+  its own authorization server auth-tst.pexalabs.com.au), separate from production (api.pexa.com.au).
+  Test access is not self-serve: integrators register on the PEXA APIs page, PEXA approves and emails
+  test credentials, and test fixtures (e.g. land titles) are supplied per integrator.
+docs:
+- https://www.pexa.com.au/pexa-apis/
+- https://developer.pexa.com.au/Exchange/docs/documentation/
+- https://developer.pexa.com.au/Projects/docs/documentation/
+- https://developer.pexa.com.au/Webhooks/docs/definitions/webhooks/
 available: true
 self_serve: false
 gate: >-

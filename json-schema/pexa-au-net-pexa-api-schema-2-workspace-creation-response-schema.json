@@ -1,0 +1,407 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-2-workspace-creation-response-schema.json",
+  "title": "au.net.pexa.api.schema._2.WorkspaceCreationResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspace-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationResponse",
+  "type": "object",
+  "properties": {
+    "landTitleDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails"
+    },
+    "workspaceId": {
+      "type": "string",
+      "description": " Maximum 13 characters<br>PEXA workspace number"
+    },
+    "workspaceStatus": {
+      "type": "string"
+    },
+    "partyDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "PostalDelivery": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType"
+        },
+        "Road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+        },
+        "localityName": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "AddressLine": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType"
+          }
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Maximum 6 characters. <br> Valid character set: alphanumeric"
+        },
+        "countryCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType": {
+      "type": "object",
+      "properties": {
+        "postalDeliveryTypeCode": {
+          "type": "string"
+        },
+        "postalDeliveryNumber": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "RoadNumber": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType"
+          }
+        },
+        "order": {
+          "type": "integer"
+        },
+        "roadName": {
+          "type": "string",
+          "description": " Maximum 100 characters<br>Valid character set: alphabetic, hyphens, apostrophes and spaces only."
+        },
+        "roadTypeCode": {
+          "type": "string"
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "ComplexRoad": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType"
+          }
+        },
+        "SubDwellingUnitType": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+        },
+        "Level": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType"
+        },
+        "secondaryComplex": {
+          "type": "string",
+          "description": " Maximum 100 characters<br> Valid character set: alphanumeric and spaces only. <br> For complex addresses "
+        },
+        "addressSiteName": {
+          "type": "string",
+          "description": "Maximum 30 characters <br> Valid character set: alphanumeric and spaces only."
+        },
+        "Road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+        },
+        "localityName": {
+          "type": "string",
+          "description": "Maximum 100 characters<br> Valid character set: alphabetic and spaces only."
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType": {
+      "type": "object",
+      "properties": {
+        "levelTypeCode": {
+          "type": "string"
+        },
+        "levelNumber": {
+          "type": "string",
+          "description": "Maximum 5 characters<br> Valid character set: numeric only."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "lotNumber": {
+          "type": "string",
+          "description": "Maximum 6 characters <br>Valid character set: numeric and spaces only."
+        },
+        "roadNumber": {
+          "type": "string",
+          "description": "Maximum 6 characters. Valid character set: alphanumeric only."
+        },
+        "roadName": {
+          "type": "string",
+          "description": " Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only."
+        },
+        "roadTypeCode": {
+          "type": "string"
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType": {
+      "type": "object",
+      "properties": {
+        "unitTypeCode": {
+          "type": "string"
+        },
+        "unitNumber": {
+          "type": "string",
+          "description": "Maximum 7 characters <br>Valid character set: numeric, slashes and spaces only."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2Type": {
+      "type": "object",
+      "properties": {
+        "StreetAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressDetailsType"
+        },
+        "OverseasAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType"
+        },
+        "CorrespondenceAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2Type"
+    },
+    "au.net.pexa.api.schema._2.AdministrationStatusDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+    },
+    "au.net.pexa.api.schema._2.BusinessType": {
+      "type": "object",
+      "properties": {
+        "legalEntityName": {
+          "type": "string",
+          "description": "Maximum 150 characters"
+        },
+        "businessName": {
+          "type": "string",
+          "description": " Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. "
+        },
+        "businessUnit": {
+          "type": "string",
+          "description": " Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. "
+        },
+        "organisationType": {
+          "type": "string",
+          "description": "Must be provided if Party Type is Organisation"
+        },
+        "administrationStatuses": {
+          "type": "array",
+          "description": " Must be provided if Organisation Type is 'Registered company in external administration' ",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+          }
+        },
+        "identifications": {
+          "type": "array",
+          "description": " External identification of the party through a registered organisation.",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.IdentificationDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.BusinessType"
+    },
+    "au.net.pexa.api.schema._2.FullNameType": {
+      "type": "object",
+      "properties": {
+        "nameTitle": {
+          "type": "string",
+          "description": " Title (e.g. 'Mr', 'Ms', 'Prof') "
+        },
+        "givenNames": {
+          "type": "array",
+          "description": " Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.GivenNameOrderType"
+          }
+        },
+        "familyName": {
+          "type": "string",
+          "description": " Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. "
+        },
+        "familyNameOrder": {
+          "type": "string",
+          "description": " Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last "
+        },
+        "nameSuffix": {
+          "type": "string",
+          "description": " Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time",
+          "description": " This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. "
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.FullNameType"
+    },
+    "au.net.pexa.api.schema._2.GivenNameOrderType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.GivenNameOrderType"
+    },
+    "au.net.pexa.api.schema._2.IdentificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Maximum 20 characters <br> Must be provided without whitespaces."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.IdentificationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails": {
+      "type": "object",
+      "properties": {
+        "landTitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle": {
+      "type": "object",
+      "properties": {
+        "obsoleteLandTitleReference": {
+          "type": "string",
+          "description": "The land title reference sent as part of the request which is now obsolete."
+        },
+        "newLandTitleReference": {
+          "type": "string",
+          "description": "The new land title reference which has superseded the obsolete land title reference."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationResponse.LandTitleDetails.LandTitle"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "description": " Upon successful adding of the party to the workspace, return the newly added party detail record with a Party Id.<br> In the scenario this structure is not returned, this indicates the new party detail contains an error and the party has not been added to the workspace. <br>If the subscriber creates a workspace in the role of Proprietor on Title and Request Land Title Data is Yes, the list of Proprietor on Title parties will be returned.  ",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party": {
+      "type": "object",
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": "Maximum 19 characters"
+        },
+        "partyType": {
+          "type": "string"
+        },
+        "partyRole": {
+          "type": "string"
+        },
+        "fullName": {
+          "description": " Provided if Party Type is Individual<br>  Not provided if on title party is an indeterminate party type",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.FullNameType"
+        },
+        "business": {
+          "description": "Provided if Party Type is Organisation <br> Not provided if on title party is an indeterminate party type",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.BusinessType"
+        },
+        "CurrentAddress": {
+          "description": " One of the following Street Address or Overseas Address<br>Not provided for on title parties  ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2Type"
+        },
+        "FutureAddress": {
+          "description": "One of the following Street Address or Overseas Address <br>Not provided for on title parties",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2Type"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationResponse.PartyDetails.Party"
+    }
+  }
+}

@@ -1,0 +1,195 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 14
+  own: 8
+  other_domain: 4
+  platform: 2
+  roles:
+  - api
+  - identity
+  - marketing
+  - other
+  - portal
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: api-tst.pexalabs.com.au
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: pexalabs.com.au
+  role: other
+  relation: other-domain
+- host: api.com.au
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: api.com.au
+  role: api
+  relation: other-domain
+- host: api.pexa-group.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: pexa-group.com
+  role: api
+  relation: other-domain
+- host: api.pexa.com.au
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: pexa.com.au
+  role: api
+  relation: own
+- host: auth.pexa.com.au
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  - vendor-detect
+  types:
+  - Authentication
+  - Login
+  serves:
+  - identity
+  vendor: auth0
+  registrable_domain: pexa.com.au
+  role: identity
+  relation: own
+- host: compliance.pexa.com.au
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - Compliance
+  serves: []
+  registrable_domain: pexa.com.au
+  role: other
+  relation: own
+- host: developer.pexa.com.au
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - Portal
+  - Documentation
+  - ChangeLog
+  - DeveloperPortal
+  - APIReference
+  serves:
+  - docs
+  - documentation
+  vendor: swagger-ui
+  registrable_domain: pexa.com.au
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: help.pexa.com.au
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - well-known
+  types:
+  - HelpCenter
+  serves:
+  - docs
+  registrable_domain: pexa.com.au
+  role: support
+  relation: own
+- host: plus.pexa.com.au
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: pexa.com.au
+  role: other
+  relation: own
+- host: status.pexa.com.au
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: pexa.com.au
+  role: status
+  relation: own
+- host: www.pexa-group.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Blog
+  - About
+  - InvestorRelations
+  serves: []
+  registrable_domain: pexa-group.com
+  role: marketing
+  relation: other-domain
+- host: www.pexa.com.au
+  found_by:
+  - pointer
+  - probed
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - SignUp
+  - Pricing
+  - Support
+  - Security
+  - GettingStarted
+  - TermsOfService
+  - PrivacyPolicy
+  - ReleaseNotes
+  serves:
+  - docs
+  - cdn
+  vendor: cloudfront
+  registrable_domain: pexa.com.au
+  role: website
+  relation: own
+- host: www.postman.com
+  found_by:
+  - pointer
+  types:
+  - PostmanWorkspace
+  serves: []
+  registrable_domain: postman.com
+  role: other
+  relation: platform

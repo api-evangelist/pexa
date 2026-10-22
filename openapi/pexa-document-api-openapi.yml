@@ -139,6 +139,8 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: retrieveLodgedDocumentsV1UsingGET
   /v2/workspace/documents/dischargeMortgage:
@@ -184,52 +186,12 @@ paths:
               $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest'
         description: createDischargeRequest
         required: true
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: createUsingPOST
 components:
   schemas:
-    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase:
-      type: object
-      properties:
-        documents:
-          xml:
-            name: Documents
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents'
-        lodgementCaseId:
-          type: string
-          xml:
-            name: LodgementCaseId
-            attribute: false
-            wrapped: false
-        workspaceId:
-          type: string
-          xml:
-            name: WorkspaceId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
-      xml:
-        name: LodgementCase
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval:
-      type: object
-      properties:
-        lodgementCases:
-          type: array
-          xml:
-            name: LodgementCase
-            attribute: false
-            wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase'
-      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
-      xml:
-        name: WorkspaceDocumentRetrieval
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents:
       type: object
       properties:
@@ -278,6 +240,32 @@ components:
         name: CreateDischargeOfMortgageRequest
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+          xml:
+            name: DocumentId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
+      xml:
+        name: CreateDischargeOfMortgageResponse
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails:
+      type: object
+      properties:
+        mortgageNumbers:
+          type: array
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
+      xml:
+        name: MortgageDetails
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents.Document:
       type: object
       properties:
@@ -317,32 +305,76 @@ components:
         name: Document
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails:
+    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval:
       type: object
       properties:
-        mortgageNumbers:
+        lodgementCases:
           type: array
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageRequest.MortgageDetails
-      xml:
-        name: MortgageDetails
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse:
-      type: object
-      properties:
-        documentId:
-          type: string
           xml:
-            name: DocumentId
+            name: LodgementCase
             attribute: false
             wrapped: false
-      title: au.net.pexa.api.schema._1.CreateDischargeOfMortgageResponse
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase'
+      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval
       xml:
-        name: CreateDischargeOfMortgageResponse
+        name: WorkspaceDocumentRetrieval
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase:
+      type: object
+      properties:
+        documents:
+          xml:
+            name: Documents
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase.Documents'
+        lodgementCaseId:
+          type: string
+          xml:
+            name: LodgementCaseId
+            attribute: false
+            wrapped: false
+        workspaceId:
+          type: string
+          xml:
+            name: WorkspaceId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.WorkspaceDocumentRetrieval.LodgementCase
+      xml:
+        name: LodgementCase
+        attribute: false
+        wrapped: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            au_pub_pexa_healthcheck_api_v2_read: Health check read access
+            au_pub_pexa_landtitle_api_v2_read: Land title read access
+            au_pub_pexa_conversation_api_v2_read: Conversation read access
+            au_pub_pexa_conversation_api_v2_write: Conversation write access
+            au_pub_pexa_invitation_api_v2_read: Invitation read access
+            au_pub_pexa_invitation_api_v2_write: Invitation write access
+            au_pub_pexa_subscriber_api_v3_read: Subscriber v3 read access
+            au_pub_pexa_subscriber_api_v4_read: Subscriber v4 read access
+            au_pub_pexa_user_api_v3_read: User profile read access
+            au_pub_pexa_workspace_api_v4_write: Workspace v4 write access
+            au_pub_pexa_workspace_api_v5_read: Workspace v5 read access
+            au_pub_pexa_workspace_api_v5_write: Workspace v5 write access
+            au_pub_pexa_workspace_api_v6_read: Workspace v6 read access
+            au_pub_pexa_documents_api_v2_read: Documents read access
+            au_pub_pexa_documents_api_v2_write: Documents write access
+            au_pub_pexa_financial_settlement_schedule_api_v2_read: Financial settlement schedule read access
+            au_pub_pexa_financial_settlement_schedule_api_v2_write: Financial settlement schedule write access
+            au_pub_pexa_settlement_api_v2_read: Settlement read access
+            au_pub_pexa_settlement_api_v2_write: Settlement write access
+            au_pub_pexa_settlementcompletionrecord_api_v2_read: Settlement completion record read access
+          authorizationUrl: https://auth.pexa.com.au/oauth/authorize
+          tokenUrl: https://auth.pexa.com.au/oauth/token
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

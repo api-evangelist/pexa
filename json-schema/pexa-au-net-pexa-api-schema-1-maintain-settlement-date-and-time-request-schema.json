@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-maintain-settlement-date-and-time-request-schema.json",
+  "title": "au.net.pexa.api.schema._1.MaintainSettlementDateAndTimeRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-settlement-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.MaintainSettlementDateAndTimeRequest",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "string",
+      "description": "The PEXA internal reference for the subscriber initiating the API service call. <br/> Maximum 19 characters"
+    },
+    "workspaceId": {
+      "type": "string",
+      "description": "PEXA workspace number. <br/> Maximum 13 characters"
+    },
+    "role": {
+      "type": "string",
+      "description": "Valid values are dependent on the subscriber type. <br/> If the subscriber is acting in multiple roles within the workspace, only one role must be provided. <br/> Only the following roles can be provided to maintain settlement date and time within the workspace: <ul> <li> Incoming Mortgagee <li> Mortgagee on Title  <li> Incoming Proprietor  <li> Proprietor on Title  <li> Incoming Caveator <ul/>"
+    },
+    "settlementActionType": {
+      "type": "string",
+      "description": "Valid values are <br/> <li> Accept (Accept the Settlement Date/Time which has been proposed) <li> Reset to pending (Reset prior acceptance of settlement date and time to the status of Pending. )  <li> Propose new date and time(Propose a new Settlement date and time with a reason of change set) "
+    },
+    "settlementDateAndTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The settlement date/time is provided (in UTC) to ensure the participant settlement acceptance status is being set against the settlement date/time which is currently in the workspace. <br/> If the settlement date/time provided here differs to that of the workspace, an error will be returned advising that the settlement details are misaligned. <br/> Must be provided when the Settlement Action Type is 'Accepted' or 'Reset to pending'. Must not be provided when the Settlement Action Type is Propose new date and time."
+    },
+    "settlementDetails": {
+      "description": "The settlement date and time details to set/propose in the workspace. <br/> Must be provided if the Settlement Action Type is Propose new date and time. <br/> Must not be provided if Settlement Action Type is Reset to pending or Accepted.",
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementDetailsType"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.SettlementDetailsType": {
+      "type": "object",
+      "properties": {
+        "settlementDateAndTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The proposed date and time for settlement (in UTC)"
+        },
+        "participantSettlementAcceptanceStatus": {
+          "type": "string",
+          "description": "Ability to specify if the Settlement Date and Time should be considered accepted or pending when proposing a new date and time. <br/> If no participant settlement acceptance status is provided, the subscribers default acceptance status will be used. Valid values are <br/> <li> Accepted (Set the Participants Settlement Acceptance Status to the Accepted status.) <li> Pending (Set the Participants Settlement Acceptance Status to the Pending status. )"
+        },
+        "reason": {
+          "type": "string",
+          "description": "The reason for updating the settlement date/time in the workspace. <br/> Maximum 100 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementDetailsType"
+    }
+  }
+}

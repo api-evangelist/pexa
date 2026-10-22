@@ -22,6 +22,10 @@ authentication:
   detail: authentication/pexa-authentication.yml
   scopes: scopes/pexa-scopes.yml
 idempotency:
+  coverage: none
+  coverage_note: >-
+    No request-side replay protection on any PEXA REST write; the only idempotency key (webhook-id)
+    protects inbound event delivery, not the mutating API surface.
   rest_api:
     supported: false
     note: >-
@@ -132,3 +136,33 @@ deep_links:
     summary, tasks, invitations, land titles, participants, documents, financial settlement schedule,
     fee schedule, conversations, notifications, history, subscriber onboarding).
   detail: components/pexa-components.yml
+reversibility:
+  verdict: documented
+  window_stated: false
+  surfaces:
+  - write: createNotificationRegistration / createNotificationRegistrationV3 (Notification Registration API)
+    reversal: deleteNotificationRegistration
+    operation: DELETE /v1/notification-registrations/{registrationId}
+    window: not stated
+    spec: openapi/pexa-notificationregistration-api-openapi.yml
+  - write: addParties (Workspaces API v4)
+    reversal: deleteParties
+    operation: DELETE /v4/projects/{projectId}/workspaces/{workspaceId}/parties
+    window: not stated
+    spec: openapi/pexa-workspaces-api-openapi.yml
+  - write: addParticipants (Workspaces API v4)
+    reversal: deleteParticipants
+    operation: DELETE /v4/projects/{projectId}/workspaces/{workspaceId}/participants
+    window: not stated
+    spec: openapi/pexa-workspaces-api-openapi.yml
+  not_reversible_via_api: >-
+    No harvested contract exposes a cancel, withdraw, unsign, abandon or reverse operation for
+    workspaces, documents, financial settlement schedules or lodgement. Settlement and lodgement
+    with the land registry are the irreversible steps; any withdrawal happens in the PEXA Exchange
+    UI under PEXA's operating rules, not through the API surface held here.
+  note: >-
+    Reversal paths exist only as DELETE operations on registrations and workspace parties/participants;
+    neither the contracts nor the portal state a window inside which they work, so no window is
+    recorded. Checked 2026-10-20 by scanning every POST/PUT/PATCH/DELETE in openapi/*.yml for
+    cancel|withdraw|unsign|delete|remove|revoke|abandon|undo|reverse|restore|rescind.
+  checked: '2026-10-20'

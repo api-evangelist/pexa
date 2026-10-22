@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-settlement-upload-request-schema.json",
+  "title": "au.net.pexa.api.schema._1.SettlementUploadRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-settlement-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.SettlementUploadRequest",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "schedule": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule"
+    },
+    "subscriberId": {
+      "type": "string"
+    },
+    "workspaceId": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule": {
+      "type": "object",
+      "properties": {
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem": {
+      "type": "object",
+      "properties": {
+        "accountDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails"
+        },
+        "associatedSubscriber": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "customCategory": {
+          "type": "string"
+        },
+        "transactionDescription": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "verified": {
+          "type": "string"
+        },
+        "verifiedBy": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails": {
+      "type": "object",
+      "properties": {
+        "destination": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination"
+        },
+        "source": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account"
+        },
+        "bpay": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay"
+        },
+        "officeAccount": {
+          "type": "string"
+        },
+        "preverifiedAccount": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account": {
+      "type": "object",
+      "properties": {
+        "accountBsb": {
+          "type": "string"
+        },
+        "accountName": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.Account"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay": {
+      "type": "object",
+      "properties": {
+        "billerCode": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Destination.BPay"
+    },
+    "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source": {
+      "type": "object",
+      "properties": {
+        "defaultAccount": {
+          "type": "string"
+        },
+        "preverifiedAccount": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.SettlementUploadRequest.Schedule.LineItem.AccountDetails.Source"
+    }
+  }
+}

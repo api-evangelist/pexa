@@ -1,0 +1,63 @@
+generated: '2026-10-20'
+method: searched
+probe: true
+source: https://www.pexa.com.au/privacy-policy/
+signals:
+  data_subject_request:
+    url: https://www.pexa.com.au/privacy-policy/
+    section: How can you access and correct your information?
+    channel: registration@pexa.com.au
+    rights_named: [access, correction]
+    evidence:
+    - source: https://www.pexa.com.au/privacy-policy/
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        If you want to access any of the personal information that we hold about you or to correct some
+        aspect of it (e.g. because you think it is incomplete or incorrect), please contact us at
+        registration@pexa.com.au
+    - source: https://www.pexa.com.au/privacy-policy/
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        We may be unable to correct information about you if doing so would be contrary to law or impact
+        the integrity of a transaction.
+    note: >-
+      Access and correction rights (Australian Privacy Principles) are offered by email request. No response
+      SLA, deletion right or portability right is stated; correction may be refused where it would affect
+      transaction integrity. Complaints go to a Privacy Officer under the APPs.
+  data_retention:
+    url: https://www.pexa.com.au/privacy-policy/
+    section: When do we delete information?
+    evidence:
+    - source: https://www.pexa.com.au/privacy-policy/
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        We’re required by law to retain some information for certain periods of time, including where the
+        MOR requires indefinite retention of particular information. When we no longer require your
+        information, we take reasonable steps to ensure that your information is destroyed, de-identified,
+        or rendered inaccessible.
+    note: >-
+      Purpose-bound retention with no fixed periods published; the Model Operating Requirements (MOR) for
+      electronic lodgment network operators can require indefinite retention of some records. The policy
+      also states de-identified/aggregated data may be commercialised across the PEXA Group.
+  data_residency:
+    url: https://www.pexa.com.au/privacy-policy/
+    section: How do we store and secure your personal information?
+    evidence:
+    - source: https://www.pexa.com.au/privacy-policy/
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        Any infrastructure forming part of our ELN system and in which personal information is stored, is
+        located within Australia.
+    note: >-
+      Australian residency is stated for the ELN (electronic lodgment network) system only; the same section
+      says other personal information may be held by third-party data storage providers, without a stated
+      location. No overseas-disclosure (APP 8) list was found on the page.
+pages_checked:
+- {url: 'https://www.pexa.com.au/privacy-policy/', http_status: 200, fetched: '2026-10-20'}
+- {url: 'https://www.pexa.com.au/terms-conditions/', http_status: 200, fetched: '2026-10-20', note: 'Victorian governing law; incorporates the Privacy Statement; no regulatory signals beyond that'}
+- {url: 'https://www.pexa.com.au/security/', http_status: 200, fetched: '2026-10-20', note: 'consumer fraud-awareness page; no incident-notification or disclosure language'}
+- {url: 'https://compliance.pexa.com.au/s/', http_status: 200, fetched: '2026-10-20', note: 'Salesforce-hosted compliance portal shell, 1232 chars per dossier; no signal language'}

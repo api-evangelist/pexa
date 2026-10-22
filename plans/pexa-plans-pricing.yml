@@ -1,0 +1,42 @@
+name: PEXA pricing
+generated: '2026-10-20'
+method: searched
+source: https://www.pexa.com.au/api-pricing/
+audience: developer-api
+pricing_basis: negotiated
+published: false
+plan_count: 0
+delivery:
+  delivery: managed
+currency: AUD
+note: >-
+  PEXA publishes no API price list. The API Pricing page states that Exchange API pricing "is determined
+  by the type, level and class of integration, as well as the applicable permitted purpose" and directs
+  integrators to "contact us for Exchange API pricing". Access to the Developer Portal, credentials,
+  test environments and production APIs requires a signed PEXA Integration Services Agreement. The two
+  agreement categories the page names are recorded below as service categories, not priced tiers. The
+  separate per-transaction PEXA Fee schedule (https://www.pexa.com.au/pricing/, "All prices include
+  GST.") prices the conveyancing product itself, and the API page states the API fee "is separate to
+  the PEXA Fee"; it is therefore not recorded as API pricing here.
+plans:
+- name: Own use
+  description: Subscribers using Exchange APIs for their own conveyancing transactions, related information, reports and analytics
+  price: Contact sales
+  price_text: contact us for Exchange API pricing
+  features:
+  - Process one’s own conveyancing transactions/workspaces on Exchange.
+  - Generate reports and analytics from own workspaces for own consumption.
+  limits: []
+- name: 3rd party use
+  description: Intermediary Service Providers (subscribers or software providers) providing a platform or service to other subscribers using Exchange APIs.
+  price: Contact sales
+  price_text: contact us for Exchange API pricing
+  features:
+  - Process other subscriber’s conveyancing transactions/workspaces on Exchange.
+  - Generate reports and analytics for other subscriber’s using their Exchange data.
+  limits:
+  - each subscriber will need to give consent to PEXA share their workspace data and information with the Intermediary Service Provider
+related_pricing:
+- type: Pricing
+  url: https://www.pexa.com.au/pricing/
+  note: per-instrument PEXA transaction service fees by state (business-product, not API pricing)

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-projects-workspace-schema.json",
+  "title": "ProjectsWorkspace",
+  "description": "Details of a workspace",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-project-api-openapi.yml#/components/schemas/ProjectsWorkspace",
+  "type": "object",
+  "properties": {
+    "workspaceId": {
+      "type": "string",
+      "description": "The id of the workspace",
+      "format": "string"
+    },
+    "subscriberReference": {
+      "type": "string",
+      "description": "The subscriber reference",
+      "format": "string"
+    },
+    "unregisteredLotNumbers": {
+      "type": "array",
+      "description": "The lot numbers on unregistered plan",
+      "items": {
+        "description": "An unregistered lot number",
+        "type": "string"
+      }
+    },
+    "childTitles": {
+      "type": "array",
+      "description": "The list of child titles",
+      "items": {
+        "description": "A child title",
+        "type": "string"
+      }
+    },
+    "participantRepresentativeData": {
+      "type": "object",
+      "description": "The details of the participant representatives",
+      "properties": {
+        "incomingMortgagee": {
+          "type": "array",
+          "description": "The list of participant representatives for incoming mortgagee",
+          "items": {
+            "description": "The name of a participant representative for incoming mortgagee",
+            "type": "string"
+          }
+        },
+        "mortgageeOnTitle": {
+          "type": "array",
+          "description": "The list of participant representatives for mortgagee on title",
+          "items": {
+            "description": "The name of a participant representative for mortgagee on title",
+            "type": "string"
+          }
+        },
+        "incomingProprietor": {
+          "type": "array",
+          "description": "The list of participant representatives for incoming proprietor",
+          "items": {
+            "description": "The name of a participant representative for incoming proprietor",
+            "type": "string"
+          }
+        },
+        "proprietorOnTitle": {
+          "type": "array",
+          "description": "The list of participant representatives for proprietor on title",
+          "items": {
+            "description": "The name of a participant representative for proprietors on title",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "unrepresentedPartyData": {
+      "type": "object",
+      "description": "The details of the unrepresented parties",
+      "properties": {
+        "incomingMortgagee": {
+          "type": "array",
+          "description": "The list of unrepresented parties for incoming mortgagee",
+          "items": {
+            "description": "The name of an unrepresented party for incoming mortgagee",
+            "type": "string"
+          }
+        },
+        "mortgageeOnTitle": {
+          "type": "array",
+          "description": "The list of unrepresented parties for mortgagee on title",
+          "items": {
+            "description": "The name of an unrepresented party for mortgagee on title",
+            "type": "string"
+          }
+        },
+        "incomingProprietor": {
+          "type": "array",
+          "description": "The list of unrepresented parties for incoming proprietor",
+          "items": {
+            "description": "The name of an unrepresented party for incoming proprietor",
+            "type": "string"
+          }
+        },
+        "proprietorOnTitle": {
+          "type": "array",
+          "description": "The list of unrepresented parties for proprietor on title",
+          "items": {
+            "description": "The name of an unrepresented party for proprietors on title",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "lodgementStatus": {
+      "type": "string",
+      "description": "The lodgement status",
+      "format": "string"
+    },
+    "settlementStatus": {
+      "type": "string",
+      "description": "The settlement status",
+      "format": "string"
+    },
+    "settlementDate": {
+      "type": "string",
+      "description": "The settlement date (format: YYYY-MM-DD, for example, 2023-01-25)",
+      "format": "date"
+    },
+    "settlementDateAcceptance": {
+      "type": "object",
+      "description": "The status of settlement date acceptance",
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/SettlementDateStatus"
+        },
+        "statusDetails": {
+          "type": "object",
+          "description": "The status of settlement date acceptance by participants",
+          "properties": {
+            "acceptanceByIncomingMortgageeReps": {
+              "$ref": "#/$defs/ParticipantSettlementDateStatus"
+            },
+            "acceptanceByMortgageeOnTitleReps": {
+              "$ref": "#/$defs/ParticipantSettlementDateStatus"
+            },
+            "acceptanceByIncomingProprietorReps": {
+              "$ref": "#/$defs/ParticipantSettlementDateStatus"
+            }
+          }
+        }
+      }
+    },
+    "financialData": {
+      "type": "object",
+      "description": "The financial details of the workspace",
+      "properties": {
+        "gstWithholdingStatus": {
+          "$ref": "#/$defs/GstWithholdingStatus"
+        },
+        "grossConsideration": {
+          "type": "string",
+          "description": "The gross consideration amount",
+          "format": "string"
+        },
+        "vendorFunds": {
+          "type": "string",
+          "description": "The vendor funds amount",
+          "format": "string"
+        },
+        "payoutAmount": {
+          "type": "string",
+          "description": "The payout amount",
+          "format": "string"
+        },
+        "balanced": {
+          "type": "boolean",
+          "description": "Whether the workspace is balanced"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "GstWithholdingStatus": {
+      "type": "string",
+      "description": "The status of GST withholding. Can be one of the following: * MATCHING - Form one lodged via PEXA and GST line item created * MANUAL - Form one not lodged via PEXA but GST line item created * NOT_LODGED - Form one not lodged via PEXA and no GST line item created * MISMATCH - Incorrect PRN and/or GST amount entered\n",
+      "format": "string"
+    },
+    "ParticipantSettlementDateStatus": {
+      "type": "string",
+      "description": "The status of settlement date acceptance by a participant. Can be one of the following: * ACCEPTED - Accepted * PENDING - Awaiting Response\n",
+      "format": "string"
+    },
+    "SettlementDateStatus": {
+      "type": "string",
+      "description": "The overall status of settlement date acceptance. Can be one of the following: * ACCEPTED - All Accepted * PARTIALLY_ACCEPTED - Pending others * PENDING - Pending * NO_ACCEPTANCE - No acceptance\n",
+      "format": "string"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-propose-settlement-request-schema.json",
+  "title": "ProposeSettlementRequest",
+  "description": "Request to propose settlement dates",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspaces-api-openapi.yml#/components/schemas/ProposeSettlementRequest",
+  "type": "object",
+  "properties": {
+    "settlementDateAndTime": {
+      "type": "string",
+      "description": "The date time to propose settlement at in ISO8601 format"
+    },
+    "reason": {
+      "type": "string",
+      "description": "The reason to propose settlement at this time"
+    }
+  }
+}

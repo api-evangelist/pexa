@@ -1,7 +1,8 @@
 ---
-name: Subscribe to PEXA workspace events over webhooks
+name: pexa-subscribe-to-workspace-events
+title: Subscribe to PEXA workspace events over webhooks
 description: Register a webhook endpoint with the PEXA Notification Service, verify HMAC signatures, dedupe on webhook-id, and rotate the shared secret before it expires.
-api: openapi/pexa-notification-service-openapi.yaml
+api: openapi/_original/pexa-notification-service-openapi.yaml
 operations:
   - createNotificationRegistrationV3
   - createNotificationRegistration
@@ -11,7 +12,7 @@ operations:
   - createNotificationSecretRotation
 generated: '2026-07-26'
 method: generated
-source: openapi/pexa-notification-service-openapi.yaml + asyncapi/pexa-notification-webhooks.yml
+source: openapi/_original/pexa-notification-service-openapi.yaml + asyncapi/pexa-notification-webhooks.yml
 ---
 
 # Subscribe to PEXA workspace events over webhooks

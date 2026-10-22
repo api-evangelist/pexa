@@ -1,0 +1,496 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-workspace-update-request-schema.json",
+  "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspace-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkspaceUpdateRequest",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "string",
+      "description": " The PEXA internal reference for the subscriber initiating the API service call.<br> Note: Subscriber Id is not required for any subscribers using token based authentication (OAuth, SAML etc.).<br> For mutual SSL authentication, the Subscriber Id must be provided. <br> Maximum 19 characters"
+    },
+    "workspaceId": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "subscriberReference": {
+      "type": "string"
+    },
+    "landTitleDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails"
+    },
+    "newSubscriberReference": {
+      "type": "string"
+    },
+    "additionalRoleDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails"
+    },
+    "partyDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "localityName": {
+          "type": "string"
+        },
+        "postalDelivery": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "addressLines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2OverseasAddressAddressLineDetailsType"
+          }
+        },
+        "countryCode": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType": {
+      "type": "object",
+      "properties": {
+        "postalDeliveryNumber": {
+          "type": "string"
+        },
+        "postalDeliveryTypeCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2PostalDeliveryDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "roadName": {
+          "type": "string"
+        },
+        "roadNumbers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType"
+          }
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        },
+        "roadTypeCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadNumberType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "addressSiteName": {
+          "type": "string"
+        },
+        "complexRoads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressComplexRoadDetailsType"
+          }
+        },
+        "level": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType"
+        },
+        "localityName": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType"
+        },
+        "secondaryComplex": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "subDwellingUnitType": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType": {
+      "type": "object",
+      "properties": {
+        "levelNumber": {
+          "type": "string"
+        },
+        "levelTypeCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressLevelDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "lotNumber": {
+          "type": "string"
+        },
+        "roadName": {
+          "type": "string"
+        },
+        "roadNumber": {
+          "type": "string"
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        },
+        "roadTypeCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType": {
+      "type": "object",
+      "properties": {
+        "unitNumber": {
+          "type": "string"
+        },
+        "unitTypeCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+    },
+    "au.net.pexa.api.schema._1.Address2Type": {
+      "type": "object",
+      "properties": {
+        "correspondenceAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2CorrespondenceAddressDetailsType"
+        },
+        "overseasAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2OverseasAddressDetailsType"
+        },
+        "streetAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2StreetAddressDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.Address2Type"
+    },
+    "au.net.pexa.api.schema._1.AdministrationStatusDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.AdministrationStatusDetailsType"
+    },
+    "au.net.pexa.api.schema._1.BusinessType": {
+      "type": "object",
+      "properties": {
+        "administrationStatuses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.AdministrationStatusDetailsType"
+          }
+        },
+        "businessName": {
+          "type": "string"
+        },
+        "businessUnit": {
+          "type": "string"
+        },
+        "identifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.IdentificationDetailsType"
+          }
+        },
+        "legalEntityName": {
+          "type": "string"
+        },
+        "organisationType": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.BusinessType"
+    },
+    "au.net.pexa.api.schema._1.ForeignCountryShareDetailsType": {
+      "type": "object",
+      "properties": {
+        "foreignPercent": {
+          "type": "number"
+        },
+        "foreignShareholderCountry": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.ForeignCountryShareDetailsType"
+    },
+    "au.net.pexa.api.schema._1.ForeignPartyDetailsType": {
+      "type": "object",
+      "properties": {
+        "foreignCountry": {
+          "type": "string"
+        },
+        "foreignCountryShares": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.ForeignCountryShareDetailsType"
+          }
+        },
+        "foreignPartyIndicator": {
+          "type": "string"
+        },
+        "foreignPartyType": {
+          "type": "string"
+        },
+        "residentPartyIndicator": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.ForeignPartyDetailsType"
+    },
+    "au.net.pexa.api.schema._1.FullNameType": {
+      "type": "object",
+      "properties": {
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "familyNameOrder": {
+          "type": "string"
+        },
+        "givenNames": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.GivenNameOrderType"
+          }
+        },
+        "nameSuffix": {
+          "type": "string"
+        },
+        "nameTitle": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.FullNameType"
+    },
+    "au.net.pexa.api.schema._1.GivenNameOrderType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.GivenNameOrderType"
+    },
+    "au.net.pexa.api.schema._1.IdentificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.IdentificationDetailsType"
+    },
+    "au.net.pexa.api.schema._1.PartyCapacityDetailsType": {
+      "type": "object",
+      "properties": {
+        "partyCapacityDetail": {
+          "type": "string"
+        },
+        "partyCapacityType": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.PartyCapacityDetailsType"
+    },
+    "au.net.pexa.api.schema._1.TrustDetailsType": {
+      "type": "object",
+      "properties": {
+        "trustIndicator": {
+          "type": "string"
+        },
+        "trustName": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.TrustDetailsType"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails": {
+      "type": "object",
+      "properties": {
+        "otherRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole": {
+      "type": "object",
+      "properties": {
+        "roleActionType": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "subscriberReference": {
+          "type": "string"
+        },
+        "isDefaultRole": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.AdditionalRoleDetails.OtherRole"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails": {
+      "type": "object",
+      "properties": {
+        "landTitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle": {
+      "type": "object",
+      "properties": {
+        "landTitleActionType": {
+          "type": "string"
+        },
+        "landTitleReference": {
+          "type": "string"
+        },
+        "unregisteredLotReference": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.LandTitleDetails.LandTitle"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails"
+    },
+    "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party": {
+      "type": "object",
+      "properties": {
+        "partyActionType": {
+          "type": "string"
+        },
+        "partyId": {
+          "type": "string"
+        },
+        "representingParty": {
+          "type": "string"
+        },
+        "partyType": {
+          "type": "string"
+        },
+        "partyRole": {
+          "type": "string"
+        },
+        "fullName": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.FullNameType"
+        },
+        "business": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.BusinessType"
+        },
+        "currentAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2Type"
+        },
+        "futureAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.Address2Type"
+        },
+        "partyCapacityDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.PartyCapacityDetailsType"
+        },
+        "trustDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.TrustDetailsType"
+        },
+        "foreignPartyDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.ForeignPartyDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkspaceUpdateRequest.PartyDetails.Party"
+    }
+  }
+}

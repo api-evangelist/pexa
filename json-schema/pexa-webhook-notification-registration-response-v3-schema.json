@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-webhook-notification-registration-response-v3-schema.json",
+  "title": "WebhookNotificationRegistrationResponseV3",
+  "description": "Response body returned after successfully creating a V3 webhook registration. Store the sharedSecret securely. It is used to verify the HMAC signature on all incoming webhook requests. The sharedSecret expires after 30 days; rotate it before expiry using the secret rotation endpoint to avoid interruption to webhook delivery.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-notificationregistration-api-openapi.yml#/components/schemas/WebhookNotificationRegistrationResponseV3",
+  "type": "object",
+  "properties": {
+    "notificationType": {
+      "type": "string"
+    },
+    "eventTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "integratorId": {
+      "type": "string"
+    },
+    "integratorType": {
+      "type": "string"
+    },
+    "registrationId": {
+      "type": "string"
+    },
+    "subscriberId": {
+      "type": "string"
+    },
+    "sharedSecret": {
+      "type": "string",
+      "description": "System-generated shared secret for HMAC validation"
+    },
+    "sharedSecretExpiry": {
+      "type": "string"
+    },
+    "webhookURI": {
+      "type": "string",
+      "format": "uri"
+    },
+    "authenticationMode": {
+      "$ref": "#/$defs/AuthenticationMode"
+    },
+    "authConfig": {
+      "$ref": "#/$defs/AuthConfigResponse"
+    }
+  },
+  "$defs": {
+    "AuthConfigResponse": {
+      "type": "object",
+      "description": "OAuth configuration returned in registration responses.",
+      "properties": {
+        "authUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientAuthMethod": {
+          "$ref": "#/$defs/ClientAuthMethod"
+        },
+        "audience": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticationMode": {
+      "type": "string",
+      "description": "Authentication mode for webhook notifications.\n\nAllowed values: HMAC, HMAC_OAUTH\n"
+    },
+    "ClientAuthMethod": {
+      "type": "string",
+      "description": "OAuth 2.0 client authentication method.\n\nAllowed values: private_key_jwt, client_secret\n"
+    }
+  }
+}

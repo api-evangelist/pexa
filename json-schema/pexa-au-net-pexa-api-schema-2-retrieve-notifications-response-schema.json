@@ -1,0 +1,772 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-2-retrieve-notifications-response-schema.json",
+  "title": "au.net.pexa.api.schema._2.RetrieveNotificationsResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-subscriber-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._2.RetrieveNotificationsResponse",
+  "type": "object",
+  "properties": {
+    "notificationsList": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationsListType"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._2.AdministrationStatusDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+    },
+    "au.net.pexa.api.schema._2.BusinessType": {
+      "type": "object",
+      "properties": {
+        "legalEntityName": {
+          "type": "string",
+          "description": "Maximum 150 characters"
+        },
+        "businessName": {
+          "type": "string",
+          "description": " Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. "
+        },
+        "businessUnit": {
+          "type": "string",
+          "description": " Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. "
+        },
+        "organisationType": {
+          "type": "string",
+          "description": "Must be provided if Party Type is Organisation"
+        },
+        "administrationStatuses": {
+          "type": "array",
+          "description": " Must be provided if Organisation Type is 'Registered company in external administration' ",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+          }
+        },
+        "identifications": {
+          "type": "array",
+          "description": " External identification of the party through a registered organisation.",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.IdentificationDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.BusinessType"
+    },
+    "au.net.pexa.api.schema._2.FullNameType": {
+      "type": "object",
+      "properties": {
+        "nameTitle": {
+          "type": "string",
+          "description": " Title (e.g. 'Mr', 'Ms', 'Prof') "
+        },
+        "givenNames": {
+          "type": "array",
+          "description": " Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.GivenNameOrderType"
+          }
+        },
+        "familyName": {
+          "type": "string",
+          "description": " Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. "
+        },
+        "familyNameOrder": {
+          "type": "string",
+          "description": " Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last "
+        },
+        "nameSuffix": {
+          "type": "string",
+          "description": " Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time",
+          "description": " This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. "
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.FullNameType"
+    },
+    "au.net.pexa.api.schema._2.GivenNameOrderType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.GivenNameOrderType"
+    },
+    "au.net.pexa.api.schema._2.IdentificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Maximum 20 characters <br> Must be provided without whitespaces."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.IdentificationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType": {
+      "type": "object",
+      "properties": {
+        "administrativeActionTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "administrativeActionType": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationConversationDetailsType": {
+      "type": "object",
+      "properties": {
+        "conversationId": {
+          "type": "string",
+          "description": "The unique identifier of the conversation <br> Maximum 19 characters"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp that the conversation was created in PEXA (in UTC)."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationConversationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "financialLineItem": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationFinancialLineItemType"
+        },
+        "invitation": {
+          "description": " Notification details related to invitations.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationDetailsType"
+        },
+        "landTitle": {
+          "description": " Notification details related to the land title references in the workspace.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationLandTitleDetailsType"
+        },
+        "party": {
+          "description": " Notification details related to the party details in the workspace.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationPartyDetailsType"
+        },
+        "document": {
+          "description": " Notification details related to the documents in the workspace.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationDocumentDetailsType"
+        },
+        "settlementSchedule": {
+          "description": " Notification details related to the settlement schedule in the workspace.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType"
+        },
+        "workspaceStatus": {
+          "type": "string",
+          "description": " Notification detail related to the workspace status. "
+        },
+        "settlement": {
+          "description": "Notification details related to settlement.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationSettlementDetailsType"
+        },
+        "lodgement": {
+          "description": " Notification details related to lodgement. ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationLodgementDetailsType"
+        },
+        "participant": {
+          "description": " Notification details related to participants in the workspace. ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationParticipantDetailsType"
+        },
+        "conversation": {
+          "description": " Notification details related to conversations in the workspace. ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationConversationDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationDocumentDetailsType": {
+      "type": "object",
+      "properties": {
+        "documentType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "documentId": {
+          "type": "string",
+          "description": " The PEXA internal document identifier. <br> Maximum 19 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationDocumentDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType": {
+      "type": "object",
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "description": " Jurisdiction specific document name or document type e.g. 'Mortgage', 'Caveat', 'Settlement Notice' etc."
+        },
+        "lrDocumentId": {
+          "type": "string",
+          "description": " Where a dealing number was allocated to the document by the LR, the dealing number associated with this document.<br>  Where a dealing number is not allocated, this may contain an alternate identifier"
+        },
+        "documentStatusDetails": {
+          "type": "array",
+          "description": "Internal LR document status",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType": {
+      "type": "object",
+      "properties": {
+        "documentStatusTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": " The date and time at which the status occurred (in UTC).<br> This provides the equivalent of lodgement date, registration date or another appropriate document date"
+        },
+        "documentStatus": {
+          "type": "string",
+          "description": "Information that specifies the current state of a Document in a Land Registry"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationDocumentStatusDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationFinancialLineItemType": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "owningSubscriberId": {
+          "type": "string"
+        },
+        "owningSubscriberName": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationFinancialLineItemType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationDetailsType": {
+      "type": "object",
+      "properties": {
+        "outstanding": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType"
+        },
+        "response": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType": {
+      "type": "object",
+      "properties": {
+        "inviteId": {
+          "type": "string",
+          "description": " The PEXA internal reference for the invitation.<br>  Maximum 19 characters"
+        },
+        "forwardedBy": {
+          "type": "string",
+          "description": " If the invitation has been forwarded by a panel master, this must be provided with the panel master subscribers organisation name.<br> Alternately, if the invitation has been forwarded by another subscriber (via the Forward to another Subscriber invitation response) then this will be the subscribers organisation name.  <br>  Maximum 255 characters"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the invitation was created (in UTC)."
+        },
+        "jurisdiction": {
+          "type": "string",
+          "description": "The jurisdiction of the workspace."
+        },
+        "workspaceRole": {
+          "type": "string",
+          "description": " The workspace role the subscriber user has been invited to participate in. "
+        },
+        "settlementDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time of settlement if the workspace is marked as requiring financial settlement (in UTC). Must be provided if financial settlement required unless in the scenario where a workspace has been created with a parent title and no settlement date/time has been set by the participant yet."
+        },
+        "expressRefinance": {
+          "type": "string",
+          "description": " A flag used to specify whether the invitation is for a workspace that is marked as an express refinance. <br> Maximum 3 characters"
+        },
+        "landTitleDetails": {
+          "description": " Provided if the land titles are not marked as parent land titles.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType"
+        },
+        "partyDetails": {
+          "description": " For Principal Subscribers, this will provide the party details of all Proprietor(s) on Title and/or Incoming Proprietor(s) within the workspace at the time the invitation is sent.<br>  If land title data has not been retrieved in the workspace at the time the invitation is sent, no Proprietor on Title details will be provided.<br> Similarly, if the Proprietor on Title party is of an Indeterminate party type at the time the invitation is sent, no Proprietor on Title party details will be provided.<br> For Representative Subscribers, if available, this will provide the details of the party that the invited subscriber user will be representing upon joining the workspace.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType"
+        },
+        "inviterSubscriberDetails": {
+          "description": "Details of the subscriber who has initiated the invite",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType": {
+      "type": "object",
+      "properties": {
+        "partyId": {
+          "type": "string"
+        },
+        "partyName": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PartyNameDetailsType"
+        },
+        "partyRole": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresentingPartyType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType": {
+      "type": "object",
+      "properties": {
+        "subscriberId": {
+          "type": "string",
+          "description": " The PEXA internal reference for the inviter subscriber. <br>Maximum 19 characters"
+        },
+        "subscriberType": {
+          "type": "string",
+          "description": "The type of subscriber the inviter is registered as within PEXA."
+        },
+        "subscriberName": {
+          "type": "string",
+          "description": " The subscriber who has initiated the invite.<br> Maximum 255 characters"
+        },
+        "subscriberWorkspaceRole": {
+          "type": "string",
+          "description": " The workspace role of the subscriber who has initiated the invite.<br>  If Inviter subscriber is acting in multiple roles, the primary role will be provided"
+        },
+        "representing": {
+          "description": "Details of any party(s) the inviter subscriber is representing at the time the invitation is sent.<br> If the subscriber type of the Inviter Subscriber is Financial Institution, no representation details will be provided in the invitation. <br>  Alternatively, if the subscriber type of the Inviter Subscriber is not Financial Institution and the subscriber is not representing any party(s) at the time the invitation is sent, no representation details will be provided in the invitation.<br>If the Inviter subscriber is representing a Proprietor on Title party who is an Indeterminate party type at the time the invitation is sent, no representing party details will be provided.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsRepresenting"
+        },
+        "notes": {
+          "type": "string",
+          "description": " Notes entered in by the subscriber who initiated the invite.<br>  Any forwarding notes which may have been provided by the Subscriber who has forwarded the invitation will appear here.<br>May contain line feeds  Maximum 160 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingInviterSubscriberDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType": {
+      "type": "object",
+      "properties": {
+        "landTitleReference": {
+          "type": "string"
+        },
+        "propertyDetails": {
+          "description": " The property details associated to the land title reference. <br>  Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.  ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PropertyDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType": {
+      "type": "object",
+      "properties": {
+        "landTitles": {
+          "type": "array",
+          "description": " Provided if the land titles are not marked as parent land titles. ",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingLandTitleType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType": {
+      "type": "object",
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": " Maximum 19 characters"
+        },
+        "partyRole": {
+          "type": "string"
+        },
+        "partyName": {
+          "description": " Must be one of the following: Full Name, Business Detail ",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PartyNameDetailsType"
+        },
+        "associatedLandTitleReferences": {
+          "type": "array",
+          "description": "This is the land title reference that the party within the invitation is associated to.<br>Note: This value must be provided for parties in the role of Proprietor on Title. For other party roles (such as Incoming Proprietors) it will not be provided.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationOutstandingPartyType"
+    },
+    "au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType": {
+      "type": "object",
+      "properties": {
+        "inviteId": {
+          "type": "string",
+          "description": " The PEXA internal reference for the invitation.<br> Maximum 19 characters"
+        },
+        "subscriberId": {
+          "type": "string",
+          "description": "The PEXA internal reference for the subscriber who was invited to participate in the workspace. <br> For forwarded invitations, this will be the subscriber id of the subscriber who has received and actioned the forwarded invitation. <br>  Maximum 19 characters"
+        },
+        "subscriberName": {
+          "type": "string",
+          "description": " The subscribers PEXA organisation name<br> Maximum 255 characters "
+        },
+        "workspaceRole": {
+          "type": "string",
+          "description": " The workspace role the subscriber user has been invited to participate in. "
+        },
+        "responseReason": {
+          "type": "string",
+          "description": " The subscribers response reason. "
+        },
+        "additionalText": {
+          "type": "string",
+          "description": "Additional text entered by the invited subscriber. <br> Must be provided if the response reason is Other. <br>  Maximum 250 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationInvitationResponseDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationLandTitleDetailsType": {
+      "type": "object",
+      "properties": {
+        "landTitleReference": {
+          "type": "string"
+        },
+        "titleActivityCheck": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationTitleActivityCheck"
+        },
+        "propertyDetails": {
+          "description": "The property details associated to the land title reference. <br> Note that depending on the workspace jurisdiction and whether land title data has been procured; there may be no property details.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PropertyDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationLandTitleDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationLodgementDetailsType": {
+      "type": "object",
+      "properties": {
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType"
+          }
+        },
+        "lodgementCaseStatus": {
+          "type": "string"
+        },
+        "lodgementCaseId": {
+          "type": "string",
+          "description": "The PEXA internal lodgement case identifier. <br> Maximum 19 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationLodgementDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType": {
+      "type": "object",
+      "properties": {
+        "documentStatus": {
+          "type": "string"
+        },
+        "documentType": {
+          "type": "string"
+        },
+        "landTitleReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "documentId": {
+          "type": "string",
+          "description": " The PEXA internal document identifier. <br> Maximum 19 characters"
+        },
+        "dealingNumber": {
+          "type": "string",
+          "description": "Maximum 30 characters "
+        },
+        "mortgageDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Will only be provided if the document type is Mortgage."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": " The date and time the document status last changed (in UTC)."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationLodgementDocumentDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationParticipantDetailsType": {
+      "type": "object",
+      "properties": {
+        "subscriberName": {
+          "type": "string",
+          "description": "The subscribers PEXA organisation name. <br> Maximum 255 characters"
+        },
+        "workspaceRoles": {
+          "type": "array",
+          "description": "The workspace role the subscriber was performing in.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationParticipantDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationPartyDetailsType": {
+      "type": "object",
+      "properties": {
+        "partyName": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PartyNameDetailsType"
+        },
+        "partyRole": {
+          "type": "string"
+        },
+        "partyId": {
+          "type": "string",
+          "description": " Maximum 19 characters "
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationPartyDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationSettlementDetailsType": {
+      "type": "object",
+      "properties": {
+        "settlementDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time of the settlement (in UTC). "
+        },
+        "reason": {
+          "type": "string",
+          "description": "Maximum 255 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationSettlementDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": " The status of the settlement schedule."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationSettlementScheduleDetailsType"
+    },
+    "au.net.pexa.api.schema._2.NotificationTitleActivityCheck": {
+      "type": "object",
+      "properties": {
+        "administrativeActionReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationAdministrativeActionReferenceDetailsType"
+          }
+        },
+        "documentReferences": {
+          "type": "array",
+          "description": "A document that has been lodged or registered against the Land Title in question within the period in question",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationDocumentReferenceDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationTitleActivityCheck"
+    },
+    "au.net.pexa.api.schema._2.NotificationType": {
+      "type": "object",
+      "properties": {
+        "subscriberId": {
+          "type": "string",
+          "description": "The PEXA internal reference for the subscriber. <br> Maximum 19 characters"
+        },
+        "systemGenerated": {
+          "type": "string",
+          "description": "A flag used to delineate whether a business event/notification has been generated by either a subscriber user (flag = no) or the PEXA system (flag=yes). <br> Maximum 3 characters"
+        },
+        "initiatingSubscriberId": {
+          "type": "string",
+          "description": "If System Generated flag is set to no then this will be the Subscriber Id who has initiated the business event/notification being triggered. <br> Maximum 19 characters"
+        },
+        "initiatingSubscriberName": {
+          "type": "string",
+          "description": "The legal entity name of the initiating subscriber which correlates to the initiating subscriber id above. <br> Must be provided if System Generated is set to no. <br> Must not be provided if System Generated flag is set to yes. <br> Maximum 255 characters"
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "The PEXA workspace number. Maximum 13 characters"
+        },
+        "subscriberReferences": {
+          "type": "array",
+          "description": "The subscribers workspace reference. Users may utilise this to associate the workspace with an internal customers application. <br> Where a subscriber is acting in multiple roles in a workspace, the subscriber reference will be provided for each role.",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.SubscriberReferenceType"
+          }
+        },
+        "eventId": {
+          "type": "string",
+          "description": " The PEXA internal reference for the event.<br> Maximum 19 characters"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": " The timestamp the event occurred (in UTC). "
+        },
+        "severity": {
+          "type": "string",
+          "description": " The severity of the event that has occurred. <br> The severity is determined from a workspace perspective."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the event belongs to. "
+        },
+        "type": {
+          "description": "The event type code and description.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationTypeKeyValue"
+        },
+        "description": {
+          "type": "string",
+          "description": "Freeform field containing additional details on the notification."
+        },
+        "details": {
+          "description": "Notification details for the event that has occurred. <br> Note that different details structures are populated depending on the event type code/description. Refer to 0 for the message structure population rules. <br>  Must be one of the following: Invitation, Land Title, Party, Document, Settlement Schedule, Workspace Status, Settlement, Lodgement, Participant",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationType"
+    },
+    "au.net.pexa.api.schema._2.NotificationTypeKeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationTypeKeyValue"
+    },
+    "au.net.pexa.api.schema._2.NotificationsListType": {
+      "type": "object",
+      "properties": {
+        "notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.NotificationType"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "description": "Total number of notifications in the response.  <br> A count threshold will be provided once confirmed."
+        },
+        "moreData": {
+          "type": "string",
+          "description": "Used to indicate that there is more data to retrieve.  <br> This field will be set to Yes when the Count threshold has been exceeded."
+        },
+        "lastEventTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The latest event timestamp the response contains (in UTC). This value should match the Timestamp' value from the latest notification retrieved in the below structure.  <br> This value can be used as the Last Event Timestamp in the subsequent request message. <br> If no notifications exist for the time period requested then this should be set to the Last Event Timestamp from the original Request message."
+        },
+        "lastEventId": {
+          "type": "string",
+          "description": "The PEXA internal reference for the event. This value should match the Event Id value for the latest notification retrieved in the below structure.  <br> This value should be used as the Last Event Id in the subsequent request message. <br> If no notifications exist for the time period requested then this should be set to the Last Event Id from the original Request message. <br> Maximum 19 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.NotificationsListType"
+    },
+    "au.net.pexa.api.schema._2.PartyNameDetailsType": {
+      "type": "object",
+      "properties": {
+        "businessDetails": {
+          "description": " The organisation details of the party. <br> Must be provided if the party is an organisation.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.BusinessType"
+        },
+        "fullName": {
+          "description": " The structured full name of the party. <br> Must be provided if the party is an individual.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.FullNameType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.PartyNameDetailsType"
+    },
+    "au.net.pexa.api.schema._2.PropertyDetailsType": {
+      "type": "object",
+      "properties": {
+        "landDescription": {
+          "type": "string",
+          "description": " The land description associated to the land title reference.<br>Maximum 300 characters"
+        },
+        "propertyAddress": {
+          "type": "string",
+          "description": "Where available, the property address associated to the land title reference.  <br>  Maximum 300 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.PropertyDetailsType"
+    },
+    "au.net.pexa.api.schema._2.SubscriberReferenceType": {
+      "type": "object",
+      "properties": {
+        "workspaceRole": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "The subscriber reference for the workspace based on the subscribers role  <br> Maximum 30 characters"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.SubscriberReferenceType"
+    }
+  }
+}

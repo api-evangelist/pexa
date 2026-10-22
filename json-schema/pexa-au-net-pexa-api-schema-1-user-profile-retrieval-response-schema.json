@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-user-profile-retrieval-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.UserProfileRetrievalResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-user-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse",
+  "type": "object",
+  "properties": {
+    "userProfile": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile": {
+      "type": "object",
+      "properties": {
+        "subscriberId": {
+          "type": "string"
+        },
+        "subscriberName": {
+          "type": "string"
+        },
+        "subscriberType": {
+          "type": "string"
+        },
+        "subscriberDualSignFss": {
+          "type": "string"
+        },
+        "subscriberDualSignDoc": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "userType": {
+          "type": "string"
+        },
+        "userFirstName": {
+          "type": "string"
+        },
+        "userLastName": {
+          "type": "string"
+        },
+        "workgroupList": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList"
+        },
+        "userPermissionsList": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile"
+    },
+    "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList": {
+      "type": "object",
+      "properties": {
+        "userPermissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList"
+    },
+    "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList": {
+      "type": "object",
+      "properties": {
+        "workgroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList"
+    },
+    "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup": {
+      "type": "object",
+      "properties": {
+        "workgroupId": {
+          "type": "string"
+        },
+        "workgroupName": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup"
+    }
+  }
+}

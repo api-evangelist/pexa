@@ -1,7 +1,8 @@
 ---
-name: Order a title search and reconcile billing on PEXA Plus Marketplace
+name: pexa-order-a-title-search
+title: Order a title search and reconcile billing on PEXA Plus Marketplace
 description: Health check, place a title search order, poll for the result, download the returned documents and pull the billing invoice from the PEXA Plus Marketplace B2B API.
-api: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+api: openapi/_original/pexa-plus-marketplace-b2b-api-openapi.yaml
 operations:
   - getHealth
   - createTitleSearch
@@ -10,7 +11,7 @@ operations:
   - retrieveBilling
 generated: '2026-07-26'
 method: generated
-source: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml + errors/pexa-problem-types.yml
+source: openapi/_original/pexa-plus-marketplace-b2b-api-openapi.yaml + errors/pexa-problem-types.yml
 ---
 
 # Order a title search and reconcile billing on PEXA Plus Marketplace

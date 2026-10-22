@@ -1,0 +1,15 @@
+name: PEXA rate limits
+generated: '2026-10-20'
+method: none
+limit_count: 0
+limits: []
+checked:
+- https://www.pexa.com.au/api-pricing/
+- https://www.pexa.com.au/pexa-apis/
+- https://developer.pexa.com.au/Exchange/docs/documentation/ (JavaScript-rendered portal; read in the 2026-07-26 pass, see conventions/pexa-conventions.yml rate_limiting)
+- openapi/*.yml (no 429 response and no RateLimit/X-RateLimit/Retry-After header on any PEXA REST operation)
+note: >-
+  PEXA publishes no rate-limit policy, quota or rate-limit response headers. The only 429 Too Many
+  Requests in the contracts is on the outbound webhook definitions (SubscriberNotification,
+  NonSubscriberNotification in openapi/pexa-notification-service-api-openapi.yml) — the response a
+  CUSTOMER's endpoint may return to PEXA — not a limit PEXA enforces on callers. An honest zero.

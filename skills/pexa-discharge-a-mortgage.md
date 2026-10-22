@@ -1,7 +1,8 @@
 ---
-name: Discharge a mortgage through PEXA
+name: pexa-discharge-a-mortgage
+title: Discharge a mortgage through PEXA
 description: Run a consolidated standalone mortgage discharge from a financial institution, or create a discharge document inside an existing Exchange workspace.
-api: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+api: openapi/_original/pexa-standalone-discharge-experience-api-openapi.yaml
 operations:
   - processDischarge
   - createUsingPOST
@@ -9,7 +10,7 @@ operations:
   - retrieveWorkspaceSummaryV2UsingGET
 generated: '2026-07-26'
 method: generated
-source: openapi/pexa-standalone-discharge-experience-api-openapi.yaml + openapi/pexa-exchange-api-swagger.json
+source: openapi/_original/pexa-standalone-discharge-experience-api-openapi.yaml + openapi/_original/pexa-exchange-api-swagger.json
 ---
 
 # Discharge a mortgage through PEXA

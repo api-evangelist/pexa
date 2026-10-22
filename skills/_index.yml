@@ -11,7 +11,7 @@ access_note: >-
 skills:
 - file: pexa-create-workspace-and-settle.md
   name: Create a PEXA workspace and take it to settlement
-  api: openapi/pexa-exchange-api-swagger.json
+  api: openapi/_original/pexa-exchange-api-swagger.json
   operations:
   - LTRV
   - workspacecreation
@@ -25,7 +25,7 @@ skills:
   - retrieveSettlementCompletionRecordV1UsingGET
 - file: pexa-subscribe-to-workspace-events.md
   name: Subscribe to PEXA workspace events over webhooks
-  api: openapi/pexa-notification-service-openapi.yaml
+  api: openapi/_original/pexa-notification-service-openapi.yaml
   operations:
   - createNotificationRegistrationV3
   - createNotificationRegistration
@@ -35,7 +35,7 @@ skills:
   - createNotificationSecretRotation
 - file: pexa-settle-a-multi-lot-project.md
   name: Settle a multi-lot development through PEXA Projects
-  api: openapi/pexa-projects-api-v4-openapi.yaml
+  api: openapi/_original/pexa-projects-api-v4-openapi.yaml
   operations:
   - createProject
   - createWorkspace
@@ -47,7 +47,7 @@ skills:
   - workspaces
 - file: pexa-order-a-title-search.md
   name: Order a title search and reconcile billing on PEXA Plus Marketplace
-  api: openapi/pexa-plus-marketplace-b2b-api-openapi.yaml
+  api: openapi/_original/pexa-plus-marketplace-b2b-api-openapi.yaml
   operations:
   - getHealth
   - createTitleSearch
@@ -56,7 +56,7 @@ skills:
   - retrieveBilling
 - file: pexa-discharge-a-mortgage.md
   name: Discharge a mortgage through PEXA
-  api: openapi/pexa-standalone-discharge-experience-api-openapi.yaml
+  api: openapi/_original/pexa-standalone-discharge-experience-api-openapi.yaml
   operations:
   - processDischarge
   - createUsingPOST

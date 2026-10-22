@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-invitation-retrieval-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.InvitationRetrievalResponse",
+  "type": "object",
+  "properties": {
+    "moreData": {
+      "type": "string"
+    },
+    "invites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite"
+      }
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite": {
+      "type": "object",
+      "properties": {
+        "inviteId": {
+          "type": "string"
+        },
+        "forwardedBy": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "workspaceId": {
+          "type": "string"
+        },
+        "workspaceRole": {
+          "type": "string"
+        },
+        "landTitleDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails"
+        },
+        "partyDetails": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails"
+        },
+        "inviterSubscriberName": {
+          "type": "string"
+        },
+        "inviteeSubscriberName": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails": {
+      "type": "object",
+      "properties": {
+        "landTitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle": {
+      "type": "object",
+      "properties": {
+        "landTitleReference": {
+          "type": "string"
+        },
+        "propertyDetails": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.LandTitleDetails.LandTitle"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails"
+    },
+    "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "organisationName": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.InvitationRetrievalResponse.Invite.PartyDetails.Party"
+    }
+  }
+}

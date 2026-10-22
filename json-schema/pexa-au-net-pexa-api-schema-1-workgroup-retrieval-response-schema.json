@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-workgroup-retrieval-response-schema.json",
+  "title": "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-subscriber-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse",
+  "type": "object",
+  "properties": {
+    "workgroups": {
+      "type": "array",
+      "description": "Must not be populated if there are no workgroup(s) for the subscriber.",
+      "items": {
+        "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup"
+      }
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup": {
+      "type": "object",
+      "properties": {
+        "workgroupId": {
+          "type": "string",
+          "description": "Maximum 19 characters"
+        },
+        "workgroupName": {
+          "type": "string",
+          "description": "Maximum 250 characters"
+        },
+        "isParent": {
+          "type": "string",
+          "description": "Whether the workgroup is a parent"
+        },
+        "childWorkgroupList": {
+          "description": "The workgroups child workgroup  <br> Must only be provided if Is Parent is 'Yes' and child workgroups exist.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList"
+        },
+        "parentWorkgroupList": {
+          "description": "The workgroups parent workgroup",
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ParentWorkgroupList"
+        },
+        "assignedUsers": {
+          "description": "Users assigned to the workgroup",
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup"
+    },
+    "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers": {
+      "type": "object",
+      "properties": {
+        "usernames": {
+          "type": "array",
+          "description": "User's email address <br> Maximum 100 characters",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.AssignedUsers"
+    },
+    "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList": {
+      "type": "object",
+      "properties": {
+        "childWorkgroupIds": {
+          "type": "array",
+          "description": "PEXA workgroup number <br> Maximum 19 characters",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ChildWorkgroupList"
+    },
+    "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ParentWorkgroupList": {
+      "type": "object",
+      "properties": {
+        "parentWorkgroupIds": {
+          "type": "array",
+          "description": "PEXA workgroup number <br> Maximum 19 characters",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.WorkgroupRetrievalResponse.Workgroup.ParentWorkgroupList"
+    }
+  }
+}

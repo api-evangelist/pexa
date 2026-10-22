@@ -179,65 +179,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    NotFoundError:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '404001'
-              message: Invalid title search ID
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: '500001'
-              message: An internal error has occurred
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-          example:
-            errors:
-            - code: PL.TITSE.001
-              message: The land title reference provided is invalid for the jurisdiction.
-              field: landTitleReference
   schemas:
-    Error:
-      description: Detailed error related to the API
-      type: object
-      properties:
-        code:
-          description: The error code
-          type: string
-          example: PL.TITSE.001
-        message:
-          description: Human-readable description of the error for debugging purposes
-          type: string
-          example: The land title reference provided is invalid for the jurisdiction.
-        field:
-          description: Name of the field provided in the original request (if any) that the error pertains to
-          type: string
-          example: landTitleReference
-    Errors:
-      description: List of errors related to the API
-      type: object
-      properties:
-        errors:
-          description: Errors returned by the service
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/Error'
     TitleSearchDocuments:
       description: Title search documents
       type: object
@@ -381,6 +323,64 @@ components:
                 type: string
                 example: 'ESTATE: LEASEHOLD ESTATE CREATED BY AA123 EXPIRES 1/2/2022'
               minItems: 1
+    Error:
+      description: Detailed error related to the API
+      type: object
+      properties:
+        code:
+          description: The error code
+          type: string
+          example: PL.TITSE.001
+        message:
+          description: Human-readable description of the error for debugging purposes
+          type: string
+          example: The land title reference provided is invalid for the jurisdiction.
+        field:
+          description: Name of the field provided in the original request (if any) that the error pertains to
+          type: string
+          example: landTitleReference
+    Errors:
+      description: List of errors related to the API
+      type: object
+      properties:
+        errors:
+          description: Errors returned by the service
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: PL.TITSE.001
+              message: The land title reference provided is invalid for the jurisdiction.
+              field: landTitleReference
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '404001'
+              message: Invalid title search ID
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+          example:
+            errors:
+            - code: '500001'
+              message: An internal error has occurred
   parameters:
     TitleSearchIdPath:
       description: Title search id

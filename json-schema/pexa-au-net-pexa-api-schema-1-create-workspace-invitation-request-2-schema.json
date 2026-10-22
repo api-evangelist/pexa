@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-create-workspace-invitation-request-2-schema.json",
+  "title": "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest_2",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "string",
+      "description": "Subscriber id of the subscriber sending the invitation"
+    },
+    "workspaceId": {
+      "type": "string"
+    },
+    "participantDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2"
+    },
+    "participantRole": {
+      "type": "string"
+    },
+    "borrowersMortgagorsNames": {
+      "type": "string",
+      "description": "Borrowers/Mortgagors Names. Only applicable if the invitee role is Incoming Mortgagee (IM) or Source Funder (SF). The field is optional."
+    },
+    "customerAccountLoanNumber": {
+      "type": "string",
+      "description": "Customer/Loan Account Number. Only applicable if the invitee role is Incoming Mortgagee (IM), Mortgagee On Title (MOT), Source Funder (SF) or CT Controller (CT). The field is optional."
+    },
+    "notes": {
+      "type": "string"
+    },
+    "partyDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails": {
+      "type": "object",
+      "properties": {
+        "party": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails"
+    },
+    "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "description": "The client names or party represented names that is associated to the invitation. Can be optionally provided if subscriber being invited (invitee) is in the role of Caveator on Title, Proprietor on Title, Incoming Proprietor, To Deal with An Interest or CT Controller."
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.CreateWorkspaceInvitationRequest.PartyDetails.Party"
+    },
+    "au.net.pexa.api.schema._1.ParticipantDetailsDetailType_2": {
+      "type": "object",
+      "properties": {
+        "subscriberId": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.ParticipantDetailsDetailType"
+    }
+  }
+}

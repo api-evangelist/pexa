@@ -220,6 +220,8 @@ paths:
               $ref: '#/components/schemas/au.net.pexa.api.schema._1.CreateMessageRequest'
         description: createMessageRequest
         required: true
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: postMessageUsingPOST
   /v2/subscriber/conversations:
@@ -257,6 +259,8 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: retrieveUnreadConversationsUsingGET
   /v2/subscriber/conversations/{conversationId}/markAsRead:
@@ -305,6 +309,8 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: markConversationAsReadUsingPUT
   /v2/workspace/{workspaceId}/conversations:
@@ -354,32 +360,38 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: retrieveConversationsListUsingGET
 components:
   schemas:
-    au.net.pexa.api.schema._1.ConversationsRetrievalResponse:
+    au.net.pexa.api.schema._1.CreateMessageRequest:
       type: object
       properties:
-        conversations:
+        actionRequired:
+          type: string
           xml:
-            name: Conversations
+            name: ActionRequired
             attribute: false
             wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
-      title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
-    au.net.pexa.api.schema._1.MessagesType:
-      type: object
-      properties:
-        messages:
-          type: array
+        message:
+          type: string
           xml:
             name: Message
             attribute: false
             wrapped: false
-          items:
-            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
-      title: au.net.pexa.api.schema._1.MessagesType
+        subscriberId:
+          type: string
+          xml:
+            name: SubscriberId
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.CreateMessageRequest
+      xml:
+        name: CreateMessageRequest
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.CreateMessageResponse:
       type: object
       properties:
@@ -394,6 +406,90 @@ components:
         name: CreateMessageResponse
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.ConversationsRetrievalResponse:
+      type: object
+      properties:
+        conversations:
+          xml:
+            name: Conversations
+            attribute: false
+            wrapped: false
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationsType'
+      title: au.net.pexa.api.schema._1.ConversationsRetrievalResponse
+    au.net.pexa.api.schema._1.MessageType:
+      type: object
+      properties:
+        actionRequired:
+          type: string
+          xml:
+            name: ActionRequired
+            attribute: false
+            wrapped: false
+        actionRequiredComplete:
+          type: string
+          xml:
+            name: ActionRequiredComplete
+            attribute: false
+            wrapped: false
+        firstName:
+          type: string
+          xml:
+            name: FirstName
+            attribute: false
+            wrapped: false
+        lastName:
+          type: string
+          xml:
+            name: LastName
+            attribute: false
+            wrapped: false
+        message:
+          type: string
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+        messageCreated:
+          type: string
+          xml:
+            name: MessageCreated
+            attribute: false
+            wrapped: false
+        messageId:
+          type: string
+          xml:
+            name: MessageId
+            attribute: false
+            wrapped: false
+        subscriberName:
+          type: string
+          xml:
+            name: SubscriberName
+            attribute: false
+            wrapped: false
+        unread:
+          type: string
+          xml:
+            name: Unread
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.MessageType
+      xml:
+        name: messageType
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.MessagesType:
+      type: object
+      properties:
+        messages:
+          type: array
+          xml:
+            name: Message
+            attribute: false
+            wrapped: false
+          items:
+            $ref: '#/components/schemas/au.net.pexa.api.schema._1.MessageType'
+      title: au.net.pexa.api.schema._1.MessagesType
     au.net.pexa.api.schema._1.ConversationType:
       type: object
       properties:
@@ -470,94 +566,6 @@ components:
             attribute: false
             wrapped: false
       title: au.net.pexa.api.schema._1.ConversationType
-    au.net.pexa.api.schema._1.CreateMessageRequest:
-      type: object
-      properties:
-        actionRequired:
-          type: string
-          xml:
-            name: ActionRequired
-            attribute: false
-            wrapped: false
-        message:
-          type: string
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-        subscriberId:
-          type: string
-          xml:
-            name: SubscriberId
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.CreateMessageRequest
-      xml:
-        name: CreateMessageRequest
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.MessageType:
-      type: object
-      properties:
-        actionRequired:
-          type: string
-          xml:
-            name: ActionRequired
-            attribute: false
-            wrapped: false
-        actionRequiredComplete:
-          type: string
-          xml:
-            name: ActionRequiredComplete
-            attribute: false
-            wrapped: false
-        firstName:
-          type: string
-          xml:
-            name: FirstName
-            attribute: false
-            wrapped: false
-        lastName:
-          type: string
-          xml:
-            name: LastName
-            attribute: false
-            wrapped: false
-        message:
-          type: string
-          xml:
-            name: Message
-            attribute: false
-            wrapped: false
-        messageCreated:
-          type: string
-          xml:
-            name: MessageCreated
-            attribute: false
-            wrapped: false
-        messageId:
-          type: string
-          xml:
-            name: MessageId
-            attribute: false
-            wrapped: false
-        subscriberName:
-          type: string
-          xml:
-            name: SubscriberName
-            attribute: false
-            wrapped: false
-        unread:
-          type: string
-          xml:
-            name: Unread
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.MessageType
-      xml:
-        name: messageType
-        attribute: false
-        wrapped: false
     au.net.pexa.api.schema._1.ConversationsType:
       type: object
       properties:
@@ -570,6 +578,34 @@ components:
           items:
             $ref: '#/components/schemas/au.net.pexa.api.schema._1.ConversationType'
       title: au.net.pexa.api.schema._1.ConversationsType
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            au_pub_pexa_healthcheck_api_v2_read: Health check read access
+            au_pub_pexa_landtitle_api_v2_read: Land title read access
+            au_pub_pexa_conversation_api_v2_read: Conversation read access
+            au_pub_pexa_conversation_api_v2_write: Conversation write access
+            au_pub_pexa_invitation_api_v2_read: Invitation read access
+            au_pub_pexa_invitation_api_v2_write: Invitation write access
+            au_pub_pexa_subscriber_api_v3_read: Subscriber v3 read access
+            au_pub_pexa_subscriber_api_v4_read: Subscriber v4 read access
+            au_pub_pexa_user_api_v3_read: User profile read access
+            au_pub_pexa_workspace_api_v4_write: Workspace v4 write access
+            au_pub_pexa_workspace_api_v5_read: Workspace v5 read access
+            au_pub_pexa_workspace_api_v5_write: Workspace v5 write access
+            au_pub_pexa_workspace_api_v6_read: Workspace v6 read access
+            au_pub_pexa_documents_api_v2_read: Documents read access
+            au_pub_pexa_documents_api_v2_write: Documents write access
+            au_pub_pexa_financial_settlement_schedule_api_v2_read: Financial settlement schedule read access
+            au_pub_pexa_financial_settlement_schedule_api_v2_write: Financial settlement schedule write access
+            au_pub_pexa_settlement_api_v2_read: Settlement read access
+            au_pub_pexa_settlement_api_v2_write: Settlement write access
+            au_pub_pexa_settlementcompletionrecord_api_v2_read: Settlement completion record read access
+          authorizationUrl: https://auth.pexa.com.au/oauth/authorize
+          tokenUrl: https://auth.pexa.com.au/oauth/token
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

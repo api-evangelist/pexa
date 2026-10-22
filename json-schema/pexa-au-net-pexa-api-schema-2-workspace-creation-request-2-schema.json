@@ -1,0 +1,527 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-2-workspace-creation-request-2-schema.json",
+  "title": "au.net.pexa.api.schema._2.WorkspaceCreationRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspace-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._2.WorkspaceCreationRequest_2",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "string",
+      "description": "The PEXA internal reference for the subscriber initiating the API service call.<br> Note: Subscriber Id is optional for subscribers using token based authentication (OAuth 2.0 authorization code or client credentials flow).<br> Maximum 19 characters"
+    },
+    "landTitleDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails"
+    },
+    "requestLandTitleData": {
+      "type": "string",
+      "description": "Whether to obtain land title data as part of workspace creation. <br> Must be set to No if Parent Title is Yes or Role is CT Controller or Consentor. "
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "description": "Valid values are dependent on the subscriber type."
+    },
+    "subscriberReference": {
+      "type": "string",
+      "description": " Maximum 200 characters<br>Subscribers workspace reference. Users may utilise this to associate the workspace with an internal file or matter. "
+    },
+    "workgroupId": {
+      "type": "string",
+      "description": " Maximum 19 characters<br> The identifier of the workgroup which the subscriber wishes to assign to the workspace upon creation. <br> If no workgroup is provided, the subscribers default workgroup will be assigned to the workspace being created. "
+    },
+    "financialSettlement": {
+      "type": "string",
+      "description": " Must be set to No if Role is CT Controller or Consentor.<br> Can be set to Yes or No if Parent Title is 'Yes'. "
+    },
+    "settlementDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": " Must be populated if Financial Settlement is Yes and Parent Title = No.<br> If Financial Settlement is Yes and Parent Title is Yes a date can be optionally provided for the workspace. <br> Must not be provided when Financial Settlement is No. <br> The settlement date cannot be greater than 6 months into the future and must not be prior to the current date.  <br>  The settlement time will default to the first available time on the specified settlement date."
+    },
+    "settlementDateAndTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Must be populated if Financial Settlement is Yes and Parent Title = No. <br> f Financial Settlement is Yes and Parent Title is Yes a date can be optionally provided for the workspace. <br> Must not be provided when Financial Settlement is No. <br>Must not be provided when SettlementDate is provided. <br> The settlement date cannot be greater than 6 months into the future and must not be prior to the current date.<br>The settlement time must be on the hour or half hour."
+    },
+    "participantSettlementAcceptanceStatus": {
+      "type": "string",
+      "description": "Ability to specify if the Settlement Date and Time should be considered accepted or pending when creating a workspace with settlement. <br>If the workspace does not require settlement, the participant settlement acceptance status must not be provided.<br>  If the workspace does have settlement but no participant settlement acceptance status is provided, the subscribers default acceptance status will be used."
+    },
+    "transactionType": {
+      "type": "string",
+      "description": "One of the following - Transfer or Non-Transfer. If not provided, it will be derived based on Role and FinancialSettlement."
+    },
+    "businessUnitType": {
+      "type": "string",
+      "description": "One of the following - 'Commercial' or 'Retail'. Optional."
+    },
+    "partyDetails": {
+      "description": "Details of the client(s) being represented.<br>Party details must not be provided where Request Land Title Data is No with the exception of when Parent Title is Yes and the Role is Incoming Proprietor or Proprietor on Title.<br>If subscriber creating the party is of the Role Proprietor on Title, only an Incoming Proprietor party can be created.",
+      "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "PostalDelivery": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType"
+        },
+        "Road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+        },
+        "localityName": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "AddressLine": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2OverseasAddressAddressLineDetailsType"
+          }
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Maximum 6 characters. <br> Valid character set: alphanumeric"
+        },
+        "countryCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType": {
+      "type": "object",
+      "properties": {
+        "postalDeliveryTypeCode": {
+          "type": "string"
+        },
+        "postalDeliveryNumber": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2PostalDeliveryDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "RoadNumber": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType"
+          }
+        },
+        "order": {
+          "type": "integer"
+        },
+        "roadName": {
+          "type": "string",
+          "description": " Maximum 100 characters<br>Valid character set: alphabetic, hyphens, apostrophes and spaces only."
+        },
+        "roadTypeCode": {
+          "type": "string"
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadNumberType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressDetailsType": {
+      "type": "object",
+      "properties": {
+        "ComplexRoad": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressComplexRoadDetailsType"
+          }
+        },
+        "SubDwellingUnitType": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+        },
+        "Level": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType"
+        },
+        "secondaryComplex": {
+          "type": "string",
+          "description": " Maximum 100 characters<br> Valid character set: alphanumeric and spaces only. <br> For complex addresses "
+        },
+        "addressSiteName": {
+          "type": "string",
+          "description": "Maximum 30 characters <br> Valid character set: alphanumeric and spaces only."
+        },
+        "Road": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+        },
+        "localityName": {
+          "type": "string",
+          "description": "Maximum 100 characters<br> Valid character set: alphabetic and spaces only."
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType": {
+      "type": "object",
+      "properties": {
+        "levelTypeCode": {
+          "type": "string"
+        },
+        "levelNumber": {
+          "type": "string",
+          "description": "Maximum 5 characters<br> Valid character set: numeric only."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressLevelDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType": {
+      "type": "object",
+      "properties": {
+        "lotNumber": {
+          "type": "string",
+          "description": "Maximum 6 characters <br>Valid character set: numeric and spaces only."
+        },
+        "roadNumber": {
+          "type": "string",
+          "description": "Maximum 6 characters. Valid character set: alphanumeric only."
+        },
+        "roadName": {
+          "type": "string",
+          "description": " Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only."
+        },
+        "roadTypeCode": {
+          "type": "string"
+        },
+        "roadSuffixCode": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressRoadDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType": {
+      "type": "object",
+      "properties": {
+        "unitTypeCode": {
+          "type": "string"
+        },
+        "unitNumber": {
+          "type": "string",
+          "description": "Maximum 7 characters <br>Valid character set: numeric, slashes and spaces only."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2StreetAddressSubDwellingUnitTypeDetailsType"
+    },
+    "au.net.pexa.api.schema._2.Address2Type": {
+      "type": "object",
+      "properties": {
+        "StreetAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2StreetAddressDetailsType"
+        },
+        "OverseasAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2OverseasAddressDetailsType"
+        },
+        "CorrespondenceAddress": {
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2CorrespondenceAddressDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.Address2Type"
+    },
+    "au.net.pexa.api.schema._2.AdministrationStatusDetailsType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+    },
+    "au.net.pexa.api.schema._2.BusinessType": {
+      "type": "object",
+      "properties": {
+        "legalEntityName": {
+          "type": "string",
+          "description": "Maximum 150 characters"
+        },
+        "businessName": {
+          "type": "string",
+          "description": " Maximum 255 characters <br> The business name registered with ASIC. <br> This will only be returned where available for subscriber details. "
+        },
+        "businessUnit": {
+          "type": "string",
+          "description": " Maximum 70 characters<br>  The business unit within the organisation.<br> This will only be returned where available for subscriber details. "
+        },
+        "organisationType": {
+          "type": "string",
+          "description": "Must be provided if Party Type is Organisation"
+        },
+        "administrationStatuses": {
+          "type": "array",
+          "description": " Must be provided if Organisation Type is 'Registered company in external administration' ",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.AdministrationStatusDetailsType"
+          }
+        },
+        "identifications": {
+          "type": "array",
+          "description": " External identification of the party through a registered organisation.",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.IdentificationDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.BusinessType"
+    },
+    "au.net.pexa.api.schema._2.ForeignCountryShareDetailsType": {
+      "type": "object",
+      "properties": {
+        "foreignShareholderCountry": {
+          "type": "string",
+          "description": "The foreign country."
+        },
+        "foreignPercent": {
+          "type": "number",
+          "description": "The percentage that is foreign."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.ForeignCountryShareDetailsType"
+    },
+    "au.net.pexa.api.schema._2.ForeignPartyDetailsType": {
+      "type": "object",
+      "properties": {
+        "foreignPartyIndicator": {
+          "type": "string"
+        },
+        "foreignPartyType": {
+          "type": "string"
+        },
+        "foreignCountry": {
+          "type": "string"
+        },
+        "residentPartyIndicator": {
+          "type": "string"
+        },
+        "foreignCountryShares": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.ForeignCountryShareDetailsType"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.ForeignPartyDetailsType"
+    },
+    "au.net.pexa.api.schema._2.FullNameType": {
+      "type": "object",
+      "properties": {
+        "nameTitle": {
+          "type": "string",
+          "description": " Title (e.g. 'Mr', 'Ms', 'Prof') "
+        },
+        "givenNames": {
+          "type": "array",
+          "description": " Maximum 100 characters<br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. <br> One or more given names in order. <br> Mandatory attribute: order",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.GivenNameOrderType"
+          }
+        },
+        "familyName": {
+          "type": "string",
+          "description": " Maximum 100 characters <br> Valid character set: alphabetic, hyphens, apostrophes and spaces only. "
+        },
+        "familyNameOrder": {
+          "type": "string",
+          "description": " Identifies where the family name is placed in relation to the given name. If not supplied, defaults to Last "
+        },
+        "nameSuffix": {
+          "type": "string",
+          "description": " Maximum 50 characters <br> Valid character set: alphabetic and period only. <br> e.g. Jr (for Junior)"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time",
+          "description": " This must be provided when creating or editing a party when Representing Party is Yes. <br> This is only provided outbound if Representing Party is Yes. PEXA will only return this value if the Party is Represented by the Subscriber / Role. "
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.FullNameType"
+    },
+    "au.net.pexa.api.schema._2.GivenNameOrderType": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.GivenNameOrderType"
+    },
+    "au.net.pexa.api.schema._2.IdentificationDetailsType": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Maximum 20 characters <br> Must be provided without whitespaces."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.IdentificationDetailsType"
+    },
+    "au.net.pexa.api.schema._2.PartyCapacityDetailsType": {
+      "type": "object",
+      "properties": {
+        "partyCapacityType": {
+          "type": "string"
+        },
+        "partyCapacityDetail": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.PartyCapacityDetailsType"
+    },
+    "au.net.pexa.api.schema._2.TrustDetailsType": {
+      "type": "object",
+      "properties": {
+        "trustIndicator": {
+          "type": "string"
+        },
+        "trustName": {
+          "type": "string"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.TrustDetailsType"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails": {
+      "type": "object",
+      "properties": {
+        "landTitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle"
+          }
+        },
+        "parentTitle": {
+          "type": "string",
+          "description": " Whether the land title reference is a parent title awaiting sub-division. This indicator applies to all land title references.<br>  <br>  Must be set to No if Role is CT Controller or Consentor."
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle": {
+      "type": "object",
+      "properties": {
+        "landTitleReference": {
+          "type": "string"
+        },
+        "unregisteredLotReference": {
+          "type": "string",
+          "description": " Maximum 333 characters<br>Valid character set: alphanumeric, hyphens, apostrophes, slashes, spaces, commas, brackets, colons, semi-colons and full stops only.  <br>The unregistered lot references pending against the parent land title specified.  <br>This field can be provided when the Parent Title is 'Yes' else must not be provided. "
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationRequest.LandTitleDetails.LandTitle"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails": {
+      "type": "object",
+      "properties": {
+        "parties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party"
+          }
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails"
+    },
+    "au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party": {
+      "type": "object",
+      "properties": {
+        "representingParty": {
+          "type": "string",
+          "description": "Indicator that the party is being represented by the subscriber. Only parties that are represented by the subscriber can be created except for the Proprietor on Title who can create an Incoming Proprietor party whom they dont represent. <br> When the Role Proprietor on Title creates an Incoming Proprietor party, this value must be set to No <br> For any other Role creating a party, this value must be set to Yes. "
+        },
+        "partyType": {
+          "type": "string"
+        },
+        "partyRole": {
+          "type": "string",
+          "description": "All '%on Title' roles are invalid values."
+        },
+        "fullName": {
+          "description": "Must be provided if Party Type is Individual else must not be provided",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.FullNameType"
+        },
+        "business": {
+          "description": "Must be provided if Party Type is 'Organisation' else must not be provided",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.BusinessType"
+        },
+        "CurrentAddress": {
+          "description": "One of the following 'Street Address' or Overseas Address",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2Type"
+        },
+        "FutureAddress": {
+          "description": "One of the following Street Address or Overseas Address",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.Address2Type"
+        },
+        "partyCapacityDetails": {
+          "description": "The capacity that the Incoming Proprietor or Proprietor on Title party is acting in. Provided as input to VIC transfer supporting document.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.PartyCapacityDetailsType"
+        },
+        "trustDetails": {
+          "description": "The details of the trust for the Incoming Proprietor or Proprietor on Title party.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.TrustDetailsType"
+        },
+        "foreignPartyDetails": {
+          "description": "The foreign details of the Incoming Proprietor party who is foreign to Australia. Provided as input to QLD transfer supporting documents. If Foreign Party Details complex is not provided where jurisdiction of the workspace is QLD, Resident Party Indicator will default to Yes for Individuals and Foreign Party Indicator will default to No for all parties.",
+          "$ref": "#/$defs/au.net.pexa.api.schema._2.ForeignPartyDetailsType"
+        }
+      },
+      "title": "au.net.pexa.api.schema._2.WorkspaceCreationRequest.PartyDetails.Party"
+    }
+  }
+}

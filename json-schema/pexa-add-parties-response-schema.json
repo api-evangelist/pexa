@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-add-parties-response-schema.json",
+  "title": "CreatePartiesRequest",
+  "description": "Response when adding parties",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspaces-api-openapi.yml#/components/schemas/AddPartiesResponse",
+  "type": "object",
+  "properties": {
+    "pexaWorkspaceId": {
+      "type": "string",
+      "description": "Workspace Id as used in Exchange"
+    },
+    "parties": {
+      "type": "array",
+      "description": "A list of parties in the workspace",
+      "items": {
+        "$ref": "#/$defs/PartyResponse"
+      }
+    }
+  },
+  "$defs": {
+    "PartyResponse": {
+      "type": "object",
+      "description": "Response object for a party",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the individual or organisation"
+        },
+        "partyId": {
+          "type": "string",
+          "description": "The id of the party"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the party"
+        },
+        "partyType": {
+          "type": "string",
+          "description": "The type of party"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-webhook-notification-registration-request-schema.json",
+  "title": "WebhookNotificationRegistrationRequest",
+  "description": "V3 webhook registration request",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-notificationregistration-api-openapi.yml#/components/schemas/WebhookNotificationRegistrationRequest",
+  "type": "object",
+  "required": [
+    "notificationType",
+    "eventTypes",
+    "attributes"
+  ],
+  "properties": {
+    "notificationType": {
+      "type": "string"
+    },
+    "eventTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Please refer to the API documentation for the list of allowed events"
+    },
+    "attributes": {
+      "type": "object",
+      "required": [
+        "webhookURI",
+        "authenticationMode"
+      ],
+      "properties": {
+        "webhookURI": {
+          "type": "string",
+          "format": "uri",
+          "description": "The webhook URL. The domain must be whitelisted."
+        },
+        "authenticationMode": {
+          "$ref": "#/$defs/AuthenticationMode"
+        },
+        "authConfig": {
+          "$ref": "#/$defs/AuthConfig"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "AuthConfig": {
+      "type": "object",
+      "required": [
+        "authUrl",
+        "clientId",
+        "clientAuthMethod"
+      ],
+      "properties": {
+        "authUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "OAuth 2.0 token endpoint URL. The domain must be whitelisted."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "OAuth 2.0 client identifier"
+        },
+        "clientAuthMethod": {
+          "$ref": "#/$defs/ClientAuthMethod"
+        },
+        "clientSecret": {
+          "type": "string",
+          "description": "OAuth 2.0 client secret (required only when clientAuthMethod is client_secret)"
+        },
+        "audience": {
+          "type": "string",
+          "description": "OAuth 2.0 audience claim"
+        },
+        "scope": {
+          "type": "string",
+          "description": "Space-delimited OAuth 2.0 scopes"
+        }
+      }
+    },
+    "AuthenticationMode": {
+      "type": "string",
+      "description": "Authentication mode for webhook notifications.\n\nAllowed values: HMAC, HMAC_OAUTH\n"
+    },
+    "ClientAuthMethod": {
+      "type": "string",
+      "description": "OAuth 2.0 client authentication method.\n\nAllowed values: private_key_jwt, client_secret\n"
+    }
+  }
+}

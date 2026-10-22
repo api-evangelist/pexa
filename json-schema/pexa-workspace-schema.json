@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-workspace-schema.json",
+  "title": "Workspace",
+  "description": "Object with all required details for a workspace",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-workspaces-api-openapi.yml#/components/schemas/Workspace",
+  "type": "object",
+  "required": [
+    "subscriberReference",
+    "unregisteredLotNumbers"
+  ],
+  "properties": {
+    "subscriberReference": {
+      "description": "Reference for the subscriber to refer to the workspace",
+      "type": "string"
+    },
+    "unregisteredLotNumbers": {
+      "type": "array",
+      "description": "Unregistered lot numbers to be used in the workspace",
+      "minItems": 1,
+      "maxItems": 333,
+      "items": {
+        "description": "An unregistered lot number",
+        "type": "string"
+      }
+    },
+    "childTitles": {
+      "type": "array",
+      "description": "Child titles to be used in the workspace",
+      "items": {
+        "description": "A child title",
+        "type": "string"
+      }
+    },
+    "grossConsiderationAmount": {
+      "type": "number",
+      "format": "decimal",
+      "description": "The gross consideration amount for the workspace"
+    },
+    "incomingProprietors": {
+      "type": "array",
+      "description": "Details for any Incoming Proprietors",
+      "items": {
+        "$ref": "#/$defs/IncomingProprietor"
+      }
+    },
+    "qldWorkspaceDetails": {
+      "$ref": "#/$defs/QldWorkspaceDetails"
+    },
+    "workspaceId": {
+      "type": "string",
+      "description": "The workspace id",
+      "readOnly": true
+    },
+    "workspaceStatus": {
+      "type": "string",
+      "description": "The current status of the workspace",
+      "readOnly": true
+    }
+  },
+  "$defs": {
+    "IncomingProprietor": {
+      "type": "object",
+      "description": "Details for an Incoming Proprietor",
+      "required": [
+        "subscriberId",
+        "subscriberName"
+      ],
+      "properties": {
+        "subscriberId": {
+          "description": "The subscriber id of the Incoming Proprietor",
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscriberName": {
+          "description": "The name of the Incoming Proprietor",
+          "type": "string"
+        }
+      }
+    },
+    "QldWorkspaceDetails": {
+      "type": "object",
+      "description": "Workspace details for the QLD jurisdiction",
+      "properties": {
+        "cashAmount": {
+          "type": "number",
+          "format": "decimal",
+          "description": "The cash amount for the transaction",
+          "minimum": 0
+        },
+        "depositPaid": {
+          "type": "number",
+          "format": "decimal",
+          "description": "The deposit amount paid",
+          "minimum": 0
+        },
+        "vendorTermsAmount": {
+          "type": "number",
+          "format": "decimal",
+          "description": "The vendor terms amount",
+          "minimum": 0
+        },
+        "liabilitiesAmount": {
+          "type": "number",
+          "format": "decimal",
+          "description": "The liabilities amount",
+          "minimum": 0
+        },
+        "contractRebateAmount": {
+          "type": "number",
+          "description": "The contract rebate amount",
+          "minimum": 0
+        },
+        "agreementDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The agreement/contract of sale date"
+        },
+        "dateOfPossession": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of possession"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-webhook-notification-registration-update-response-v3-schema.json",
+  "title": "WebhookNotificationRegistrationUpdateResponseV3",
+  "description": "Response body returned after updating a V3 webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-notificationregistration-api-openapi.yml#/components/schemas/WebhookNotificationRegistrationUpdateResponseV3",
+  "type": "object",
+  "properties": {
+    "notificationType": {
+      "type": "string"
+    },
+    "eventTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "integratorId": {
+      "type": "string"
+    },
+    "integratorType": {
+      "type": "string"
+    },
+    "registrationId": {
+      "type": "string"
+    },
+    "subscriberId": {
+      "type": "string"
+    },
+    "webhookURI": {
+      "type": "string",
+      "format": "uri"
+    },
+    "authenticationMode": {
+      "$ref": "#/$defs/AuthenticationMode"
+    },
+    "authConfig": {
+      "$ref": "#/$defs/AuthConfigResponse"
+    }
+  },
+  "$defs": {
+    "AuthConfigResponse": {
+      "type": "object",
+      "description": "OAuth configuration returned in registration responses.",
+      "properties": {
+        "authUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientAuthMethod": {
+          "$ref": "#/$defs/ClientAuthMethod"
+        },
+        "audience": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticationMode": {
+      "type": "string",
+      "description": "Authentication mode for webhook notifications.\n\nAllowed values: HMAC, HMAC_OAUTH\n"
+    },
+    "ClientAuthMethod": {
+      "type": "string",
+      "description": "OAuth 2.0 client authentication method.\n\nAllowed values: private_key_jwt, client_secret\n"
+    }
+  }
+}

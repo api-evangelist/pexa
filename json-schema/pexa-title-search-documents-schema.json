@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-title-search-documents-schema.json",
+  "title": "TitleSearchDocuments",
+  "description": "Title search documents",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-titlesearch-api-openapi.yml#/components/schemas/TitleSearchDocuments",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Identifier of the title search order",
+      "type": "string",
+      "format": "uuid"
+    },
+    "documents": {
+      "description": "Documents related to the title search order",
+      "type": "array",
+      "items": {
+        "description": "Document related to the title search order",
+        "type": "object",
+        "properties": {
+          "downloadLink": {
+            "description": "Link to download the document related to the title search order",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the document related to the title search order",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

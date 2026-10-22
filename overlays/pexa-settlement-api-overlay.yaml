@@ -1,0 +1,21 @@
+# generated: 2026-10-20
+# method: generated
+# source: openapi/pexa-settlement-api-openapi.yml
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Pexa Settlement API
+  version: 1.0.0
+extends: openapi/pexa-settlement-api-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: pexa
+    x-apievangelist-api: Pexa Settlement API
+    x-apievangelist-operation-count: 14
+    x-apievangelist-access-gate: signed PEXA API Agreement; credentials issued by apisupport@pexa.com.au after PEXA validates
+      a registration
+    x-apievangelist-error-catalog: errors/pexa-error-codes.yml
+    x-apievangelist-conventions: conventions/pexa-conventions.yml
+    x-apievangelist-authentication: authentication/pexa-authentication.yml
+    x-apievangelist-lifecycle: lifecycle/pexa-lifecycle.yml
+    x-apievangelist-sandbox: sandbox/pexa-sandbox.yml

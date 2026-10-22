@@ -67,44 +67,24 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+      security:
+      - oauth2: []
       x-operation-id-source: normalized
       x-operation-id-original: getUserProfileUsingGET
 components:
   schemas:
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
       type: object
       properties:
-        userPermissions:
-          type: array
+        userProfile:
           xml:
-            name: UserPermission
+            name: UserProfile
             attribute: false
             wrapped: false
-          items:
-            type: string
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
+          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
       xml:
-        name: UserPermissionsList
-        attribute: false
-        wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:
-      type: object
-      properties:
-        workgroupId:
-          type: string
-          xml:
-            name: WorkgroupId
-            attribute: false
-            wrapped: false
-        workgroupName:
-          type: string
-          xml:
-            name: WorkgroupName
-            attribute: false
-            wrapped: false
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup
-      xml:
-        name: Workgroup
+        name: UserProfileRetrievalResponse
         attribute: false
         wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile:
@@ -197,6 +177,42 @@ components:
         name: UserProfile
         attribute: false
         wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup:
+      type: object
+      properties:
+        workgroupId:
+          type: string
+          xml:
+            name: WorkgroupId
+            attribute: false
+            wrapped: false
+        workgroupName:
+          type: string
+          xml:
+            name: WorkgroupName
+            attribute: false
+            wrapped: false
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList.Workgroup
+      xml:
+        name: Workgroup
+        attribute: false
+        wrapped: false
+    au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList:
+      type: object
+      properties:
+        userPermissions:
+          type: array
+          xml:
+            name: UserPermission
+            attribute: false
+            wrapped: false
+          items:
+            type: string
+      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.UserPermissionsList
+      xml:
+        name: UserPermissionsList
+        attribute: false
+        wrapped: false
     au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile.WorkgroupList:
       type: object
       properties:
@@ -213,20 +229,34 @@ components:
         name: WorkgroupList
         attribute: false
         wrapped: false
-    au.net.pexa.api.schema._1.UserProfileRetrievalResponse:
-      type: object
-      properties:
-        userProfile:
-          xml:
-            name: UserProfile
-            attribute: false
-            wrapped: false
-          $ref: '#/components/schemas/au.net.pexa.api.schema._1.UserProfileRetrievalResponse.UserProfile'
-      title: au.net.pexa.api.schema._1.UserProfileRetrievalResponse
-      xml:
-        name: UserProfileRetrievalResponse
-        attribute: false
-        wrapped: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            au_pub_pexa_healthcheck_api_v2_read: Health check read access
+            au_pub_pexa_landtitle_api_v2_read: Land title read access
+            au_pub_pexa_conversation_api_v2_read: Conversation read access
+            au_pub_pexa_conversation_api_v2_write: Conversation write access
+            au_pub_pexa_invitation_api_v2_read: Invitation read access
+            au_pub_pexa_invitation_api_v2_write: Invitation write access
+            au_pub_pexa_subscriber_api_v3_read: Subscriber v3 read access
+            au_pub_pexa_subscriber_api_v4_read: Subscriber v4 read access
+            au_pub_pexa_user_api_v3_read: User profile read access
+            au_pub_pexa_workspace_api_v4_write: Workspace v4 write access
+            au_pub_pexa_workspace_api_v5_read: Workspace v5 read access
+            au_pub_pexa_workspace_api_v5_write: Workspace v5 write access
+            au_pub_pexa_workspace_api_v6_read: Workspace v6 read access
+            au_pub_pexa_documents_api_v2_read: Documents read access
+            au_pub_pexa_documents_api_v2_write: Documents write access
+            au_pub_pexa_financial_settlement_schedule_api_v2_read: Financial settlement schedule read access
+            au_pub_pexa_financial_settlement_schedule_api_v2_write: Financial settlement schedule write access
+            au_pub_pexa_settlement_api_v2_read: Settlement read access
+            au_pub_pexa_settlement_api_v2_write: Settlement write access
+            au_pub_pexa_settlementcompletionrecord_api_v2_read: Settlement completion record read access
+          authorizationUrl: https://auth.pexa.com.au/oauth/authorize
+          tokenUrl: https://auth.pexa.com.au/oauth/token
 x-refined-from:
 - pexa-exchange-api-legacy-swagger.json
 - pexa-exchange-api-swagger.json

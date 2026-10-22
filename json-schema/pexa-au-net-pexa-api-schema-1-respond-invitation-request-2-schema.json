@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-au-net-pexa-api-schema-1-respond-invitation-request-2-schema.json",
+  "title": "au.net.pexa.api.schema._1.RespondInvitationRequest",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-invitation-api-openapi.yml#/components/schemas/au.net.pexa.api.schema._1.RespondInvitationRequest_2",
+  "type": "object",
+  "properties": {
+    "subscriberId": {
+      "type": "string",
+      "description": "Subscriber id. If responding to an invitation, then provide the subscriber id of the invitee. If withdrawing an invitation, then provide the subscriber id of the invitor."
+    },
+    "inviteId": {
+      "type": "string",
+      "description": "Invite id of the invitation"
+    },
+    "invitationResponse": {
+      "type": "string",
+      "description": "Invitation response. If responding to an invitation, valid values are 'Accept', 'Decline', 'Return to Panel Master', 'Forward to another Subscriber' and 'Forward to Panel Member'. If withdrawing an invitation, valid value is 'Withdrawn'."
+    },
+    "responseReason": {
+      "type": "string",
+      "description": "Invitation response reason. Only applicable if responding to an invitation. Mandatory if responding to an invitation. Valid values are 'Party on invitation is not known to the invitee', 'Transaction type is outside of invitee’s electronic transaction scope', 'Transaction value exceeds the invitee’s electronic transaction scope', 'Invitation sent to incorrect business unit', 'Transaction has already commenced on paper', 'This workspace is linked to another transaction that is outside of electronic conveyancing scope' and 'Other'."
+    },
+    "additionalText": {
+      "type": "string",
+      "description": "Additional comments. If responding to an invitation and response reason is 'Other', then additionalText is mandatory. If withdrawing an invitation, the additionalText is optional."
+    },
+    "subscriberReference": {
+      "type": "string",
+      "description": "Subscriber Reference that will be set for the participant in the workspace. Only applicable if invitation response is 'Accept'. Mandatory if the invitation response is 'Accept'"
+    },
+    "workgroupId": {
+      "type": "string",
+      "description": "Workgroup that the workspace will be assigned to. Only applicable if invitation response is 'Accept'. Optional if the invitation response is 'Accept'"
+    },
+    "forwardedParticipantDetails": {
+      "$ref": "#/$defs/au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails"
+    },
+    "commercialTransaction": {
+      "type": "string",
+      "description": "The Commercial Transaction indicator to be set when accepting an invitation. Only can be provided if the the invitee role is CT Controller (CT), Source Funder (SF), Incoming Mortgagee (IM) or Mortgagee On Title (MOT). The field is optional. Possible values are 'yes' or 'no'"
+    }
+  },
+  "$defs": {
+    "au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails": {
+      "type": "object",
+      "description": "Participant details of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'",
+      "properties": {
+        "subscriberId": {
+          "type": "string",
+          "description": "Subscriber id of the subscriber that is being forwarded the invitation. Mandatory if invitation response is 'Forward to another Subscriber' or 'Forward to Panel Member'"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Notes/comments that can be provided to the participant receiving the forwarded invitation. Only applicable if invitation response is 'Forward to another Subscriber'. Field is optional"
+        }
+      },
+      "title": "au.net.pexa.api.schema._1.RespondInvitationRequest.ForwardedParticipantDetails"
+    }
+  }
+}

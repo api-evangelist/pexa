@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/pexa/main/json-schema/pexa-notification-registration-dto-schema.json",
+  "title": "NotificationRegistrationDto",
+  "description": "Response body returned after updating a webhook registration. Note that the shared secret is not returned on update. Ensure you have securely stored the sharedSecret from the original registration response, as it is required to verify the HMAC signature on all incoming webhook requests.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/pexa-notificationregistration-api-openapi.yml#/components/schemas/NotificationRegistrationDto",
+  "type": "object",
+  "required": [
+    "webhookURI",
+    "registrationId"
+  ],
+  "properties": {
+    "notificationType": {
+      "type": "string",
+      "description": "The type of notification"
+    },
+    "webhookURI": {
+      "type": "string",
+      "description": "The secure URI of the webhook to be called when an event occurs (supports only https protocol)"
+    },
+    "registrationId": {
+      "type": "string",
+      "description": "The registration ID returned by the POST /register endpoint"
+    },
+    "subscriberId": {
+      "type": "string",
+      "description": "The ID of the subscriber"
+    },
+    "integratorId": {
+      "type": "string",
+      "description": "The ID of the integrator"
+    },
+    "integratorType": {
+      "type": "string",
+      "description": "The type of the integrator"
+    },
+    "eventTypes": {
+      "type": "array",
+      "description": "The list of eventTypes that this registration will send notifications for",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

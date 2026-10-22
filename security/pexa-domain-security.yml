@@ -1,4 +1,4 @@
-generated: '2026-07-26'
+generated: '2026-10-20'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -21,12 +21,12 @@ hosts:
   hsts: null
 domains:
 - domain: pexa.com.au
-  dnssec: true
+  dnssec: false
   caa:
+  - 0 issue "letsencrypt.org"
   - 0 issue "sectigo.com"
   - 0 issue "awstrust.com"
   - 0 issue "digicert.com"
-  - 0 issue "letsencrypt.org"
   spf: true
   dmarc: true
   dmarc_policy: reject
