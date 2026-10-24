@@ -51,127 +51,166 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  hosts/pexa-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/pexa-integration-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  json-ld/pexa-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-add-participants-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-add-parties-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-balance-due-to-effect-settlement-response-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-conversations-retrieval-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-discharge-of-mortgage-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-discharge-of-mortgage-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-message-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-workspace-invitation-request-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-workspace-invitation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-create-workspace-invitation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-invitation-retrieval-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-land-title-reference-verification-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-maintain-settlement-date-and-time-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-respond-invitation-request-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-respond-invitation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-settlement-availability-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-settlement-statement-retrieval-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-settlement-upload-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-settlement-upload-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-user-profile-retrieval-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-workgroup-retrieval-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-workspace-document-retrieval-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-workspace-update-request-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-1-workspace-update-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-retrieve-notifications-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-subscriber-search-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-workspace-creation-request-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-workspace-creation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-workspace-creation-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-au-net-pexa-api-schema-2-workspace-summary-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-create-notification-registration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-invoice-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-notification-registration-create-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-notification-registration-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-project-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-project-status-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-projects-workspace-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-propose-settlement-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-retrieve-notifications-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-standalone-discharge-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-title-search-documents-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-title-search-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-update-workspace-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-update-workspace-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-webhook-notification-registration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-webhook-notification-registration-response-v3-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-webhook-notification-registration-update-response-v3-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/pexa-workspace-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -255,11 +294,23 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/pexa-lifecycle.yml:
     method: searched
-    evidence: declared in the artifact
-  llms/pexa-llms.txt:
-    method: generated
     evidence: declared in the artifact
   mcp/pexa-mcp.yml:
     method: derived
@@ -343,28 +394,82 @@ artifacts:
   openapi/pexa-workspaces-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/pexa-billing-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-conversation-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-document-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-exchange-legacy-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-exchange-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-health-check-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-invitation-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-landtitle-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-notification-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-notification-service-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-notification-service-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-notificationregistration-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-plus-marketplace-oas300-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-plus-marketplace-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-project-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-projects-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-settlement-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-standalone-discharge-experience-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/pexa-standalone-discharge-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-subscriber-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-titlesearch-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-user-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-workspace-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
+  overlays/pexa-workspaces-api-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/pexa-packages.yml:
+    method: unknown
+    evidence: no authorship recorded
+  plans/pexa-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
   postman/pexa-notification-service.postman_collection.json:
@@ -382,6 +487,15 @@ artifacts:
   postman/pexa-standalone-discharge-experience-api.postman_collection.json:
     method: derived
     evidence: openapi/pexa-standalone-discharge-experience-api
+  rate-limits/pexa-rate-limits.yml:
+    method: unknown
+    evidence: no authorship recorded
+  regulatory/pexa-regulatory-posture.yml:
+    method: searched
+    evidence: declared in the artifact
+  rules/pexa-rules.yml:
+    method: generated
+    evidence: declared in the artifact
   sandbox/pexa-sandbox.yml:
     method: searched
     evidence: declared in the artifact
@@ -411,6 +525,12 @@ artifacts:
     evidence: declared in the artifact
   skills/pexa-subscribe-to-workspace-events.md:
     method: generated
+    evidence: declared in the artifact
+  vendors/pexa-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/pexa-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/pexa-oauth-authorization-server.json:
     method: unknown
